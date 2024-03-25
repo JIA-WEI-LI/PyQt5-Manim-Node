@@ -38,6 +38,7 @@ class NodeGraphicsScene(QGraphicsScene):
         super().__init__(parent)
 
         self.gridSize = 20
+        self.gridSquare = 5
         self.sceenWidth, self.sceenHeight = 640000, 640000
         self.setSceneRect(self.sceenWidth//2, self.sceenHeight//2, self.sceenWidth, self.sceenHeight)
 
@@ -61,10 +62,10 @@ class NodeGraphicsScene(QGraphicsScene):
 
         lines_light, lines_dark = [], []
         for x in range(firstLeft, right, self.gridSize):
-            if (x % 100 != 0): lines_light.append(QLine(x, top, x, bottom))
+            if (x % (self.gridSize * self.gridSquare) != 0): lines_light.append(QLine(x, top, x, bottom))
             else: lines_dark.append(QLine(x, top, x, bottom))
         for y in range(firstTop, bottom, self.gridSize):
-            if (y % 100 != 0): lines_light.append(QLine(left, y, right, y))
+            if (y % (self.gridSize * self.gridSquare) != 0): lines_light.append(QLine(left, y, right, y))
             else: lines_dark.append(QLine(left, y, right, y))
 
         painter.setPen(self.penLight)

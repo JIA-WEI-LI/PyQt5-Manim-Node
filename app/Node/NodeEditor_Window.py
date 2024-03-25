@@ -25,8 +25,7 @@ class NodeEditorWindow(QWidget):
         self.graphicsScene = NodeGraphicsScene()
 
         # 創建圖像視圖
-        self.view = QGraphicsView(self)
-        self.view.setScene(self.graphicsScene)
+        self.view = NodeGraphicsView(self.graphicsScene, self)
         self.layout.addWidget(self.view)
 
         self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
@@ -72,3 +71,14 @@ class NodeGraphicsScene(QGraphicsScene):
         painter.drawLines(*lines_light)
         painter.setPen(self.penDark)
         painter.drawLines(*lines_dark)
+
+class NodeGraphicsView(QGraphicsView):
+    def __init__(self, graphicsScene, parent=None):
+        super().__init__(parent)
+        self.graphicsScene = graphicsScene
+
+        self.initUI()
+        self.setScene(self.graphicsScene)
+
+    def initUI(self):
+        pass

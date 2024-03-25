@@ -1,7 +1,8 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView, QGraphicsScene
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QColor
 
 from config.icon import Icon
+from config.palette import WindowColor
 
 class NodeEditorWindow(QWidget):
     def __init__(self, parent=None) -> None:
@@ -17,7 +18,7 @@ class NodeEditorWindow(QWidget):
         self.setLayout(self.layout)
 
         # 創建圖像場景
-        self.graphicsScene = QGraphicsScene()
+        self.graphicsScene = NodeGraphicsScene()
 
         # 創建圖像視圖
         self.view = QGraphicsView(self)
@@ -27,3 +28,12 @@ class NodeEditorWindow(QWidget):
         self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
         self.setWindowTitle("Manim Node Editor")
         self.show()
+
+class NodeGraphicsScene(QGraphicsScene):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+        self.sceenWidth, self.sceenHeight = 640000, 640000
+        self.setSceneRect(self.sceenWidth//2, self.sceenHeight//2, self.sceenWidth, self.sceenHeight)
+
+        self.setBackgroundBrush(WindowColor.DEFAULT_BACKGROUND)

@@ -88,9 +88,6 @@ class NodeGraphicsView(QGraphicsView):
 
         self.dragStartPosition = None  # 滑鼠開始拖曳位置
 
-        # 事件篩選器
-        self.installEventFilter(self)
-
     def initUI(self):
         self.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.HighQualityAntialiasing | QPainter.RenderHint.TextAntialiasing | QPainter.RenderHint.SmoothPixmapTransform)
 
@@ -177,7 +174,7 @@ class NodeGraphicsView(QGraphicsView):
             super().mouseMoveEvent(event)
 
     def eventFilter(self, obj, event: QMouseEvent):
-        '''事件篩選器'''
+        '''事件篩選器：檢視按下的滑鼠按鈕'''
         if event.type() == QEvent.Type.MouseButtonPress:
             print("Mouse Pressed:", event.button())
         elif event.type() == QEvent.Type.MouseButtonRelease:

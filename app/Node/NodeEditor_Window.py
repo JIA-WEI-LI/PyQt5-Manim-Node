@@ -2,8 +2,8 @@ import math
 
 from PyQt5.QtCore import QRectF
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView, QGraphicsScene
-from PyQt5.QtGui import QIcon, QPainter, QPen
-from PyQt5.QtCore import QLine
+from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QPen
+from PyQt5.QtCore import QLine, Qt, QEvent
 
 from config.icon import Icon
 from config.palette import WindowColor
@@ -81,4 +81,40 @@ class NodeGraphicsView(QGraphicsView):
         self.setScene(self.graphicsScene)
 
     def initUI(self):
-        pass
+        self.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.HighQualityAntialiasing | QPainter.RenderHint.TextAntialiasing | QPainter.RenderHint.SmoothPixmapTransform)
+
+        self.setViewportUpdateMode(QGraphicsView.ViewportUpdateMode.FullViewportUpdate)
+
+        self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+        self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+
+    def mousePressEvent(self, event: QMouseEvent) -> None:
+        '''滑鼠點擊事件'''
+        if event.button() ==Qt.MouseButton.MiddleButton:
+            self.middleMouseButtonPress(event)
+        else:
+            super().mousePressEvent(event)
+
+    def mouseReleaseEvent(self, event: QMouseEvent) -> None:
+        '''滑鼠放開事件'''
+        if event.button() ==Qt.MouseButton.MiddleButton:
+            self.middleMouseButtonRelease(event)
+        else:
+            super().mouseReleaseEvent(event)
+    
+    def middleMouseButtonPress(self, event: QMouseEvent):
+        '''按下滑鼠中鍵'''
+        releaseEvent = QMouseEvent(QEvent.Type.MouseButtonRelease, event.localPos(), event.screenPos(),
+                                   Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton, event.modifiers())
+        super().mouseReleaseEvent(releaseEvent)
+        self.setDragMode(QGraphicsView.DragMode.ScrollHandDrag)
+        fakeEvent = QMouseEvent(event.type(), event.localPos(), event.screenPos(),
+                                Qt.MouseButton.LeftButton, event.buttons() | Qt.MouseButton.LeftButton, event.modifiers())
+        super().mouseReleaseEvent(fakeEvent)
+
+    def middleMouseButtonRelease(self, event: QMouseEvent):
+        '''放開滑鼠中鍵'''
+        fakeEvent = QMouseEvent(event.type(), event.localPos(), event.screenPos(),
+                                Qt.MouseButton.LeftButton, event.buttons() & -Qt.MouseButton.LeftButton, event.modifiers())
+        super().mouseReleaseEvent(fakeEvent)
+        self.setDragMode(QGraphicsView.DragMode.NoDrag)

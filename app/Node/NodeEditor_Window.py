@@ -2,7 +2,7 @@ import math
 
 from PyQt5.QtCore import QRectF
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView, QGraphicsScene
-from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QPen
+from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QPen, QWheelEvent
 from PyQt5.QtCore import QLine, Qt, QEvent
 
 from config.icon import Icon
@@ -80,6 +80,12 @@ class NodeGraphicsView(QGraphicsView):
         self.initUI()
         self.setScene(self.graphicsScene)
 
+        self.zoomInFactor = 1.25
+        self.zoomClamp = True
+        self.zoom = 10  # 調整初始值
+        self.zoomStep = 1
+        self.zoomRange = [0, 5]
+
     def initUI(self):
         self.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.HighQualityAntialiasing | QPainter.RenderHint.TextAntialiasing | QPainter.RenderHint.SmoothPixmapTransform)
 
@@ -92,6 +98,10 @@ class NodeGraphicsView(QGraphicsView):
         '''滑鼠點擊事件'''
         if event.button() ==Qt.MouseButton.MiddleButton:
             self.middleMouseButtonPress(event)
+        elif event.button() == Qt.MouseButton.LeftButton:
+            self.leftMouseButtonPress(event)
+        elif event.button() == Qt.MouseButton.RightButton:
+            self.rightMouseButtonPress(event)
         else:
             super().mousePressEvent(event)
 
@@ -99,6 +109,10 @@ class NodeGraphicsView(QGraphicsView):
         '''滑鼠放開事件'''
         if event.button() ==Qt.MouseButton.MiddleButton:
             self.middleMouseButtonRelease(event)
+        elif event.button() == Qt.MouseButton.LeftButton:
+            self.leftMouseButtonRelease(event)
+        elif event.button() == Qt.MouseButton.RightButton:
+            self.rightMouseButtonRelease(event)
         else:
             super().mouseReleaseEvent(event)
     
@@ -118,3 +132,38 @@ class NodeGraphicsView(QGraphicsView):
                                 Qt.MouseButton.LeftButton, event.buttons() & -Qt.MouseButton.LeftButton, event.modifiers())
         super().mouseReleaseEvent(fakeEvent)
         self.setDragMode(QGraphicsView.DragMode.NoDrag)
+
+    def leftMouseButtonPress(self, event):
+        '''按下滑鼠左鍵'''
+        return super().mousePressEvent(event)
+        
+    def rightMouseButtonPress(self, event):
+        '''按下滑鼠右鍵'''
+        return super().mousePressEvent(event)
+    
+    def leftMouseButtonRelease(self, event):
+        '''放開滑鼠左鍵'''
+        return super().mouseReleaseEvent(event)
+    
+    def rightMouseButtonRelease(self, event):
+        '''放開滑鼠右鍵'''
+        return super().mouseReleaseEvent(event)
+    
+    def wheelEvent(self, event: QWheelEvent):
+        '''滑鼠中鍵滾論縮放視窗'''
+        zoomOutFactor = 1 / self.zoomInFactor
+        oldPos = self.mapToScene(event.pos())
+        
+        if event.angleDelta().y() > 0:
+            zoomFactor = self.zoomInFactor
+            self.zoom += self.zoomStep
+        else:
+            zoomFactor = zoomOutFactor
+            self.zoom -= self.zoomStep
+            
+        clamped = False
+        if self.zoom < self.zoomRange[0]: self.zoom, clamped = self.zoomRange[0], True
+        if self.zoom > self.zoomRange[1]: self.zoom, clamped = self.zoomRange[1], True
+            
+        if not clamped or self.zoomClamp is False:    
+            self.scale(zoomFactor, zoomFactor)

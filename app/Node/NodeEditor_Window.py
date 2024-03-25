@@ -43,17 +43,31 @@ class NodeGraphicsScene(QGraphicsScene):
 
         self.penLight = QPen(WindowColor.DEFAULT_PEN_LIGHT)
         self.penLight.setWidth(1)
+        self.penDark = QPen(WindowColor.DEFAULT_PEN_DARK)
+        self.penDark.setWidth(2)
         self.setBackgroundBrush(WindowColor.DEFAULT_BACKGROUND)
 
     def drawBackground(self, painter: QPainter, rect: QRectF) -> None:
         super().drawBackground(painter, rect)
 
-        left = int(math.floor(rect.left))
-        right = int(math.floor(rect.right))
-        top = int(math.floor(rect.top))
-        bottom= int(math.floor(rect.bottom))
+        # 創造網格背景
+        left = int(math.floor(rect.left()))
+        right = int(math.ceil(rect.right()))
+        top = int(math.floor(rect.top()))
+        bottom= int(math.ceil(rect.bottom()))
 
-        lines_light = []
+        firstLeft = left - (left % self.gridSize)
+        firstTop = top - (top % self.gridSize)
+
+        lines_light, lines_dark = [], []
+        for x in range(firstLeft, right, self.gridSize):
+            if (x % 100 != 0): lines_light.append(QLine(x, top, x, bottom))
+            else: lines_dark.append(QLine(x, top, x, bottom))
+        for y in range(firstTop, bottom, self.gridSize):
+            if (y % 100 != 0): lines_light.append(QLine(left, y, right, y))
+            else: lines_dark.append(QLine(left, y, right, y))
 
         painter.setPen(self.penLight)
         painter.drawLines(*lines_light)
+        painter.setPen(self.penDark)
+        painter.drawLines(*lines_dark)

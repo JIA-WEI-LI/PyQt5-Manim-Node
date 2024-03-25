@@ -86,6 +86,11 @@ class NodeGraphicsView(QGraphicsView):
         self.zoomStep = 1
         self.zoomRange = [0, 5]
 
+        self.dragStartPosition = None  # 滑鼠開始拖曳位置
+
+        # 事件篩選器
+        self.installEventFilter(self)
+
     def initUI(self):
         self.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.HighQualityAntialiasing | QPainter.RenderHint.TextAntialiasing | QPainter.RenderHint.SmoothPixmapTransform)
 
@@ -118,34 +123,27 @@ class NodeGraphicsView(QGraphicsView):
     
     def middleMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠中鍵'''
-        releaseEvent = QMouseEvent(QEvent.Type.MouseButtonRelease, event.localPos(), event.screenPos(),
-                                   Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton, event.modifiers())
-        super().mouseReleaseEvent(releaseEvent)
         self.setDragMode(QGraphicsView.DragMode.ScrollHandDrag)
-        fakeEvent = QMouseEvent(event.type(), event.localPos(), event.screenPos(),
-                                Qt.MouseButton.LeftButton, event.buttons() | Qt.MouseButton.LeftButton, event.modifiers())
-        super().mouseReleaseEvent(fakeEvent)
+        self.dragStartPosition = event.pos()
 
     def middleMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠中鍵'''
-        fakeEvent = QMouseEvent(event.type(), event.localPos(), event.screenPos(),
-                                Qt.MouseButton.LeftButton, event.buttons() & -Qt.MouseButton.LeftButton, event.modifiers())
-        super().mouseReleaseEvent(fakeEvent)
         self.setDragMode(QGraphicsView.DragMode.NoDrag)
+        self.dragStartPosition = None
 
-    def leftMouseButtonPress(self, event):
+    def leftMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠左鍵'''
         return super().mousePressEvent(event)
         
-    def rightMouseButtonPress(self, event):
+    def rightMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠右鍵'''
         return super().mousePressEvent(event)
     
-    def leftMouseButtonRelease(self, event):
+    def leftMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠左鍵'''
         return super().mouseReleaseEvent(event)
     
-    def rightMouseButtonRelease(self, event):
+    def rightMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠右鍵'''
         return super().mouseReleaseEvent(event)
     
@@ -167,3 +165,21 @@ class NodeGraphicsView(QGraphicsView):
             
         if not clamped or self.zoomClamp is False:    
             self.scale(zoomFactor, zoomFactor)
+
+    def mouseMoveEvent(self, event: QMouseEvent):
+        '''滑鼠移動事件'''
+        if self.dragStartPosition:
+            delta = event.pos() - self.dragStartPosition
+            self.dragStartPosition = event.pos()
+            self.horizontalScrollBar().setValue(self.horizontalScrollBar().value() - delta.x())
+            self.verticalScrollBar().setValue(self.verticalScrollBar().value() - delta.y())
+        else:
+            super().mouseMoveEvent(event)
+
+    def eventFilter(self, obj, event: QMouseEvent):
+        '''事件篩選器'''
+        if event.type() == QEvent.Type.MouseButtonPress:
+            print("Mouse Pressed:", event.button())
+        elif event.type() == QEvent.Type.MouseButtonRelease:
+            print("Mouse Released:", event.button())
+        return super().eventFilter(obj, event)

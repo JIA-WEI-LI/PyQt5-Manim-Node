@@ -8,17 +8,17 @@ from config.palette import NodeColor
 
 class Node():
     '''節點'''
-    def __init__(self, scene:Scene, title="Undefined Node", input=[], output=[]):
+    def __init__(self, scene:Scene, title="Undefined Node", inputs=[], outputs=[]):
         self.scene = scene
         self.title = title
         
         self.content = NodeContentWidget()
-        self.graphicsNode = QDMGraphicsNode(self)
+        self.graphicsNode = NodeGraphicsNode(self)
         self.scene.addNode(self)
         self.scene.dmGraphicsScene.addItem(self.graphicsNode)
         
-        self.input = input
-        self.output = output
+        self.input = inputs
+        self.output = outputs
 
 class NodeContentWidget(QWidget):
     def __init__(self, parent=None):
@@ -35,7 +35,7 @@ class NodeContentWidget(QWidget):
         self.vboxLayout.addWidget(self.label)
         self.vboxLayout.addWidget(QTextEdit("foo"))
 
-class QDMGraphicsNode(QGraphicsItem):
+class NodeGraphicsNode(QGraphicsItem):
     def __init__(self, node:Node, parent=None):
         super().__init__(parent=parent)
         self.node = node
@@ -49,12 +49,12 @@ class QDMGraphicsNode(QGraphicsItem):
         self.titlePadding = 6.0
         
         # init title
-        self.__initTitle()
+        self.initTitle()
         self.title = self.node.title
         
-        self.__initContent()
+        self.initContent()
         
-        self.__initUI()
+        self.initUI()
         
     @property
     def title(self): return self._title
@@ -72,18 +72,18 @@ class QDMGraphicsNode(QGraphicsItem):
             self.height
         ).normalized()
         
-    def __initUI(self):
+    def initUI(self):
         self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable)
         self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable)
     
-    def __initTitle(self):
+    def initTitle(self):
         self.titleItem = QGraphicsTextItem(self)
         self.titleItem.setDefaultTextColor(NodeColor.DEFAULT_TITLE)
         self.titleItem.setFont(self.titleFont)
         self.titleItem.setPos(self.titlePadding, self.titlePadding//2)
         self.titleItem.setTextWidth(self.width - 2 * self.titlePadding)
         
-    def __initContent(self):
+    def initContent(self):
         self.graphicsContent = QGraphicsProxyWidget(self)
         x = int(self.edgeSize)
         y = int(self.titleHeight + self.edgeSize)

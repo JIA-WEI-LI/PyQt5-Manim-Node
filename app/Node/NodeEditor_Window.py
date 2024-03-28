@@ -47,6 +47,9 @@ class NodeGraphicsScene(QGraphicsScene):
         self.penDark.setWidth(2)
         self.setBackgroundBrush(WindowColor.DEFAULT_BACKGROUND)
 
+    def setGraphicsScene(self, width, height):
+        self.setSceneRect(-width//2, -height//2, width, height)
+
     def drawBackground(self, painter: QPainter, rect: QRectF) -> None:
         super().drawBackground(painter, rect)
 
@@ -180,3 +183,27 @@ class NodeGraphicsView(QGraphicsView):
         elif event.type() == QEvent.Type.MouseButtonRelease:
             print("Mouse Released:", event.button())
         return super().eventFilter(obj, event)
+
+class Scene:
+    def __init__(self):
+        self.nodes = []
+        self.edges = []
+        self.sceneWidth, self.sceneHeight = 64000, 64000
+        
+        self.__initUI()
+        
+    def __initUI(self):
+        self.dmGraphicsScene = NodeGraphicsScene(self)
+        self.dmGraphicsScene.setGraphicsScene(self.sceneWidth, self.sceneHeight)
+        
+    def addNode(self, node):
+        self.nodes.append(node)
+        
+    def addEdge(self, edge):
+        self.edges.append(edge)
+        
+    def removeNode(self, node):
+        self.nodes.remove(node)
+        
+    def removeEdge(self, edge):
+        self.edges.remove(edge)

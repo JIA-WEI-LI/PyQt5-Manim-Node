@@ -32,7 +32,7 @@ class Node():
 
     def getSocketPosition(self, index, position):
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
-        y = index * 20
+        y = self.graphicsNode.titleHeight + self.graphicsNode.padding + index * 20
 
         return x, y
 
@@ -59,7 +59,8 @@ class NodeGraphicsNode(QGraphicsItem):
         
         self.titleFont = QFont("Ubuntu", 10)
         
-        self.width, self.height = 180, 240
+        self.width, self.height = 180, 240  # 節點寬高
+        self.padding = 4.0                  # 連結點位置出血區
         self.edgeSize = 10.0
         self.titleHeight = 24.0
         self.titlePadding = 6.0

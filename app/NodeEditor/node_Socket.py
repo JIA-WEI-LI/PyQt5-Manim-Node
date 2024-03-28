@@ -1,3 +1,4 @@
+from PyQt5.QtCore import Qt, QRectF 
 from PyQt5.QtWidgets import QGraphicsItem
 from PyQt5.QtGui import QPen, QBrush, QPainter
 
@@ -11,8 +12,10 @@ RIGHT_BOTTOM = 4
 class Socket:
     def __init__(self, node, index:int=0, position=LEFT_TOP) -> None:
         self.node = node
-        self.graphicsSocket = NodeGraphicsSocket()
+        self.index = index
         self.position = position
+
+        self.graphicsSocket = NodeGraphicsSocket(self.node.graphicsNode)
 
 class NodeGraphicsSocket(QGraphicsItem):
     def __init__(self, parent: QGraphicsItem=None) -> None:
@@ -27,4 +30,13 @@ class NodeGraphicsSocket(QGraphicsItem):
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         painter.setBrush(self.brush)
         painter.setPen(self.pen)
-        painter.drawEllipse(-self.radius, -self.radius, 2*self.radius, 2*self.radius)
+        painter.drawEllipse(int(-self.radius), int(-self.radius), int(2*self.radius), int(2*self.radius))
+
+    def boundingRect(self):
+        '''提供一個矩形範圍，用於確定繪製物件的範圍'''
+        return QRectF(
+            -self.radius - self.outline_width,
+            -self.radius - self.outline_width,
+            2*(self.radius + self.outline_width),
+            2*(self.radius + self.outline_width)
+            )

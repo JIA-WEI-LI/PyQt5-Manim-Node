@@ -33,8 +33,9 @@ class NodeEditorWindow(QWidget):
         self.show()
 
 class NodeGraphicsScene(QGraphicsScene):
-    def __init__(self, parent=None):
+    def __init__(self, scene, parent=None):
         super().__init__(parent)
+        self.scene = scene
 
         self.gridSize = 20
         self.gridSquare = 5

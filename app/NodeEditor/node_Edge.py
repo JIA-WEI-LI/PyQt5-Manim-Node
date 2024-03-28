@@ -25,6 +25,10 @@ class NodeGraphicsEdge(QGraphicsPathItem):
 
         self._pen = QPen(EdgeColor.DEFAULT_PEN)
         self._pen.setWidthF(2.0)
+        self._penSelected = QPen(EdgeColor.DEFAULT_PEN_SELECTED)
+        self._penSelected.setWidthF(2.0)
+
+        self.setFlag(QGraphicsPathItem.GraphicsItemFlag.ItemIsSelectable)
 
         self.posSource = [0, 0]
         self.posDestination = [200, 100]
@@ -33,7 +37,7 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         self.updatePath()
         
         painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.setPen(self._pen)
+        painter.setPen(self._pen if not self.isSelected() else self._penSelected)
         painter.drawPath(self.path())
 
     def updatePath(self):

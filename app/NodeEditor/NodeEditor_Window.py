@@ -25,7 +25,12 @@ class NodeEditorWindow(QWidget):
         self.scene = Scene()
 
         # 放置初始節點
-        node = Node(self.scene, "第一個節點", inputs=[1, 2, 3], outputs=[1])
+        node1 = Node(self.scene, "第一個節點", inputs=[1, 2, 3], outputs=[1])
+        node2 = Node(self.scene, "第二個節點", inputs=[1, 2, 3], outputs=[1])
+        node3 = Node(self.scene, "第三個節點", inputs=[1, 2, 3], outputs=[1])
+        node1.setPos(-350, -250)
+        node2.setPos(-150, -250)
+        node3.setPos(50, -250)
 
         # 創建圖像視圖
         self.view = NodeGraphicsView(self.scene.dmGraphicsScene, self)

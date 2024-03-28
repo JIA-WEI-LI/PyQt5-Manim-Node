@@ -2,6 +2,8 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QColor, QPen, QFont, QBrush, QPainter, QPainterPath
 
+from config.palette import NodeColor
+
 class Node():
     '''節點'''
     def __init__(self, scene, title="Undefined Node"):
@@ -37,17 +39,16 @@ class QDMGraphicsNode(QGraphicsItem):
         self.node = node
         self.content = self.node.content
         
-        self.titleColor = QColor('#fff')
         self.titleFont = QFont("Ubuntu", 10)
         
         self.width, self.height = 180, 240
         self.edgeSize = 10.0
         self.titleHeight = 24.0
         self.titlePadding = 6.0
-        self.penDefault = QPen(QColor('#7F000000'))
-        self.penSelected = QPen(QColor('#FFFFA637'))
-        self.brushTitle = QBrush(QColor('#FF313131'))
-        self.brushBackground = QBrush(QColor('#E3212121'))
+        # self.penDefault = QPen(QColor('#7F000000'))
+        # self.penSelected = QPen(QColor('#FFFFA637'))
+        # self.brushTitle = QBrush(QColor('#FF313131'))
+        # self.brushBackground = QBrush(QColor('#E3212121'))
         
         # init title
         self.__initTitle()
@@ -79,7 +80,7 @@ class QDMGraphicsNode(QGraphicsItem):
     
     def __initTitle(self):
         self.titleItem = QGraphicsTextItem(self)
-        self.titleItem.setDefaultTextColor(self.titleColor)
+        self.titleItem.setDefaultTextColor(NodeColor.DEFAULT_TITLE)
         self.titleItem.setFont(self.titleFont)
         self.titleItem.setPos(self.titlePadding, self.titlePadding//2)
         self.titleItem.setTextWidth(self.width - 2 * self.titlePadding)
@@ -105,7 +106,7 @@ class QDMGraphicsNode(QGraphicsItem):
         pathTitle.addRect(0, self.titleHeight - self.edgeSize, self.edgeSize, self.edgeSize)
         pathTitle.addRect(self.width - self.edgeSize, self.titleHeight - self.edgeSize, self.edgeSize, self.edgeSize)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(self.brushTitle)
+        painter.setBrush(QBrush(NodeColor.DEFAULT_BRUSH_TITLE))
         painter.drawPath(pathTitle.simplified())
         # 描述
         pathContent = QPainterPath()
@@ -114,11 +115,11 @@ class QDMGraphicsNode(QGraphicsItem):
         pathContent.addRect(0, self.titleHeight, self.edgeSize, self.edgeSize)
         pathContent.addRect(self.width - self.edgeSize, self.titleHeight, self.edgeSize, self.edgeSize)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(self.brushBackground)
+        painter.setBrush(QBrush(NodeColor.DEFAULT_BRUSH_BACKGROUND))
         painter.drawPath(pathContent.simplified())
         # 邊框
         pathOutline = QPainterPath()
         pathOutline.addRoundedRect(0, 0, self.width, self.height, self.edgeSize, self.edgeSize)
-        painter.setPen(self.penDefault if not self.isSelected() else self.penSelected)
+        painter.setPen(QPen(NodeColor.DEFAULT_PEN) if not self.isSelected() else QPen(NodeColor.DEFAULT_PEN_SELECTED))
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(pathOutline.simplified())

@@ -32,7 +32,7 @@ class Node():
 
     def getSocketPosition(self, index, position):
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
-        y = self.graphicsNode.titleHeight + self.graphicsNode.padding + index * 20
+        y = self.graphicsNode.titleHeight + self.graphicsNode.padding + self.graphicsNode.edgeSize + index * 20
 
         return x, y
 

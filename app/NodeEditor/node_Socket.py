@@ -16,6 +16,7 @@ class Socket:
         self.position = position
 
         self.graphicsSocket = NodeGraphicsSocket(self.node.graphicsNode)
+        self.graphicsSocket.setPos(*self.node.getSocketPosition(self.index, self.position))
 
 class NodeGraphicsSocket(QGraphicsItem):
     def __init__(self, parent: QGraphicsItem=None) -> None:

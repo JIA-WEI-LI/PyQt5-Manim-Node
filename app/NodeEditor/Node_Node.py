@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
-from .node_Socket import Socket
+from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP
 from .nodeEditor_Scene import Scene
 
 from config.palette import NodeColor
@@ -20,9 +20,21 @@ class Node():
         
         self.inputs = []
         self.outputs = []
+        counter = 0
         for item in inputs:
-            socket = Socket(node=self)
+            socket = Socket(node=self, index=counter, position=LEFT_TOP)
+            counter += 1
             self.inputs.append(socket)
+        for item in outputs:
+            socket = Socket(node=self, index=counter, position=RIGHT_TOP)
+            counter += 1
+            self.outputs.append(socket)
+
+    def getSocketPosition(self, index, position):
+        x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
+        y = index * 20
+
+        return x, y
 
 class NodeContentWidget(QWidget):
     def __init__(self, parent=None):

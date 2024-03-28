@@ -1,15 +1,12 @@
-import math
-
-from PyQt5.QtCore import QRectF
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView, QGraphicsScene
-from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QPen, QWheelEvent
-from PyQt5.QtCore import QLine, Qt, QEvent
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView
+from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent
+from PyQt5.QtCore import Qt, QEvent
 
 from .node_Node import Node
 from .node_Socket import Socket
+from .nodeEditor_Scene import Scene
 
 from config.icon import Icon
-from config.palette import WindowColor
 
 class NodeEditorWindow(QWidget):
     def __init__(self, parent=None) -> None:
@@ -37,50 +34,6 @@ class NodeEditorWindow(QWidget):
         self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
         self.setWindowTitle("Manim Node Editor")
         self.show()
-
-class NodeGraphicsScene(QGraphicsScene):
-    def __init__(self, scene, parent=None):
-        super().__init__(parent)
-        self.scene = scene
-
-        self.gridSize = 20
-        self.gridSquare = 5
-        self.sceenWidth, self.sceenHeight = 640000, 640000
-        self.setSceneRect(self.sceenWidth//2, self.sceenHeight//2, self.sceenWidth, self.sceenHeight)
-
-        self.penLight = QPen(WindowColor.DEFAULT_PEN_LIGHT)
-        self.penLight.setWidth(1)
-        self.penDark = QPen(WindowColor.DEFAULT_PEN_DARK)
-        self.penDark.setWidth(2)
-        self.setBackgroundBrush(WindowColor.DEFAULT_BACKGROUND)
-
-    def setGraphicsScene(self, width, height):
-        self.setSceneRect(-width//2, -height//2, width, height)
-
-    def drawBackground(self, painter: QPainter, rect: QRectF) -> None:
-        super().drawBackground(painter, rect)
-
-        # 創造網格背景
-        left = int(math.floor(rect.left()))
-        right = int(math.ceil(rect.right()))
-        top = int(math.floor(rect.top()))
-        bottom= int(math.ceil(rect.bottom()))
-
-        firstLeft = left - (left % self.gridSize)
-        firstTop = top - (top % self.gridSize)
-
-        lines_light, lines_dark = [], []
-        for x in range(firstLeft, right, self.gridSize):
-            if (x % (self.gridSize * self.gridSquare) != 0): lines_light.append(QLine(x, top, x, bottom))
-            else: lines_dark.append(QLine(x, top, x, bottom))
-        for y in range(firstTop, bottom, self.gridSize):
-            if (y % (self.gridSize * self.gridSquare) != 0): lines_light.append(QLine(left, y, right, y))
-            else: lines_dark.append(QLine(left, y, right, y))
-
-        painter.setPen(self.penLight)
-        painter.drawLines(*lines_light)
-        painter.setPen(self.penDark)
-        painter.drawLines(*lines_dark)
 
 class NodeGraphicsView(QGraphicsView):
     def __init__(self, graphicsScene, parent=None):
@@ -190,27 +143,3 @@ class NodeGraphicsView(QGraphicsView):
         elif event.type() == QEvent.Type.MouseButtonRelease:
             print("Mouse Released:", event.button())
         return super().eventFilter(obj, event)
-
-class Scene:
-    def __init__(self):
-        self.nodes = []
-        self.edges = []
-        self.sceneWidth, self.sceneHeight = 64000, 64000
-        
-        self.__initUI()
-        
-    def __initUI(self):
-        self.dmGraphicsScene = NodeGraphicsScene(self)
-        self.dmGraphicsScene.setGraphicsScene(self.sceneWidth, self.sceneHeight)
-        
-    def addNode(self, node):
-        self.nodes.append(node)
-        
-    def addEdge(self, edge):
-        self.edges.append(edge)
-        
-    def removeNode(self, node):
-        self.nodes.remove(node)
-        
-    def removeEdge(self, edge):
-        self.edges.remove(edge)

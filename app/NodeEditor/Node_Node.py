@@ -2,11 +2,13 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
+from nodeEditor_Scene import Scene
+
 from config.palette import NodeColor
 
 class Node():
     '''節點'''
-    def __init__(self, scene, title="Undefined Node", input=[], output=[]):
+    def __init__(self, scene:Scene, title="Undefined Node", input=[], output=[]):
         self.scene = scene
         self.title = title
         

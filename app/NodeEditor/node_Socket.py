@@ -39,5 +39,4 @@ class NodeGraphicsSocket(QGraphicsItem):
             -self.radius - self.outline_width,
             -self.radius - self.outline_width,
             2*(self.radius + self.outline_width),
-            2*(self.radius + self.outline_width)
-            )
+            2*(self.radius + self.outline_width))

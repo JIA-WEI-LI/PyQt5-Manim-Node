@@ -114,11 +114,11 @@ class NodeGraphicsNode(QGraphicsItem):
     def initContent(self):
         '''節點內部文字描述'''
         self.graphicsContent = QGraphicsProxyWidget(self)
-        x = int(self.edgeSize)
-        y = int(self.titleHeight + self.edgeSize)
-        w = int(self.width - 2 * self.edgeSize)
-        h = int(self.height - 2 * self.edgeSize - self.titleHeight)
-        self.content.setGeometry(x, y, w, h)
+        self.content.setGeometry(
+            int(self.edgeSize),
+            int(self.titleHeight + self.edgeSize),
+            int(self.width - 2 * self.edgeSize),
+            int(self.height - 2 * self.edgeSize - self.titleHeight))
         # 影片中不知道為什麼沒轉成整數也可以運行
         # self.content.setGeometry(self.edgeSize, self.titleHeight + self.edgeSize,
                                 #  self.width - 2*self.edgeSize, self.height - 2*self.edgeSize - self.titleHeight)

@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
-from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP
+from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
 from .nodeEditor_Scene import Scene
 
 from config.palette import NodeColor
@@ -17,12 +17,14 @@ class Node():
         self.graphicsNode = NodeGraphicsNode(self)
         self.scene.addNode(self)
         self.scene.dmGraphicsScene.addItem(self.graphicsNode)
+
+        self.socketSpace = 22   # 連結點之間空間
         
         self.inputs = []
         self.outputs = []
         counter = 0
         for item in inputs:
-            socket = Socket(node=self, index=counter, position=LEFT_TOP)
+            socket = Socket(node=self, index=counter, position=LEFT_BOTTOM)
             counter += 1
             self.inputs.append(socket)
         counter = 0
@@ -33,7 +35,10 @@ class Node():
 
     def getSocketPosition(self, index, position):
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
-        y = self.graphicsNode.titleHeight + self.graphicsNode.padding + self.graphicsNode.edgeSize + index * 20
+        if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
+            y = self.graphicsNode.height - self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
+        else:
+            y = self.graphicsNode.titleHeight + self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
 
         return x, y
 

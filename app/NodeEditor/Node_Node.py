@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QRectF 
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
-from PyQt5.QtGui import QColor, QPen, QFont, QBrush, QPainter, QPainterPath
+from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
 from config.palette import NodeColor
 
@@ -34,7 +34,7 @@ class NodeContentWidget(QWidget):
         self.vboxLayout.addWidget(QTextEdit("foo"))
 
 class QDMGraphicsNode(QGraphicsItem):
-    def __init__(self, node, parent=None):
+    def __init__(self, node:Node, parent=None):
         super().__init__(parent=parent)
         self.node = node
         self.content = self.node.content
@@ -45,10 +45,6 @@ class QDMGraphicsNode(QGraphicsItem):
         self.edgeSize = 10.0
         self.titleHeight = 24.0
         self.titlePadding = 6.0
-        # self.penDefault = QPen(QColor('#7F000000'))
-        # self.penSelected = QPen(QColor('#FFFFA637'))
-        # self.brushTitle = QBrush(QColor('#FF313131'))
-        # self.brushBackground = QBrush(QColor('#E3212121'))
         
         # init title
         self.__initTitle()

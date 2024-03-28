@@ -1,11 +1,10 @@
 from PyQt5.QtCore import Qt, QRectF 
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QColor, QPen, QFont, QBrush, QPainter, QPainterPath
-from NodeEditor_Window import Scene
 
 class Node():
     '''節點'''
-    def __init__(self, scene: Scene, title="Undefined Node"):
+    def __init__(self, scene, title="Undefined Node"):
         self.scene = scene
         self.title = title
         
@@ -70,8 +69,8 @@ class QDMGraphicsNode(QGraphicsItem):
         return QRectF(
             0,
             0,
-            2 * self.edgeSize * self.width,
-            2 * self.edgeSize * self.height
+            self.width,
+            self.height
         ).normalized()
         
     def __initUI(self):

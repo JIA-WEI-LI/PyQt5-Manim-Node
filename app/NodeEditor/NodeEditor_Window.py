@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView, QGraphicsScene
 from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QPen, QWheelEvent
 from PyQt5.QtCore import QLine, Qt, QEvent
 
+from .Node_Node import Node
 from config.icon import Icon
 from config.palette import WindowColor
 
@@ -23,6 +24,8 @@ class NodeEditorWindow(QWidget):
 
         # 創建圖像場景
         self.scene = Scene()
+
+        node = Node(self.scene, "第一個節點")
 
         # 創建圖像視圖
         self.view = NodeGraphicsView(self.scene.dmGraphicsScene, self)

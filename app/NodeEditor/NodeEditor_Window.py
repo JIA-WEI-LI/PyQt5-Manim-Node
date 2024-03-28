@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView
 from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent
 from PyQt5.QtCore import Qt, QEvent
 
+from .node_Edge import Edge
 from .node_Node import Node
 from .node_Socket import Socket
 from .nodeEditor_Scene import Scene
@@ -23,7 +24,18 @@ class NodeEditorWindow(QWidget):
 
         # 創建圖像場景
         self.scene = Scene()
+        self.addNodes()
 
+        # 創建圖像視圖
+        self.view = NodeGraphicsView(self.scene.nodeGraphicsScene, self)
+        self.layout.addWidget(self.view)
+
+        self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
+        self.setWindowTitle("Manim Node Editor")
+        self.show()
+
+    def addNodes(self):
+        '''新增節點'''
         # 放置初始節點
         node1 = Node(self.scene, "第一個節點", inputs=[1, 2, 3], outputs=[1])
         node2 = Node(self.scene, "第二個節點", inputs=[1, 2, 3], outputs=[1])
@@ -32,13 +44,7 @@ class NodeEditorWindow(QWidget):
         node2.setPos(-150, -250)
         node3.setPos(50, -250)
 
-        # 創建圖像視圖
-        self.view = NodeGraphicsView(self.scene.dmGraphicsScene, self)
-        self.layout.addWidget(self.view)
-
-        self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
-        self.setWindowTitle("Manim Node Editor")
-        self.show()
+        edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0])
 
 class NodeGraphicsView(QGraphicsView):
     def __init__(self, graphicsScene, parent=None):

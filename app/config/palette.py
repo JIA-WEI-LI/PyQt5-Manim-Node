@@ -15,3 +15,6 @@ class NodeColor:
 class SocketColor:
     DEFAULT_BACKGROUND = QColor('#FFFF7700')
     DEFAULT_OUTLINE = QColor('#FF000000')
+
+class EdgeColor:
+    DEFAULT_PEN = QColor('#001000')

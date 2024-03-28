@@ -24,13 +24,13 @@ class NodeGraphicsSocket(QGraphicsItem):
 
         self.radius = 6.0
         self.outline_width = 1.0
-        self.pen = QPen(SocketColor.DEFAULT_OUTLINE)
-        self.pen.setWidthF(self.outline_width)
+        self._pen = QPen(SocketColor.DEFAULT_OUTLINE)
+        self._pen.setWidthF(self.outline_width)
         self.brush = QBrush(SocketColor.DEFAULT_BACKGROUND)
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         painter.setBrush(self.brush)
-        painter.setPen(self.pen)
+        painter.setPen(self._pen)
         painter.drawEllipse(int(-self.radius), int(-self.radius), int(2*self.radius), int(2*self.radius))
 
     def boundingRect(self):

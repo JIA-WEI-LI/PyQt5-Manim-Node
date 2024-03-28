@@ -16,7 +16,7 @@ class Node():
         self.content = NodeContentWidget()
         self.graphicsNode = NodeGraphicsNode(self)
         self.scene.addNode(self)
-        self.scene.dmGraphicsScene.addItem(self.graphicsNode)
+        self.scene.nodeGraphicsScene.addItem(self.graphicsNode)
 
         self.socketSpace = 22   # 連結點之間空間
         

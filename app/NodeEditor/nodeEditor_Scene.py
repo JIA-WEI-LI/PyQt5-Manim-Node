@@ -16,8 +16,8 @@ class Scene:
         self.__initUI()
         
     def __initUI(self):
-        self.dmGraphicsScene = NodeGraphicsScene(self)
-        self.dmGraphicsScene.setGraphicsScene(self.sceneWidth, self.sceneHeight)
+        self.nodeGraphicsScene = NodeGraphicsScene(self)
+        self.nodeGraphicsScene.setGraphicsScene(self.sceneWidth, self.sceneHeight)
         
     def addNode(self, node):
         self.nodes.append(node)

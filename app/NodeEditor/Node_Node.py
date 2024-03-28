@@ -6,7 +6,7 @@ from config.palette import NodeColor
 
 class Node():
     '''節點'''
-    def __init__(self, scene, title="Undefined Node"):
+    def __init__(self, scene, title="Undefined Node", input=[], output=[]):
         self.scene = scene
         self.title = title
         
@@ -15,8 +15,8 @@ class Node():
         self.scene.addNode(self)
         self.scene.dmGraphicsScene.addItem(self.graphicsNode)
         
-        self.input = []
-        self.output = []
+        self.input = input
+        self.output = output
 
 class NodeContentWidget(QWidget):
     def __init__(self, parent=None):

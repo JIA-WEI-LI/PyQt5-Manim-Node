@@ -22,10 +22,10 @@ class NodeEditorWindow(QWidget):
         self.setLayout(self.layout)
 
         # 創建圖像場景
-        self.graphicsScene = NodeGraphicsScene()
+        self.scene = Scene()
 
         # 創建圖像視圖
-        self.view = NodeGraphicsView(self.graphicsScene, self)
+        self.view = NodeGraphicsView(self.scene.dmGraphicsScene, self)
         self.layout.addWidget(self.view)
 
         self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))

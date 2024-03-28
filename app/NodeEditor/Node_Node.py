@@ -2,7 +2,8 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
-from nodeEditor_Scene import Scene
+from .node_Socket import Socket
+from .nodeEditor_Scene import Scene
 
 from config.palette import NodeColor
 
@@ -17,8 +18,11 @@ class Node():
         self.scene.addNode(self)
         self.scene.dmGraphicsScene.addItem(self.graphicsNode)
         
-        self.input = inputs
-        self.output = outputs
+        self.inputs = []
+        self.outputs = []
+        for item in inputs:
+            socket = Socket(node=self)
+            self.inputs.append(socket)
 
 class NodeContentWidget(QWidget):
     def __init__(self, parent=None):
@@ -48,10 +52,14 @@ class NodeGraphicsNode(QGraphicsItem):
         self.titleHeight = 24.0
         self.titlePadding = 6.0
         
-        # init title
+        # 標題
         self.initTitle()
         self.title = self.node.title
         
+        # 連結點
+        self.initSockets()
+
+        # 內部元素
         self.initContent()
         
         self.initUI()
@@ -77,6 +85,7 @@ class NodeGraphicsNode(QGraphicsItem):
         self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable)
     
     def initTitle(self):
+        '''節點主名稱標題'''
         self.titleItem = QGraphicsTextItem(self)
         self.titleItem.setDefaultTextColor(NodeColor.DEFAULT_TITLE)
         self.titleItem.setFont(self.titleFont)
@@ -84,6 +93,7 @@ class NodeGraphicsNode(QGraphicsItem):
         self.titleItem.setTextWidth(self.width - 2 * self.titlePadding)
         
     def initContent(self):
+        '''節點內部文字描述'''
         self.graphicsContent = QGraphicsProxyWidget(self)
         x = int(self.edgeSize)
         y = int(self.titleHeight + self.edgeSize)
@@ -94,6 +104,10 @@ class NodeGraphicsNode(QGraphicsItem):
         # self.content.setGeometry(self.edgeSize, self.titleHeight + self.edgeSize,
                                 #  self.width - 2*self.edgeSize, self.height - 2*self.edgeSize - self.titleHeight)
         self.graphicsContent.setWidget(self.content)
+
+    def initSockets(self):
+        '''節點連結點'''
+        pass
         
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         '''繪製節點圖形'''

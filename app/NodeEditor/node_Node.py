@@ -43,6 +43,7 @@ class Node():
     def getSocketPosition(self, index, position):
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
+            # 如果設置底下開始，節點的編號也會從底部開始計算
             y = self.graphicsNode.height - self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
         else:
             y = self.graphicsNode.titleHeight + self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace

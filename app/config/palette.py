@@ -19,3 +19,4 @@ class SocketColor:
 class EdgeColor:
     DEFAULT_PEN = QColor('#001000')
     DEFAULT_PEN_SELECTED = QColor('#00ff00')
+    ORANGE = QColor('#FFFF7700')

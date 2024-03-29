@@ -43,8 +43,8 @@ class NodeEditorWindow(QWidget):
         node2.setPos(0, 0)
         node3.setPos(50, -250)
 
-        # edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0])
-        edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0], type=2)
+        edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0])
+        edge1 = Edge(self.scene, node2.outputs[0], node3.inputs[0], type=2)
 
 class NodeGraphicsView(QGraphicsView):
     def __init__(self, graphicsScene, parent=None):

@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QRectF 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
+from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
 from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
@@ -54,9 +54,9 @@ class NodeContentWidget(QWidget):
     def __init__(self, parent=None):
         super().__init__(parent)
         
-        self.__initUI()
+        self.initUI()
         
-    def __initUI(self):
+    def initUI(self):
         self.vboxLayout = QVBoxLayout()
         self.vboxLayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.vboxLayout)
@@ -90,6 +90,9 @@ class NodeGraphicsNode(QGraphicsItem):
         self.initContent()
         
         self.initUI()
+
+    def mouseMoveEvent(self, event: QGraphicsSceneMouseEvent) -> None:
+        super().mouseMoveEvent(event)
         
     @property
     def title(self): return self._title

@@ -11,14 +11,15 @@ RIGHT_TOP = 3
 RIGHT_BOTTOM = 4
 
 class Socket:
-    def __init__(self, node, index:int=0, position=LEFT_TOP) -> None:
+    def __init__(self, node, index:int=0, position=LEFT_TOP, socket_type=1) -> None:
         self.node = node
         self.index = index
         self.position = position
+        self.socket_type = socket_type
         
         if DEBUG_MODE: print("Socket -- creating with", self.index, self.position, "for node", self.node)
 
-        self.graphicsSocket = NodeGraphicsSocket(self.node.graphicsNode)
+        self.graphicsSocket = NodeGraphicsSocket(self.socket_type, parent=self.node.graphicsNode)
         self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position))
         
         self.edge = None
@@ -36,14 +37,14 @@ class Socket:
         return self.edge is not None
 
 class NodeGraphicsSocket(QGraphicsItem):
-    def __init__(self, parent: QGraphicsItem=None) -> None:
+    def __init__(self, socket_type=1 ,parent=None) -> None:
         super().__init__(parent)
 
         self.radius = 6.0
         self.outline_width = 1.0
         self._pen = QPen(SocketColor.DEFAULT_OUTLINE)
         self._pen.setWidthF(self.outline_width)
-        self.brush = QBrush(SocketColor.DEFAULT_BACKGROUND)
+        self.brush = QBrush(SocketColor.DEFAULT_COLOR_LIST[socket_type])
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         painter.setBrush(self.brush)

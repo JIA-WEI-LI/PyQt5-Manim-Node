@@ -32,6 +32,8 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         self._penSelected.setWidthF(2.0)
 
         self.setFlag(QGraphicsPathItem.GraphicsItemFlag.ItemIsSelectable)
+        
+        self.setZValue(-1)
 
         self.posSource = [0, 0]
         self.posDestination = [200, 100]

@@ -4,7 +4,6 @@ from PyQt5.QtCore import Qt, QEvent
 
 from .node_Edge import Edge
 from .node_Node import Node
-from .node_Socket import Socket
 from .nodeEditor_Scene import Scene
 
 from config.icon import Icon

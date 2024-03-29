@@ -12,7 +12,7 @@ EDGE_TYPE_DIRECT = 1
 EDGE_TYPE_BEZIER = 2
 
 class Edge:
-    def __init__(self, scene:Scene, start_socket:Socket, end_socket:Socket, type=EDGE_TYPE_DIRECT) -> None:
+    def __init__(self, scene:Scene, start_socket:Socket, end_socket:Socket, edge_type=EDGE_TYPE_DIRECT) -> None:
         self.scene = scene
         self.start_socket = start_socket
         self.end_socket = end_socket
@@ -21,7 +21,7 @@ class Edge:
         if self.end_socket is not None:
             self.end_socket.edge = self
 
-        self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
+        self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if edge_type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
 
         self.updatePositions()
         if DEBUG_MODE: print("Edge: ", self.nodeGraphicsEdge.posSource, "to", self.nodeGraphicsEdge.posDestination)

@@ -10,6 +10,8 @@ from config.palette import EdgeColor
 EDGE_TYPE_DIRECT = 1
 EDGE_TYPE_BEZIER = 2
 
+DEBUG = True
+
 class Edge:
     def __init__(self, scene:Scene, start_socket:Socket, end_socket:Socket, type=EDGE_TYPE_DIRECT) -> None:
         self.scene = scene
@@ -19,20 +21,22 @@ class Edge:
         self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
 
         self.updatePositions()
-        print("Edge: ", self.nodeGraphicsEdge.posSource, " to: ", self.nodeGraphicsEdge.posDestination)
+        if DEBUG: print("Edge: ", self.nodeGraphicsEdge.posSource, "to", self.nodeGraphicsEdge.posDestination)
         self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
         
     def updatePositions(self):
         source_pos = self.start_socket.getSocketPosition()
-        source_pos[0] = self.start_socket.node.graphicsNode.pos().x()
-        source_pos[1] = self.start_socket.node.graphicsNode.pos().y()
+        source_pos[0] += self.start_socket.node.graphicsNode.pos().x()
+        source_pos[1] += self.start_socket.node.graphicsNode.pos().y()
         self.nodeGraphicsEdge.setSource(*source_pos)
         if self.end_socket is not None:
             end_pos = self.end_socket.getSocketPosition()
+            end_pos[0] += self.end_socket.node.graphicsNode.pos().x()
+            end_pos[1] += self.end_socket.node.graphicsNode.pos().y()
             self.nodeGraphicsEdge.setDestination(*end_pos)
-        print(" Start Socket: ", self.start_socket)
-        print(" End  Socket: ", self.end_socket)
-        self.nodeGraphicsEdge.updatePath()
+        if DEBUG: print(" Start Socket: ", self.start_socket)
+        if DEBUG: print(" End  Socket: ", self.end_socket)
+        self.nodeGraphicsEdge.update()
         
     def remove_from_sockets(self):
         '''判斷移除連結點'''
@@ -68,10 +72,10 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         self.posDestination = [200, 100]
         
     def setSource(self, x, y):
-        self.setSource = [x, y]
+        self.posSource = [x, y]
     
     def setDestination(self, x, y):
-        self.setDestination = [x, y]
+        self.posDestination = [x, y]
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         self.updatePath()

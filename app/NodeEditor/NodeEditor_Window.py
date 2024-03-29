@@ -58,7 +58,7 @@ class NodeGraphicsView(QGraphicsView):
         self.zoomClamp = True
         self.zoom = 10  # 調整初始值
         self.zoomStep = 1
-        self.zoomRange = [0, 5]
+        self.zoomRange = [0, 10]
 
         self.dragStartPosition = None  # 滑鼠開始拖曳位置
 

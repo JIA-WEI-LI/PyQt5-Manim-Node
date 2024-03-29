@@ -17,9 +17,13 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
   * icons - 圖標資料夾
   * qss - QSS 樣式資料夾
 
-
 ## 進度
 > 參考影片清單：[https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz](https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz)
+
+### 目前進度截圖
+#### 2024.03.29
+![2024.03.29進度螢幕截圖](app\resources\screenshot\20240329_meme.png)
+
 ### 影片練習觀看進度
 #### 第一部分：節點編輯器架構
 * [ ] [Node Editor in Python Tutorial Series: Introduction](https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz) (跳過)

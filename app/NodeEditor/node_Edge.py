@@ -17,6 +17,10 @@ class Edge:
         self.start_socket = start_socket
         self.end_socket = end_socket
 
+        self.start_socket.edge = self
+        if self.end_socket is not None:
+            self.end_socket.edge = self
+
         self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
 
         self.updatePositions()

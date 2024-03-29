@@ -8,7 +8,10 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
   * icon.py - 圖標路徑
   * palette.py - 顏色路徑
 * Node - 節點編輯器資料夾
+  * node_Edge.py - 線段基本構造
   * node_Node.py - 節點基本構造
+  * node_Socket.py - 連結點基本構造
+  * nodeEditor_Scene.py - 節點編輯器畫面
   * nodeEditor_Window.py - 節點編輯器視窗
 * resources - 材質包
   * icons - 圖標資料夾

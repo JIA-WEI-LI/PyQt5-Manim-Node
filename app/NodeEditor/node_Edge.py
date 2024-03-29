@@ -18,7 +18,15 @@ class Edge:
 
         self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
 
+        self.updatePositions()
+        print("Edge: ", self.nodeGraphicsEdge.posSource, " to: ", self.nodeGraphicsEdge.posDestination)
         self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
+        
+    def updatePositions(self):
+        self.nodeGraphicsEdge.setSource(*self.start_socket.getSocketPosition())
+        if self.end_socket is not None:
+            self.nodeGraphicsEdge.setDestination(*self.end_socket.getSocketPosition())
+        self.nodeGraphicsEdge.update()
         
     def remove_from_sockets(self):
         '''判斷移除連結點'''

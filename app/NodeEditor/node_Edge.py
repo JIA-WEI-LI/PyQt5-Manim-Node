@@ -19,6 +19,22 @@ class Edge:
         self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
 
         self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
+        
+    def remove_from_sockets(self):
+        '''判斷移除連結點'''
+        if self.start_socket is not None:
+            self.start_socket.edge = None
+        if self.end_socket is not None:
+            self.end_socket.edge = None
+        self.end_socket.edge = None
+        self.start_socket.edge = None
+        
+    def remove(self):
+        self.remove_from_sockets()
+        self.scene.nodeGraphicsScene.removeItem(self.nodeGraphicsEdge)
+        self.nodeGraphicsEdge = None
+        self.scene.removeEdge(self)
+
 
 class NodeGraphicsEdge(QGraphicsPathItem):
     '''繪製基礎連接線段'''
@@ -37,6 +53,12 @@ class NodeGraphicsEdge(QGraphicsPathItem):
 
         self.posSource = [0, 0]
         self.posDestination = [200, 100]
+        
+    def setSource(self, x, y):
+        self.setSource = [x, y]
+    
+    def setDestination(self, x, y):
+        self.setDestination = [x, y]
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         self.updatePath()

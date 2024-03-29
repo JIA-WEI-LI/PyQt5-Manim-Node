@@ -56,7 +56,7 @@ class NodeGraphicsView(QGraphicsView):
 
         self.zoomInFactor = 1.25
         self.zoomClamp = True
-        self.zoom = 10  # 調整初始值
+        self.zoom = 15  # 調整初始值
         self.zoomStep = 1
         self.zoomRange = [0, 10]
 

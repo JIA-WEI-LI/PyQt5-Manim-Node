@@ -40,10 +40,10 @@ class NodeEditorWindow(QWidget):
         node2 = Node(self.scene, "第二個節點", inputs=[1, 2, 3], outputs=[1])
         node3 = Node(self.scene, "第三個節點", inputs=[1, 2, 3], outputs=[1])
         node1.setPos(-350, -250)
-        node2.setPos(-150, -250)
+        node2.setPos(0, 0)
         node3.setPos(50, -250)
 
-        edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0])
+        # edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0])
         edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0], type=2)
 
 class NodeGraphicsView(QGraphicsView):

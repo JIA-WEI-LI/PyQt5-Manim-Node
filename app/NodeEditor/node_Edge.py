@@ -56,8 +56,12 @@ class NodeGraphicsEdgeDirect(NodeGraphicsEdge):
 
 class NodeGraphicsEdgeBezier(NodeGraphicsEdge):
     '''貝茲曲線型連接線段'''
-    def __init__(self, edge: Edge, parent=None):
-        super().__init__(edge, parent)
-        
     def updatePath(self):
-        pass
+        s = self.posSource
+        d = self.posDestination
+        dist = (d[0]-s[0]) * 0.5
+        if s[0] > d[0]: dist *= -1
+        
+        path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
+        path.cubicTo(s[0] + dist, s[1], d[0] - dist, d[1], self.posDestination[0], self.posDestination[1])
+        self.setPath(path)

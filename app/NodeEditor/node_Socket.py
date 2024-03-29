@@ -14,6 +14,8 @@ class Socket:
         self.node = node
         self.index = index
         self.position = position
+        
+        print("Socket -- creating with", self.index, self.position, "for node", self.node)
 
         self.graphicsSocket = NodeGraphicsSocket(self.node.graphicsNode)
         self.graphicsSocket.setPos(*self.node.getSocketPosition(self.index, self.position))
@@ -21,7 +23,10 @@ class Socket:
         self.edge = None
         
     def getSocketPosition(self):
-        return self.node.getSocketPosition(self.index, self.position)
+        print("  Get Socket Pos: ", self.index, self.position, " node: ", self.node)
+        res = self.node.getSocketPosition(self.index, self.position)
+        print("  res: ", res)
+        return res
         
     def setConnectedEdge(self, edge=None):
         self.edge = edge

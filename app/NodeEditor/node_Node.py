@@ -47,7 +47,7 @@ class Node():
         else:
             y = self.graphicsNode.titleHeight + self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
 
-        return x, y
+        return [x, y]
 
 class NodeContentWidget(QWidget):
     def __init__(self, parent=None):

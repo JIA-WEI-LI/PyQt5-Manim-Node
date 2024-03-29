@@ -23,10 +23,16 @@ class Edge:
         self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
         
     def updatePositions(self):
-        self.nodeGraphicsEdge.setSource(*self.start_socket.getSocketPosition())
+        source_pos = self.start_socket.getSocketPosition()
+        source_pos[0] = self.start_socket.node.graphicsNode.pos().x()
+        source_pos[1] = self.start_socket.node.graphicsNode.pos().y()
+        self.nodeGraphicsEdge.setSource(*source_pos)
         if self.end_socket is not None:
-            self.nodeGraphicsEdge.setDestination(*self.end_socket.getSocketPosition())
-        self.nodeGraphicsEdge.update()
+            end_pos = self.end_socket.getSocketPosition()
+            self.nodeGraphicsEdge.setDestination(*end_pos)
+        print(" Start Socket: ", self.start_socket)
+        print(" End  Socket: ", self.end_socket)
+        self.nodeGraphicsEdge.updatePath()
         
     def remove_from_sockets(self):
         '''判斷移除連結點'''
@@ -42,7 +48,6 @@ class Edge:
         self.scene.nodeGraphicsScene.removeItem(self.nodeGraphicsEdge)
         self.nodeGraphicsEdge = None
         self.scene.removeEdge(self)
-
 
 class NodeGraphicsEdge(QGraphicsPathItem):
     '''繪製基礎連接線段'''

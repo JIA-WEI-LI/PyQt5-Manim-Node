@@ -2,6 +2,7 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QGraphicsItem
 from PyQt5.QtGui import QPen, QBrush, QPainter
 
+from config.debug import DEBUG_MODE
 from config.palette import SocketColor
 
 LEFT_TOP = 1
@@ -15,7 +16,7 @@ class Socket:
         self.index = index
         self.position = position
         
-        print("Socket -- creating with", self.index, self.position, "for node", self.node)
+        if DEBUG_MODE: print("Socket -- creating with", self.index, self.position, "for node", self.node)
 
         self.graphicsSocket = NodeGraphicsSocket(self.node.graphicsNode)
         self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position))
@@ -23,9 +24,9 @@ class Socket:
         self.edge = None
         
     def getSocketPosition(self):
-        print("  Get Socket Pos: ", self.index, self.position, " node: ", self.node)
+        if DEBUG_MODE: print("  Get Socket Pos: ", self.index, self.position, " node: ", self.node)
         res = self.node.getSocketPosition(self.index, self.position)
-        print("  res: ", res)
+        if DEBUG_MODE: print("  res: ", res)
         return res
         
     def setConnectedEdge(self, edge=None):

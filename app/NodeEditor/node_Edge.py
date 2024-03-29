@@ -5,12 +5,11 @@ from PyQt5.QtGui import QPainter, QPainterPath, QPen
 from .node_Socket import Socket
 from .nodeEditor_Scene import Scene
 
+from config.debug import DEBUG_MODE
 from config.palette import EdgeColor
 
 EDGE_TYPE_DIRECT = 1
 EDGE_TYPE_BEZIER = 2
-
-DEBUG = True
 
 class Edge:
     def __init__(self, scene:Scene, start_socket:Socket, end_socket:Socket, type=EDGE_TYPE_DIRECT) -> None:
@@ -21,7 +20,7 @@ class Edge:
         self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
 
         self.updatePositions()
-        if DEBUG: print("Edge: ", self.nodeGraphicsEdge.posSource, "to", self.nodeGraphicsEdge.posDestination)
+        if DEBUG_MODE: print("Edge: ", self.nodeGraphicsEdge.posSource, "to", self.nodeGraphicsEdge.posDestination)
         self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
         
     def updatePositions(self):
@@ -34,8 +33,8 @@ class Edge:
             end_pos[0] += self.end_socket.node.graphicsNode.pos().x()
             end_pos[1] += self.end_socket.node.graphicsNode.pos().y()
             self.nodeGraphicsEdge.setDestination(*end_pos)
-        if DEBUG: print(" Start Socket: ", self.start_socket)
-        if DEBUG: print(" End  Socket: ", self.end_socket)
+        if DEBUG_MODE: print(" Start Socket: ", self.start_socket)
+        if DEBUG_MODE: print(" End  Socket: ", self.end_socket)
         self.nodeGraphicsEdge.update()
         
     def remove_from_sockets(self):

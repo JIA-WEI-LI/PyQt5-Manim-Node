@@ -49,6 +49,11 @@ class Node():
             y = self.graphicsNode.titleHeight + self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
 
         return [x, y]
+    
+    def updateConnectedEdges(self):
+        for socket in self.inputs:
+            if socket.hasEdge():
+                socket.edge.updatePositions()
 
 class NodeContentWidget(QWidget):
     def __init__(self, parent=None):
@@ -93,6 +98,7 @@ class NodeGraphicsNode(QGraphicsItem):
 
     def mouseMoveEvent(self, event: QGraphicsSceneMouseEvent) -> None:
         super().mouseMoveEvent(event)
+        self.node.updateConnectedEdges()
         
     @property
     def title(self): return self._title

@@ -32,6 +32,9 @@ class Socket:
     def setConnectedEdge(self, edge=None):
         self.edge = edge
 
+    def hasEdge(self):
+        return self.edge is not None
+
 class NodeGraphicsSocket(QGraphicsItem):
     def __init__(self, parent: QGraphicsItem=None) -> None:
         super().__init__(parent)

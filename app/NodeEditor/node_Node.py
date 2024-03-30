@@ -78,6 +78,8 @@ class NodeContentWidget(QWidget):
         
         self.initUI()
         
+        self.setStyleSheet("background-color: transparent;")
+        
     def initUI(self):
         self.vboxLayout = QVBoxLayout()
         self.vboxLayout.setContentsMargins(0, 0, 0, 0)
@@ -86,6 +88,7 @@ class NodeContentWidget(QWidget):
     def addLabel(self, text):
         label = QLabel()
         label.setText(text)
+        label.setStyleSheet("color: white;")
         self.vboxLayout.addWidget(label)
         return label
 

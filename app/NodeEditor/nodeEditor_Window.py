@@ -43,7 +43,7 @@ class NodeEditorWindow(QWidget):
         node2.setPos(0, 0)
         node3.setPos(50, -250)
 
-        node1.content.addLabel("測試文字")
+        node1.content.addLabel("inputs 1")
 
         edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0])
         edge1 = Edge(self.scene, node2.outputs[0], node3.inputs[0], edge_type=2)

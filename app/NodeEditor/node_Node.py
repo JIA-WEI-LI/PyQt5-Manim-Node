@@ -53,7 +53,7 @@ class Node():
     def updateConnectedEdges(self):
         for socket in self.inputs + self.outputs:
             if socket.hasEdge():
-                socket.edge.updatePositions()
+                socket._edge.updatePositions()
 
 class NodeContentWidget(QWidget):
     def __init__(self, parent=None):

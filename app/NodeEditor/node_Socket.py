@@ -22,7 +22,7 @@ class Socket:
         self.graphicsSocket = NodeGraphicsSocket(self.socket_type, parent=self.node.graphicsNode)
         self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position))
         
-        self.edge = None
+        self._edge = None
         
     def getSocketPosition(self):
         if DEBUG_MODE: print("  Get Socket Pos: ", self.index, self.position, " node: ", self.node)
@@ -31,30 +31,30 @@ class Socket:
         return res
         
     def setConnectedEdge(self, edge=None):
-        self.edge = edge
+        self._edge = edge
 
     def hasEdge(self):
-        return self.edge is not None
+        return self._edge is not None
 
 class NodeGraphicsSocket(QGraphicsItem):
     def __init__(self, socket_type=1 ,parent=None) -> None:
         super().__init__(parent)
 
-        self.radius = 6.0
-        self.outline_width = 1.0
+        self._radius = 6.0
+        self._outline_width = 1.0
         self._pen = QPen(SocketColor.DEFAULT_OUTLINE)
-        self._pen.setWidthF(self.outline_width)
+        self._pen.setWidthF(self._outline_width)
         self.brush = QBrush(SocketColor.DEFAULT_COLOR_LIST[socket_type])
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         painter.setBrush(self.brush)
         painter.setPen(self._pen)
-        painter.drawEllipse(int(-self.radius), int(-self.radius), int(2*self.radius), int(2*self.radius))
+        painter.drawEllipse(int(-self._radius), int(-self._radius), int(2*self._radius), int(2*self._radius))
 
     def boundingRect(self):
         '''提供一個矩形範圍，用於確定繪製物件的範圍'''
         return QRectF(
-            -self.radius - self.outline_width,
-            -self.radius - self.outline_width,
-            2*(self.radius + self.outline_width),
-            2*(self.radius + self.outline_width))
+            -self._radius - self._outline_width,
+            -self._radius - self._outline_width,
+            2*(self._radius + self._outline_width),
+            2*(self._radius + self._outline_width))

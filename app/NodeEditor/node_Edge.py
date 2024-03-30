@@ -17,9 +17,9 @@ class Edge:
         self.start_socket = start_socket
         self.end_socket = end_socket
 
-        self.start_socket.edge = self
+        self.start_socket._edge = self
         if self.end_socket is not None:
-            self.end_socket.edge = self
+            self.end_socket._edge = self
 
         self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if edge_type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
 
@@ -44,11 +44,11 @@ class Edge:
     def remove_from_sockets(self):
         '''判斷移除連結點'''
         if self.start_socket is not None:
-            self.start_socket.edge = None
+            self.start_socket._edge = None
         if self.end_socket is not None:
-            self.end_socket.edge = None
-        self.end_socket.edge = None
-        self.start_socket.edge = None
+            self.end_socket._edge = None
+        self.end_socket._edge = None
+        self.start_socket._edge = None
         
     def remove(self):
         self.remove_from_sockets()

@@ -55,7 +55,8 @@ class Node():
             if socket.hasEdge():
                 socket._edge.updatePositions()
 
-class NodeContentWidget(QWidget):
+class NodeContentWidgetDefault(QWidget):
+    '''預設文字介紹'''
     def __init__(self, parent=None):
         super().__init__(parent)
         
@@ -69,6 +70,24 @@ class NodeContentWidget(QWidget):
         self.label = QLabel("Some Title")
         self.vboxLayout.addWidget(self.label)
         self.vboxLayout.addWidget(QTextEdit("foo"))
+
+class NodeContentWidget(QWidget):
+    '''自製內部元件構造'''
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        
+        self.initUI()
+        
+    def initUI(self):
+        self.vboxLayout = QVBoxLayout()
+        self.vboxLayout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(self.vboxLayout)
+        
+    def addLabel(self, text):
+        label = QLabel()
+        label.setText(text)
+        self.vboxLayout.addWidget(label)
+        return label
 
 class NodeGraphicsNode(QGraphicsItem):
     def __init__(self, node:Node, parent=None):

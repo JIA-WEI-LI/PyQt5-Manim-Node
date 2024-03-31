@@ -22,7 +22,7 @@ class Socket:
         self.graphicsSocket = NodeGraphicsSocket(self.socket_type, parent=self.node.graphicsNode)
         self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position))
         
-        self._edge = None
+        self.edge = None
         
     def getSocketPosition(self):
         if DEBUG_MODE: print("  Get Socket Pos: ", self.index, self.position, " node: ", self.node)
@@ -31,10 +31,10 @@ class Socket:
         return res
         
     def setConnectedEdge(self, edge=None):
-        self._edge = edge
+        self.edge = edge
 
     def hasEdge(self):
-        return self._edge is not None
+        return self.edge is not None
 
 class NodeGraphicsSocket(QGraphicsItem):
     def __init__(self, socket_type=1 ,parent=None) -> None:

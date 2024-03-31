@@ -5,30 +5,32 @@ from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
 from .nodeEditor_Scene import Scene
 
+from config.debug import DEBUG_MODE
 from config.palette import NodeColor
 
 class Node():
     '''節點'''
-    def __init__(self, scene:Scene, title="Undefined Node", inputs=[], outputs=[]):
+    def __init__(self, scene:Scene, title="Undefined Node", input=[], output=[]):
         self.scene = scene
         self.title = title
+        self.input = input
+        self.output = output
+        self.socketSpace = 22   # 連結點之間空間
         
         self.content = NodeContentWidget()
         self.graphicsNode = NodeGraphicsNode(self)
         self.scene.addNode(self)
         self.scene.nodeGraphicsScene.addItem(self.graphicsNode)
 
-        self.socketSpace = 22   # 連結點之間空間
-        
         self.inputs = []
         self.outputs = []
         counter = 0
-        for item in inputs:
+        for item in input:
             socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item)
             counter += 1
             self.inputs.append(socket)
         counter = 0
-        for item in outputs:
+        for item in output:
             socket = Socket(node=self, index=counter, position=RIGHT_TOP, socket_type=item)
             counter += 1
             self.outputs.append(socket)
@@ -44,7 +46,7 @@ class Node():
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # 如果設置底下開始，節點的編號也會從底部開始計算
-            y = self.graphicsNode.height - self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
+            y = self.graphicsNode.height - 2* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
         else:
             y = self.graphicsNode.titleHeight + self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
 
@@ -53,7 +55,7 @@ class Node():
     def updateConnectedEdges(self):
         for socket in self.inputs + self.outputs:
             if socket.hasEdge():
-                socket._edge.updatePositions()
+                socket.edge.updatePositions()
 
 class NodeContentWidgetDefault(QWidget):
     '''預設文字介紹'''
@@ -93,18 +95,22 @@ class NodeContentWidget(QWidget):
         return label
 
 class NodeGraphicsNode(QGraphicsItem):
-    def __init__(self, node:Node, parent=None):
+    def __init__(self, node:Node ,parent=None):
         super().__init__(parent=parent)
         self.node = node
         self.content = self.node.content
         
         self.titleFont = QFont("Ubuntu", 10)
         
-        self.width, self.height = 180, 240  # 節點寬高
+        self.width = 180  # 節點寬高
+        # self.height = 240
         self.padding = 4.0                  # 連結點位置出血區
         self.edgeSize = 10.0
         self.titleHeight = 24.0
         self.titlePadding = 6.0
+
+        # 節點高度隨輸入與輸出點多寡改變
+        self.height = self.titleHeight + 2 * self.padding + self.edgeSize + (len(self.node.input) + len(self.node.output)) * self.node.socketSpace
         
         # 標題
         self.initTitle()

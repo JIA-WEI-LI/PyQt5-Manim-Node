@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QRectF 
-from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QCheckBox, QGraphicsSceneMouseEvent, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget, QPushButton, QSizePolicy
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
 from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
@@ -39,7 +39,8 @@ class Node():
             counter += 1
             self.inputs.append(socket)
 
-            self.content.addLabel(f"輸入點{counter}")
+            # self.content.addLabel(f"輸入點{counter}")
+            self.content.addCheckbox(f"輸入點{counter}")
 
     @property
     def pos(self):
@@ -84,6 +85,7 @@ class NodeContentWidget(QWidget):
     '''自製內部元件構造'''
     def __init__(self, parent=None):
         super().__init__(parent)
+        self.socketSpace = 16
         
         self.initUI()
         
@@ -95,9 +97,10 @@ class NodeContentWidget(QWidget):
         self.setLayout(self.vboxLayout)
         
     def addLabel(self, text, isOutput=False):
-        label = QLabel()
+        label = QLabel(self)
         label.setText(text)
         label.setStyleSheet("color: white;")
+        label.setFixedHeight(self.socketSpace)
         if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.vboxLayout.addWidget(label)
         return label
@@ -105,10 +108,22 @@ class NodeContentWidget(QWidget):
     def addButton(self, text):
         button = QPushButton(self)
         button.setText(text)
-        button.setStyleSheet("color: white;")
+        button.setStyleSheet("color: white; border: none; background-color: #333; border-radius: 10px; border-bottom: 2px solid #111;")
+        button.setFixedHeight(self.socketSpace)
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.vboxLayout.addWidget(button)
         return button
+    
+    def addCheckbox(self, text, isOutput=False):
+        hLayoutBox = QHBoxLayout()
+        checkbox = QCheckBox()
+        label = QLabel()
+        hLayoutBox.setContentsMargins(0, 0, 0, 0)
+        hLayoutBox.addWidget(checkbox, stretch=1) if isOutput else hLayoutBox.addWidget(checkbox)
+        hLayoutBox.addWidget(label) if isOutput else hLayoutBox.addWidget(label, stretch=1)
+
+        self.vboxLayout.addLayout(hLayoutBox)
+        return checkbox, label
 
 class NodeGraphicsNode(QGraphicsItem):
     def __init__(self, node:Node ,parent=None):

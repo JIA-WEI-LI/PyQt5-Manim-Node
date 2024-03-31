@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QRectF 
-from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
+from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QWidget, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget, QPushButton, QSizePolicy
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
 from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
@@ -25,15 +25,21 @@ class Node():
         self.inputs = []
         self.outputs = []
         counter = 0
-        for item in input:
-            socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item)
-            counter += 1
-            self.inputs.append(socket)
-        counter = 0
         for item in output:
             socket = Socket(node=self, index=counter, position=RIGHT_TOP, socket_type=item)
             counter += 1
             self.outputs.append(socket)
+
+            self.content.addLabel(f"輸出點{counter}", isOutput=True)
+        self.content.vboxLayout.addSpacing(5)
+        
+        counter = 0
+        for item in input:
+            socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item)
+            counter += 1
+            self.inputs.append(socket)
+
+            self.content.addLabel(f"輸入點{counter}")
 
     @property
     def pos(self):
@@ -43,6 +49,7 @@ class Node():
         self.graphicsNode.setPos(x, y)
 
     def getSocketPosition(self, index, position):
+        '''設置連結點位置'''
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # 如果設置底下開始，節點的編號也會從底部開始計算
@@ -55,7 +62,7 @@ class Node():
     def updateConnectedEdges(self):
         for socket in self.inputs + self.outputs:
             if socket.hasEdge():
-                socket.edge.updatePositions()
+                socket.edge.updatePositions()  
 
 class NodeContentWidgetDefault(QWidget):
     '''預設文字介紹'''
@@ -87,12 +94,21 @@ class NodeContentWidget(QWidget):
         self.vboxLayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.vboxLayout)
         
-    def addLabel(self, text):
+    def addLabel(self, text, isOutput=False):
         label = QLabel()
         label.setText(text)
         label.setStyleSheet("color: white;")
+        if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.vboxLayout.addWidget(label)
         return label
+    
+    def addButton(self, text):
+        button = QPushButton(self)
+        button.setText(text)
+        button.setStyleSheet("color: white;")
+        button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.vboxLayout.addWidget(button)
+        return button
 
 class NodeGraphicsNode(QGraphicsItem):
     def __init__(self, node:Node ,parent=None):

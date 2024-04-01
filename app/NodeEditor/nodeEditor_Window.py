@@ -4,10 +4,14 @@ from PyQt5.QtCore import Qt, QEvent
 
 from .node_Edge import Edge
 from .node_Node import Node
+from .node_Socket import NodeGraphicsSocket
 from .nodeEditor_Scene import Scene
 
 from config.debug import DEBUG_MODE
 from config.icon import Icon
+
+MODE_NOOP = 1
+MODE_EDGE_DRAG = 2
 
 class NodeEditorWindow(QWidget):
     def __init__(self, parent=None) -> None:
@@ -56,6 +60,8 @@ class NodeGraphicsView(QGraphicsView):
 
         self.initUI()
         self.setScene(self.graphicsScene)
+
+        self.mode = MODE_NOOP
 
         self.zoomInFactor = 1.25
         self.zoomClamp = True
@@ -107,10 +113,26 @@ class NodeGraphicsView(QGraphicsView):
 
     def leftMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠左鍵'''
-        super().mousePressEvent(event)
+        
 
         item = self.getItemAtClick(event)
         if DEBUG_MODE: print(item)
+        if type(item) is NodeGraphicsSocket:
+            if self.mode == MODE_NOOP:
+                self.mode = MODE_EDGE_DRAG
+                print("Starting dragging edge")
+                print("   assign Start Socket")
+                return
+            
+        if self.mode == MODE_EDGE_DRAG:
+            self.mode = MODE_NOOP
+            print("Ending dragging edge")
+            if type(item) is NodeGraphicsSocket:
+                print("   assign End Socket")
+                return
+
+        super().mousePressEvent(event)
+
         
     def rightMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠右鍵'''

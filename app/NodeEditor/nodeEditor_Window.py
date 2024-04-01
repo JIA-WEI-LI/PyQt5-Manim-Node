@@ -6,6 +6,7 @@ from .node_Edge import Edge
 from .node_Node import Node
 from .nodeEditor_Scene import Scene
 
+from config.debug import DEBUG_MODE
 from config.icon import Icon
 
 class NodeEditorWindow(QWidget):
@@ -107,6 +108,9 @@ class NodeGraphicsView(QGraphicsView):
     def leftMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠左鍵'''
         super().mousePressEvent(event)
+
+        item = self.getItemAtClick(event)
+        if DEBUG_MODE: print(item)
         
     def rightMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠右鍵'''
@@ -156,3 +160,8 @@ class NodeGraphicsView(QGraphicsView):
         elif event.type() == QEvent.Type.MouseButtonRelease:
             print("Mouse Released:", event.button())
         return super().eventFilter(obj, event)
+    
+    def getItemAtClick(self, event):
+        pos = event.pos()
+        obj = self.itemAt(pos)
+        return obj

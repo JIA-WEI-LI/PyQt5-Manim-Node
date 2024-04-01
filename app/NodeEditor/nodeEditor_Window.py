@@ -114,6 +114,7 @@ class NodeGraphicsView(QGraphicsView):
     def leftMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠左鍵'''
         item = self.getItemAtClick(event)
+        self.lastLmbClickScenePos = self.mapToScene(event.pos()) # 紀錄滑鼠初始點擊位置
         if DEBUG_MODE: print(item)
         if type(item) is NodeGraphicsSocket:
             if self.mode == MODE_NOOP:
@@ -139,12 +140,18 @@ class NodeGraphicsView(QGraphicsView):
         '''放開滑鼠左鍵'''
         item = self.getItemAtClick(event)
         if self.mode == MODE_EDGE_DRAG:
-            self.mode = MODE_NOOP
-            print("Ending dragging edge")
-            if type(item) is NodeGraphicsSocket:
-                print("   assign End Socket")
-                return
-        super().mouseReleaseEvent(event)
+            newLmbClickScenePos = self.mapToScene(event.pos())
+            distScenePos = newLmbClickScenePos - self.lastLmbClickScenePos
+            print("distance on click & release: ", distScenePos)
+            if 1==2:
+                pass
+            else:
+                self.mode = MODE_NOOP
+                print("Ending dragging edge")
+                if type(item) is NodeGraphicsSocket:
+                    print("   assign End Socket")
+                    return
+        # super().mouseReleaseEvent(event)
     
     def rightMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠右鍵'''

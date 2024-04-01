@@ -106,19 +106,19 @@ class NodeGraphicsView(QGraphicsView):
 
     def leftMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠左鍵'''
-        return super().mousePressEvent(event)
+        super().mousePressEvent(event)
         
     def rightMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠右鍵'''
-        return super().mousePressEvent(event)
+        super().mousePressEvent(event)
     
     def leftMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠左鍵'''
-        return super().mouseReleaseEvent(event)
+        super().mouseReleaseEvent(event)
     
     def rightMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠右鍵'''
-        return super().mouseReleaseEvent(event)
+        super().mouseReleaseEvent(event)
     
     def wheelEvent(self, event: QWheelEvent):
         '''滑鼠中鍵滾論縮放視窗'''

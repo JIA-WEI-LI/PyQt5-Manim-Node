@@ -113,8 +113,6 @@ class NodeGraphicsView(QGraphicsView):
 
     def leftMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠左鍵'''
-        
-
         item = self.getItemAtClick(event)
         if DEBUG_MODE: print(item)
         if type(item) is NodeGraphicsSocket:
@@ -133,13 +131,19 @@ class NodeGraphicsView(QGraphicsView):
 
         super().mousePressEvent(event)
 
-        
     def rightMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠右鍵'''
         super().mousePressEvent(event)
     
     def leftMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠左鍵'''
+        item = self.getItemAtClick(event)
+        if self.mode == MODE_EDGE_DRAG:
+            self.mode = MODE_NOOP
+            print("Ending dragging edge")
+            if type(item) is NodeGraphicsSocket:
+                print("   assign End Socket")
+                return
         super().mouseReleaseEvent(event)
     
     def rightMouseButtonRelease(self, event: QMouseEvent):

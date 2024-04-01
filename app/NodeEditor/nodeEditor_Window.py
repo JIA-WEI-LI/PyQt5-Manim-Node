@@ -13,6 +13,8 @@ from config.icon import Icon
 MODE_NOOP = 1
 MODE_EDGE_DRAG = 2
 
+EDGE_DRAG_START_THRESHOLD = 10
+
 class NodeEditorWindow(QWidget):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
@@ -119,17 +121,12 @@ class NodeGraphicsView(QGraphicsView):
         if type(item) is NodeGraphicsSocket:
             if self.mode == MODE_NOOP:
                 self.mode = MODE_EDGE_DRAG
-                print("Starting dragging edge")
-                print("   assign Start Socket")
+                self.edgeDragStart(item)
                 return
             
         if self.mode == MODE_EDGE_DRAG:
-            self.mode = MODE_NOOP
-            print("Ending dragging edge")
-            if type(item) is NodeGraphicsSocket:
-                print("   assign End Socket")
-                return
-
+            res = self.edgeDragEnd(item)
+            if res: return
         super().mousePressEvent(event)
 
     def rightMouseButtonPress(self, event: QMouseEvent):
@@ -140,18 +137,11 @@ class NodeGraphicsView(QGraphicsView):
         '''放開滑鼠左鍵'''
         item = self.getItemAtClick(event)
         if self.mode == MODE_EDGE_DRAG:
-            newLmbClickScenePos = self.mapToScene(event.pos())
-            distScenePos = newLmbClickScenePos - self.lastLmbClickScenePos
-            print("distance on click & release: ", distScenePos)
-            if 1==2:
-                pass
-            else:
-                self.mode = MODE_NOOP
-                print("Ending dragging edge")
-                if type(item) is NodeGraphicsSocket:
-                    print("   assign End Socket")
-                    return
-        # super().mouseReleaseEvent(event)
+            
+            if self.distanceBetweenClickAndReleaseIsOff(event):
+                res = self.edgeDragEnd(item)
+                if res: return
+        super().mouseReleaseEvent(event)
     
     def rightMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠右鍵'''
@@ -195,6 +185,26 @@ class NodeGraphicsView(QGraphicsView):
         return super().eventFilter(obj, event)
     
     def getItemAtClick(self, event):
+        '''回傳點擊的物件'''
         pos = event.pos()
         obj = self.itemAt(pos)
         return obj
+    
+    def edgeDragStart(self, item):
+        print("Start dragging edge")
+        print("   assign Start Socket")
+
+    def edgeDragEnd(self, item):
+        self.mode = MODE_NOOP
+        print("Ending dragging edge")
+        if type(item) is NodeGraphicsSocket:
+            print("   assign End Socket")
+            return True
+        return False
+    
+    def distanceBetweenClickAndReleaseIsOff(self, event):
+        '''確保距離上一次點擊滑鼠位置夠遠'''
+        newLmbClickScenePos = self.mapToScene(event.pos())
+        distScenePos = newLmbClickScenePos - self.lastLmbClickScenePos
+        edgeDragThreshoilSquare = EDGE_DRAG_START_THRESHOLD*EDGE_DRAG_START_THRESHOLD
+        return (distScenePos.x()*distScenePos.x() + distScenePos.y()*distScenePos.y()) > edgeDragThreshoilSquare

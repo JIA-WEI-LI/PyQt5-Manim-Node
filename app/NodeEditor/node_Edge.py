@@ -49,6 +49,7 @@ class Edge:
         
     def remove_from_sockets(self):
         '''判斷移除連結點'''
+        # 經過修正後
         if self.start_socket is not None:
             self.start_socket.edge = None
         if self.end_socket is not None:

@@ -53,9 +53,7 @@ class Edge:
             self.start_socket.edge = None
         if self.end_socket is not None:
             self.end_socket.edge = None
-        self.end_socket.edge = None
-        self.start_socket.edge = None
-        
+
     def remove(self):
         self.remove_from_sockets()
         self.scene.nodeGraphicsScene.removeItem(self.nodeGraphicsEdge)

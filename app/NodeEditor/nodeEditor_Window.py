@@ -215,10 +215,14 @@ class NodeGraphicsView(QGraphicsView):
 
     def edgeDragEnd(self, item):
         self.mode = MODE_NOOP
-        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - Ending dragging edge")
         if type(item) is NodeGraphicsSocket:
             if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd -    assign End Socket")
             return True
+        
+        if self.dragEdge is not None:  # 檢查 self.dragEdge 是否為 None
+            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - Ending dragging edge")
+            self.dragEdge.remove()
+            self.dragEdge = None
         return False
     
     def distanceBetweenClickAndReleaseIsOff(self, event):

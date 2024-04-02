@@ -191,14 +191,14 @@ class NodeGraphicsView(QGraphicsView):
         return obj
     
     def edgeDragStart(self, item):
-        print("Start dragging edge")
-        print("   assign Start Socket")
+        if DEBUG_MODE: print("View::edgeDragStart - Start dragging edge")
+        if DEBUG_MODE: print("View::edgeDragStart -    assign Start Socket")
 
     def edgeDragEnd(self, item):
         self.mode = MODE_NOOP
-        print("Ending dragging edge")
+        if DEBUG_MODE: print("View::edgeDragEnd - Ending dragging edge")
         if type(item) is NodeGraphicsSocket:
-            print("   assign End Socket")
+            if DEBUG_MODE: print("View::edgeDragEnd -    assign End Socket")
             return True
         return False
     

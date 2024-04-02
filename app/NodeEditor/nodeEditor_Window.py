@@ -7,7 +7,7 @@ from .node_Node import Node
 from .node_Socket import NodeGraphicsSocket
 from .nodeEditor_Scene import Scene
 
-from config.debug import DEBUG_MODE
+from config.debug import DebugMode
 from config.icon import Icon
 
 MODE_NOOP = 1
@@ -117,7 +117,7 @@ class NodeGraphicsView(QGraphicsView):
         '''按下滑鼠左鍵'''
         item = self.getItemAtClick(event)
         self.lastLmbClickScenePos = self.mapToScene(event.pos()) # 紀錄滑鼠初始點擊位置
-        if DEBUG_MODE: print(item)
+        if DebugMode.NODEEDITOR_WINDOW: print(item)
         if type(item) is NodeGraphicsSocket:
             if self.mode == MODE_NOOP:
                 self.mode = MODE_EDGE_DRAG
@@ -134,7 +134,7 @@ class NodeGraphicsView(QGraphicsView):
         super().mousePressEvent(event)
         
         item = self.getItemAtClick(event)
-        if DEBUG_MODE:
+        if DebugMode.NODEEDITOR_WINDOW:
             print("RMB DEBUG: ", item)
             
             if item is None:
@@ -202,14 +202,14 @@ class NodeGraphicsView(QGraphicsView):
         return obj
     
     def edgeDragStart(self, item):
-        if DEBUG_MODE: print("View::edgeDragStart - Start dragging edge")
-        if DEBUG_MODE: print("View::edgeDragStart -    assign Start Socket")
+        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - Start dragging edge")
+        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart -    assign Start Socket")
 
     def edgeDragEnd(self, item):
         self.mode = MODE_NOOP
-        if DEBUG_MODE: print("View::edgeDragEnd - Ending dragging edge")
+        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - Ending dragging edge")
         if type(item) is NodeGraphicsSocket:
-            if DEBUG_MODE: print("View::edgeDragEnd -    assign End Socket")
+            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd -    assign End Socket")
             return True
         return False
     

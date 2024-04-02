@@ -5,7 +5,7 @@ from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
 from .nodeEditor_Scene import Scene
 
-from config.debug import DEBUG_MODE
+from config.debug import DebugMode
 from config.palette import NodeColor
 
 class Node():

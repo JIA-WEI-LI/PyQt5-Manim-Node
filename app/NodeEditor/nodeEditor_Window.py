@@ -135,7 +135,8 @@ class NodeGraphicsView(QGraphicsView):
         
         item = self.getItemAtClick(event)
         if DebugMode.NODEEDITOR_WINDOW:
-            if isinstance(item, NodeGraphicsEdge): print("RMB DEBUG: ", item.edge)
+            if isinstance(item, NodeGraphicsEdge): print("RMB DEBUG: ", item.edge, "connecting sockets: ",
+                                                         item.edge.start_socket, " <--> ", item.edge.end_socket)
             if type(item) is NodeGraphicsSocket: print("RMB DEBUG: ", item.socket, "has edge", item.socket.edge)
             
             if item is None:

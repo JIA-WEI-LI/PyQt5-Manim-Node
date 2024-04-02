@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView
 from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent
 from PyQt5.QtCore import Qt, QEvent
 
-from .node_Edge import Edge
+from .node_Edge import Edge, NodeGraphicsEdge
 from .node_Node import Node
 from .node_Socket import NodeGraphicsSocket
 from .nodeEditor_Scene import Scene
@@ -135,7 +135,8 @@ class NodeGraphicsView(QGraphicsView):
         
         item = self.getItemAtClick(event)
         if DebugMode.NODEEDITOR_WINDOW:
-            print("RMB DEBUG: ", item)
+            if isinstance(item, NodeGraphicsEdge): print("RMB DEBUG", item.edge)
+            if type(item) is NodeGraphicsSocket: print("RMB DEBUG: ", item.socket, "has edge", item.socket.edge)
             
             if item is None:
                 print("Scene: ")
@@ -148,7 +149,6 @@ class NodeGraphicsView(QGraphicsView):
         '''放開滑鼠左鍵'''
         item = self.getItemAtClick(event)
         if self.mode == MODE_EDGE_DRAG:
-            
             if self.distanceBetweenClickAndReleaseIsOff(event):
                 res = self.edgeDragEnd(item)
                 if res: return

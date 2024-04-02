@@ -19,7 +19,7 @@ class Socket:
         
         if DebugMode.NODE_SOCKET: print("Socket -- creating with", self.index, self.position, "for node", self.node)
 
-        self.graphicsSocket = NodeGraphicsSocket(self.socket_type, parent=self.node.graphicsNode)
+        self.graphicsSocket = NodeGraphicsSocket(self, self.socket_type)
         self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position))
         
         self.edge = None
@@ -40,8 +40,9 @@ class Socket:
         return self.edge is not None
 
 class NodeGraphicsSocket(QGraphicsItem):
-    def __init__(self, socket_type=1 ,parent=None) -> None:
-        super().__init__(parent)
+    def __init__(self, socket:Socket, socket_type=1 ,parent=None) -> None:
+        self.socket = socket
+        super().__init__(socket.node.graphicsNode)
 
         self._radius = 4.0
         self._outline_width = 1.0

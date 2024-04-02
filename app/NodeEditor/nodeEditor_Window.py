@@ -180,6 +180,11 @@ class NodeGraphicsView(QGraphicsView):
 
     def mouseMoveEvent(self, event: QMouseEvent):
         '''滑鼠移動事件'''
+        if self.mode == MODE_EDGE_DRAG:
+            pos = self.mapToScene(event.pos())
+            self.dragEdge.nodeGraphicsEdge.setDestination(pos.x(), pos.y())
+            self.dragEdge.nodeGraphicsEdge.update()
+        
         if self.dragStartPosition:
             delta = event.pos() - self.dragStartPosition
             self.dragStartPosition = event.pos()

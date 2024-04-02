@@ -41,6 +41,8 @@ class Edge:
             end_pos[0] += self.end_socket.node.graphicsNode.pos().x()
             end_pos[1] += self.end_socket.node.graphicsNode.pos().y()
             self.nodeGraphicsEdge.setDestination(*end_pos)
+        else:
+            self.nodeGraphicsEdge.setDestination(*source_pos)
         if DebugMode.NODE_EDGE: print(" Start Socket: ", self.start_socket)
         if DebugMode.NODE_EDGE: print(" End  Socket: ", self.end_socket)
         self.nodeGraphicsEdge.update()

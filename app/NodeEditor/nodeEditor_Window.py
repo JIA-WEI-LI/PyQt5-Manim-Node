@@ -132,6 +132,17 @@ class NodeGraphicsView(QGraphicsView):
     def rightMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠右鍵'''
         super().mousePressEvent(event)
+        
+        item = self.getItemAtClick(event)
+        if DEBUG_MODE:
+            print("RMB DEBUG: ", item)
+            
+            if item is None:
+                print("Scene: ")
+                print("  Nodes:")
+                for node in self.graphicsScene.scene.nodes: print("    ", node)
+                print("  Edges:")
+                for edge in self.graphicsScene.scene.edges: print("    ", edge)
     
     def leftMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠左鍵'''

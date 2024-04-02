@@ -41,6 +41,9 @@ class Node():
 
             # self.content.addLabel(f"輸入點{counter}")
             self.content.addCheckbox(f"輸入點{counter}")
+            
+    def __str__(self) -> str:
+        return "<Node %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
 
     @property
     def pos(self):

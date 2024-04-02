@@ -23,6 +23,9 @@ class Socket:
         self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position))
         
         self.edge = None
+ 
+    def __str__(self) -> str:
+        return "<Socket %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
         
     def getSocketPosition(self):
         if DebugMode.NODE_SOCKET: print("  Get Socket Pos: ", self.index, self.position, " node: ", self.node)

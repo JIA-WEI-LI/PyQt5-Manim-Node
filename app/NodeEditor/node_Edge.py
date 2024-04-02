@@ -26,7 +26,11 @@ class Edge:
         self.updatePositions()
         if DebugMode.NODE_EDGE: print("Edge: ", self.nodeGraphicsEdge.posSource, "to", self.nodeGraphicsEdge.posDestination)
         self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
+        self.scene.addEdge(self)
         
+    def __str__(self) -> str:
+        return "<Edge %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
+
     def updatePositions(self):
         source_pos = self.start_socket.getSocketPosition()
         source_pos[0] += self.start_socket.node.graphicsNode.pos().x()

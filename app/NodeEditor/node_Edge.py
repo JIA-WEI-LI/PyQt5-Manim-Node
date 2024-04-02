@@ -1,8 +1,9 @@
+import math
 from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtWidgets import QGraphicsPathItem
 from PyQt5.QtGui import QPainter, QPainterPath, QPen
 
-from .node_Socket import Socket
+from .node_Socket import Socket, RIGHT_BOTTOM, RIGHT_TOP, LEFT_BOTTOM, LEFT_TOP
 from .nodeEditor_Scene import Scene
 
 from config.debug import DebugMode
@@ -10,6 +11,7 @@ from config.palette import EdgeColor
 
 EDGE_TYPE_DIRECT = 1
 EDGE_TYPE_BEZIER = 2
+EDGE_CP_ROUNDNESS = 100
 
 class Edge:
     def __init__(self, scene:Scene, start_socket:Socket, end_socket:Socket, edge_type=EDGE_TYPE_DIRECT) -> None:
@@ -116,6 +118,24 @@ class NodeGraphicsEdgeBezier(NodeGraphicsEdge):
         dist = (d[0]-s[0]) * 0.5
         if s[0] > d[0]: dist *= -1
         
+        cpx_s = +dist
+        cpx_d = -dist
+        cpy_s = 0
+        cpy_d = 0
+        
+        sspos = self.edge.start_socket.position
+        
+        if (s[0] > d[0] and sspos in (RIGHT_TOP, RIGHT_BOTTOM) or (s[0] < s[0] and sspos in (LEFT_BOTTOM, LEFT_TOP))):
+            cpx_d *= -1
+            cpx_s *= -1
+            
+            cpy_d = (
+                (s[1] - d[1]) / math.fabs(
+                    (s[1] - d[1]) if (s[1] - d[1]) !=0 else 0.00001)) * EDGE_CP_ROUNDNESS
+            cpy_s = (
+                (d[1] - s[1]) / math.fabs(
+                    (d[1] - s[1]) if (d[1] - s[1]) !=0 else 0.00001)) * EDGE_CP_ROUNDNESS
+        
         path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
-        path.cubicTo(s[0] + dist, s[1], d[0] - dist, d[1], self.posDestination[0], self.posDestination[1])
+        path.cubicTo(s[0] + cpx_s, s[1] + cpy_s, d[0] + cpx_d, d[1] + cpy_d, self.posDestination[0], self.posDestination[1])
         self.setPath(path)

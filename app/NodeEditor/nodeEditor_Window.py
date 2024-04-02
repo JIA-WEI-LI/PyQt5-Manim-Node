@@ -209,23 +209,23 @@ class NodeGraphicsView(QGraphicsView):
     
     def edgeDragStart(self, item):
         if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - Start dragging edge")
-        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart -    assign Start Socket to: ", item.socket)
+        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - assign Start Socket to: ", item.socket)
         self.previousEdge = item.socket.edge
         self.lastStartSocket = item.socket
         self.dragEdge = Edge(self.graphicsScene.scene, item.socket, None, EDGE_TYPE_BEZIER)
-        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart -    dragEdge: ", self.dragEdge)
+        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - dragEdge: ", self.dragEdge)
 
     def edgeDragEnd(self, item):
         self.mode = MODE_NOOP
         if type(item) is NodeGraphicsSocket:
-            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd -    assign End Socket", item.socket)
+            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - assign End Socket", item.socket)
             if self.previousEdge is not None: self.previousEdge.remove()
-            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd -    previousEdge edge remove")
+            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - previousEdge edge remove")
             self.dragEdge.start_socket = self.lastStartSocket
             self.dragEdge.end_socket = item.socket
             self.dragEdge.start_socket.setConnectedEdge(self.dragEdge)
             self.dragEdge.end_socket.setConnectedEdge(self.dragEdge)
-            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd -    reassigned start & end sockets to drag edge", item.socket)
+            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - reassigned start & end sockets to drag edge", item.socket)
             self.dragEdge.updatePositions()
             return True
         

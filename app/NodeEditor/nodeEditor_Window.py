@@ -2,10 +2,10 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView
 from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent
 from PyQt5.QtCore import Qt, QEvent
 
-from .node_Edge import Edge, NodeGraphicsEdge
+from .node_Edge import Edge, NodeGraphicsEdge, EDGE_TYPE_BEZIER
 from .node_Node import Node
 from .node_Socket import NodeGraphicsSocket
-from .nodeEditor_Scene import Scene
+from .nodeEditor_Scene import Scene, NodeGraphicsScene
 
 from config.debug import DebugMode
 from config.icon import Icon
@@ -49,14 +49,14 @@ class NodeEditorWindow(QWidget):
         node1.setPos(-350, -250)
         node2.setPos(0, 0)
         node3.setPos(50, -250)
-
+ 
         # node1.content.addLabel("First Label")
 
         edge1 = Edge(self.scene, node1.outputs[0], node2.inputs[0])
         edge1 = Edge(self.scene, node2.outputs[0], node3.inputs[0], edge_type=2)
 
 class NodeGraphicsView(QGraphicsView):
-    def __init__(self, graphicsScene, parent=None):
+    def __init__(self, graphicsScene: NodeGraphicsScene, parent=None):
         super().__init__(parent)
         self.graphicsScene = graphicsScene
 
@@ -204,7 +204,9 @@ class NodeGraphicsView(QGraphicsView):
     
     def edgeDragStart(self, item):
         if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - Start dragging edge")
-        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart -    assign Start Socket")
+        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart -    assign Start Socket to: ", item.socket)
+        self.dragEdge = Edge(self.graphicsScene.scene, item.socket, None, EDGE_TYPE_BEZIER)
+        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart -    dragEdge: ", self.dragEdge)
 
     def edgeDragEnd(self, item):
         self.mode = MODE_NOOP

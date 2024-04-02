@@ -70,6 +70,8 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         self._pen.setWidthF(2.0)
         self._penSelected = QPen(EdgeColor.DEFAULT_PEN_SELECTED)
         self._penSelected.setWidthF(2.0)
+        self._penDragging = QPen(EdgeColor.ORANGE)
+        self._penDragging.setStyle(Qt.PenStyle.DashLine)
 
         self.setFlag(QGraphicsPathItem.GraphicsItemFlag.ItemIsSelectable)
         
@@ -87,8 +89,11 @@ class NodeGraphicsEdge(QGraphicsPathItem):
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         self.updatePath()
         
+        if self.edge.end_socket is None:
+            painter.setPen(self._penDragging)
+        else:
+            painter.setPen(self._pen if not self.isSelected() else self._penSelected)
         painter.setBrush(Qt.BrushStyle.NoBrush)
-        painter.setPen(self._pen if not self.isSelected() else self._penSelected)
         painter.drawPath(self.path())
 
     def updatePath(self):

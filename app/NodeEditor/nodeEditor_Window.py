@@ -218,6 +218,9 @@ class NodeGraphicsView(QGraphicsView):
     def edgeDragEnd(self, item):
         self.mode = MODE_NOOP
         if type(item) is NodeGraphicsSocket:
+            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd -   - , previous End Socket:", self.previousEdge)
+            if item.socket.hasEdge():
+                item.socket.edge.remove()
             if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - assign End Socket", item.socket)
             if self.previousEdge is not None: self.previousEdge.remove()
             if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - previousEdge edge remove")

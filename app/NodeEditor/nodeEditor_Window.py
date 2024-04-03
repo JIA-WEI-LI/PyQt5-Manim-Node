@@ -2,9 +2,10 @@ from PyQt5.QtCore import Qt, QEvent
 from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView
 
-from Edge.node_Edge import Edge, NodeGraphicsEdge, EDGE_TYPE_BEZIER
-from Node.node_Node import Node
-from Socket.node_Socket import NodeGraphicsSocket
+from .Edge.node_Edge import Edge, EDGE_TYPE_BEZIER
+from .Edge.node_GraphicsEdge import NodeGraphicsEdge
+from .Node.node_Node import Node
+from .Socket.node_Socket import NodeGraphicsSocket
 from .nodeEditor_Scene import Scene, NodeGraphicsScene
 
 from common.performance_utils import calculate_time

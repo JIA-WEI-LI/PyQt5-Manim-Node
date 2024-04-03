@@ -3,8 +3,8 @@ from PyQt5.QtCore import Qt, QPointF
 from PyQt5.QtWidgets import QGraphicsPathItem
 from PyQt5.QtGui import QPainter, QPainterPath, QPen
 
-from .node_Socket import Socket, RIGHT_BOTTOM, RIGHT_TOP, LEFT_BOTTOM, LEFT_TOP
-from .nodeEditor_Scene import Scene
+from ..Socket.node_Socket import Socket, RIGHT_BOTTOM, RIGHT_TOP, LEFT_BOTTOM, LEFT_TOP
+from nodeEditor_Scene import Scene
 
 from config.debug import DebugMode
 from config.palette import EdgeColor

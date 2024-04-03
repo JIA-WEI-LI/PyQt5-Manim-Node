@@ -2,8 +2,8 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QCheckBox, QGraphicsSceneMouseEvent, QWidget, QHBoxLayout, QVBoxLayout, QLabel, QTextEdit, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget, QPushButton, QSizePolicy
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
-from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
-from .nodeEditor_Scene import Scene
+from ..Socket.node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
+from nodeEditor_Scene import Scene
 
 from common.style_sheet import StyleSheet
 from components.custom_checkbox import CheckBox
@@ -35,17 +35,20 @@ class Node():
             self.outputs.append(socket)
 
             self.content.addLabel(f"輸出點{counter}", isOutput=True)
-        self.content.vboxLayout.addSpacing(3)
         
         counter = 0
         for item in input:
             socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item)
             counter += 1
+            
+            print(item) 
+            if item == 1: 
+                print(f"輸入點{counter}：", item)
+                self.content.addCheckbox(f"輸入點{counter}")
+            else: self.content.addLabel(f"輸入點{counter}")
+            
             self.inputs.append(socket)
 
-            # self.content.addLabel(f"輸入點{counter}")
-            self.content.addCheckbox(f"輸入點{counter}")
-            
     def __str__(self) -> str:
         return "<Node %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
 
@@ -61,7 +64,8 @@ class Node():
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # 如果設置底下開始，節點的編號也會從底部開始計算
-            y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
+            # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + (index + len(self.output)) * self.socketSpace
         else:
             y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
 
@@ -110,8 +114,6 @@ class NodeContentWidget(QWidget):
         label.setFixedHeight(self.socketSpace)
         if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.vboxLayout.addWidget(label)
-        height = label.height()  # 獲取標籤的高度
-        print("Label Height:", height)
         return label
     
     def addButton(self, text):
@@ -134,9 +136,6 @@ class NodeContentWidget(QWidget):
         hLayoutBox.addWidget(checkbox, stretch=1) if isOutput else hLayoutBox.addWidget(checkbox)
         hLayoutBox.addWidget(label) if isOutput else hLayoutBox.addWidget(label, stretch=1)
         self.vboxLayout.addLayout(hLayoutBox)
-        
-        height = checkbox.height()  # 獲取標籤的高度
-        print("Checkbox Height:", height)
         return checkbox, label
 
 class NodeGraphicsNode(QGraphicsItem):

@@ -5,6 +5,8 @@ from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 from .node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
 from .nodeEditor_Scene import Scene
 
+from common.style_sheet import StyleSheet
+from components.custom_checkbox import CheckBox
 from config.debug import DebugMode
 from config.palette import NodeColor
 
@@ -117,15 +119,18 @@ class NodeContentWidget(QWidget):
         self.vboxLayout.addWidget(button)
         return button
     
+    @StyleSheet.apply(StyleSheet.NODE_NODE)
     def addCheckbox(self, text, isOutput=False):
         hLayoutBox = QHBoxLayout()
-        checkbox = QCheckBox()
-        label = QLabel()
+        checkbox = CheckBox()
+        label = QLabel(text)
+        label.setObjectName("checkboxLabel")
+        
         hLayoutBox.setContentsMargins(0, 0, 0, 0)
         hLayoutBox.addWidget(checkbox, stretch=1) if isOutput else hLayoutBox.addWidget(checkbox)
         hLayoutBox.addWidget(label) if isOutput else hLayoutBox.addWidget(label, stretch=1)
-
         self.vboxLayout.addLayout(hLayoutBox)
+        
         return checkbox, label
 
 class NodeGraphicsNode(QGraphicsItem):
@@ -202,6 +207,10 @@ class NodeGraphicsNode(QGraphicsItem):
         # self.content.setGeometry(self.edgeSize, self.titleHeight + self.edgeSize,
                                 #  self.width - 2*self.edgeSize, self.height - 2*self.edgeSize - self.titleHeight)
         self.graphicsContent.setWidget(self.content)
+
+    def initSockets(self):
+        '''節點連結點'''
+        pass
         
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         '''繪製節點圖形'''

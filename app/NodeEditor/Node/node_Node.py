@@ -33,15 +33,15 @@ class Node():
             counter += 1
             self.outputs.append(socket)
 
-            self.content.addLabel(f"輸出點{counter}", isOutput=True)
+            self.content.addLabel(f"Output {counter}", isOutput=True)
         
         counter = 0
         for item in input:
             socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item)
             counter += 1
             if item == 1: 
-                self.content.addCheckbox(f"輸入點{counter}")
-            else: self.content.addLabel(f"輸入點{counter}")
+                self.content.addCheckbox(f"Input {counter}")
+            else: self.content.addLabel(f"Input {counter}")
             
             self.inputs.append(socket)
 

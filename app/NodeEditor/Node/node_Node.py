@@ -39,10 +39,7 @@ class Node():
         for item in input:
             socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item)
             counter += 1
-            
-            print(item) 
             if item == 1: 
-                print(f"輸入點{counter}：", item)
                 self.content.addCheckbox(f"輸入點{counter}")
             else: self.content.addLabel(f"輸入點{counter}")
             
@@ -91,11 +88,12 @@ class NodeContentWidgetDefault(QWidget):
         self.vboxLayout.addWidget(self.label)
         self.vboxLayout.addWidget(QTextEdit("foo"))
 
+
 class NodeContentWidget(QWidget):
     '''自製內部元件構造'''
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.socketSpace = SOCKET_SPACE
+        self.socketSpace = SOCKET_SPACE-7
         
         self.initUI()
         
@@ -103,39 +101,61 @@ class NodeContentWidget(QWidget):
         
     def initUI(self):
         self.vboxLayout = QVBoxLayout()
-        self.vboxLayout.setContentsMargins(0, 2, 0, 0)
+        self.vboxLayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.vboxLayout)
         
+    @StyleSheet.apply(StyleSheet.NODE_NODE)
     def addLabel(self, text, isOutput=False):
         label = QLabel(self)
+        label.setObjectName("contentLabel")
+        
         label.setText(text)
-        label.setStyleSheet("color: white; border: 1px solid red;")
         label.setFixedHeight(self.socketSpace)
         if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
+        
+        if DebugMode.NODE_NODE: label.setStyleSheet("color: white; border: 1px solid red;")
+        
         return label
     
     def addButton(self, text):
         button = QPushButton(self)
         button.setText(text)
-        button.setStyleSheet("color: white; border: 1px solid red; background-color: #333; border-radius: 10px; border-bottom: 2px solid #111;")  # 添加外框樣式
         button.setFixedHeight(self.socketSpace)
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.vboxLayout.addWidget(button)
+        
+        if DebugMode.NODE_NODE: button.setStyleSheet("color: white; border: 1px solid red;")
+        
         return button
     
-    @StyleSheet.apply(StyleSheet.NODE_NODE)
     def addCheckbox(self, text, isOutput=False):
         hLayoutBox = QHBoxLayout()
         checkbox = CheckBox()
         label = QLabel(text)
         label.setObjectName("checkboxLabel")
         
+        checkbox.setFixedHeight(self.socketSpace)
+        label.setFixedHeight(self.socketSpace)
         hLayoutBox.setContentsMargins(0, 0, 0, 0)
         hLayoutBox.addWidget(checkbox, stretch=1) if isOutput else hLayoutBox.addWidget(checkbox)
         hLayoutBox.addWidget(label) if isOutput else hLayoutBox.addWidget(label, stretch=1)
         self.vboxLayout.addLayout(hLayoutBox)
         
-        checkbox.setStyleSheet("border: 1px solid red;")
-        label.setStyleSheet("color: white; border: 1px solid red;")
+        if DebugMode.NODE_NODE: checkbox.setStyleSheet("border: 1px solid red;")
+        if DebugMode.NODE_NODE: label.setStyleSheet("color: white; border: 1px solid red;")
+        
         return checkbox, label
+    
+    def setFixedHeightForAll(self):
+        total_height = self.vboxLayout.sizeHint().height()  # 獲取 vBoxLayout 的總高度
+        item_count = self.vboxLayout.count()  # 獲取 vBoxLayout 中元素的數量
+        if item_count == 0:
+            return
+        avg_height = total_height // item_count  # 計算平均高度
+
+        # 將每個元素的高度設置為平均高度
+        for i in range(item_count):
+            item_widget = self.vboxLayout.itemAt(i).widget()
+            if item_widget is not None:
+                item_widget.setFixedHeight(avg_height)

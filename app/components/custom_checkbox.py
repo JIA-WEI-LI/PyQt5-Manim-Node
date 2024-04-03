@@ -16,6 +16,7 @@ class ECheckBoxData(object):
     TextElide = Qt.TextElideMode.ElideMiddle
 
 class CheckBox(QCheckBox):
+    '''繼承自 QCheckBox，仿造 Blender Node 內部樣式'''
     CheckBoxData = ECheckBoxData()
    
     def __init__(self, CheckBoxData=ECheckBoxData()):

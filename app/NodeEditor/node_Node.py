@@ -10,6 +10,8 @@ from components.custom_checkbox import CheckBox
 from config.debug import DebugMode
 from config.palette import NodeColor
 
+SOCKET_SPACE = 30
+
 class Node():
     '''節點'''
     def __init__(self, scene:Scene, title="Undefined Node", input=[], output=[]):
@@ -17,7 +19,7 @@ class Node():
         self.title = title
         self.input = input
         self.output = output
-        self.socketSpace = 22   # 連結點之間空間
+        self.socketSpace = SOCKET_SPACE   # 連結點之間空間
         
         self.content = NodeContentWidget()
         self.graphicsNode = NodeGraphicsNode(self)
@@ -33,7 +35,7 @@ class Node():
             self.outputs.append(socket)
 
             self.content.addLabel(f"輸出點{counter}", isOutput=True)
-        self.content.vboxLayout.addSpacing(5)
+        self.content.vboxLayout.addSpacing(3)
         
         counter = 0
         for item in input:
@@ -59,9 +61,9 @@ class Node():
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # 如果設置底下開始，節點的編號也會從底部開始計算
-            y = self.graphicsNode.height - 2* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
+            y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
         else:
-            y = self.graphicsNode.titleHeight + self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
 
         return [x, y]
     
@@ -90,7 +92,7 @@ class NodeContentWidget(QWidget):
     '''自製內部元件構造'''
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.socketSpace = 16
+        self.socketSpace = SOCKET_SPACE - 6
         
         self.initUI()
         
@@ -98,7 +100,7 @@ class NodeContentWidget(QWidget):
         
     def initUI(self):
         self.vboxLayout = QVBoxLayout()
-        self.vboxLayout.setContentsMargins(0, 0, 0, 0)
+        self.vboxLayout.setContentsMargins(0, 2, 0, 0)
         self.setLayout(self.vboxLayout)
         
     def addLabel(self, text, isOutput=False):
@@ -108,6 +110,8 @@ class NodeContentWidget(QWidget):
         label.setFixedHeight(self.socketSpace)
         if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.vboxLayout.addWidget(label)
+        height = label.height()  # 獲取標籤的高度
+        print("Label Height:", height)
         return label
     
     def addButton(self, text):
@@ -131,6 +135,8 @@ class NodeContentWidget(QWidget):
         hLayoutBox.addWidget(label) if isOutput else hLayoutBox.addWidget(label, stretch=1)
         self.vboxLayout.addLayout(hLayoutBox)
         
+        height = checkbox.height()  # 獲取標籤的高度
+        print("Checkbox Height:", height)
         return checkbox, label
 
 class NodeGraphicsNode(QGraphicsItem):
@@ -143,7 +149,7 @@ class NodeGraphicsNode(QGraphicsItem):
         
         self.width = 180  # 節點寬高
         # self.height = 240
-        self.padding = 4.0                  # 連結點位置出血區
+        self.padding = 4.0  # 連結點位置出血區
         self.edgeSize = 10.0
         self.titleHeight = 24.0
         self.titlePadding = 6.0

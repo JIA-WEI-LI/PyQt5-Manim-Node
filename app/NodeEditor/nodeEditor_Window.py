@@ -44,7 +44,7 @@ class NodeEditorWindow(QWidget):
     def addNodes(self):
         '''新增節點'''
         # 放置初始節點
-        node1 = Node(self.scene, "第一個節點", input=[1, 2, 3, 3, 2], output=[1])
+        node1 = Node(self.scene, "第一個節點", input=[1, 2, 3, 3, 2,1,1,1,1,1,1,1,1,1], output=[1,1,1,1])
         node2 = Node(self.scene, "第二個節點", input=[1, 2, 3], output=[1, 2])
         node3 = Node(self.scene, "第三個節點", input=[1, 2, 3], output=[1])
         node1.setPos(-350, -250)

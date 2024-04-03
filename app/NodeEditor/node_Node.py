@@ -202,10 +202,6 @@ class NodeGraphicsNode(QGraphicsItem):
         # self.content.setGeometry(self.edgeSize, self.titleHeight + self.edgeSize,
                                 #  self.width - 2*self.edgeSize, self.height - 2*self.edgeSize - self.titleHeight)
         self.graphicsContent.setWidget(self.content)
-
-    def initSockets(self):
-        '''節點連結點'''
-        pass
         
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         '''繪製節點圖形'''

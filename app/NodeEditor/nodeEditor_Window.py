@@ -1,13 +1,14 @@
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView
-from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent
 from PyQt5.QtCore import Qt, QEvent
+from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView
 
 from .node_Edge import Edge, NodeGraphicsEdge, EDGE_TYPE_BEZIER
 from .node_Node import Node
 from .node_Socket import NodeGraphicsSocket
 from .nodeEditor_Scene import Scene, NodeGraphicsScene
 
-from config.debug import DebugMode
+from common.performance_utils import calculate_time
+from config.debug import DebugMode, DebugTimer
 from config.icon import Icon
 
 MODE_NOOP = 1
@@ -207,6 +208,7 @@ class NodeGraphicsView(QGraphicsView):
         obj = self.itemAt(pos)
         return obj
     
+    @calculate_time(DebugTimer.NODEEDITOR_WINDOW)
     def edgeDragStart(self, item):
         if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - Start dragging edge")
         if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - assign Start Socket to: ", item.socket)

@@ -208,7 +208,6 @@ class NodeGraphicsView(QGraphicsView):
         obj = self.itemAt(pos)
         return obj
     
-    @calculate_time(DebugTimer.NODEEDITOR_WINDOW)
     def edgeDragStart(self, item):
         if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - Start dragging edge")
         if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - assign Start Socket to: ", item.socket)
@@ -243,6 +242,7 @@ class NodeGraphicsView(QGraphicsView):
         if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - everything done")
         return False
     
+    @calculate_time(DebugTimer.NODEEDITOR_WINDOW) 
     def distanceBetweenClickAndReleaseIsOff(self, event):
         '''確保距離上一次點擊滑鼠位置夠遠'''
         newLmbClickScenePos = self.mapToScene(event.pos())

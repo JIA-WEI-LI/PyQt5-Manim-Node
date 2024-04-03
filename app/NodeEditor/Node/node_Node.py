@@ -95,7 +95,7 @@ class NodeContentWidget(QWidget):
     '''自製內部元件構造'''
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.socketSpace = SOCKET_SPACE - 6
+        self.socketSpace = SOCKET_SPACE
         
         self.initUI()
         
@@ -109,16 +109,16 @@ class NodeContentWidget(QWidget):
     def addLabel(self, text, isOutput=False):
         label = QLabel(self)
         label.setText(text)
-        label.setStyleSheet("color: white;")
+        label.setStyleSheet("color: white; border: 1px solid red;")
         label.setFixedHeight(self.socketSpace)
-        if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight)
+        if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
         return label
     
     def addButton(self, text):
         button = QPushButton(self)
         button.setText(text)
-        button.setStyleSheet("color: white; border: none; background-color: #333; border-radius: 10px; border-bottom: 2px solid #111;")
+        button.setStyleSheet("color: white; border: 1px solid red; background-color: #333; border-radius: 10px; border-bottom: 2px solid #111;")  # 添加外框樣式
         button.setFixedHeight(self.socketSpace)
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.vboxLayout.addWidget(button)
@@ -135,4 +135,7 @@ class NodeContentWidget(QWidget):
         hLayoutBox.addWidget(checkbox, stretch=1) if isOutput else hLayoutBox.addWidget(checkbox)
         hLayoutBox.addWidget(label) if isOutput else hLayoutBox.addWidget(label, stretch=1)
         self.vboxLayout.addLayout(hLayoutBox)
+        
+        checkbox.setStyleSheet("border: 1px solid red;")
+        label.setStyleSheet("color: white; border: 1px solid red;")
         return checkbox, label

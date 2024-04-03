@@ -16,8 +16,8 @@ class SocketColor:
     DEFAULT_BACKGROUND = QColor('#FFFF7700')
     DEFAULT_OUTLINE = QColor('#FF000000')
     DEFAULT_COLOR_LIST = [
-        QColor('#FFFF7700'),
-        QColor('#FF52e220'),
+        QColor('#FF9D9D9D'),
+        QColor('#FFE1E100'),
         QColor('#FF0056a6'),
         QColor('#FFa86db1'),
         QColor('#FFb54747'),

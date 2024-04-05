@@ -12,7 +12,7 @@ class StyleSheet:
 
     def path(self, style_type, theme=Theme.DARK):
         theme = theme if theme == Theme.DARK else theme
-        return f"PyQt5-Manim-Node\\app\\resources\\qss\\{theme.value.lower()}\\{style_type}.qss"
+        return f"app\\resources\\qss\\{theme.value.lower()}\\{style_type}.qss"
     
     @staticmethod
     def apply(style_type, theme=None):

@@ -6,8 +6,8 @@ class WindowColor:
     DEFAULT_PEN_DARK = QColor("#292929")
 
     BLENDER_BACKGROUND = QColor("#1d1d1d") 
-    BLENDER_PEN_LIGHT = QColor("#1d1d1d")
-    BLENDER_PEN_DARK = QColor("#1d1d1d")
+    BLENDER_PEN_LIGHT = QColor("#222")
+    BLENDER_PEN_DARK = QColor("#2a2a2a")
 
 class NodeColor:
     DEFAULT_TITLE = QColor('#fff')
@@ -20,7 +20,7 @@ class NodeColor:
     BLENDER_PEN = QColor('#7F000000')
     BLENDER_PEN_SELECTED = QColor('#FFFFFF')
     BLENDER_BRUSH_TITLE = QColor('#1d725e')
-    BLENDER_BRUSH_BACKGROUND = QColor('#303030')
+    BLENDER_BRUSH_BACKGROUND = QColor('#E3303030')
 
 class SocketColor:
     DEFAULT_BACKGROUND = QColor('#FFFF7700')

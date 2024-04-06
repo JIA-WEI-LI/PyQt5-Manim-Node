@@ -10,7 +10,7 @@ class NodeGraphicsSocket(QGraphicsItem):
         self.socket = socket
         super().__init__(socket.node.graphicsNode)
 
-        self._radius = 5.0
+        self._radius = 6.0
         self._outline_width = 1.0
         self._pen = QPen(SocketColor.DEFAULT_OUTLINE)
         self._pen.setWidthF(self._outline_width)

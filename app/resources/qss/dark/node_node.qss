@@ -22,13 +22,13 @@ QWidget {
 }
 
 #nodePushButton {
-    background-color: #333;
+    background-color: #545454;
 }
 #nodePushButton:hover {
-    background-color: #555;
+    background-color: #656565;
 }
 #nodePushButton:pressed {
-    background-color: #444;
+    background-color: #222;
 }
 
 #nodeCheckboxLabel {

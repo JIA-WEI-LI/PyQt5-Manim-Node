@@ -16,11 +16,11 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         super().__init__(parent)
         self.edge = edge
 
-        self._pen = QPen(EdgeColor.ORANGE)
-        self._pen.setWidthF(2.0)
-        self._penSelected = QPen(EdgeColor.DEFAULT_PEN_SELECTED)
-        self._penSelected.setWidthF(2.0)
-        self._penDragging = QPen(EdgeColor.ORANGE)
+        self._pen = QPen(EdgeColor.BLENDER_GREEN)
+        self._pen.setWidthF(3.0)
+        self._penSelected = QPen(EdgeColor.BLENDER_PEN_SELECTED)
+        self._penSelected.setWidthF(3.0)
+        self._penDragging = QPen(EdgeColor.BLENDER_GREEN)
         self._penDragging.setStyle(Qt.PenStyle.DashLine)
 
         self.setFlag(QGraphicsPathItem.GraphicsItemFlag.ItemIsSelectable)

@@ -41,11 +41,11 @@ class NodeGraphicsScene(QGraphicsScene):
         self.sceenWidth, self.sceenHeight = 640000, 640000
         self.setSceneRect(self.sceenWidth//2, self.sceenHeight//2, self.sceenWidth, self.sceenHeight)
 
-        self.penLight = QPen(WindowColor.DEFAULT_PEN_LIGHT)
+        self.penLight = QPen(WindowColor.BLENDER_PEN_LIGHT)
         self.penLight.setWidth(1)
-        self.penDark = QPen(WindowColor.DEFAULT_PEN_DARK)
+        self.penDark = QPen(WindowColor.BLENDER_PEN_DARK)
         self.penDark.setWidth(2)
-        self.setBackgroundBrush(WindowColor.DEFAULT_BACKGROUND)
+        self.setBackgroundBrush(WindowColor.BLENDER_BACKGROUND)
 
     def setGraphicsScene(self, width, height):
         self.setSceneRect(-width//2, -height//2, width, height)

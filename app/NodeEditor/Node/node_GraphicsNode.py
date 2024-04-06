@@ -39,6 +39,11 @@ class NodeGraphicsNode(QGraphicsItem):
         super().mouseMoveEvent(event)
         self.node.updateConnectedEdges()
         
+        # 修復當選取多個物件時線段未被及時更新問題
+        for node in self.scene().scene.nodes:
+            if node.isSelected():
+                self.updateConnectedEdges()
+        
     @property
     def title(self): return self._title
     @title.setter

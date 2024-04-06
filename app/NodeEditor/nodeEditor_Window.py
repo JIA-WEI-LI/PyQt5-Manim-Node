@@ -127,7 +127,8 @@ class NodeGraphicsView(QGraphicsView):
         item = self.getItemAtClick(event)
         self.lastLmbClickScenePos = self.mapToScene(event.pos()) # 紀錄滑鼠初始點擊位置
         
-        if hasattr(item, "node"):
+        # 使用快捷鍵選取複數物件
+        if hasattr(item, "node") or isinstance(item, NodeGraphicsEdge):
             if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
                 if DEBUG: print("LMB + Shift on ", item)
                 event.ignore()
@@ -169,10 +170,23 @@ class NodeGraphicsView(QGraphicsView):
     def leftMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠左鍵'''
         item = self.getItemAtClick(event)
+
+        # 使用快捷鍵選取複數物件
+        if hasattr(item, "node") or isinstance(item, NodeGraphicsEdge):
+            if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
+                if DEBUG: print("LMB Release + Shift on ", item)
+                event.ignore()
+                fakeEvent = QMouseEvent(event.type(), event.localPos(), event.screenPos(),
+                                        Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton,
+                                        event.modifiers() | Qt.KeyboardModifier.ControlModifier)
+                super().mouseReleaseEvent(fakeEvent)
+                return 
+            
         if self.mode == MODE_EDGE_DRAG:
             if self.distanceBetweenClickAndReleaseIsOff(event):
                 res = self.edgeDragEnd(item)
                 if res: return
+
         super().mouseReleaseEvent(event)
     
     def rightMouseButtonRelease(self, event: QMouseEvent):

@@ -2,8 +2,14 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
 
+from common.color_sheet import color_manager
 from config.debug import DebugMode
-from config.palette import NodeColor
+
+TITLEITEM_COLOR = color_manager.get_color("NodeColor", "BLENDER_TITLE")
+TITLEITEM_BRUSH = color_manager.get_color("NodeColor", "BLENDER_BRUSH_TITLE")
+BACKGROUND_BRUSH = color_manager.get_color("NodeColor", "BLENDER_BRUSH_BACKGROUND")
+PEN_COLOR = color_manager.get_color("NodeColor", "BLENDER_PEN")
+PEN_SELECTED_COLOR = color_manager.get_color("NodeColor", "BLENDER_PEN_SELECTED")
 
 class NodeGraphicsNode(QGraphicsItem):
     def __init__(self, node ,parent=None):
@@ -67,7 +73,7 @@ class NodeGraphicsNode(QGraphicsItem):
         '''節點主名稱標題'''
         self.titleItem = QGraphicsTextItem(self)
         self.titleItem.node = self.node
-        self.titleItem.setDefaultTextColor(NodeColor.BLENDER_TITLE)
+        self.titleItem.setDefaultTextColor(TITLEITEM_COLOR)
         self.titleItem.setFont(self.titleFont)
         self.titleItem.setPos(self.titlePadding, self.titlePadding//2)
         self.titleItem.setTextWidth(self.width - 2 * self.titlePadding)
@@ -98,7 +104,7 @@ class NodeGraphicsNode(QGraphicsItem):
         pathTitle.addRect(0, self.titleHeight - self.edgeSize, self.edgeSize, self.edgeSize)
         pathTitle.addRect(self.width - self.edgeSize, self.titleHeight - self.edgeSize, self.edgeSize, self.edgeSize)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(NodeColor.BLENDER_BRUSH_TITLE))
+        painter.setBrush(QBrush(TITLEITEM_BRUSH))
         painter.drawPath(pathTitle.simplified())
         # 描述
         pathContent = QPainterPath()
@@ -107,11 +113,11 @@ class NodeGraphicsNode(QGraphicsItem):
         pathContent.addRect(0, self.titleHeight, self.edgeSize, self.edgeSize)
         pathContent.addRect(self.width - self.edgeSize, self.titleHeight, self.edgeSize, self.edgeSize)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(NodeColor.BLENDER_BRUSH_BACKGROUND))
+        painter.setBrush(QBrush(BACKGROUND_BRUSH))
         painter.drawPath(pathContent.simplified())
         # 邊框
         pathOutline = QPainterPath()
         pathOutline.addRoundedRect(0, 0, self.width, self.height, self.edgeSize, self.edgeSize)
-        painter.setPen(QPen(NodeColor.BLENDER_PEN) if not self.isSelected() else QPen(NodeColor.BLENDER_PEN_SELECTED))
+        painter.setPen(QPen(PEN_COLOR) if not self.isSelected() else QPen(PEN_SELECTED_COLOR))
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(pathOutline.simplified())

@@ -3,7 +3,6 @@ from ..Socket.node_Socket import Socket
 from ..nodeEditor_Scene import Scene
 
 from config.debug import DebugMode
-from config.palette import EdgeColor
 
 EDGE_TYPE_DIRECT = 1
 EDGE_TYPE_BEZIER = 2

@@ -5,7 +5,11 @@ from PyQt5.QtWidgets import QGraphicsScene
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtCore import QLine
 
-from config.palette import WindowColor
+from common.color_sheet import color_manager
+
+PENLIGHT_COLOR = color_manager.get_color("WindowColor", "BLENDER_PEN_LIGHT")
+PENDARK_COLOR = color_manager.get_color("WindowColor", "BLENDER_PEN_DARK")
+BACKGROUND_COLOR = color_manager.get_color("WindowColor", "BLENDER_BACKGROUND")
 
 class Scene:
     def __init__(self):
@@ -41,11 +45,11 @@ class NodeGraphicsScene(QGraphicsScene):
         self.sceenWidth, self.sceenHeight = 640000, 640000
         self.setSceneRect(self.sceenWidth//2, self.sceenHeight//2, self.sceenWidth, self.sceenHeight)
 
-        self.penLight = QPen(WindowColor.BLENDER_PEN_LIGHT)
+        self.penLight = QPen(PENLIGHT_COLOR)
         self.penLight.setWidth(1)
-        self.penDark = QPen(WindowColor.BLENDER_PEN_DARK)
+        self.penDark = QPen(PENDARK_COLOR)
         self.penDark.setWidth(2)
-        self.setBackgroundBrush(WindowColor.BLENDER_BACKGROUND)
+        self.setBackgroundBrush(BACKGROUND_COLOR)
 
     def setGraphicsScene(self, width, height):
         self.setSceneRect(-width//2, -height//2, width, height)

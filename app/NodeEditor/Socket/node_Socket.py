@@ -1,6 +1,5 @@
 from .node_GraphicsSocket import NodeGraphicsSocket
 from config.debug import DebugMode
-from config.palette import SocketColor
 
 LEFT_TOP = 1
 LEFT_BOTTOM = 2

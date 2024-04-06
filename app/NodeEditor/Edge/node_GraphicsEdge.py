@@ -5,10 +5,14 @@ from PyQt5.QtGui import QPainter, QPainterPath, QPen
 
 from ..Socket.node_Socket import Socket, RIGHT_BOTTOM, RIGHT_TOP, LEFT_BOTTOM, LEFT_TOP
 
+from common.color_sheet import color_manager
 from config.debug import DebugMode
-from config.palette import EdgeColor
 
 EDGE_CP_ROUNDNESS = 100
+
+PEN_COLOR = color_manager.get_color("EdgeColor", "BLENDER_GREEN")
+PEN_SELECTED_COLOR = color_manager.get_color("EdgeColor", "BLENDER_PEN_SELECTED")
+PEN_DRAGGING_COLOR = color_manager.get_color("EdgeColor", "BLENDER_GREEN")
 
 class NodeGraphicsEdge(QGraphicsPathItem):
     '''繪製基礎連接線段'''
@@ -16,11 +20,11 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         super().__init__(parent)
         self.edge = edge
 
-        self._pen = QPen(EdgeColor.BLENDER_GREEN)
+        self._pen = QPen(PEN_COLOR)
         self._pen.setWidthF(3.0)
-        self._penSelected = QPen(EdgeColor.BLENDER_PEN_SELECTED)
+        self._penSelected = QPen(PEN_SELECTED_COLOR)
         self._penSelected.setWidthF(3.0)
-        self._penDragging = QPen(EdgeColor.BLENDER_GREEN)
+        self._penDragging = QPen(PEN_DRAGGING_COLOR)
         self._penDragging.setStyle(Qt.PenStyle.DashLine)
 
         self.setFlag(QGraphicsPathItem.GraphicsItemFlag.ItemIsSelectable)

@@ -17,6 +17,7 @@ MODE_NOOP = 1
 MODE_EDGE_DRAG = 2
 
 EDGE_DRAG_START_THRESHOLD = 10
+DEBUG = DebugMode.NODEEDITOR_WINDOW
 
 class NodeEditorWindow(QWidget):
     def __init__(self, parent=None) -> None:
@@ -128,8 +129,8 @@ class NodeGraphicsView(QGraphicsView):
         
         if hasattr(item, "node"):
             if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
-                if DebugMode.NODEEDITOR_WINDOW: print("LMB + Shift on ", item)
-        if DebugMode.NODEEDITOR_WINDOW: print(item)
+                if DEBUG: print("LMB + Shift on ", item)
+        if DEBUG: print(item)
         if type(item) is NodeGraphicsSocket:
             if self.mode == MODE_NOOP:
                 self.mode = MODE_EDGE_DRAG
@@ -146,7 +147,7 @@ class NodeGraphicsView(QGraphicsView):
         super().mousePressEvent(event)
         
         item = self.getItemAtClick(event)
-        if DebugMode.NODEEDITOR_WINDOW:
+        if DEBUG:
             if isinstance(item, NodeGraphicsEdge): print("RMB DEBUG: ", item.edge, "connecting sockets: ",
                                                          item.edge.start_socket, " <--> ", item.edge.end_socket)
             if type(item) is NodeGraphicsSocket: print("RMB DEBUG: ", item.socket, "has edge", item.socket.edge)
@@ -220,37 +221,37 @@ class NodeGraphicsView(QGraphicsView):
         return obj
     
     def edgeDragStart(self, item):
-        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - Start dragging edge")
-        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - assign Start Socket to: ", item.socket)
+        if DEBUG: print("View::edgeDragStart - Start dragging edge")
+        if DEBUG: print("View::edgeDragStart - assign Start Socket to: ", item.socket)
         self.previousEdge = item.socket.edge
         self.lastStartSocket = item.socket
         self.dragEdge = Edge(self.graphicsScene.scene, item.socket, None, EDGE_TYPE_BEZIER)
-        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragStart - dragEdge: ", self.dragEdge)
+        if DEBUG: print("View::edgeDragStart - dragEdge: ", self.dragEdge)
 
     def edgeDragEnd(self, item):
         self.mode = MODE_NOOP
         if type(item) is NodeGraphicsSocket:
-            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd -   - , previous End Socket:", self.previousEdge)
+            if DEBUG: print("View::edgeDragEnd -   - , previous End Socket:", self.previousEdge)
             if item.socket.hasEdge():
                 item.socket.edge.remove()
-            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - assign End Socket", item.socket)
+            if DEBUG: print("View::edgeDragEnd - assign End Socket", item.socket)
             if self.previousEdge is not None: self.previousEdge.remove()
-            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - previousEdge edge remove")
+            if DEBUG: print("View::edgeDragEnd - previousEdge edge remove")
             self.dragEdge.start_socket = self.lastStartSocket
             self.dragEdge.end_socket = item.socket
             self.dragEdge.start_socket.setConnectedEdge(self.dragEdge)
             self.dragEdge.end_socket.setConnectedEdge(self.dragEdge)
-            if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - reassigned start & end sockets to drag edge", item.socket)
+            if DEBUG: print("View::edgeDragEnd - reassigned start & end sockets to drag edge", item.socket)
             self.dragEdge.updatePositions()
             return True
         
         # if self.dragEdge is not None: pass  # 檢查 self.dragEdge 是否為 None
-        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - Ending dragging edge")
+        if DEBUG: print("View::edgeDragEnd - Ending dragging edge")
         self.dragEdge.remove()
         self.dragEdge = None
         if self.previousEdge is not None:
             self.previousEdge.start_socket.edge = self.previousEdge
-        if DebugMode.NODEEDITOR_WINDOW: print("View::edgeDragEnd - everything done")
+        if DEBUG: print("View::edgeDragEnd - everything done")
         return False
     
     @calculate_time(DebugTimer.NODEEDITOR_WINDOW) 

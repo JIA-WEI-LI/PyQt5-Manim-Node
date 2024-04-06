@@ -7,6 +7,7 @@ from config.palette import EdgeColor
 
 EDGE_TYPE_DIRECT = 1
 EDGE_TYPE_BEZIER = 2
+DEBUG = DebugMode.NODE_EDGE
 
 class Edge:
     def __init__(self, scene:Scene, start_socket:Socket, end_socket:Socket, edge_type=EDGE_TYPE_DIRECT) -> None:
@@ -21,7 +22,7 @@ class Edge:
         self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if edge_type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
 
         self.updatePositions()
-        if DebugMode.NODE_EDGE: print("Edge: ", self.nodeGraphicsEdge.posSource, "to", self.nodeGraphicsEdge.posDestination)
+        if DEBUG: print("Edge: ", self.nodeGraphicsEdge.posSource, "to", self.nodeGraphicsEdge.posDestination)
         self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
         self.scene.addEdge(self)
         
@@ -40,8 +41,8 @@ class Edge:
             self.nodeGraphicsEdge.setDestination(*end_pos)
         else:
             self.nodeGraphicsEdge.setDestination(*source_pos)
-        if DebugMode.NODE_EDGE: print(" Start Socket: ", self.start_socket)
-        if DebugMode.NODE_EDGE: print(" End  Socket: ", self.end_socket)
+        if DEBUG: print(" Start Socket: ", self.start_socket)
+        if DEBUG: print(" End  Socket: ", self.end_socket)
         self.nodeGraphicsEdge.update()
         
     def remove_from_sockets(self):

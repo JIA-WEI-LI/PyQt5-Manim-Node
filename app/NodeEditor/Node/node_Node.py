@@ -10,6 +10,7 @@ from components.custom_checkbox import CheckBox
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
+DEBUG = DebugMode.NODE_NODE
 
 class Node():
     '''節點'''
@@ -114,7 +115,7 @@ class NodeContentWidget(QWidget):
         if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
         
-        if DebugMode.NODE_NODE: label.setStyleSheet("color: white; border: 1px solid red;")
+        if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         
         return label
     
@@ -125,7 +126,7 @@ class NodeContentWidget(QWidget):
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.vboxLayout.addWidget(button)
         
-        if DebugMode.NODE_NODE: button.setStyleSheet("color: white; border: 1px solid red;")
+        if DEBUG: button.setStyleSheet("color: white; border: 1px solid red;")
         
         return button
     
@@ -142,8 +143,8 @@ class NodeContentWidget(QWidget):
         hLayoutBox.addWidget(label) if isOutput else hLayoutBox.addWidget(label, stretch=1)
         self.vboxLayout.addLayout(hLayoutBox)
         
-        if DebugMode.NODE_NODE: checkbox.setStyleSheet("border: 1px solid red;")
-        if DebugMode.NODE_NODE: label.setStyleSheet("color: white; border: 1px solid red;")
+        if DEBUG: checkbox.setStyleSheet("border: 1px solid red;")
+        if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         
         return checkbox, label
     

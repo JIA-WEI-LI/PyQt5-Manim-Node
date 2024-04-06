@@ -21,17 +21,25 @@ class NodeColor:
     BLENDER_PEN_SELECTED = QColor('#FFFFFF')
     BLENDER_BRUSH_TITLE = QColor('#1d725e')
     BLENDER_BRUSH_BACKGROUND = QColor('#E3303030')
+    BLENDER_TITLE_LIST = [
+        QColor('#FF246283'),
+        QColor('#FF79461d'),
+        QColor('#FF344621'),
+        QColor('#FF83314a'),
+        QColor('#FF1d2546'),
+        QColor('#FF1d1d1d'),
+    ]
 
 class SocketColor:
     DEFAULT_BACKGROUND = QColor('#FFFF7700')
     DEFAULT_OUTLINE = QColor('#FF000000')
     DEFAULT_COLOR_LIST = [
-        QColor('#FF9D9D9D'),
-        QColor('#FFE1E100'),
-        QColor('#FF0056a6'),
-        QColor('#FFa86db1'),
-        QColor('#FFb54747'),
-        QColor('#FFdbe220'),
+        QColor('#FFa1a1a1'),
+        QColor('#FF00d6a3'),
+        QColor('#FFc7c729'),
+        QColor('#FF6363c7'),
+        QColor('#FF598c5c'),
+        QColor('#FFcca6d6'),
     ]
 
 class EdgeColor:

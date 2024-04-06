@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import QCheckBox
 from PyQt5.QtGui import QPainter, QPaintEvent, QFont, QFontMetrics, QPainterPath, QPen, QColor
 from PyQt5.QtCore import Qt, QRectF
 
-class ECheckBoxData(object):
+class WCheckBoxData(object):
     Radius = 10
     AnimationTime = 600  # ms
     FontSize, FontSpacing = 16, 0
@@ -17,9 +17,9 @@ class ECheckBoxData(object):
 
 class CheckBox(QCheckBox):
     '''繼承自 QCheckBox，仿造 Blender Node 內部樣式'''
-    CheckBoxData = ECheckBoxData()
+    CheckBoxData = WCheckBoxData()
    
-    def __init__(self, CheckBoxData=ECheckBoxData()):
+    def __init__(self, CheckBoxData=WCheckBoxData()):
         super(CheckBox, self).__init__(None)
         self.CheckBoxData = CheckBoxData
             

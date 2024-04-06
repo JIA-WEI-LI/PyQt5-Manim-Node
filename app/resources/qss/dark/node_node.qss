@@ -13,12 +13,22 @@ QLabel {
 
 QPushButton {
     color: white; 
-    background-color: #333; 
-    border-radius: 10px; 
+    background-color: transparent; 
+    border-radius: 3px; 
 }
 
 QWidget {
     background-color: transparent;
+}
+
+#nodePushButton {
+    background-color: #333;
+}
+#nodePushButton:hover {
+    background-color: #555;
+}
+#nodePushButton:pressed {
+    background-color: #444;
 }
 
 #checkboxLabel {

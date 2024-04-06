@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QTextEdit, QPushButton, QSizePolicy
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QTextEdit, QPushButton, QSizePolicy, QProgressBar
 
 from .node_GraphicsNode import NodeGraphicsNode
 from ..Socket.node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
@@ -7,6 +7,7 @@ from ..nodeEditor_Scene import Scene
 
 from common.style_sheet import StyleSheet
 from components.custom_checkbox import CheckBox
+from components.custom_pushButton import PushButton
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
@@ -42,6 +43,10 @@ class Node():
             counter += 1
             if item == 1: 
                 self.content.addCheckbox(f"Input {counter}")
+            elif item == 2:
+                self.content.addButton(f"Button {counter}")
+            elif item == 3:
+                self.content.addProgressBar()
             else: self.content.addLabel(f"Input {counter}")
             
             self.inputs.append(socket)
@@ -107,6 +112,7 @@ class NodeContentWidget(QWidget):
         
     @StyleSheet.apply(StyleSheet.NODE_NODE)
     def addLabel(self, text, isOutput=False):
+        '''新增文字標籤，並可根據輸入或輸出改變置左或置右'''
         label = QLabel(self)
         label.setObjectName("contentLabel")
         
@@ -119,8 +125,10 @@ class NodeContentWidget(QWidget):
         
         return label
     
-    def addButton(self, text):
-        button = QPushButton(self)
+    def addButton(self, text:str):
+        '''新增按紐'''
+        button = PushButton(self)
+        button.setObjectName("nodePushButton")
         button.setText(text)
         button.setFixedHeight(self.socketSpace)
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
@@ -130,7 +138,8 @@ class NodeContentWidget(QWidget):
         
         return button
     
-    def addCheckbox(self, text, isOutput=False):
+    def addCheckbox(self, text:str, isOutput=False):
+        '''新增二態複選框'''
         hLayoutBox = QHBoxLayout()
         checkbox = CheckBox()
         label = QLabel(text)
@@ -147,6 +156,17 @@ class NodeContentWidget(QWidget):
         if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         
         return checkbox, label
+    
+    def addProgressBar(self, value:int=50, minimum:int=0, maximum:int=100):
+        '''新增可控制進度條(尚不可控制)'''
+        progressBar = QProgressBar()
+        progressBar.setFixedHeight(self.socketSpace)
+        progressBar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+        progressBar.setValue(value)
+        progressBar.setMinimum(minimum)
+        progressBar.setMaximum(maximum)
+        self.vboxLayout.addLayout(progressBar)
     
     def setFixedHeightForAll(self):
         total_height = self.vboxLayout.sizeHint().height()  # 獲取 vBoxLayout 的總高度

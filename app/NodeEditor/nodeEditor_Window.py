@@ -126,6 +126,8 @@ class NodeGraphicsView(QGraphicsView):
         '''按下滑鼠左鍵'''
         item = self.getItemAtClick(event)
         self.lastLmbClickScenePos = self.mapToScene(event.pos()) # 紀錄滑鼠初始點擊位置
+
+        if DEBUG: print("LMB Clicked on ", item, self.debug_modifiers(event))
         
         # 使用快捷鍵選取複數物件
         if hasattr(item, "node") or isinstance(item, NodeGraphicsEdge) or item is None:
@@ -224,6 +226,13 @@ class NodeGraphicsView(QGraphicsView):
             self.verticalScrollBar().setValue(self.verticalScrollBar().value() - delta.y())
         else:
             super().mouseMoveEvent(event)
+
+    def debug_modifiers(self, event: QMouseEvent):
+        out = "MODS: "
+        if event.modifiers() & Qt.Modifier.SHIFT: out += " SHIFT "
+        if event.modifiers() & Qt.Modifier.CTRL: out += " CTRL "
+        if event.modifiers() & Qt.Modifier.ALT: out += " ALT "
+        return out
 
     def eventFilter(self, obj, event: QMouseEvent):
         '''事件篩選器：檢視按下的滑鼠按鈕'''

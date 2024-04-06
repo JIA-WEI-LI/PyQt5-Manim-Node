@@ -41,11 +41,11 @@ class Node():
         for item in input:
             socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item)
             counter += 1
-            if item == 1: 
+            if item == 3: 
                 self.content.addCheckbox(f"Input {counter}")
             elif item == 2:
-                self.content.addButton(f"Button {counter}")
-            elif item == 3:
+                self.content.addPushButton(f"Button {counter}")
+            elif item == 1:
                 self.content.addProgressBar()
             else: self.content.addLabel(f"Input {counter}")
             
@@ -125,7 +125,7 @@ class NodeContentWidget(QWidget):
         
         return label
     
-    def addButton(self, text:str):
+    def addPushButton(self, text:str):
         '''新增按紐'''
         button = PushButton(self)
         button.setObjectName("nodePushButton")
@@ -143,7 +143,7 @@ class NodeContentWidget(QWidget):
         hLayoutBox = QHBoxLayout()
         checkbox = CheckBox()
         label = QLabel(text)
-        label.setObjectName("checkboxLabel")
+        label.setObjectName("nodeCheckboxLabel")
         
         checkbox.setFixedHeight(self.socketSpace)
         label.setFixedHeight(self.socketSpace)
@@ -162,11 +162,14 @@ class NodeContentWidget(QWidget):
         progressBar = QProgressBar()
         progressBar.setFixedHeight(self.socketSpace)
         progressBar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        progressBar.setObjectName("nodeProgressBar")
 
         progressBar.setValue(value)
         progressBar.setMinimum(minimum)
         progressBar.setMaximum(maximum)
-        self.vboxLayout.addLayout(progressBar)
+        self.vboxLayout.addWidget(progressBar)
+
+        return progressBar
     
     def setFixedHeightForAll(self):
         total_height = self.vboxLayout.sizeHint().height()  # 獲取 vBoxLayout 的總高度

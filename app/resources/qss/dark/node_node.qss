@@ -31,8 +31,19 @@ QWidget {
     background-color: #444;
 }
 
-#checkboxLabel {
+#nodeCheckboxLabel {
     font-family: Arial, Helvetica, sans-serif ;
     color: white;
     background-color: transparent;
+}
+
+#nodeProgressBar {
+    background-color: #333;
+    border: 2px solid #000;
+    border-radius: 3px;
+    color: #fff;
+    text-align: right;
+}
+#nodeProgressBar::chunk {
+    background: #09c;
 }

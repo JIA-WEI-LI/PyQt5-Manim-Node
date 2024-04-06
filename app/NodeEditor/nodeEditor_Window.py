@@ -130,6 +130,13 @@ class NodeGraphicsView(QGraphicsView):
         if hasattr(item, "node"):
             if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
                 if DEBUG: print("LMB + Shift on ", item)
+                event.ignore()
+                fakeEvent = QMouseEvent(QEvent.Type.MouseButtonPress, event.localPos(), event.screenPos(),
+                                        Qt.MouseButton.LeftButton, event.buttons() | Qt.MouseButton.LeftButton,
+                                        event.modifiers() | Qt.KeyboardModifier.ControlModifier)
+                super().mousePressEvent(fakeEvent)
+                return 
+
         if DEBUG: print(item)
         if type(item) is NodeGraphicsSocket:
             if self.mode == MODE_NOOP:

@@ -62,6 +62,7 @@ class NodeGraphicsNode(QGraphicsItem):
     def initTitle(self):
         '''節點主名稱標題'''
         self.titleItem = QGraphicsTextItem(self)
+        self.titleItem.node = self.node
         self.titleItem.setDefaultTextColor(NodeColor.DEFAULT_TITLE)
         self.titleItem.setFont(self.titleFont)
         self.titleItem.setPos(self.titlePadding, self.titlePadding//2)

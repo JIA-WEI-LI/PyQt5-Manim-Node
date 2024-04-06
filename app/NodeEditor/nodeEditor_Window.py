@@ -8,6 +8,7 @@ from .Node.node_Node import Node
 from .Socket.node_Socket import NodeGraphicsSocket
 from .nodeEditor_Scene import Scene, NodeGraphicsScene
 
+from common.style_sheet import StyleSheet
 from common.performance_utils import calculate_time
 from config.debug import DebugMode, DebugTimer
 from config.icon import Icon
@@ -75,6 +76,7 @@ class NodeGraphicsView(QGraphicsView):
 
         self.dragStartPosition = None  # 滑鼠開始拖曳位置
 
+    @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
         self.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.HighQualityAntialiasing | QPainter.RenderHint.TextAntialiasing | QPainter.RenderHint.SmoothPixmapTransform)
 
@@ -82,6 +84,10 @@ class NodeGraphicsView(QGraphicsView):
 
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAlwaysOff)
+
+        # 可拖曳滑鼠選擇複數物件
+        self.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
+        self.setDragMode(QGraphicsView.DragMode.RubberBandDrag)
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
         '''滑鼠點擊事件'''
@@ -119,6 +125,10 @@ class NodeGraphicsView(QGraphicsView):
         '''按下滑鼠左鍵'''
         item = self.getItemAtClick(event)
         self.lastLmbClickScenePos = self.mapToScene(event.pos()) # 紀錄滑鼠初始點擊位置
+        
+        if hasattr(item, "node"):
+            if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
+                if DebugMode.NODEEDITOR_WINDOW: print("LMB + Shift on ", item)
         if DebugMode.NODEEDITOR_WINDOW: print(item)
         if type(item) is NodeGraphicsSocket:
             if self.mode == MODE_NOOP:

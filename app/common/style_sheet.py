@@ -9,6 +9,7 @@ class Theme(Enum):
 class StyleSheet:
     """ Style sheet  """
     NODE_NODE = "node_node"
+    EDITOR_WINDOW = "editor_window"
 
     def path(self, style_type, theme=Theme.DARK):
         theme = theme if theme == Theme.DARK else theme

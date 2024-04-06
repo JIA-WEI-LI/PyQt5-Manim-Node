@@ -128,9 +128,8 @@ class NodeGraphicsView(QGraphicsView):
         self.lastLmbClickScenePos = self.mapToScene(event.pos()) # 紀錄滑鼠初始點擊位置
         
         # 使用快捷鍵選取複數物件
-        if hasattr(item, "node") or isinstance(item, NodeGraphicsEdge):
+        if hasattr(item, "node") or isinstance(item, NodeGraphicsEdge) or item is None:
             if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
-                if DEBUG: print("LMB + Shift on ", item)
                 event.ignore()
                 fakeEvent = QMouseEvent(QEvent.Type.MouseButtonPress, event.localPos(), event.screenPos(),
                                         Qt.MouseButton.LeftButton, event.buttons() | Qt.MouseButton.LeftButton,
@@ -172,9 +171,8 @@ class NodeGraphicsView(QGraphicsView):
         item = self.getItemAtClick(event)
 
         # 使用快捷鍵選取複數物件
-        if hasattr(item, "node") or isinstance(item, NodeGraphicsEdge):
+        if hasattr(item, "node") or isinstance(item, NodeGraphicsEdge) or item is None:
             if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
-                if DEBUG: print("LMB Release + Shift on ", item)
                 event.ignore()
                 fakeEvent = QMouseEvent(event.type(), event.localPos(), event.screenPos(),
                                         Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton,

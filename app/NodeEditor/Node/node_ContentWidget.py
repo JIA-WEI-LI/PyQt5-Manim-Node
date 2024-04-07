@@ -23,7 +23,7 @@ class NodeContentWidget(QWidget):
         
     def initUI(self):
         self.vboxLayout = QVBoxLayout()
-        self.vboxLayout.setContentsMargins(0, 0, 0, 0)
+        self.vboxLayout.setContentsMargins(0, 0, 3, 0)
         self.setLayout(self.vboxLayout)
         
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -55,7 +55,7 @@ class NodeContentWidget(QWidget):
         return button
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addCheckbox(self, text:str, isOutput:bool=False):
+    def addCheckbox(self, text:str):
         '''新增二態複選框'''
         hLayoutBox = QHBoxLayout()
         checkbox = CheckBox()
@@ -65,8 +65,8 @@ class NodeContentWidget(QWidget):
         checkbox.setFixedHeight(self.socketSpace)
         label.setFixedHeight(self.socketSpace)
         hLayoutBox.setContentsMargins(0, 0, 0, 0)
-        hLayoutBox.addWidget(checkbox, stretch=1) if isOutput else hLayoutBox.addWidget(checkbox)
-        hLayoutBox.addWidget(label) if isOutput else hLayoutBox.addWidget(label, stretch=1)
+        hLayoutBox.addWidget(checkbox)
+        hLayoutBox.addWidget(label, stretch=1)
         self.vboxLayout.addLayout(hLayoutBox)
         
         if DEBUG: checkbox.setStyleSheet("border: 1px solid red;")

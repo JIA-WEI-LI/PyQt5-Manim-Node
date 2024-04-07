@@ -26,7 +26,7 @@ class NodeContentWidget(QWidget):
         self.setLayout(self.vboxLayout)
         
     @StyleSheet.apply(StyleSheet.NODE_NODE)
-    def addLabel(self, text, isOutput=False):
+    def addLabel(self, text:str, isOutput=False):
         '''新增文字標籤，並可根據輸入或輸出改變置左或置右'''
         label = QLabel(self)
         label.setObjectName("contentLabel")
@@ -53,7 +53,7 @@ class NodeContentWidget(QWidget):
         
         return button
     
-    def addCheckbox(self, text:str, isOutput=False):
+    def addCheckbox(self, text:str, isOutput:bool=False):
         '''新增二態複選框'''
         hLayoutBox = QHBoxLayout()
         checkbox = CheckBox()
@@ -72,7 +72,7 @@ class NodeContentWidget(QWidget):
         
         return checkbox, label
     
-    def addProgressBar(self, minimum:int=0, maximum:int=10, initial_percent=0.5):
+    def addProgressBar(self, minimum:int=0, maximum:int=10, initial_percent:float=0.5):
         '''新增可控制進度條'''
         progressBar = ControlledProgressBar(minimum=minimum, maximum=maximum, initial_percent=initial_percent)
         progressBar.setFixedHeight(self.socketSpace)

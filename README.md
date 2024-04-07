@@ -2,7 +2,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django)
 
 _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數學動畫製作軟體_
-## 資料夾說明
+## 資料夾說明(過時待修)
 * app - 主資料夾
 * config - 基礎設定資料夾
   * icon.py - 圖標路徑
@@ -21,8 +21,8 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 > 參考影片清單：[https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz](https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz)
 
 ### 目前進度截圖
-#### 2024.04.03
-![2024.04.03進度螢幕截圖](app/resources/screenshot/20240403.png)
+#### 2024.04.08
+![2024.04.08進度螢幕截圖](app/resources/screenshot/20240408.png)
 
 ### 影片練習觀看進度
 #### 第一部分：節點編輯器架構
@@ -51,10 +51,10 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 
 ### 已知程式錯誤：
 * [ ] BUG.24040601：已互相連結之線段若重複連線會造成程序崩潰閃退
-* [ ] BUG.24040604：在節點內部使用滑鼠中鍵移動視窗時，放開滑鼠並移動到節點外部時鼠標樣式仍保持移動時樣式(放大視窗時較明顯)
-* [ ] BUG.24040605：在節點內部使用滑鼠中鍵移動視窗時，滑鼠鼠標有時樣式會跳動
+* [ ] BUG.24040602：在節點內部使用滑鼠中鍵移動視窗時，放開滑鼠並移動到節點外部時鼠標樣式仍保持移動時樣式(放大視窗時較明顯)
+* [ ] BUG.24040603：在節點內部使用滑鼠中鍵移動視窗時，滑鼠鼠標有時樣式會跳動
 
 ### 已知代待修改錯誤：
-* [ ] COD.24040602：`node_node / node_GraphicsNode.py` 節點高度決定位置與預計不符
+* [ ] COD.24040601：`node_node / node_GraphicsNode.py` 節點高度決定位置與預計不符
   > 預期計畫：新增可控制型向量類型，將會改變節點高度
-* [x] ~~COD.24040603：`node_node / node_Node.py` 節點內部滑桿內容尚未完善~~
+* [x] ~~COD.24040602：`node_node / node_Node.py` 節點內部滑桿內容尚未完善~~

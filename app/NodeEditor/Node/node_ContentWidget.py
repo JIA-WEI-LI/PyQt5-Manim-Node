@@ -45,7 +45,6 @@ class NodeContentWidget(QWidget):
     def addPushButton(self, text:str, isOutput=False):
         '''新增按紐'''
         button = PushButton(self)
-        button.setObjectName("nodePushButton")
         button.setText(text)
         button.setFixedHeight(self.socketSpace)
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)

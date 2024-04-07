@@ -100,4 +100,4 @@ class ComboBox(QComboBox):
     def showPopup(self):
         '''重寫 showPopup 方法，讓下拉式選單本身具有下半部圓角效果'''
         super().showPopup()
-        self.view().setStyleSheet('border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;')
+        self.view().setStyleSheet('border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;')

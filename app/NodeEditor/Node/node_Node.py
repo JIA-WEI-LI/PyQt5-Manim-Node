@@ -32,7 +32,8 @@ class Node():
             counter += 1
             self.outputs.append(socket)
 
-            self.content.addLabel(f"Output {counter}", isOutput=True)
+            # self.content.addLabel(f"Output {counter}", isOutput=True)
+            self.content.addCheckbox(f"Output {counter}")
         
         counter = 0
         for item in input:

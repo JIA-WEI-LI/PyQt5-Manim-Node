@@ -26,7 +26,7 @@ class NodeContentWidget(QWidget):
         self.vboxLayout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.vboxLayout)
         
-    @StyleSheet.apply(StyleSheet.NODE_NODE)
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addLabel(self, text:str, isOutput=False):
         '''新增文字標籤，並可根據輸入或輸出改變置左或置右'''
         label = QLabel(self)
@@ -41,7 +41,8 @@ class NodeContentWidget(QWidget):
         
         return label
     
-    def addPushButton(self, text:str):
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addPushButton(self, text:str, isOutput=False):
         '''新增按紐'''
         button = PushButton(self)
         button.setObjectName("nodePushButton")
@@ -54,6 +55,7 @@ class NodeContentWidget(QWidget):
         
         return button
     
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addCheckbox(self, text:str, isOutput:bool=False):
         '''新增二態複選框'''
         hLayoutBox = QHBoxLayout()
@@ -73,6 +75,7 @@ class NodeContentWidget(QWidget):
         
         return checkbox, label
     
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addProgressBar(self, minimum:int=0, maximum:int=10, initial_percent:float=0.5):
         '''新增可控制進度條'''
         progressBar = ControlledProgressBar(minimum=minimum, maximum=maximum, initial_percent=initial_percent)
@@ -84,6 +87,7 @@ class NodeContentWidget(QWidget):
 
         return progressBar
     
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addComboBox(self, items:list=["List 1", "List 2", "List 3"]):
         '''新增下拉式選單'''
         comboBox = ComboBox()

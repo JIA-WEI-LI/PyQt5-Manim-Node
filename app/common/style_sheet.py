@@ -10,7 +10,7 @@ class StyleSheet:
     """ Style sheet  """
     # 定義不同的樣式類型
     NODE_COMBOBOX = "node_comboBox"
-    NODE_NODE = "node_node"
+    NODE_CONTENT = "node_content"
     EDITOR_WINDOW = "editor_window"
 
     @staticmethod

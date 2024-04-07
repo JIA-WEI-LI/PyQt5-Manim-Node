@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QTextEdit
 from common.style_sheet import StyleSheet
 from components.custom_checkbox import CheckBox
 from components.custom_pushButton import PushButton
+from components.custom_progressbar import ControlledProgressBar
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
@@ -71,16 +72,13 @@ class NodeContentWidget(QWidget):
         
         return checkbox, label
     
-    def addProgressBar(self, value:int=50, minimum:int=0, maximum:int=100):
-        '''新增可控制進度條(尚不可控制)'''
-        progressBar = QProgressBar()
+    def addProgressBar(self, minimum:int=0, maximum:int=10, initial_percent=0.5):
+        '''新增可控制進度條'''
+        progressBar = ControlledProgressBar(minimum=minimum, maximum=maximum, initial_percent=initial_percent)
         progressBar.setFixedHeight(self.socketSpace)
         progressBar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        progressBar.setObjectName("nodeProgressBar")
 
-        progressBar.setValue(value)
-        progressBar.setMinimum(minimum)
-        progressBar.setMaximum(maximum)
+        progressBar.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(progressBar)
 
         return progressBar

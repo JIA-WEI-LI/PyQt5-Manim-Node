@@ -38,7 +38,5 @@ class ColorManager:
         else:
             return None
 
-
-
 # 創建單例對象，供其他模塊引用
 color_manager = ColorManager()

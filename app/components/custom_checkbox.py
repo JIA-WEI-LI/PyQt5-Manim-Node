@@ -2,16 +2,16 @@ from PyQt5.QtWidgets import QCheckBox
 from PyQt5.QtGui import QPainter, QPaintEvent, QFont, QFontMetrics, QPainterPath, QPen, QColor
 from PyQt5.QtCore import Qt, QRectF
 
+from common.color_sheet import color_manager
+
 class WCheckBoxData(object):
     Radius = 10
     AnimationTime = 600  # ms
     FontSize, FontSpacing = 16, 0
     Color = {
-        "CORNER": Qt.GlobalColor.white,
-        "BASE_BACKGROUND": QColor('#0080FF'),
-        "BASE_FOREGROUND": Qt.GlobalColor.lightGray,
-        "BASE_HOVER_BACKGROUND": Qt.GlobalColor.lightGray,
-        "BASE_HOVER_FOREGROUND": Qt.GlobalColor.darkGray,
+        "BASE_BACKGROUND": QColor(color_manager.get_color("CheckBoxColor", "BASE_BACKGROUND")),
+        "BASE_HOVER_BACKGROUND": QColor(color_manager.get_color("CheckBoxColor", "BASE_HOVER_BACKGROUND")),
+        "BASE_CLICKED_BACKGROUND": QColor(color_manager.get_color("CheckBoxColor", "BASE_CLICKED_BACKGROUND")),
     }
     TextElide = Qt.TextElideMode.ElideMiddle
 
@@ -56,7 +56,7 @@ class CheckBox(QCheckBox):
             pt.setBrush(self.CheckBoxData.Color["BASE_BACKGROUND"])
             pt.setPen(QPen(Qt.PenStyle.NoPen))
         else:
-            pt.setBrush(self.CheckBoxData.Color["BASE_HOVER_BACKGROUND"])
+            pt.setBrush(self.CheckBoxData.Color["BASE_CLICKED_BACKGROUND"])
             pt.setPen(QPen(Qt.PenStyle.NoPen))
             
 

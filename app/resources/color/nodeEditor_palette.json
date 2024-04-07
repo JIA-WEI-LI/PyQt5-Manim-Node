@@ -45,5 +45,10 @@
     "ORANGE": "#FFFF7700",
     "BLENDER_PEN_SELECTED": "#b3f3e4",
     "BLENDER_GREEN": "#FF03bd91"
+  },
+  "CheckBoxColor": {
+    "BASE_BACKGROUND": "#545454",
+    "BASE_HOVER_BACKGROUND": "#4772b3",
+    "BASE_CLICKED_BACKGROUND": "#4772b3"
   }
 }

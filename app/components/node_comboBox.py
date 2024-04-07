@@ -1,10 +1,10 @@
 from PyQt5.QtWidgets import QComboBox, QStyledItemDelegate, QStyleOptionViewItem, QStyle, QListView, QLabel, QSizePolicy
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QModelIndex
 from PyQt5.QtGui import QColor, QFont, QPainter, QPen
 
 class CustomItemDelegate(QStyledItemDelegate):
     '''自定義元素樣式'''
-    def paint(self, painter, option, index):
+    def paint(self, painter: QPainter, option: QStyleOptionViewItem, index: QModelIndex):
         option_copy = QStyleOptionViewItem(option)
         # 設定每個元素的高度
         option_copy.rect.setHeight(25)
@@ -31,7 +31,17 @@ class CustomItemDelegate(QStyledItemDelegate):
         painter.drawText(option.rect.adjusted(5, 0, -5, 0), Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, index.data(Qt.ItemDataRole.DisplayRole))
 
 class ComboBox(QComboBox):
-    '''自定義下拉式選單'''
+    '''
+        自定義下拉式選單
+        ### Parameters:
+            parent (QWidget): 父窗口部件，預設為None。
+
+        ### Attributes:
+            text_label (QLabel): 顯示當前選擇文本的標籤。
+
+        ### Usage:
+            combo_box = ComboBox(parent)
+    '''
     def __init__(self, parent=None):
         super(ComboBox, self).__init__(parent=parent)
         self.setView(QListView())
@@ -88,7 +98,6 @@ class ComboBox(QComboBox):
             self.text_label.move(5, text_label_y)
 
     def showPopup(self):
-        '''Override the default showPopup method to apply custom styling when the popup is shown.'''
+        '''重寫 showPopup 方法，讓下拉式選單本身具有下半部圓角效果'''
         super().showPopup()
-        # Set the popup's bottom border to have rounded corners
         self.view().setStyleSheet('border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;')

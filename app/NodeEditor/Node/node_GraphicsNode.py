@@ -23,7 +23,7 @@ class NodeGraphicsNode(QGraphicsItem):
         # self.height = 240
         self.padding = 4.0  # 連結點位置出血區
         self.edgeSize = 10.0
-        self.titleHeight = 24.0
+        self.titleHeight = 26.0
         self.titlePadding = 6.0
 
         # 節點高度隨輸入與輸出點多寡改變

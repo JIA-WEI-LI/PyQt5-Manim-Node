@@ -33,6 +33,6 @@ QWidget {
 
 #nodeCheckboxLabel {
     font-family: Arial, Helvetica, sans-serif ;
-    color: white;
+    color: #fff;
     background-color: transparent;
 }

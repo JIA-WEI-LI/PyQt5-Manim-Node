@@ -1,10 +1,11 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QTextEdit, QPushButton, QSizePolicy, QProgressBar
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QTextEdit, QPushButton, QSizePolicy, QProgressBar, QComboBox
 
 from common.style_sheet import StyleSheet
-from components.custom_checkbox import CheckBox
-from components.custom_pushButton import PushButton
-from components.custom_progressbar import ControlledProgressBar
+from components.node_checkbox import CheckBox
+from components.node_comboBox import ComboBox
+from components.node_pushButton import PushButton
+from components.node_progressbar import ControlledProgressBar
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
@@ -78,10 +79,23 @@ class NodeContentWidget(QWidget):
         progressBar.setFixedHeight(self.socketSpace)
         progressBar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 
-        progressBar.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+        progressBar.setAlignment(Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(progressBar)
 
         return progressBar
+    
+    def addComboBox(self, items:list=["List 1", "List 2", "List 3"]):
+        '''新增下拉式選單'''
+        comboBox = ComboBox()
+        comboBox.setFixedHeight(self.socketSpace)
+        comboBox.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+        comboBox.addItems(items)
+
+        self.vboxLayout.addWidget(comboBox)
+        if DEBUG: comboBox.setStyleSheet("border: 1px solid red;")
+
+        return comboBox
     
     def setFixedHeightForAll(self):
         total_height = self.vboxLayout.sizeHint().height()  # 獲取 vBoxLayout 的總高度

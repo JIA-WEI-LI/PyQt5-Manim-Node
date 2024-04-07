@@ -21,6 +21,22 @@ QWidget {
     background-color: transparent;
 }
 
+QComboBox {
+    background-color: #282828;
+    color: #FFFFFF;
+    border: 1px solid #464646;
+    border-radius: 3px;
+    padding: 1px 18px 1px 3px;
+}
+
+QComboBox::drop-down {
+    border: none;
+}
+QComboBox:hover {
+    background-color: #303030;
+}
+
+
 #nodePushButton {
     background-color: #545454;
 }

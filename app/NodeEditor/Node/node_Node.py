@@ -41,7 +41,7 @@ class Node():
             if item == 3: 
                 self.content.addCheckbox(f"Input {counter}")
             elif item == 2:
-                self.content.addPushButton(f"Button {counter}")
+                self.content.addComboBox()
             elif item == 1:
                 self.content.addProgressBar()
             else: self.content.addLabel(f"Input {counter}")

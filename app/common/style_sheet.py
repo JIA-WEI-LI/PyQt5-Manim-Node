@@ -8,10 +8,13 @@ class Theme(Enum):
 
 class StyleSheet:
     """ Style sheet  """
+    # 定義不同的樣式類型
+    NODE_COMBOBOX = "node_comboBox"
     NODE_NODE = "node_node"
     EDITOR_WINDOW = "editor_window"
 
-    def path(self, style_type, theme=Theme.DARK):
+    @staticmethod
+    def path(style_type, theme=Theme.DARK):
         theme = theme if theme == Theme.DARK else theme
         return f"app\\resources\\qss\\{theme.value.lower()}\\{style_type}.qss"
     
@@ -34,3 +37,4 @@ class StyleSheet:
                 return func(*args, **kwargs)
             return wrapper
         return decorator
+

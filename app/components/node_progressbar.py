@@ -127,4 +127,3 @@ class ControlledProgressBar(QProgressBar):
 
         # 設置進度條的值
         self.setValue(int(progress_percent * 100))
-        print("Value: ", value)

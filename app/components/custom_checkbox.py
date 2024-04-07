@@ -16,7 +16,18 @@ class WCheckBoxData(object):
     TextElide = Qt.TextElideMode.ElideMiddle
 
 class CheckBox(QCheckBox):
-    '''繼承自 QCheckBox，仿造 Blender Node 內部樣式'''
+    '''
+    繼承自 QCheckBox，仿造 Blender Node 內部樣式
+
+    ### Attributes:
+        CheckBoxData (WCheckBoxData): CheckBox 的資料類別，預設為 WCheckBoxData()。
+
+    ### Parameters:
+        CheckBoxData (WCheckBoxData): CheckBox 的資料類別，預設為 WCheckBoxData()。
+
+    ### Usage:
+        checkBox = CheckBox()
+    '''
     CheckBoxData = WCheckBoxData()
    
     def __init__(self, CheckBoxData=WCheckBoxData()):

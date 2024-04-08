@@ -42,7 +42,7 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         self.posDestination = [x, y]
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
-        self.updatePath()
+        self.setPath(self.calcPath())
         
         if self.edge.end_socket is None:
             painter.setPen(self._penDragging)
@@ -51,20 +51,26 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(self.path())
 
-    def updatePath(self):
+    def intersectsWith(self, p1, p2):
+        cutpath = QPainterPath(p1)
+        cutpath.lineTo(p2)
+        path = self.calcPath()
+        return cutpath.intersects(path)
+
+    def calcPath(self):
         '''當繪製新的線段時更新'''
         raise NotImplemented("This method has to be overriden in a child class")
 
 class NodeGraphicsEdgeDirect(NodeGraphicsEdge):
     '''直線型連接線段'''
-    def updatePath(self):
+    def calcPath(self):
         path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
         path.lineTo(self.posDestination[0], self.posDestination[1])
-        self.setPath(path)
+        return path
 
 class NodeGraphicsEdgeBezier(NodeGraphicsEdge):
     '''貝茲曲線型連接線段'''
-    def updatePath(self):
+    def calcPath(self):
         s = self.posSource
         d = self.posDestination
         dist = (d[0]-s[0]) * 0.5
@@ -90,4 +96,4 @@ class NodeGraphicsEdgeBezier(NodeGraphicsEdge):
         
         path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
         path.cubicTo(s[0] + cpx_s, s[1] + cpy_s, d[0] + cpx_d, d[1] + cpy_d, self.posDestination[0], self.posDestination[1])
-        self.setPath(path)
+        return path

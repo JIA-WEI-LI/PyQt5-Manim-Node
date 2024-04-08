@@ -136,6 +136,15 @@ class NodeGraphicsView(QGraphicsView):
                 for node in self.graphicsScene.scene.nodes: print("    ", node)
                 print("  Edges:")
                 for edge in self.graphicsScene.scene.edges: print("    ", edge)
+
+        if item is None:
+            if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+                self.mode = MODE_EDGE_CUT
+                fakeEvent = QMouseEvent(QEvent.Type.MouseButtonRelease, event.localPos(), event.screenPos(),
+                                        Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton, event.modifiers())
+                super().mouseReleaseEvent(fakeEvent)
+                QApplication.setOverrideCursor(Qt.CursorShape.CrossCursor)
+                return
     
     def leftMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠左鍵'''
@@ -160,6 +169,16 @@ class NodeGraphicsView(QGraphicsView):
     
     def rightMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠右鍵'''
+        item = self.getItemAtClick(event)
+
+        if self.mode == MODE_EDGE_CUT:
+            self.cutIntersectingEdge()
+            self.cutline.lines_points = []
+            self.cutline.update()
+            QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
+            self.mode = MODE_NOOP
+            return
+
         super().mouseReleaseEvent(event)
     
     def wheelEvent(self, event: QWheelEvent):
@@ -187,6 +206,11 @@ class NodeGraphicsView(QGraphicsView):
             pos = self.mapToScene(event.pos())
             self.dragEdge.nodeGraphicsEdge.setDestination(pos.x(), pos.y())
             self.dragEdge.nodeGraphicsEdge.update()
+
+        if self.mode == MODE_EDGE_CUT:
+            pos = self.mapToScene(event.pos())
+            self.cutline.lines_points.append(pos)
+            self.cutline.update()
         
         if self.dragStartPosition:
             delta = event.pos() - self.dragStartPosition
@@ -205,6 +229,15 @@ class NodeGraphicsView(QGraphicsView):
                 super().keyPressEvent(event)
         else:
             super().keyPressEvent(event)
+
+    def cutIntersectingEdge(self):
+        for ix in range(len(self.cutline.lines_points) - 1):
+            p1 = self.cutline.lines_points[ix]
+            p2 = self.cutline.lines_points[ix - 1]
+
+            for edge in self.graphicsScene.scene.edges:
+                if edge.nodeGraphicsEdge.intersectsWith(p1, p2):
+                    edge.remove()
 
     def deleteSelected(self):
         '''刪除選擇物件'''

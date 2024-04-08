@@ -191,6 +191,7 @@ class NodeGraphicsView(QGraphicsView):
             super().mouseMoveEvent(event)
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
+        '''鍵盤按鍵事件'''
         if event.key() == Qt.Key.Key_Delete:
             if not self.editingFlag:
                 self.deleteSelected()
@@ -200,6 +201,7 @@ class NodeGraphicsView(QGraphicsView):
             super().keyPressEvent(event)
 
     def deleteSelected(self):
+        '''刪除選擇物件'''
         for item in self.graphicsScene.selectedItems():
             if isinstance(item, NodeGraphicsEdge):
                 item.edge.remove()

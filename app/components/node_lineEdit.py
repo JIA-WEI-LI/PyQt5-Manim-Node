@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QLabel, QHBoxLayout, QWidget, QLineEdit
-from PyQt5.QtCore import Qt, QModelIndex, QSize
-from PyQt5.QtGui import QColor, QFont, QPainter, QPen
+from PyQt5.QtCore import Qt
 
 from common.style_sheet import StyleSheet
 

@@ -3,7 +3,7 @@ from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QPalette, QFont,
 from PyQt5.QtCore import Qt, QPointF
 from common.style_sheet import StyleSheet
 
-class CustomControlledProgressBarStyle(QStyle):
+class ControlledProgressBarStyle(QStyle):
     def drawControl(self, element: QStyle.ControlElement, option: QStyleOption, painter: QPainter, widget: QWidget = None):
         if element == QStyle.ControlElement.CE_ProgressBar:
             if isinstance(option, QStyleOptionProgressBar):
@@ -63,7 +63,7 @@ class ControlledProgressBar(QProgressBar):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        style = CustomControlledProgressBarStyle()
+        style = ControlledProgressBarStyle()
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         opt = QStyleOptionProgressBar()

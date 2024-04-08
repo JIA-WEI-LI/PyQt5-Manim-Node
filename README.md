@@ -58,3 +58,4 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 * [ ] COD.24040601：`node_node / node_GraphicsNode.py` 節點高度決定位置與預計不符
   > 預期計畫：新增可控制型向量類型，將會改變節點高度
 * [x] ~~COD.24040602：`node_node / node_Node.py` 節點內部滑桿內容尚未完善~~
+* [ ] COD.24040802：`node_node / node_GraphicsNode.py` 下拉式選單預設高度較進度條小，目前暫時使用另定義高度解決。

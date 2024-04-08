@@ -262,19 +262,20 @@ class NodeGraphicsView(QGraphicsView):
     def edgeDragEnd(self, item):
         self.mode = MODE_NOOP
         if type(item) is NodeGraphicsSocket:
-            if DEBUG: print("View::edgeDragEnd -   - , previous End Socket:", self.previousEdge)
-            if item.socket.hasEdge():
-                item.socket.edge.remove()
-            if DEBUG: print("View::edgeDragEnd - assign End Socket", item.socket)
-            if self.previousEdge is not None: self.previousEdge.remove()
-            if DEBUG: print("View::edgeDragEnd - previousEdge edge remove")
-            self.dragEdge.start_socket = self.lastStartSocket
-            self.dragEdge.end_socket = item.socket
-            self.dragEdge.start_socket.setConnectedEdge(self.dragEdge)
-            self.dragEdge.end_socket.setConnectedEdge(self.dragEdge)
-            if DEBUG: print("View::edgeDragEnd - reassigned start & end sockets to drag edge", item.socket)
-            self.dragEdge.updatePositions()
-            return True
+            if item.socket != self.lastStartSocket:
+                if DEBUG: print("View::edgeDragEnd -   - , previous End Socket:", self.previousEdge)
+                if item.socket.hasEdge():
+                    item.socket.edge.remove()
+                if DEBUG: print("View::edgeDragEnd - assign End Socket", item.socket)
+                if self.previousEdge is not None: self.previousEdge.remove()
+                if DEBUG: print("View::edgeDragEnd - previousEdge edge remove")
+                self.dragEdge.start_socket = self.lastStartSocket
+                self.dragEdge.end_socket = item.socket
+                self.dragEdge.start_socket.setConnectedEdge(self.dragEdge)
+                self.dragEdge.end_socket.setConnectedEdge(self.dragEdge)
+                if DEBUG: print("View::edgeDragEnd - reassigned start & end sockets to drag edge", item.socket)
+                self.dragEdge.updatePositions()
+                return True
         
         # if self.dragEdge is not None: pass  # 檢查 self.dragEdge 是否為 None
         if DEBUG: print("View::edgeDragEnd - Ending dragging edge")

@@ -4,6 +4,19 @@ from PyQt5.QtCore import Qt
 from common.style_sheet import StyleSheet
 
 class LineEdit(QWidget):
+    '''
+        自定義LineEdit部件
+        ### Parameters:
+            text (str): QLineEdit部件的標籤文字。
+            max_width (float): QLineEdit部件的最大寬度。
+
+        ### Attributes:
+            text (str): QLineEdit部件的標籤文字。
+            max_width (float): QLineEdit部件的最大寬度。
+
+        ### Usage:
+            lineEdit = LineEdit(text="MyLineEdit", max_width=100)
+    '''
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def __init__(self, text: str, max_width:float,parent=None):
         super(LineEdit, self).__init__(parent=parent)

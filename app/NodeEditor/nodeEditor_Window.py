@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QEvent
-from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView
+from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent, QCursor
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView, QApplication
 
 from .Edge.node_Edge import Edge, EDGE_TYPE_BEZIER
 from .Edge.node_GraphicsEdge import NodeGraphicsEdge
@@ -115,11 +115,14 @@ class NodeGraphicsView(QGraphicsView):
     def middleMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠中鍵'''
         self.setDragMode(QGraphicsView.DragMode.ScrollHandDrag)
+        if DEBUG: print("Press Drag Mode: ", self.dragMode())
         self.dragStartPosition = event.pos()
 
     def middleMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠中鍵'''
         self.setDragMode(QGraphicsView.DragMode.NoDrag)
+        QApplication.restoreOverrideCursor()
+        if DEBUG: print("Release Drag Mode: ", self.dragMode())
         self.dragStartPosition = None
 
     def leftMouseButtonPress(self, event: QMouseEvent):

@@ -11,11 +11,11 @@ class PushButton(QPushButton):
 
     def enterEvent(self, event: QPaintEvent) -> None:
         '''鼠標進入按紐'''
-        QApplication.setOverrideCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        pass
 
     def leaveEvent(self, event: QMouseEvent) -> None:
         '''鼠標離開按紐'''
-        QApplication.restoreOverrideCursor()
+        pass
 
     @StyleSheet.apply("")
     def applyStyleSheet(self):

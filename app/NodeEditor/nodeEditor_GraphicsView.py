@@ -1,20 +1,22 @@
 from PyQt5.QtCore import Qt, QEvent
-from PyQt5.QtGui import QIcon, QKeyEvent, QMouseEvent, QPainter, QWheelEvent, QCursor
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView, QApplication
+from PyQt5.QtGui import QKeyEvent, QMouseEvent, QPainter, QWheelEvent
+from PyQt5.QtWidgets import QGraphicsView, QApplication
 
 from .Edge.node_Edge import Edge, EDGE_TYPE_BEZIER
 from .Edge.node_GraphicsEdge import NodeGraphicsEdge
 from .Node.node_Node import Node
 from .Socket.node_Socket import NodeGraphicsSocket
+from .Other.node_cutline import NodeCuteline
 from .nodeEditor_Scene import Scene, NodeGraphicsScene
 
 from common.style_sheet import StyleSheet
 from common.performance_utils import calculate_time
 from config.debug import DebugMode, DebugTimer
-from config.icon import Icon
 
 MODE_NOOP = 1
 MODE_EDGE_DRAG = 2
+MODE_EDGE_CUT = 3
+
 EDGE_DRAG_START_THRESHOLD = 10
 DEBUG = DebugMode.NODEEDITOR_WINDOW
 
@@ -34,6 +36,10 @@ class NodeGraphicsView(QGraphicsView):
         self.zoom = 7  # 調整初始值
         self.zoomStep = 1
         self.zoomRange = [0, 10]
+
+        # cutline
+        self.cutline = NodeCuteline()
+        self.graphicsScene.addItem(self.cutline)
 
         self.dragStartPosition = None  # 滑鼠開始拖曳位置
 

@@ -19,7 +19,7 @@ class Node():
         self.output = output
         self.socketSpace = SOCKET_SPACE   # 連結點之間空間
         
-        self.content = NodeContentWidget()
+        self.content = NodeContentWidget(self)
         self.graphicsNode = NodeGraphicsNode(self)
         self.scene.addNode(self)
         self.scene.nodeGraphicsScene.addItem(self.graphicsNode)

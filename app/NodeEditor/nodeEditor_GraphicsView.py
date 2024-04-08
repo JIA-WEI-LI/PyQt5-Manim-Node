@@ -27,6 +27,7 @@ class NodeGraphicsView(QGraphicsView):
         self.setScene(self.graphicsScene)
 
         self.mode = MODE_NOOP
+        self.editingFlag = False
 
         self.zoomInFactor = 1.25
         self.zoomClamp = True
@@ -191,7 +192,10 @@ class NodeGraphicsView(QGraphicsView):
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
         if event.key() == Qt.Key.Key_Delete:
-            self.deleteSelected()
+            if not self.editingFlag:
+                self.deleteSelected()
+            else:
+                super().keyPressEvent(event)
         else:
             super().keyPressEvent(event)
 

@@ -1,3 +1,4 @@
+from PyQt5.QtGui import QFocusEvent
 from PyQt5.QtWidgets import QLabel, QHBoxLayout, QWidget, QLineEdit
 from PyQt5.QtCore import Qt
 
@@ -18,7 +19,7 @@ class LineEdit(QWidget):
             lineEdit = LineEdit(text="MyLineEdit", max_width=100)
     '''
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def __init__(self, text: str, max_width:float,parent=None):
+    def __init__(self, text: str, max_width:float, parent=None):
         super(LineEdit, self).__init__(parent=parent)
         self.max_width = max_width
 
@@ -36,6 +37,14 @@ class LineEdit(QWidget):
         self.updateLabelWidth()
 
         self.setToolTip(text)
+
+    def focusInEvent(self, event: QFocusEvent) -> None:
+        self.parentWidget.setEditingFlag(True)
+        super().focusInEvent(event)
+
+    def focusOutEvent(self, event: QFocusEvent) -> None:
+        self.parentWidget.setEditingFlag(False)
+        super().focusOutEvent(event)
 
     def resizeEvent(self, event):
         super(LineEdit, self).resizeEvent(event)

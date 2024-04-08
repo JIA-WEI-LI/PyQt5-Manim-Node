@@ -10,8 +10,9 @@ DEBUG = DebugMode.NODE_NODE
 
 class NodeContentWidget(QWidget):
     '''自製內部元件構造'''
-    def __init__(self, parent=None):
+    def __init__(self, node, parent=None):
         super().__init__(parent)
+        self.node = node
         self.socketSpace = SOCKET_SPACE-7
         
         self.initUI()
@@ -106,6 +107,9 @@ class NodeContentWidget(QWidget):
 
         if DEBUG: lineEdit.setStyleSheet("border: 1px solid red;")
         return lineEdit
+
+    def setEditingFlag(self, value):
+        self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value
 
     def setFixedHeightForAll(self):
         total_height = self.vboxLayout.sizeHint().height()  # 獲取 vBoxLayout 的總高度

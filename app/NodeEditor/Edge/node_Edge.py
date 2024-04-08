@@ -62,6 +62,6 @@ class Edge:
         if DEBUG: print(" - remove edge from scene")
         try:
             self.scene.removeEdge(self)
-        except Exception as e:
-            if DEBUG: print("EXCEPTION: ", e)
+        except ValueError:
+            pass
         if DEBUG: print(" - everything is done.")

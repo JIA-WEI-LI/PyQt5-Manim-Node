@@ -99,7 +99,7 @@ class NodeContentWidget(QWidget):
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addLineEdit(self, text:str):
-        lineEdit = LineEdit("String ")
+        lineEdit = LineEdit("String for LineEdit with long name", self.width())
         lineEdit.setFixedHeight(self.socketSpace)
 
         self.vboxLayout.addWidget(lineEdit)

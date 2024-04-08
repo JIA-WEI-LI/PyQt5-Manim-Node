@@ -1,11 +1,8 @@
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QTextEdit, QPushButton, QSizePolicy, QProgressBar, QComboBox
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePolicy, QLineEdit
 
 from common.style_sheet import StyleSheet
-from components.node_checkbox import CheckBox
-from components.node_comboBox import ComboBox
-from components.node_pushButton import PushButton
-from components.node_progressbar import ControlledProgressBar
+from components import CheckBox, ComboBox, ControlledProgressBar, PushButton
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
@@ -25,34 +22,6 @@ class NodeContentWidget(QWidget):
         self.vboxLayout = QVBoxLayout()
         self.vboxLayout.setContentsMargins(0, 0, 3, 0)
         self.setLayout(self.vboxLayout)
-        
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addLabel(self, text:str, isOutput=False):
-        '''新增文字標籤，並可根據輸入或輸出改變置左或置右'''
-        label = QLabel(self)
-        label.setObjectName("contentLabel")
-        
-        label.setText(text)
-        label.setFixedHeight(self.socketSpace)
-        if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
-        self.vboxLayout.addWidget(label)
-        
-        if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
-        
-        return label
-    
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addPushButton(self, text:str, isOutput=False):
-        '''新增按紐'''
-        button = PushButton(self)
-        button.setText(text)
-        button.setFixedHeight(self.socketSpace)
-        button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        self.vboxLayout.addWidget(button)
-        
-        if DEBUG: button.setStyleSheet("color: white; border: 1px solid red;")
-        
-        return button
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addCheckbox(self, text:str):
@@ -75,18 +44,6 @@ class NodeContentWidget(QWidget):
         return checkbox, label
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addProgressBar(self, minimum:int=0, maximum:int=10, initial_percent:float=0.5):
-        '''新增可控制進度條'''
-        progressBar = ControlledProgressBar(minimum=minimum, maximum=maximum, initial_percent=initial_percent)
-        progressBar.setFixedHeight(self.socketSpace)
-        progressBar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-
-        progressBar.setAlignment(Qt.AlignmentFlag.AlignVCenter)
-        self.vboxLayout.addWidget(progressBar)
-
-        return progressBar
-    
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addComboBox(self, items:list=["List 1", "List 2", "List 3"]):
         '''新增下拉式選單'''
         comboBox = ComboBox()
@@ -100,6 +57,65 @@ class NodeContentWidget(QWidget):
 
         return comboBox
     
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addLabel(self, text:str, isOutput=False):
+        '''新增文字標籤，並可根據輸入或輸出改變置左或置右'''
+        label = QLabel(self)
+        label.setObjectName("contentLabel")
+        
+        label.setText(text)
+        label.setFixedHeight(self.socketSpace)
+        if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+        self.vboxLayout.addWidget(label)
+        
+        if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
+        
+        return label
+    
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addProgressBar(self, minimum:int=0, maximum:int=10, initial_percent:float=0.5):
+        '''新增可控制進度條'''
+        progressBar = ControlledProgressBar(minimum=minimum, maximum=maximum, initial_percent=initial_percent)
+        progressBar.setFixedHeight(self.socketSpace)
+        progressBar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+        progressBar.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+        self.vboxLayout.addWidget(progressBar)
+
+        return progressBar
+    
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addPushButton(self, text:str, isOutput=False):
+        '''新增按紐'''
+        button = PushButton(self)
+        button.setText(text)
+        button.setFixedHeight(self.socketSpace)
+        button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.vboxLayout.addWidget(button)
+        
+        if DEBUG: button.setStyleSheet("color: white; border: 1px solid red;")
+        
+        return button
+    
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addLineEdit(self, label:str):
+        hLayoutBox = QHBoxLayout()
+        label = QLabel(label)
+        lineEdit = QLineEdit()
+
+        label.setFixedHeight(self.socketSpace)
+        lineEdit.setFixedHeight(self.socketSpace)
+        hLayoutBox.setContentsMargins(0, 0, 0, 0)
+        hLayoutBox.addWidget(label, stretch=4, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+        hLayoutBox.addWidget(lineEdit, stretch=6, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+
+        self.vboxLayout.addLayout(hLayoutBox)
+
+        if DEBUG: lineEdit.setStyleSheet("border: 1px solid red;")
+        if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
+
+        return lineEdit
+
     def setFixedHeightForAll(self):
         total_height = self.vboxLayout.sizeHint().height()  # 獲取 vBoxLayout 的總高度
         item_count = self.vboxLayout.count()  # 獲取 vBoxLayout 中元素的數量

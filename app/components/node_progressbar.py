@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt, QPointF
 
 from common.color_sheet import color_manager
 
-class ControlledProgressBarSetting:
+class ControlledProgressBarColorSetting:
     BLENDER_BACKGROUND = color_manager.get_color("ProgressbarColor", "BLENDER_BACKGROUND")
     BLENDER_PROGRESSBAR = color_manager.get_color("ProgressbarColor", "BLENDER_PROGRESSBAR")
 
@@ -18,7 +18,7 @@ class ControlledProgressBarStyle(QStyle):
         # 繪製背景
         background_rect = option.rect
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.setBrush(QColor(ControlledProgressBarSetting.BLENDER_BACKGROUND))
+        painter.setBrush(QColor(ControlledProgressBarColorSetting.BLENDER_BACKGROUND))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRoundedRect(background_rect, 3, 3)  # 5 是圓角的半徑，可以自行調整
 
@@ -28,7 +28,7 @@ class ControlledProgressBarStyle(QStyle):
         progress_rect.setWidth(progress_width)
 
         # 繪製帶有圓角效果的進度條
-        progress_color = QColor(ControlledProgressBarSetting.BLENDER_PROGRESSBAR)
+        progress_color = QColor(ControlledProgressBarColorSetting.BLENDER_PROGRESSBAR)
         painter.setBrush(progress_color)
         painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRoundedRect(progress_rect, 3, 3)

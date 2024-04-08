@@ -53,7 +53,15 @@ class Edge:
             self.end_socket.edge = None
 
     def remove(self):
+        if DEBUG: print("# Removing Edge: ", self)
+        if DEBUG: print(" - remove edge from all sockets")
         self.remove_from_sockets()
+        if DEBUG: print(" - remove graphicsEdge")
         self.scene.nodeGraphicsScene.removeItem(self.nodeGraphicsEdge)
         self.nodeGraphicsEdge = None
-        self.scene.removeEdge(self)
+        if DEBUG: print(" - remove edge from scene")
+        try:
+            self.scene.removeEdge(self)
+        except Exception as e:
+            if DEBUG: print("EXCEPTION: ", e)
+        if DEBUG: print(" - everything is done.")

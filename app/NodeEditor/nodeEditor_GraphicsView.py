@@ -1,5 +1,5 @@
 from PyQt5.QtCore import Qt, QEvent
-from PyQt5.QtGui import QIcon, QMouseEvent, QPainter, QWheelEvent, QCursor
+from PyQt5.QtGui import QIcon, QKeyEvent, QMouseEvent, QPainter, QWheelEvent, QCursor
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGraphicsView, QApplication
 
 from .Edge.node_Edge import Edge, EDGE_TYPE_BEZIER
@@ -188,6 +188,19 @@ class NodeGraphicsView(QGraphicsView):
             self.verticalScrollBar().setValue(self.verticalScrollBar().value() - delta.y())
         else:
             super().mouseMoveEvent(event)
+
+    def keyPressEvent(self, event: QKeyEvent) -> None:
+        if event.key() == Qt.Key.Key_Delete:
+            self.deleteSelected()
+        else:
+            super().keyPressEvent(event)
+
+    def deleteSelected(self):
+        for item in self.graphicsScene.selectedItems():
+            if isinstance(item, NodeGraphicsEdge):
+                item.edge.remove()
+            elif hasattr(item, 'node'):
+                item.node.remove()
 
     def debug_modifiers(self, event: QMouseEvent):
         out = "MODS: "

@@ -91,7 +91,21 @@ class Node():
     def updateConnectedEdges(self):
         for socket in self.inputs + self.outputs:
             if socket.hasEdge():
-                socket.edge.updatePositions()  
+                socket.edge.updatePositions()
+    
+    def remove(self):
+        if DEBUG: print("> Removing Node: ", self)
+        if DEBUG: print(" - remove all edge from sockets")
+        for socket in (self.inputs + self.outputs):
+            if socket.hasEdge():
+                if DEBUG: print("    - removing from socket: ", socket, " edge: ", socket.edge)
+                socket.edge.remove()
+        if DEBUG: print(" - remove graphicsNode: ", self)
+        self.scene.nodeGraphicsScene.removeItem(self.graphicsNode)
+        self.graphicsNode = None
+        if DEBUG: print(" - remove node from the scene: ", self)
+        self.scene.removeNode(self)
+        if DEBUG: print(" - everything was done: ", self)
 
 class NodeContentWidgetDefault(QWidget):
     '''預設文字介紹'''

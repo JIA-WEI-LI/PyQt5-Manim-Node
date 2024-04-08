@@ -70,7 +70,9 @@ class CheckBox(QCheckBox):
             painter.drawPath(arrow_path.translated(rect.topLeft()))
 
     def enterEvent(self, event):
-        QApplication.setOverrideCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        # QApplication.setOverrideCursor(QCursor(Qt.CursorShape.PointingHandCursor))
+        pass
 
     def leaveEvent(self, event):
-        QApplication.restoreOverrideCursor()
+        # QApplication.restoreOverrideCursor()
+        pass

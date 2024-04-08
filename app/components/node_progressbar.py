@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QApplication, QProgressBar, QStyleOptionProgressBar, QStyle, QStyleOption, QWidget
-from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QFont
+from PyQt5.QtGui import QCursor, QFocusEvent, QMouseEvent, QPainter, QColor, QFont
 from PyQt5.QtCore import Qt, QPointF
 
 from common.color_sheet import color_manager
@@ -103,7 +103,6 @@ class ControlledProgressBar(QProgressBar):
         '''滑鼠移動時，如果正在拖動，更新進度'''
         if hasattr(self, 'dragging') and self.dragging:
             self.updateProgress(event)
-            QApplication.setOverrideCursor(QCursor(Qt.CursorShape.BlankCursor))
         super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):
@@ -112,7 +111,6 @@ class ControlledProgressBar(QProgressBar):
             self.dragging = False
             # 將滑鼠游標恢復為默認值
             QApplication.restoreOverrideCursor()
-            QApplication.setOverrideCursor(QCursor(Qt.CursorShape.ArrowCursor))
         else:
             super().mouseReleaseEvent(event)
 

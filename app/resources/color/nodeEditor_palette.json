@@ -61,5 +61,9 @@
     "BLENDER_BACKGROUND": "#545454",
     "BLENDER_HOVER_BACKGROUND": "#000",
     "BLENDER_CLICKED_BACKGROUND": "#4772b3"
-  }
+  },
+  "ProgressbarColor":{
+    "BLENDER_BACKGROUND": "#545454",
+    "BLENDER_PROGRESSBAR": "#4772b3"
+  } 
 }

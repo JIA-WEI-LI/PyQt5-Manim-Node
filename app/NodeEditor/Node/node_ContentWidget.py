@@ -2,7 +2,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePolicy, QLineEdit
 
 from common.style_sheet import StyleSheet
-from components import CheckBox, ComboBox, ControlledProgressBar, PushButton
+from components import CheckBox, ComboBox, ControlledProgressBar, PushButton, LineEdit
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
@@ -85,7 +85,7 @@ class NodeContentWidget(QWidget):
         return progressBar
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addPushButton(self, text:str, isOutput=False):
+    def addPushButton(self, text:str):
         '''新增按紐'''
         button = PushButton(self)
         button.setText(text)
@@ -98,22 +98,13 @@ class NodeContentWidget(QWidget):
         return button
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addLineEdit(self, label:str):
-        hLayoutBox = QHBoxLayout()
-        label = QLabel(label)
-        lineEdit = QLineEdit()
-
-        label.setFixedHeight(self.socketSpace)
+    def addLineEdit(self, text:str):
+        lineEdit = LineEdit("String ")
         lineEdit.setFixedHeight(self.socketSpace)
-        hLayoutBox.setContentsMargins(0, 0, 0, 0)
-        hLayoutBox.addWidget(label, stretch=4, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-        hLayoutBox.addWidget(lineEdit, stretch=6, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
 
-        self.vboxLayout.addLayout(hLayoutBox)
+        self.vboxLayout.addWidget(lineEdit)
 
         if DEBUG: lineEdit.setStyleSheet("border: 1px solid red;")
-        if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
-
         return lineEdit
 
     def setFixedHeightForAll(self):

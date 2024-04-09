@@ -51,7 +51,7 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(self.path())
 
-    def intersectsWith(self, p1, p2):
+    def intersectsWith(self, p1, p2) -> bool:
         cutpath = QPainterPath(p1)
         cutpath.lineTo(p2)
         path = self.calcPath()
@@ -63,14 +63,14 @@ class NodeGraphicsEdge(QGraphicsPathItem):
 
 class NodeGraphicsEdgeDirect(NodeGraphicsEdge):
     '''直線型連接線段'''
-    def calcPath(self):
+    def calcPath(self) -> QPainterPath:
         path = QPainterPath(QPointF(self.posSource[0], self.posSource[1]))
         path.lineTo(self.posDestination[0], self.posDestination[1])
         return path
 
 class NodeGraphicsEdgeBezier(NodeGraphicsEdge):
     '''貝茲曲線型連接線段'''
-    def calcPath(self):
+    def calcPath(self) -> QPainterPath:
         s = self.posSource
         d = self.posDestination
         dist = (d[0]-s[0]) * 0.5

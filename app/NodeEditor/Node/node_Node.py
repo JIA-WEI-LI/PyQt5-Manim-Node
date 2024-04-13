@@ -76,7 +76,7 @@ class Node():
         '''設定節點位置'''
         self.graphicsNode.setPos(x, y)
 
-    def getSocketPosition(self, index, position):
+    def getSocketPosition(self, index, position) -> list[float, float]:
         '''設置連結點位置'''
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):

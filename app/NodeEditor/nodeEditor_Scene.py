@@ -54,7 +54,7 @@ class NodeGraphicsScene(QGraphicsScene):
     def setGraphicsScene(self, width, height):
         self.setSceneRect(-width//2, -height//2, width, height)
 
-    def drawBackground(self, painter: QPainter, rect: QRectF) -> None:
+    def drawBackground(self, painter: QPainter, rect: QRectF):
         '''繪製視窗背景'''
         super().drawBackground(painter, rect)
 

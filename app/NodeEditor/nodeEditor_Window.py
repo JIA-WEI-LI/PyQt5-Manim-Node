@@ -40,6 +40,7 @@ class NodeEditorWindow(QWidget):
         node1 = Node(self.scene, "第一個節點", input=[0], output=[1, 2, 3, 4, 6])
         node2 = Node(self.scene, "第二個節點", input=[1, 1, 1], output=[1, 2])
         node3 = Node(self.scene, "第三個節點", input=[2, 2, 3], output=[1])
+        node4 = Node(self.scene, "第四個節點", input=[4, 4, 4, 4, 0], output=[1])
         node1.setPos(-350, -250)
         node2.setPos(0, 0)
         node3.setPos(50, -250)

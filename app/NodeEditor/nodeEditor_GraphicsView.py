@@ -227,6 +227,10 @@ class NodeGraphicsView(QGraphicsView):
                 self.deleteSelected()
             else:
                 super().keyPressEvent(event)
+        elif event.key() == Qt.Key.Key_S and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+            self.graphicsScene.scene.saveToFile("graph.json.txt")
+        elif event.key() == Qt.Key.Key_L and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+            self.graphicsScene.scene.loadFromFile("graph.json.txt")
         else:
             super().keyPressEvent(event)
 

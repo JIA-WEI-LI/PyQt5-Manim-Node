@@ -171,19 +171,3 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             self.outputs.append(new_socket)
 
         return True
-
-class NodeContentWidgetDefault(QWidget):
-    '''預設文字介紹'''
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        
-        self.initUI()
-        
-    def initUI(self):
-        self.vboxLayout = QVBoxLayout()
-        self.vboxLayout.setContentsMargins(0, 0, 0, 0)
-        self.setLayout(self.vboxLayout)
-        
-        self.label = QLabel("Some Title")
-        self.vboxLayout.addWidget(self.label)
-        self.vboxLayout.addWidget(QTextEdit("foo"))

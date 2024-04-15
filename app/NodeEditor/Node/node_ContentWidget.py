@@ -1,18 +1,18 @@
 from collections import OrderedDict
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePolicy, QLineEdit
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePolicy, QTextEdit, QPlainTextEdit
 
 from ..Serialization.node_Serializable import Serializable
 from common.style_sheet import StyleSheet
-from components import CheckBox, ComboBox, ControlledProgressBar, PushButton, LineEdit
+from components import *
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
 DEBUG = DebugMode.NODE_NODE
 
 class NodeContentWidget(QWidget, Serializable):
-    '''自製內部元件構造'''
+    '''自製標準內部元件構造'''
     def __init__(self, node, parent=None):
         super().__init__(parent)
         self.node = node
@@ -104,13 +104,28 @@ class NodeContentWidget(QWidget, Serializable):
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addLineEdit(self, text:str):
+        vLayout = QVBoxLayout()
+        label = QLabel(text)
         lineEdit = LineEdit("String for LineEdit with long name", self.width())
         lineEdit.setFixedHeight(self.socketSpace)
-
-        self.vboxLayout.addWidget(lineEdit)
+        
+        vLayout.setContentsMargins(0, 0, 0, 0)
+        label.setFixedHeight(self.socketSpace)
+        vLayout.addWidget(label)
+        vLayout.addWidget(lineEdit)
+        self.vboxLayout.addLayout(vLayout)
 
         if DEBUG: lineEdit.setStyleSheet("border: 1px solid red;")
         return lineEdit
+
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addPlainTextEdit(self, text, *, fixed_hight:int=3):
+        '''新增多行文字輸入(會超過節點大小)'''
+        plainTextEdit = QPlainTextEdit()
+        plainTextEdit.setFixedHeight(fixed_hight*self.socketSpace)
+
+        if DEBUG: plainTextEdit.setStyleSheet("border: 1px solid red;")
+        return plainTextEdit
 
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value
@@ -136,3 +151,19 @@ class NodeContentWidget(QWidget, Serializable):
     
     def deserialize(self, data, hashmap={}):
         raise False
+    
+class NodeContentWidgetDefault(QWidget):
+    '''預設文字介紹'''
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        
+        self.initUI()
+        
+    def initUI(self):
+        self.vboxLayout = QVBoxLayout()
+        self.vboxLayout.setContentsMargins(0, 0, 0, 0)
+        self.setLayout(self.vboxLayout)
+        
+        self.label = QLabel("Some Title")
+        self.vboxLayout.addWidget(self.label)
+        self.vboxLayout.addWidget(QTextEdit("foo"))

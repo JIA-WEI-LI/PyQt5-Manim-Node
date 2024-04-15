@@ -7,6 +7,8 @@ from PyQt5.QtWidgets import QGraphicsScene
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtCore import QLine
 
+from .Edge.node_Edge import Edge
+from .Node.node_Node import Node
 from .Serialization.node_Serializable import Serializable
 from common.color_sheet import color_manager
 
@@ -39,6 +41,10 @@ class Scene(Serializable):
     def removeEdge(self, edge):
         self.edges.remove(edge)
 
+    def clear(self):
+        while len(self.nodes) > 0:
+            self.nodes[0].remove()
+
     def saveToFile(self, file_name):
         with open(file_name, "w") as file:
             file.write(json.dumps(self.serialize(), indent=4))
@@ -47,7 +53,7 @@ class Scene(Serializable):
     def loadFromFile(self, file_name):
         with open(file_name, "r") as file:
             raw_data = file.read()
-            data = json.loads(raw_data, encoding='utf-8')
+            data = json.loads(raw_data)
             self.deserialize(data)
 
     def serialize(self):
@@ -65,9 +71,21 @@ class Scene(Serializable):
     
     def deserialize(self, data, hashmap={}):
         print(f"deserializating data ", data)
-        raise NotImplemented()
+
+        self.clear()
+
+        # 創造節點
+        for node_data in data['nodes']:
+            Node(self).deserialize(node_data, hashmap)
+        
+        # 創造線段
+        # for edge_data in data['edges']:
+        #     Node(self).deserialize(edge_data, hashmap)
+
+        return True
 
 class NodeGraphicsScene(QGraphicsScene):
+    '''繪製節點編輯器視窗背景'''
     def __init__(self, scene, parent=None):
         super().__init__(parent)
         self.scene = scene

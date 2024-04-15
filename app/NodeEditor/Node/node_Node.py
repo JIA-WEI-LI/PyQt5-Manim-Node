@@ -7,7 +7,6 @@ from .node_ContentWidget import NodeContentWidget
 from .node_GraphicsNode import NodeGraphicsNode
 from ..Serialization.node_Serializable import Serializable
 from ..Socket.node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
-from ..nodeEditor_Scene import Scene
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
@@ -15,16 +14,17 @@ DEBUG = DebugMode.NODE_NODE
 
 class Node(Serializable):
     '''節點'''
-    def __init__(self, scene:Scene, title="Undefined Node", input=[], output=[]):
+    def __init__(self, scene, title="Undefined Node", input=[], output=[]):
         super().__init__()
         self.scene = scene
-        self.title = title
+        self._title = title
         self.input = input
         self.output = output
         self.socketSpace = SOCKET_SPACE   # 連結點之間空間
         
         self.content = NodeContentWidget(self)
         self.graphicsNode = NodeGraphicsNode(self)
+        self.title = title
         self.scene.addNode(self)
         self.scene.nodeGraphicsScene.addItem(self.graphicsNode)
 
@@ -80,6 +80,13 @@ class Node(Serializable):
         '''設定節點位置'''
         self.graphicsNode.setPos(x, y)
 
+    @property
+    def title(self): return self._title
+    @title.setter
+    def title(self, value):
+        self._title = value
+        self.graphicsNode.title = self._title
+
     def getSocketPosition(self, index, position) -> list[float, float]:
         '''設置連結點位置'''
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
@@ -127,7 +134,11 @@ class Node(Serializable):
             ])
     
     def deserialize(self, data, hashmap={}):
-        raise False
+        self.id = data['id']
+        hashmap[data['id']] = self
+
+        self.title = data['title']
+        return False
 
 class NodeContentWidgetDefault(QWidget):
     '''預設文字介紹'''

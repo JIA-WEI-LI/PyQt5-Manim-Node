@@ -3,7 +3,6 @@ from collections import OrderedDict
 from .node_GraphicsEdge import NodeGraphicsEdgeDirect, NodeGraphicsEdgeBezier
 from ..Serialization.node_Serializable import Serializable
 from ..Socket.node_Socket import Socket
-from ..nodeEditor_Scene import Scene
 
 from config.debug import DebugMode
 
@@ -12,7 +11,7 @@ EDGE_TYPE_BEZIER = 2
 DEBUG = DebugMode.NODE_EDGE
 
 class Edge(Serializable):
-    def __init__(self, scene:Scene, start_socket:Socket, end_socket:Socket, edge_type=EDGE_TYPE_DIRECT) -> None:
+    def __init__(self, scene, start_socket:Socket, end_socket:Socket, edge_type=EDGE_TYPE_DIRECT) -> None:
         super().__init__()
         self.scene = scene
         self.start_socket = start_socket

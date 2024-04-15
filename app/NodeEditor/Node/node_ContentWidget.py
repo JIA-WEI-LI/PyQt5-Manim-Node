@@ -1,7 +1,8 @@
 from collections import OrderedDict
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePolicy, QTextEdit, QPlainTextEdit
+from PyQt5.QtGui import QPixmap
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePolicy, QTextEdit, QPlainTextEdit, QGraphicsView, QGraphicsScene
 
 from ..Serialization.node_Serializable import Serializable
 from common.style_sheet import StyleSheet
@@ -14,7 +15,7 @@ DEBUG = DebugMode.NODE_NODE
 class NodeContentWidget(QWidget, Serializable):
     '''自製標準內部元件構造'''
     def __init__(self, node, parent=None):
-        super().__init__(parent)
+        # super().__init__(parent)
         self.node = node
         super().__init__(parent)
         self.socketSpace = SOCKET_SPACE-7
@@ -110,6 +111,19 @@ class NodeContentWidget(QWidget, Serializable):
 
         if DEBUG: lineEdit.setStyleSheet("border: 1px solid red;")
         return lineEdit
+
+    def addGraphicsView(self, url:str):
+        graphicsView = QGraphicsView()
+        graphicsScene = QGraphicsScene()
+        img = QPixmap(url)
+
+        graphicsView.setFixedHeight(5 * self.socketSpace)
+        graphicsScene.addPixmap(img)
+        self.vboxLayout.addWidget(graphicsView)
+        
+
+        if DEBUG: graphicsView.setStyleSheet("border: 1px solid red;")
+        return graphicsView
 
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value

@@ -10,7 +10,7 @@ RIGHT_TOP = 3
 RIGHT_BOTTOM = 4
 
 class Socket(Serializable):
-    def __init__(self, node, *,  position, index:int=0, socket_type=1) -> None:
+    def __init__(self, node, *,  position, index:int=0, socket_type=1, space:int=0) -> None:
         super().__init__()
         self.node = node
         self.position = position
@@ -21,16 +21,16 @@ class Socket(Serializable):
         if DebugMode.NODE_SOCKET: print("Socket -- creating with", self.index, self.position, "for node", self.node)
 
         self.graphicsSocket = NodeGraphicsSocket(self, self.socket_type)
-        self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position))
+        self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position, space = space))
         
         self.edge = None
  
     def __str__(self) -> str:
         return "<Socket %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
         
-    def getSocketPosition(self):
+    def getSocketPosition(self, *, space:int=0):
         if DebugMode.NODE_SOCKET: print("  Get Socket Pos: ", self.index, self.position, " node: ", self.node)
-        res = self.node.getSocketPosition(self.index, self.position)
+        res = self.node.getSocketPosition(self.index, self.position, space=space)
         if DebugMode.NODE_SOCKET: print("  res: ", res)
         return res
         

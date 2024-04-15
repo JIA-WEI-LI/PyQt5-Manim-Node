@@ -1,8 +1,5 @@
 from collections import OrderedDict
 
-from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit
-
 from .node_ContentWidget import NodeContentWidget
 from .node_GraphicsNode import NodeGraphicsNode
 from ..Serialization.node_Serializable import Serializable
@@ -87,13 +84,13 @@ class Node(Serializable):
         self._title = value
         self.graphicsNode.title = self._title
 
-    def getSocketPosition(self, index, position) -> list[float, float]:
+    def getSocketPosition(self, index, position, *, space:int=0) -> list[float, float]:
         '''設置連結點位置'''
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # 如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + (index + len(self.output)) * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + (index + len(self.output)) * (space + 1) * self.socketSpace
             if DEBUG: print(f" ---> Pos {index} is bottom, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + 2 * padding: {2*int(self.graphicsNode.padding)} \
@@ -101,7 +98,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + (index: {int(index)} +len(output): {int(len(self.output))}) \
 * socketSpace: {int(self.socketSpace)}")
         else:
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + index * (space + 1) * self.socketSpace
             if DEBUG: print(f" ---> Pos {index} is top, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + 2 * padding: {2*int(self.graphicsNode.padding)} \

@@ -18,7 +18,6 @@ class LineEdit(QWidget):
         ### Usage:
             lineEdit = LineEdit(text="MyLineEdit", max_width=100)
     '''
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def __init__(self, text: str, max_width:float, parent=None):
         super(LineEdit, self).__init__(parent=parent)
         self.max_width = max_width

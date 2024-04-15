@@ -12,6 +12,7 @@ from .nodeEditor_Scene import Scene, NodeGraphicsScene
 from common.style_sheet import StyleSheet
 from common.performance_utils import calculate_time
 from config.debug import DebugMode, DebugTimer
+from config.file_path import SerializationPath
 
 MODE_NOOP = 1
 MODE_EDGE_DRAG = 2
@@ -228,9 +229,9 @@ class NodeGraphicsView(QGraphicsView):
             else:
                 super().keyPressEvent(event)
         elif event.key() == Qt.Key.Key_S and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-            self.graphicsScene.scene.saveToFile("graph.json.txt")
+            self.graphicsScene.scene.saveToFile(SerializationPath.GRAPH_JSON)
         elif event.key() == Qt.Key.Key_L and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-            self.graphicsScene.scene.loadFromFile("graph.json.txt")
+            self.graphicsScene.scene.loadFromFile(SerializationPath.GRAPH_JSON)
         else:
             super().keyPressEvent(event)
 

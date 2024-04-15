@@ -98,16 +98,16 @@ class Node(Serializable):
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + 2 * padding: {2*int(self.graphicsNode.padding)} \
 + edgeSize: {int(self.graphicsNode.edgeSize)} \
-+ (index: {int(index)} +len(output): {int(len(self.output))} \
-+ socketSpace: {int(self.socketSpace)}")
++ (index: {int(index)} +len(output): {int(len(self.output))}) \
+* socketSpace: {int(self.socketSpace)}")
         else:
             y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
             if DEBUG: print(f" ---> Pos {index} is top, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + 2 * padding: {2*int(self.graphicsNode.padding)} \
 + edgeSize: {int(self.graphicsNode.edgeSize)} \
-+ (index: {int(index)} +len(output): {int(len(self.output))} \
-+ socketSpace: {int(self.socketSpace)}")
++ (index: {int(index)} +len(output): {int(len(self.output))}) \
+* socketSpace: {int(self.socketSpace)}")
 
         return [x, y]
     

@@ -2,7 +2,7 @@
 ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/Django)
 
 _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數學動畫製作軟體_
-## 資料夾說明(過時待修)
+## 資料夾說明
 * app - 主資料夾
 * common - 常用設定資料夾
   * color_sheet.py - 獲取顏色列表
@@ -26,14 +26,20 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
     * node_Node.py - 節點基本構造
   * Other - 其他資料夾
     * node-Cutline.py - 切除線段
+  * Serialization - 序列化資料夾
+    * node_Serializable.py - 序列化架構
   * Socket - 連結點資料夾
     * node_Socket.py - 連結點基本構造
     * node_GraphicsSocket.py - 連結點樣式構造
+  * nodeEditor_GraphicsView.py - 主畫面控制，含按鍵事件
   * nodeEditor_Scene.py - 節點編輯器畫面
   * nodeEditor_Window.py - 節點編輯器視窗
 * resources - 材質包
+  * color - 顏色資料夾
   * icons - 圖標資料夾
   * qss - QSS 樣式資料夾
+  * screenshot - 螢幕截圖資料夾
+* main.py - 主運行程式
 
 ## 進度
 > 參考影片清單：[https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz](https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz)

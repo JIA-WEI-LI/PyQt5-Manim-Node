@@ -1,8 +1,8 @@
 class DebugMode:
     NODE_EDGE = False
-    NODE_NODE = True
+    NODE_NODE = False
     NODE_SOCKET = False
-    NODEEDITOR_WINDOW = True
+    NODEEDITOR_WINDOW = False
     
 class DebugTimer:
     NODE_EDGE = False

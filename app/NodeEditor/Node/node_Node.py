@@ -94,8 +94,20 @@ class Node(Serializable):
             # 如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
             y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + (index + len(self.output)) * self.socketSpace
+            print(f" ---> Pos {index} is bottom, \
+y = titleHeight: {int(self.graphicsNode.titleHeight)} \
++ 2 * padding: {2*int(self.graphicsNode.padding)} \
++ edgeSize: {int(self.graphicsNode.edgeSize)} \
++ (index: {int(index)} +len(output): {int(len(self.output))} \
++ socketSpace: {int(self.socketSpace)}")
         else:
             y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + index * self.socketSpace
+            if DEBUG: print(f" ---> Pos {index} is top, \
+y = titleHeight: {int(self.graphicsNode.titleHeight)} \
++ 2 * padding: {2*int(self.graphicsNode.padding)} \
++ edgeSize: {int(self.graphicsNode.edgeSize)} \
++ (index: {int(index)} +len(output): {int(len(self.output))} \
++ socketSpace: {int(self.socketSpace)}")
 
         return [x, y]
     
@@ -135,10 +147,29 @@ class Node(Serializable):
     
     def deserialize(self, data, hashmap={}):
         self.id = data['id']
+        self.output = data['outputs']
         hashmap[data['id']] = self
 
+        self.setPos(data['pos_x'], data['pos_y'])
+
         self.title = data['title']
-        return False
+        
+        data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
+        data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
+        self.graphicsNode.height = self.graphicsNode.titleHeight + 2 * self.graphicsNode.padding + len(data['inputs'] + data['outputs']) * self.socketSpace
+
+        self.inputs, self.outputs = [], []
+        for socket_data in data['inputs']:
+            new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            new_socket.deserialize(socket_data, hashmap)
+            self.inputs.append(new_socket)
+        self.outputs = []
+        for socket_data in data['outputs']:
+            new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            new_socket.deserialize(socket_data, hashmap)
+            self.outputs.append(new_socket)
+
+        return True
 
 class NodeContentWidgetDefault(QWidget):
     '''預設文字介紹'''

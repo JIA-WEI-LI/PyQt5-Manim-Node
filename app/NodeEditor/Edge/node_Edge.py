@@ -80,4 +80,4 @@ class Edge(Serializable):
         ])
     
     def deserialize(self, data, hashmap={}):
-        raise False
+        return False

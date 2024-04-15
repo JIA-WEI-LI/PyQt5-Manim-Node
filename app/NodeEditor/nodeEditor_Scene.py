@@ -70,8 +70,6 @@ class Scene(Serializable):
             ])
     
     def deserialize(self, data, hashmap={}):
-        print(f"deserializating data ", data)
-
         self.clear()
 
         # 創造節點

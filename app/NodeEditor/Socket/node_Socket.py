@@ -10,11 +10,12 @@ RIGHT_TOP = 3
 RIGHT_BOTTOM = 4
 
 class Socket(Serializable):
-    def __init__(self, node, index:int=0, position=LEFT_TOP, socket_type=1) -> None:
+    def __init__(self, node, *,  position, index:int=0, socket_type=1) -> None:
         super().__init__()
         self.node = node
-        self.index = index
         self.position = position
+        self.index = index
+        
         self.socket_type = socket_type
         
         if DebugMode.NODE_SOCKET: print("Socket -- creating with", self.index, self.position, "for node", self.node)
@@ -49,4 +50,6 @@ class Socket(Serializable):
         ])
     
     def deserialize(self, data, hashmap={}):
-        raise False
+        self.id = data['id']
+        hashmap[data['id']] = self
+        return True

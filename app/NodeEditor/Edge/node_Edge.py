@@ -17,6 +17,7 @@ class Edge(Serializable):
         self.scene = scene
         self.start_socket = start_socket
         self.end_socket = end_socket
+        self.edge_type = edge_type
 
         self.start_socket.edge = self
         if self.end_socket is not None:
@@ -73,7 +74,11 @@ class Edge(Serializable):
     def serialize(self):
         '''序列化資訊'''
         return OrderedDict([
-            ('id', self.id)])
+            ('id', self.id),
+            ('edge_type', self.edge_type),
+            ('start', self.start_socket.id),
+            ('end', self.end_socket.id)
+        ])
     
     def deserialize(self, data, hashmap={}):
         raise False

@@ -42,7 +42,11 @@ class Socket(Serializable):
     def serialize(self):
         '''序列化資訊'''
         return OrderedDict([
-            ('id', self.id)])
+            ('id', self.id),
+            ('index', self.index),
+            ('position', self.position),
+            ('socket_type', self.socket_type)
+        ])
     
     def deserialize(self, data, hashmap={}):
         raise False

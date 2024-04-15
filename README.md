@@ -75,6 +75,10 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 <summary>第二部分：節點編輯器功能</summary>
 
 * [x] [Node Editor Tutorial 16: Introduction to Serialization](https://www.youtube.com/watch?v=CNyHqmE5KoU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=18)
+* [ ] [Node Editor Tutorial 17: Deserialization - File load](https://www.youtube.com/watch?v=R3Qh_JEnCoQ&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=19)
+* [ ] [Node Editor Tutorial 18: Undo & Redo #1 - Introduction](https://www.youtube.com/watch?v=dsgLJWBE_Lg&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=20)
+* [ ] [Node Editor Tutorial 19: Undo & Redo #2 - History Stack](https://www.youtube.com/watch?v=cWnrLndefPA&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=21)
+* [ ] [Node Editor Tutorial 20: Undo & Redo #3 - History Stamps](https://www.youtube.com/watch?v=ggFhdzPihzU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=22)
 </details>
 
 

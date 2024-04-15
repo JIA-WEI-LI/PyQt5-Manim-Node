@@ -113,8 +113,18 @@ class Node(Serializable):
 
     def serialize(self):
         '''序列化資訊'''
+        inputs, outputs = [], []
+        for socket in self.inputs: inputs.append(socket.serialize())
+        for socket in self.outputs: outputs.append(socket.serialize())
         return OrderedDict([
-            ('id', self.id)])
+            ('id', self.id),
+            ('title', self.title),
+            ('pos_x', self.graphicsNode.scenePos().x()),
+            ('pos_y', self.graphicsNode.scenePos().y()),
+            ('inputs', inputs),
+            ('outputs', outputs),
+            ('content', self.content.serialize()),
+            ])
     
     def deserialize(self, data, hashmap={}):
         raise False

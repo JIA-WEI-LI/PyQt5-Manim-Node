@@ -52,10 +52,16 @@ class Scene(Serializable):
 
     def serialize(self):
         '''序列化資訊'''
+        nodes, edges = [], []
+        for node in self.nodes: nodes.append(node.serialize())
+        for edge in self.edges: edges.append(edge.serialize())
         return OrderedDict([
-            ('id', self.id), 
+            ('id', self.id),
             ('scene_width', self.sceneWidth),
-            ('scene_height', self.sceneHeight)])
+            ('scene_height', self.sceneHeight),
+            ('nodes', nodes),
+            ('edges', edges)
+            ])
     
     def deserialize(self, data, hashmap={}):
         print(f"deserializating data ", data)

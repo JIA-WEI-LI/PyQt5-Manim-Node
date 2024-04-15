@@ -1,6 +1,9 @@
+from collections import OrderedDict
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePolicy, QLineEdit
 
+from ..Serialization.node_Serializable import Serializable
 from common.style_sheet import StyleSheet
 from components import CheckBox, ComboBox, ControlledProgressBar, PushButton, LineEdit
 from config.debug import DebugMode
@@ -8,11 +11,12 @@ from config.debug import DebugMode
 SOCKET_SPACE = 30
 DEBUG = DebugMode.NODE_NODE
 
-class NodeContentWidget(QWidget):
+class NodeContentWidget(QWidget, Serializable):
     '''自製內部元件構造'''
     def __init__(self, node, parent=None):
         super().__init__(parent)
         self.node = node
+        super().__init__(parent)
         self.socketSpace = SOCKET_SPACE-7
         
         self.initUI()
@@ -123,3 +127,12 @@ class NodeContentWidget(QWidget):
             item_widget = self.vboxLayout.itemAt(i).widget()
             if item_widget is not None:
                 item_widget.setFixedHeight(avg_height)
+
+    def serialize(self):
+        '''序列化資訊'''
+        return OrderedDict([
+            
+        ])
+    
+    def deserialize(self, data, hashmap={}):
+        raise False

@@ -104,28 +104,12 @@ class NodeContentWidget(QWidget, Serializable):
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addLineEdit(self, text:str):
-        vLayout = QVBoxLayout()
-        label = QLabel(text)
         lineEdit = LineEdit("String for LineEdit with long name", self.width())
         lineEdit.setFixedHeight(self.socketSpace)
-        
-        vLayout.setContentsMargins(0, 0, 0, 0)
-        label.setFixedHeight(self.socketSpace)
-        vLayout.addWidget(label)
-        vLayout.addWidget(lineEdit)
-        self.vboxLayout.addLayout(vLayout)
+        self.vboxLayout.addWidget(lineEdit)
 
         if DEBUG: lineEdit.setStyleSheet("border: 1px solid red;")
         return lineEdit
-
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addPlainTextEdit(self, text, *, fixed_hight:int=3):
-        '''新增多行文字輸入(會超過節點大小)'''
-        plainTextEdit = QPlainTextEdit()
-        plainTextEdit.setFixedHeight(fixed_hight*self.socketSpace)
-
-        if DEBUG: plainTextEdit.setStyleSheet("border: 1px solid red;")
-        return plainTextEdit
 
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value

@@ -1,6 +1,8 @@
 from PyQt5.QtWidgets import QComboBox, QStyledItemDelegate, QStyleOptionViewItem, QStyle, QListView, QLabel, QSizePolicy
-from PyQt5.QtCore import Qt, QModelIndex
+from PyQt5.QtCore import QAbstractItemModel, QEvent, Qt, QModelIndex
 from PyQt5.QtGui import QColor, QFont, QPainter, QPen
+
+CURRENT_INDEX:int = 0
 
 class CustomItemDelegate(QStyledItemDelegate):
     '''自定義元素樣式'''

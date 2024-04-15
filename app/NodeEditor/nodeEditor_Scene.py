@@ -1,5 +1,6 @@
 import math
 import json
+from collections import OrderedDict
 
 from PyQt5.QtCore import QRectF
 from PyQt5.QtWidgets import QGraphicsScene
@@ -51,11 +52,7 @@ class Scene(Serializable):
 
     def serialize(self):
         '''序列化資訊'''
-        return {
-            'id': self.id,
-            'scene_width': self.sceneWidth,
-            'scene_height': self.sceneHeight
-        }
+        return OrderedDict([('id', self.id), ('scene_width', self.sceneWidth),('scene_height', self.sceneHeight)])
     
     def deserialize(self, data, hashmap={}):
         print(f"deserializating data ", data)

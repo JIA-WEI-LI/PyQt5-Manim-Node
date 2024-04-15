@@ -52,7 +52,7 @@ class NodeContentWidget(QWidget, Serializable):
     def addComboBox(self, items:list=["List 1", "List 2", "List 3"]):
         '''新增下拉式選單'''
         comboBox = ComboBox()
-        comboBox.setFixedHeight(SOCKET_SPACE-5)
+        comboBox.setFixedHeight(self.socketSpace)
         comboBox.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 
         comboBox.addItems(items)

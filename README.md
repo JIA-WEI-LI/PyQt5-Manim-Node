@@ -50,7 +50,7 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 <details>
 <summary>第二部分：節點編輯器功能</summary>
 
-* [ ] [Node Editor Tutorial 16: Introduction to Serialization](https://www.youtube.com/watch?v=CNyHqmE5KoU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=18)( 觀看進度 18:15 )
+* [x] [Node Editor Tutorial 16: Introduction to Serialization](https://www.youtube.com/watch?v=CNyHqmE5KoU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=18)
 </details>
 
 

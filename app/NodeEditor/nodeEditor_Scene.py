@@ -77,8 +77,8 @@ class Scene(Serializable):
             Node(self).deserialize(node_data, hashmap)
         
         # 創造線段
-        # for edge_data in data['edges']:
-        #     Node(self).deserialize(edge_data, hashmap)
+        for edge_data in data['edges']:
+            Edge(self).deserialize(edge_data, hashmap)
 
         return True
 

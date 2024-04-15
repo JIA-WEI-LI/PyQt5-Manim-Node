@@ -11,26 +11,61 @@ EDGE_TYPE_BEZIER = 2
 DEBUG = DebugMode.NODE_EDGE
 
 class Edge(Serializable):
-    def __init__(self, scene, start_socket:Socket, end_socket:Socket, edge_type=EDGE_TYPE_DIRECT) -> None:
+    def __init__(self, scene, start_socket:Socket=None, end_socket:Socket=None, edge_type=EDGE_TYPE_DIRECT) -> None:
         super().__init__()
         self.scene = scene
         self.start_socket = start_socket
         self.end_socket = end_socket
         self.edge_type = edge_type
 
-        self.start_socket.edge = self
-        if self.end_socket is not None:
-            self.end_socket.edge = self
+        # self.start_socket.edge = self
+        # if self.end_socket is not None:
+        #     self.end_socket.edge = self
 
-        self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if edge_type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
-
-        self.updatePositions()
+        # self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if edge_type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
+        # self.updatePositions()
         if DEBUG: print("Edge: ", self.nodeGraphicsEdge.posSource, "to", self.nodeGraphicsEdge.posDestination)
-        self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
+        # self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
         self.scene.addEdge(self)
         
     def __str__(self) -> str:
         return "<Edge %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
+    
+    @property
+    def start_socket(self): return self._start_socket
+    @start_socket.setter
+    def start_socket(self, value):
+        self._start_socket = value
+        if self.start_socket is not None:
+            self.start_socket.edge = self
+
+    @property
+    def end_socket(self): return self._end_socket
+    @end_socket.setter
+    def end_socket(self, value):
+        self._end_socket = value
+        if self.end_socket is not None:
+            self.end_socket.edge = self
+
+    @property
+    def edge_type(self): return self._edge_type
+    @edge_type.setter
+    def edge_type(self, value):
+        if hasattr(self, 'nodeGraphicsEdge') and self.nodeGraphicsEdge is not None:
+            self.scene.nodeGraphicsScene.removeItem(self.nodeGraphicsEdge)
+
+        self._edge_type = value
+        if self.edge_type == EDGE_TYPE_DIRECT:
+            self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self)
+        elif self.edge_type == EDGE_TYPE_BEZIER:
+            self.nodeGraphicsEdge = NodeGraphicsEdgeBezier(self)
+        else:
+            self.nodeGraphicsEdge = NodeGraphicsEdgeBezier(self)
+
+        self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
+
+        if self.start_socket is not None:
+            self.updatePositions()
 
     def updatePositions(self):
         source_pos = self.start_socket.getSocketPosition()
@@ -80,4 +115,8 @@ class Edge(Serializable):
         ])
     
     def deserialize(self, data, hashmap={}):
-        return False
+        self.id = data['id']
+        self.start_socket = hashmap[data['start']]
+        self.end_socket = hashmap[data['end']]
+        self.edge_type =  data['edge_type']
+        return True

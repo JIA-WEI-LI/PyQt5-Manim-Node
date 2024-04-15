@@ -146,6 +146,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             ])
     
     def deserialize(self, data, hashmap={}):
+        '''載入序列化資訊'''
         self.id = data['id']
         self.output = data['outputs']
         hashmap[data['id']] = self

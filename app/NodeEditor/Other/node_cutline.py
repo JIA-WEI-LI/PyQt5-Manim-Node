@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QRectF 
-from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget, QStyleOptionGraphicsItem, QWidget
-from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath, QPolygonF
+from PyQt5.QtWidgets import QGraphicsItem, QStyleOptionGraphicsItem, QWidget
+from PyQt5.QtGui import QPen, QPainter, QPolygonF
 
 class NodeCuteline(QGraphicsItem):
     def __init__(self, parent=None) -> None:

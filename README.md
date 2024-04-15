@@ -5,14 +5,30 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 ## 資料夾說明(過時待修)
 * app - 主資料夾
 * common - 常用設定資料夾
-  * color_sheet - 
+  * color_sheet.py - 獲取顏色列表
+  * performance_utils.py - 自製運行測試時間
+  * style_sheet.py - 獲取自製樣式表
+* components - 小部件樣式資料夾
+  * node_checkbox.py , node_comboBox.py , ... -  重新繪製小部件
 * config - 基礎設定資料夾
+  * debug.py - 控制各檔案開發模式
+  * file_path.py - 各路徑獲取
   * icon.py - 圖標路徑
-  * palette.py - 顏色路徑
-* Node - 節點編輯器資料夾
-  * node_Edge.py - 線段基本構造
-  * node_Node.py - 節點基本構造
-  * node_Socket.py - 連結點基本構造
+* data - 資料儲存
+  * graph.json - 序列化場景資料
+* NodeEditor - 節點編輯器主資料夾
+  * Edge - 線段資料夾
+    * node_Edge.py - 線段基本構造
+    * node_GraphicsEdge.py - 線段樣式構造
+  * Node - 節點資料夾
+    * node_ContentWidget.py - 節點內部小部件樣式
+    * node_GraphicsNode.py -節點樣式構造
+    * node_Node.py - 節點基本構造
+  * Other - 其他資料夾
+    * node-Cutline.py - 切除線段
+  * Socket - 連結點資料夾
+    * node_Socket.py - 連結點基本構造
+    * node_GraphicsSocket.py - 連結點樣式構造
   * nodeEditor_Scene.py - 節點編輯器畫面
   * nodeEditor_Window.py - 節點編輯器視窗
 * resources - 材質包

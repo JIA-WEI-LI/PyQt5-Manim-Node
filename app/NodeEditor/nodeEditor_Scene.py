@@ -48,13 +48,14 @@ class Scene(Serializable):
     def saveToFile(self, file_name):
         with open(file_name, "w") as file:
             file.write(json.dumps(self.serialize(), indent=4))
-        print(f"saving to {file_name} was successfull")
+        print(f"Saving to {file_name} was successfull")
 
     def loadFromFile(self, file_name):
         with open(file_name, "r") as file:
             raw_data = file.read()
             data = json.loads(raw_data)
             self.deserialize(data)
+        print(f"Loading {file_name} was successfull")
 
     def serialize(self):
         '''序列化資訊'''

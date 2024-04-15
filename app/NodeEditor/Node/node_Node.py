@@ -94,7 +94,7 @@ class Node(Serializable):
             # 如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
             y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + (index + len(self.output)) * self.socketSpace
-            print(f" ---> Pos {index} is bottom, \
+            if DEBUG: print(f" ---> Pos {index} is bottom, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + 2 * padding: {2*int(self.graphicsNode.padding)} \
 + edgeSize: {int(self.graphicsNode.edgeSize)} \

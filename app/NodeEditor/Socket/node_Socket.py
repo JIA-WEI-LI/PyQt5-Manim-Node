@@ -1,3 +1,6 @@
+from collections import OrderedDict
+
+from ..Serialization.node_Serializable import Serializable
 from .node_GraphicsSocket import NodeGraphicsSocket
 from config.debug import DebugMode
 
@@ -6,8 +9,9 @@ LEFT_BOTTOM = 2
 RIGHT_TOP = 3
 RIGHT_BOTTOM = 4
 
-class Socket:
+class Socket(Serializable):
     def __init__(self, node, index:int=0, position=LEFT_TOP, socket_type=1) -> None:
+        super().__init__()
         self.node = node
         self.index = index
         self.position = position
@@ -34,3 +38,11 @@ class Socket:
 
     def hasEdge(self):
         return self.edge is not None
+    
+    def serialize(self):
+        '''序列化資訊'''
+        return OrderedDict([
+            ('id', self.id)])
+    
+    def deserialize(self, data, hashmap={}):
+        raise False

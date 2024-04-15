@@ -1,8 +1,11 @@
+from collections import OrderedDict
+
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QLabel, QTextEdit
 
 from .node_ContentWidget import NodeContentWidget
 from .node_GraphicsNode import NodeGraphicsNode
+from ..Serialization.node_Serializable import Serializable
 from ..Socket.node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
 from ..nodeEditor_Scene import Scene
 from config.debug import DebugMode
@@ -10,9 +13,10 @@ from config.debug import DebugMode
 SOCKET_SPACE = 30
 DEBUG = DebugMode.NODE_NODE
 
-class Node():
+class Node(Serializable):
     '''節點'''
     def __init__(self, scene:Scene, title="Undefined Node", input=[], output=[]):
+        super().__init__()
         self.scene = scene
         self.title = title
         self.input = input
@@ -106,6 +110,14 @@ class Node():
         if DEBUG: print(" - remove node from the scene: ", self)
         self.scene.removeNode(self)
         if DEBUG: print(" - everything was done: ", self)
+
+    def serialize(self):
+        '''序列化資訊'''
+        return OrderedDict([
+            ('id', self.id)])
+    
+    def deserialize(self, data, hashmap={}):
+        raise False
 
 class NodeContentWidgetDefault(QWidget):
     '''預設文字介紹'''

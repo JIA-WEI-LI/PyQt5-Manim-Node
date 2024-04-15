@@ -7,7 +7,7 @@ from PyQt5.QtWidgets import QGraphicsScene
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtCore import QLine
 
-from NodeEditor.Serialization.node_Serializable import Serializable
+from .Serialization.node_Serializable import Serializable
 from common.color_sheet import color_manager
 
 PENLIGHT_COLOR = color_manager.get_color("WindowColor", "BLENDER_PEN_LIGHT")
@@ -52,7 +52,10 @@ class Scene(Serializable):
 
     def serialize(self):
         '''序列化資訊'''
-        return OrderedDict([('id', self.id), ('scene_width', self.sceneWidth),('scene_height', self.sceneHeight)])
+        return OrderedDict([
+            ('id', self.id), 
+            ('scene_width', self.sceneWidth),
+            ('scene_height', self.sceneHeight)])
     
     def deserialize(self, data, hashmap={}):
         print(f"deserializating data ", data)

@@ -8,7 +8,7 @@ from .nodeEditor_GraphicsView import NodeGraphicsView
 
 from config.debug import DebugMode, DebugTimer
 from config.icon import Icon
-from NodeEditorNodes.node_ImagePreview import Node_ImagePreview
+from NodeEditorNodes.node_Add import Node_Add
 
 class NodeEditorWindow(QWidget):
     def __init__(self, parent=None) -> None:
@@ -41,7 +41,7 @@ class NodeEditorWindow(QWidget):
         node1 = Node(self.scene, "第一個節點", input=[1], output=[1, 2, 3, 4, 5, 6])
         node2 = Node(self.scene, "第二個節點", input=[1, 1, 1], output=[1, 2])
         node3 = Node(self.scene, "第三個節點", input=[2, 2, 3], output=[1])
-        node4 = Node_ImagePreview(self.scene)
+        node4 = Node_Add(self.scene)
         node1.setPos(-350, -250)
         node2.setPos(0, 0)
         node3.setPos(50, -250)

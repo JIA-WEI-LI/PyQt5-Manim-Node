@@ -93,8 +93,7 @@ class NodeContentWidget(QWidget, Serializable):
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addPushButton(self, text:str):
         '''新增按紐'''
-        button = PushButton(self)
-        button.setText(text)
+        button = PushButton(text)
         button.setFixedHeight(self.socketSpace)
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.vboxLayout.addWidget(button)

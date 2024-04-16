@@ -28,9 +28,10 @@ class CheckBox(QCheckBox):
     '''
     CheckBoxData = WCheckBoxData()
    
-    def __init__(self, CheckBoxData=WCheckBoxData()):
+    def __init__(self, text:str="", *, CheckBoxData=WCheckBoxData(), **kwargs):
         super(CheckBox, self).__init__(None)
         self.CheckBoxData = CheckBoxData
+        tooltip = kwargs.get("tooltip", "")
             
         self.labelFont = QFont("Times New Roman", 12, weight=QFont.Weight.Bold)
         self.labelFont.setWordSpacing(self.CheckBoxData.FontSpacing)
@@ -40,6 +41,8 @@ class CheckBox(QCheckBox):
         self.clicked.connect(self.update)  # 將點擊事件連接到更新函數
 
         self.setChecked(False)
+
+        self.setToolTip(None) if tooltip=="" else self.setToolTip(tooltip)
 
     def paintEvent(self, event: QPaintEvent):
         painter = QPainter(self)

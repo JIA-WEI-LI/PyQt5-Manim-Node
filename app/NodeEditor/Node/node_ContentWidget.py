@@ -30,10 +30,12 @@ class NodeContentWidget(QWidget, Serializable):
         self.setLayout(self.vboxLayout)
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addCheckbox(self, text:str):
+    def addCheckbox(self, text:str, **kwargs):
         '''新增二態複選框'''
+        tooltip = kwargs.get("tooltip", "")
+
         hLayoutBox = QHBoxLayout()
-        checkbox = CheckBox()
+        checkbox = CheckBox(text, **kwargs)
         label = QLabel(text)
         label.setObjectName("nodeCheckboxLabel")
         
@@ -43,11 +45,14 @@ class NodeContentWidget(QWidget, Serializable):
         hLayoutBox.addWidget(checkbox)
         hLayoutBox.addWidget(label, stretch=1)
         self.vboxLayout.addLayout(hLayoutBox)
+
+        self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
+        # self.vboxLayout.addWidget(checkbox)
         
         if DEBUG: checkbox.setStyleSheet("border: 1px solid red;")
         if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         
-        return checkbox, label
+        return checkbox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addComboBox(self, items:list=["List 1", "List 2", "List 3"], **kwargs):

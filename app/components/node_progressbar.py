@@ -57,11 +57,14 @@ class ControlledProgressBar(QProgressBar):
     def __init__(self, label="Value", minimum=0, maximum=100, parent=None, **kwargs):
         super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
-        initial_percent = kwargs.get("initial_percent", "")
+        initial_percent = kwargs.get("initial_percent", 0.5)
 
         self.label = label
         self.setRange(minimum, maximum)
 
+
+        if not isinstance(initial_percent, float):
+            raise TypeError("initial_percent must be a float")
         if initial_percent < 0 or initial_percent > 1:
             raise ValueError("initial_percent must be between 0 and 1")
         self.setValue(int(initial_percent*100))

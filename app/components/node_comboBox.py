@@ -37,6 +37,7 @@ class ComboBox(QComboBox):
         自定義下拉式選單
         ### Parameters:
             parent (QWidget): 父窗口部件，預設為None。
+            **tooltip (str): 自定義提示字框內容文字。
 
         ### Attributes:
             text_label (QLabel): 顯示當前選擇文本的標籤。
@@ -44,8 +45,10 @@ class ComboBox(QComboBox):
         ### Usage:
             combo_box = ComboBox(parent)
     '''
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, **kwargs):
         super(ComboBox, self).__init__(parent=parent)
+        tooltip = kwargs.get("tooltip", "")
+
         self.setView(QListView())
         delegate = CustomItemDelegate(self)
         self.setItemDelegate(delegate)
@@ -53,6 +56,8 @@ class ComboBox(QComboBox):
         self.text_label = QLabel(self)
         self.text_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.text_label.setStyleSheet('color: #FFFFFF;')
+
+        self.setToolTip(self.text_label) if tooltip=="" else self.setToolTip(tooltip)
 
         # 滑鼠進入和離開事件處理程序
         self.enterEvent = self.mouse_enter

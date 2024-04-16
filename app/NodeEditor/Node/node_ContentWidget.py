@@ -69,8 +69,10 @@ class NodeContentWidget(QWidget, Serializable):
         return comboBox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addLabel(self, text:str, isOutput=False):
+    def addLabel(self, text:str, isOutput=False, **kwargs):
         '''新增文字標籤，並可根據輸入或輸出改變置左或置右'''
+        tooltip = kwargs.get("tooltip", "")
+        
         label = QLabel(self)
         label.setObjectName("contentLabel")
         
@@ -78,6 +80,8 @@ class NodeContentWidget(QWidget, Serializable):
         label.setFixedHeight(self.socketSpace)
         if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
+
+        self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
         
         if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         
@@ -124,7 +128,6 @@ class NodeContentWidget(QWidget, Serializable):
         graphicsView.setFixedHeight(5 * self.socketSpace)
         graphicsScene.addPixmap(img)
         self.vboxLayout.addWidget(graphicsView)
-        
 
         if DEBUG: graphicsView.setStyleSheet("border: 1px solid red;")
         return graphicsView

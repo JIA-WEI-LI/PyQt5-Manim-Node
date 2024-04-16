@@ -79,9 +79,9 @@ class NodeContentWidget(QWidget, Serializable):
         return label
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addProgressBar(self, minimum:int=0, maximum:int=10, initial_percent:float=0.5):
+    def addProgressBar(self, label:str="Value", minimum:int=0, maximum:int=10, initial_percent:float=0.5):
         '''新增可控制進度條'''
-        progressBar = ControlledProgressBar(minimum=minimum, maximum=maximum, initial_percent=initial_percent)
+        progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, initial_percent=initial_percent)
         progressBar.setFixedHeight(self.socketSpace)
         progressBar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 

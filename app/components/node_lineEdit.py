@@ -10,6 +10,7 @@ class LineEdit(QWidget):
         ### Parameters:
             text (str): QLineEdit部件的標籤文字。
             max_width (float): QLineEdit部件的最大寬度。
+            **tooltip (str): 自定義提示字框內容文字。
 
         ### Attributes:
             text (str): QLineEdit部件的標籤文字。
@@ -18,10 +19,11 @@ class LineEdit(QWidget):
         ### Usage:
             lineEdit = LineEdit(text="MyLineEdit", max_width=100)
     '''
-    def __init__(self, text: str, max_width:float, parent=None):
+    def __init__(self, text: str, max_width:float, parent=None, **kwargs):
         super(LineEdit, self).__init__(parent=parent)
         self.max_width = max_width
         self.text = text
+        tooltip = kwargs.get("tooltip", "")
 
         self.hLayoutBox = QHBoxLayout(self)
         self.label = QLabel()
@@ -35,8 +37,8 @@ class LineEdit(QWidget):
 
         if self.width() > max_width - 3: self.setFixedWidth(max_width - 3)
         self.updateLabelWidth()
-
-        self.setToolTip(self.text)
+        
+        self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
 
     def focusInEvent(self, event: QFocusEvent) -> None:
         self.parentWidget.setEditingFlag(True)

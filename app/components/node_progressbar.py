@@ -41,6 +41,7 @@ class ControlledProgressBar(QProgressBar):
         minimum (int): 進度條的最小值，預設為0。
         maximum (int): 進度條的最大值，預設為100。
         initial_percent (float): 進度條的初始百分比，預設為0.5。
+        **tooltip (str): 自定義提示字框內容文字。
 
     ### Attributes:
         label (str): 進度條的標籤。

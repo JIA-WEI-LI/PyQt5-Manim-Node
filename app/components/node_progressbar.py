@@ -40,7 +40,7 @@ class ControlledProgressBar(QProgressBar):
         label (str): 進度條的標籤，預設為"Value"。
         minimum (int): 進度條的最小值，預設為0。
         maximum (int): 進度條的最大值，預設為100。
-        initial_percent (float): 進度條的初始百分比，預設為0.5。
+        **initial_percent (float): 進度條的初始百分比，預設為0.5。
         **tooltip (str): 自定義提示字框內容文字。
 
     ### Attributes:
@@ -54,12 +54,14 @@ class ControlledProgressBar(QProgressBar):
     ### Usage:
         progressBar = ControlledProgressBar(label="Progress", minimum=0, maximum=10, initial_percent=0.8)
     '''
-    def __init__(self, label="Value", minimum=0, maximum=100, initial_percent=0.5, parent=None, **kwargs):
+    def __init__(self, label="Value", minimum=0, maximum=100, parent=None, **kwargs):
         super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
+        initial_percent = kwargs.get("initial_percent", "")
 
         self.label = label
         self.setRange(minimum, maximum)
+
         if initial_percent < 0 or initial_percent > 1:
             raise ValueError("initial_percent must be between 0 and 1")
         self.setValue(int(initial_percent*100))

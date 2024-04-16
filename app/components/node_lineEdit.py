@@ -21,10 +21,11 @@ class LineEdit(QWidget):
     def __init__(self, text: str, max_width:float, parent=None):
         super(LineEdit, self).__init__(parent=parent)
         self.max_width = max_width
+        self.text = text
 
         self.hLayoutBox = QHBoxLayout(self)
         self.label = QLabel()
-        self.label.setText(text)
+        self.label.setText(self.text)
         self.lineEdit = QLineEdit()
 
         self.lineEdit.setFixedHeight(23)
@@ -35,7 +36,7 @@ class LineEdit(QWidget):
         if self.width() > max_width - 3: self.setFixedWidth(max_width - 3)
         self.updateLabelWidth()
 
-        self.setToolTip(text)
+        self.setToolTip(self.text)
 
     def focusInEvent(self, event: QFocusEvent) -> None:
         self.parentWidget.setEditingFlag(True)

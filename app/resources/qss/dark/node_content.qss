@@ -61,6 +61,14 @@ QPlainTextEdit:hover {
     background-color: #656565;
 }
 
+QToolTip {
+    background-color: #222;
+    border-radius: 3px;
+    color: white;
+    padding: 5px;
+    text-align: left;
+}
+
 #nodeCheckboxLabel {
     font-family: Arial, Helvetica, sans-serif ;
     color: #fff;

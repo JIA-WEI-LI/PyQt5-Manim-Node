@@ -6,10 +6,12 @@ from common.style_sheet import StyleSheet
 
 class PushButton(QPushButton):
     '''自定義點擊式按鈕'''
-    def __init__(self, text:str="", parent=None):
+    def __init__(self, text:str="", parent=None, **kwargs):
         super().__init__(parent)
+        tooltip = kwargs.get("tooltip", "")
+
         self.setText(text)
-        self.setToolTip(text)
+        self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
 
     def enterEvent(self, event: QPaintEvent) -> None:
         '''鼠標進入按紐'''

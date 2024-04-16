@@ -91,9 +91,9 @@ class NodeContentWidget(QWidget, Serializable):
         return progressBar
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addPushButton(self, text:str):
+    def addPushButton(self, text:str, **kwargs):
         '''新增按紐'''
-        button = PushButton(text)
+        button = PushButton(text, **kwargs)
         button.setFixedHeight(self.socketSpace)
         button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.vboxLayout.addWidget(button)

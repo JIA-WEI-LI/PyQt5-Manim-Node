@@ -53,13 +53,15 @@ class ControlledProgressBar(QProgressBar):
     ### Usage:
         progressBar = ControlledProgressBar(label="Progress", minimum=0, maximum=10, initial_percent=0.8)
     '''
-    def __init__(self, label="Value", minimum=0, maximum=100, initial_percent=0.5, parent=None):
+    def __init__(self, label="Value", minimum=0, maximum=100, initial_percent=0.5, *, tooltip="", parent=None):
         super().__init__(parent)
         self.label = label
         self.setRange(minimum, maximum)
         if initial_percent < 0 or initial_percent > 1:
             raise ValueError("initial_percent must be between 0 and 1")
         self.setValue(int(initial_percent*100))
+
+        self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
 
     def setRange(self, minimum: int, maximum: int) -> None:
         '''設置進度條範圍'''

@@ -12,9 +12,9 @@ class SpinBoxStyle(QStyle):
     def drawControl(self, element: QStyle.ControlElement, option: QStyleOption, painter: QPainter, widget: QWidget = None):
         if element == QStyle.ControlElement.CE_ProgressBar:
             if isinstance(option, QStyleOptionSpinBox):
-                self.drawProgressBar(option, painter)
+                self.drawSpinBox(option, painter)
 
-    def drawProgressBar(self, option: QStyleOptionSpinBox, painter: QPainter):
+    def drawSpinBox(self, option: QStyleOptionSpinBox, painter: QPainter):
         # 繪製背景
         background_rect = option.rect
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
@@ -29,7 +29,7 @@ class SpinBox(QSpinBox):
         label (str): 調整器的標籤，預設為"Value"。
         minimum (int): 調整器的最小值，預設為0。
         maximum (int): 調整器的最大值，預設為10^6。
-        **initial_percent (float): 調整器的初始百分比，預設為 1。
+        **initial (float): 調整器的初始值，預設為 1。
         **tooltip (str): 自定義提示字框內容文字。
 
     ### Attributes:
@@ -38,15 +38,15 @@ class SpinBox(QSpinBox):
         maximum (int): 調整器的最大值。
 
     ### Raises:
-        ValueError: 若initial_percent不在範圍內時，會引發此錯誤。
+        ValueError: 若initial不在範圍內時，會引發此錯誤。
 
     ### Usage:
-        spinBox = SpinBox(label="SpinBox", minimum=0, maximum=10, initial_percent=10)
+        spinBox = SpinBox(label="SpinBox", minimum=0, maximum=10, initial=10)
     '''
     def __init__(self, label="Value", minimum=0, maximum=100000, parent=None, **kwargs):
         super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
-        initial_percent = kwargs.get("initial_percent", 0.5)
+        initial = kwargs.get("initial", 0.5)
 
         self.label = label
         self.setRange(minimum, maximum)
@@ -55,11 +55,11 @@ class SpinBox(QSpinBox):
         self.lineEdit().setReadOnly(True)
         self.lineEdit().setText("")
 
-        if not isinstance(initial_percent, float):
-            raise TypeError("initial_percent must be a float")
-        if initial_percent < minimum or initial_percent > maximum:
-            raise ValueError("initial_percent must be between minimum and maximum")
-        self.setValue(int(initial_percent))
+        if not isinstance(initial, float):
+            raise TypeError("initial must be a float")
+        if initial < self.min_value or initial > self.max_value:
+            raise ValueError("initial must be between minimum and maximum")
+        self.setValue(int(initial))
 
         self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
 
@@ -97,13 +97,28 @@ class SpinBox(QSpinBox):
         '''滑鼠點擊時更新進度'''
         if event.buttons() == Qt.MouseButton.LeftButton and self.rect().contains(event.pos()):
             self.dragging = True
-            self.updateSpin(event)
+            self.last_x = event.x()
             QApplication.setOverrideCursor(QCursor(Qt.CursorShape.BlankCursor))
 
     def mouseMoveEvent(self, event):
         '''滑鼠移動時，如果正在拖動，更新進度'''
         if hasattr(self, 'dragging') and self.dragging:
-            self.updateSpin(event)
+            current_x = event.x()
+            total_width = self.width()
+            
+            # 計算滑鼠水平移動距離
+            delta_x = current_x - self.last_x
+            self.last_x = current_x
+            
+            # 根據移動距離更新 spin_percent
+            spin_percent = self.value() + delta_x / total_width * 100
+            if spin_percent < self.min_value:
+                spin_percent = self.min_value
+            if spin_percent > self.max_value:
+                spin_percent = self.max_value
+            
+            self.setValue(int(spin_percent))
+            
         super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):

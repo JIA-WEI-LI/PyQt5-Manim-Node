@@ -47,7 +47,6 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.addLayout(hLayoutBox)
 
         self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
-        # self.vboxLayout.addWidget(checkbox)
         
         if DEBUG: checkbox.setStyleSheet("border: 1px solid red;")
         if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
@@ -88,6 +87,15 @@ class NodeContentWidget(QWidget, Serializable):
         return label
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addLineEdit(self, text:str, **kwargs):
+        lineEdit = LineEdit(text, self.width(), **kwargs)
+        lineEdit.setFixedHeight(self.socketSpace)
+        self.vboxLayout.addWidget(lineEdit)
+
+        if DEBUG: lineEdit.setStyleSheet("border: 1px solid red;")
+        return lineEdit
+    
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addProgressBar(self, label:str="Value", minimum:int=0, maximum:int=10, **kwargs):
         '''新增可控制進度條'''
         progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, **kwargs)
@@ -110,15 +118,19 @@ class NodeContentWidget(QWidget, Serializable):
         if DEBUG: button.setStyleSheet("color: white; border: 1px solid red;")
         
         return button
-    
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addLineEdit(self, text:str, **kwargs):
-        lineEdit = LineEdit(text, self.width(), **kwargs)
-        lineEdit.setFixedHeight(self.socketSpace)
-        self.vboxLayout.addWidget(lineEdit)
 
-        if DEBUG: lineEdit.setStyleSheet("border: 1px solid red;")
-        return lineEdit
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addSpinBox(self, label:str="Value", **kwargs):
+        '''新增可控制數值調整器'''
+        spinBox = SpinBox(label=label, **kwargs)
+        spinBox.setFixedHeight(self.socketSpace)
+        spinBox.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+        spinBox.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+        self.vboxLayout.addWidget(spinBox)
+
+        return spinBox
+
 
     def addGraphicsView(self, url:str):
         graphicsView = QGraphicsView()

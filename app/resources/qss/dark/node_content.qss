@@ -69,6 +69,14 @@ QToolTip {
     text-align: left;
 }
 
+QSpinBox::up-button {
+    subcontrol-position: right;
+}
+QSpinBox::down-button {
+    subcontrol-position: left;
+}
+
+
 #nodeCheckboxLabel {
     font-family: Arial, Helvetica, sans-serif ;
     color: #fff;

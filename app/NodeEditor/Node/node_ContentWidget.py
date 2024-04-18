@@ -131,19 +131,6 @@ class NodeContentWidget(QWidget, Serializable):
 
         return spinBox
 
-
-    def addGraphicsView(self, url:str):
-        graphicsView = QGraphicsView()
-        graphicsScene = QGraphicsScene()
-        img = QPixmap(url)
-
-        graphicsView.setFixedHeight(5 * self.socketSpace)
-        graphicsScene.addPixmap(img)
-        self.vboxLayout.addWidget(graphicsView)
-
-        if DEBUG: graphicsView.setStyleSheet("border: 1px solid red;")
-        return graphicsView
-
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value
 

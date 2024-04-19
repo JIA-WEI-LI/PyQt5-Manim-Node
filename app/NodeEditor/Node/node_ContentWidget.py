@@ -32,24 +32,13 @@ class NodeContentWidget(QWidget, Serializable):
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addCheckbox(self, text:str, **kwargs):
         '''新增二態複選框'''
-        tooltip = kwargs.get("tooltip", "")
-
-        hLayoutBox = QHBoxLayout()
         checkbox = CheckBox(text, **kwargs)
-        label = QLabel(text)
-        label.setObjectName("nodeCheckboxLabel")
-        
-        checkbox.setFixedHeight(self.socketSpace)
-        label.setFixedHeight(self.socketSpace)
-        hLayoutBox.setContentsMargins(0, 0, 0, 0)
-        hLayoutBox.addWidget(checkbox)
-        hLayoutBox.addWidget(label, stretch=1)
-        self.vboxLayout.addLayout(hLayoutBox)
 
-        self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
+        checkbox.setFixedHeight(self.socketSpace)
+        checkbox.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.vboxLayout.addWidget(checkbox)
         
         if DEBUG: checkbox.setStyleSheet("border: 1px solid red;")
-        if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         
         return checkbox
     

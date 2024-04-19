@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QCheckBox
+from PyQt5.QtWidgets import QApplication, QCheckBox, QWidget, QHBoxLayout, QLabel
 from PyQt5.QtGui import QCursor, QPainter, QPaintEvent, QFont, QFontMetrics, QPainterPath, QPen, QColor
 from PyQt5.QtCore import Qt, QRectF
 
@@ -13,7 +13,7 @@ class WCheckBoxData(object):
     BLENDER_CLICKED_BACKGROUND = QColor(color_manager.get_color("CheckBoxColor", "BLENDER_CLICKED_BACKGROUND"))
     TextElide = Qt.TextElideMode.ElideMiddle
 
-class CheckBox(QCheckBox):
+class WCheckBox(QCheckBox):
     '''
     繼承自 QCheckBox，仿造 Blender Node 內部樣式
 
@@ -29,7 +29,7 @@ class CheckBox(QCheckBox):
     CheckBoxData = WCheckBoxData()
    
     def __init__(self, text:str="", *, CheckBoxData=WCheckBoxData(), **kwargs):
-        super(CheckBox, self).__init__(None)
+        super(WCheckBox, self).__init__(None)
         self.CheckBoxData = CheckBoxData
         tooltip = kwargs.get("tooltip", "")
             
@@ -79,3 +79,24 @@ class CheckBox(QCheckBox):
     def leaveEvent(self, event):
         # QApplication.restoreOverrideCursor()
         pass
+
+class CheckBox(QWidget):
+    def __init__(self, text: str="Boolean", parent=None, **kwargs):
+        super(CheckBox, self).__init__(parent=parent)
+        height = kwargs.get("height", 23)
+        tooltip = kwargs.get("tooltip", "")
+        self.text = text
+        
+        self.hLayoutBox = QHBoxLayout(self)
+        self.checkBox = WCheckBox()
+        self.label = QLabel()
+        self.label.setObjectName("nodeCheckboxLabel")
+        self.label.setText(self.text)
+        
+        self.checkBox.setFixedHeight(height)
+        self.label.setFixedHeight(height)
+        self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
+        self.hLayoutBox.addWidget(self.checkBox, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+        self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=1)
+        
+        self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)

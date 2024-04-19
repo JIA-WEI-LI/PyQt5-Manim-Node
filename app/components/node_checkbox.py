@@ -3,17 +3,15 @@ from PyQt5.QtGui import QCursor, QPainter, QPaintEvent, QFont, QFontMetrics, QPa
 from PyQt5.QtCore import Qt, QRectF
 
 from common.color_sheet import color_manager
+from .content_BaseSetting import ContentBaseSetting
 
 class WCheckBoxData(object):
     Radius = 10
     AnimationTime = 600  # ms
     FontSize, FontSpacing = 16, 0
-    BLENDER_BACKGROUND = QColor(color_manager.get_color("CheckBoxColor", "BLENDER_BACKGROUND"))
-    BLENDER_HOVER_BACKGROUND = QColor(color_manager.get_color("CheckBoxColor", "BLENDER_HOVER_BACKGROUND"))
-    BLENDER_CLICKED_BACKGROUND = QColor(color_manager.get_color("CheckBoxColor", "BLENDER_CLICKED_BACKGROUND"))
     TextElide = Qt.TextElideMode.ElideMiddle
 
-class WCheckBox(QCheckBox):
+class WCheckBox(QCheckBox, ContentBaseSetting):
     '''
     繼承自 QCheckBox，仿造 Blender Node 內部樣式
 
@@ -56,10 +54,10 @@ class WCheckBox(QCheckBox):
         borderPath.addRoundedRect(rect, 30, 30, Qt.SizeMode.RelativeSize)
 
         if self.isChecked():
-            painter.setBrush(self.CheckBoxData.BLENDER_CLICKED_BACKGROUND)
+            painter.setBrush(self.color_clicked)
             painter.setPen(QPen(Qt.PenStyle.NoPen))
         else:
-            painter.setBrush(self.CheckBoxData.BLENDER_BACKGROUND)
+            painter.setBrush(self.color_background)
             painter.setPen(QPen(Qt.PenStyle.NoPen))
             
         painter.drawPath(borderPath)

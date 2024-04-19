@@ -2,9 +2,11 @@ from PyQt5.QtWidgets import QComboBox, QStyledItemDelegate, QStyleOptionViewItem
 from PyQt5.QtCore import QAbstractItemModel, QEvent, Qt, QModelIndex
 from PyQt5.QtGui import QColor, QFont, QPainter, QPen
 
+from .content_BaseSetting import ContentBaseSetting
+
 CURRENT_INDEX:int = 0
 
-class CustomItemDelegate(QStyledItemDelegate):
+class CustomItemDelegate(QStyledItemDelegate, ContentBaseSetting):
     '''自定義元素樣式'''
     def paint(self, painter: QPainter, option: QStyleOptionViewItem, index: QModelIndex):
         option_copy = QStyleOptionViewItem(option)
@@ -15,11 +17,11 @@ class CustomItemDelegate(QStyledItemDelegate):
         fill_rect = option.rect.adjusted(1, 1, -1, -1)
         
         if option.state & QStyle.StateFlag.State_MouseOver:
-            painter.setBrush(QColor('#464646'))
+            painter.setBrush(QColor(self.color_lightgray))
             painter.setPen(Qt.PenStyle.NoPen)
             painter.drawRoundedRect(fill_rect, border_radius, border_radius)
         elif option.state & QStyle.StateFlag.State_Selected:
-            painter.setBrush(QColor('#4772b3'))
+            painter.setBrush(QColor(self.color_clicked))
             painter.setPen(Qt.PenStyle.NoPen)
             painter.drawRoundedRect(fill_rect, border_radius, border_radius)
         else:
@@ -32,7 +34,7 @@ class CustomItemDelegate(QStyledItemDelegate):
         painter.setPen(QColor(Qt.GlobalColor.white))
         painter.drawText(option.rect.adjusted(5, 0, -5, 0), Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, index.data(Qt.ItemDataRole.DisplayRole))
 
-class ComboBox(QComboBox):
+class ComboBox(QComboBox, ContentBaseSetting):
     '''
         自定義下拉式選單
         ### Parameters:
@@ -57,7 +59,7 @@ class ComboBox(QComboBox):
         self.text_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.text_label.setStyleSheet('color: #FFFFFF;')
 
-        self.setToolTip(self.text_label) if tooltip=="" else self.setToolTip(tooltip)
+        self.setToolTip("New ComboBox") if tooltip=="" else self.setToolTip(tooltip)
 
         # 滑鼠進入和離開事件處理程序
         self.enterEvent = self.mouse_enter
@@ -78,14 +80,14 @@ class ComboBox(QComboBox):
         border_radius = 3
         padding = 1
 
-        fill_color = QColor('#242424')
+        fill_color = QColor(self.color_gray_light)
         if self.is_mouse_over:
-            fill_color = QColor('#303030')
+            fill_color = QColor(self.color_mouseover)
 
         fill_rect = rect.adjusted(padding, padding, -padding, -padding)
         painter.fillRect(fill_rect, fill_color)
 
-        painter.setPen(QPen(QColor('#464646'), 0.5))
+        painter.setPen(QPen(QColor(self.color_lightgray), 0.5))
 
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.drawRoundedRect(fill_rect, border_radius, border_radius)

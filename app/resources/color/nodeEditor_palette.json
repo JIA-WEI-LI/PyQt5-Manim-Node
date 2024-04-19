@@ -57,13 +57,14 @@
     "BLENDER_PEN_SELECTED": "#b3f3e4",
     "BLENDER_GREEN": "#FF03bd91"
   },
-  "CheckBoxColor": {
-    "BLENDER_BACKGROUND": "#545454",
-    "BLENDER_HOVER_BACKGROUND": "#000",
-    "BLENDER_CLICKED_BACKGROUND": "#4772b3"
-  },
-  "ProgressbarColor":{
-    "BLENDER_BACKGROUND": "#545454",
-    "BLENDER_PROGRESSBAR": "#4772b3"
-  } 
+  "BLENDERCOLOR":{
+    "BACKGROUND_WINDOW":"#1d1d1d",
+    "GRAY_DARK":"#242424",
+    "GRAY_LIGHT":"#2a2a2a",
+    "GRAY_MOUSEOVER":"#303030",
+    "LIGHTGRAY":"#464646",
+    "BACKGROUND":"#545454",
+    "CLICKED":"#4772b3",
+    "HOVER":"#000"
+  }
 }

@@ -13,6 +13,8 @@ class SpinBoxStyle(QStyle):
         if element == QStyle.ControlElement.CE_ProgressBar:
             if isinstance(option, QStyleOptionSpinBox):
                 self.drawSpinBox(option, painter)
+        elif element == QStyle.ControlElement.CE_SpinBox:
+            self.drawSpinBoxButtons(option, painter)
 
     def drawSpinBox(self, option: QStyleOptionSpinBox, painter: QPainter):
         # 繪製背景
@@ -21,6 +23,19 @@ class SpinBoxStyle(QStyle):
         painter.setBrush(QColor(SpinBoxColorSetting.BLENDER_BACKGROUND))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRoundedRect(background_rect, 3, 3)  # 5 是圓角的半徑，可以自行調整
+
+    def drawSpinBoxButtons(self, option: QStyleOption, painter: QPainter):
+        if option.subControls & QStyle.SubControl.SC_SpinBoxUp:
+            self.drawSpinBoxButton(QStyleOptionSpinBox.subControls.SC_SpinBoxUp, option, painter)
+        if option.subControls & QStyle.SubControl.SC_SpinBoxDown:
+            self.drawSpinBoxButton(QStyleOptionSpinBox.subControls.SC_SpinBoxDown, option, painter)
+
+    def drawSpinBoxButton(self, button: QStyleOptionSpinBox, option: QStyleOption, painter: QPainter):
+        button_rect = self.subControlRect(QStyle.ComplexControl.CC_SpinBox, option, button)
+        painter.setRenderHint(QPainter.RenderHint.Antialiasing)
+        painter.setBrush(QColor(SpinBoxColorSetting.BLENDER_PROGRESSBAR))
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.drawRoundedRect(button_rect, 3, 3)
 
 class SpinBox(QSpinBox):
     '''

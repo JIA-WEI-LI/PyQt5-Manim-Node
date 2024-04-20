@@ -13,6 +13,10 @@ class SceneHistory():
     def undo(self):
         if DEBUG: print("UNDO")
 
+        if self.history_current_step > 0:
+            self.history_current_step -=1
+            self.restoreHistory()
+
     def redo(self):
         if DEBUG: print("REDO")
 
@@ -25,11 +29,14 @@ class SceneHistory():
                         "... current_step: @%d" % self.history_current_step, 
                         "(%d)" % len(self.history_stack))
             
+        if self.history_current_step+1 < len(self.history_stack):
+            self.history_stack = self.history_stack[0:self.history_current_step+1]
+            
         # 歷史紀錄超過上限
         if self.history_current_step+1 >= self.history_limit:
             self.history_stack = self.history_stack[1:]
             self.history_current_step -=1
-            
+
         hs = self.createHistoryStamp(desc)
 
         self.history_stack.append(hs)

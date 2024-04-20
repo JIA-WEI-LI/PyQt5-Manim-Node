@@ -232,20 +232,23 @@ class NodeGraphicsView(QGraphicsView):
             self.graphicsScene.scene.saveToFile(GRAPH_JSON_PATH)
         elif event.key() == Qt.Key.Key_L and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
             self.graphicsScene.scene.loadFromFile(GRAPH_JSON_PATH)
-        elif event.key() == Qt.Key.Key_1:
-            self.graphicsScene.scene.history.storeHistory("Item A")
-        elif event.key() == Qt.Key.Key_2:
-            self.graphicsScene.scene.history.storeHistory("Item B")
-        elif event.key() == Qt.Key.Key_3:
-            self.graphicsScene.scene.history.storeHistory("Item C")
-        elif event.key() == Qt.Key.Key_4:
+        # elif event.key() == Qt.Key.Key_1:
+        #     self.graphicsScene.scene.history.storeHistory("Item A")
+        # elif event.key() == Qt.Key.Key_2:
+        #     self.graphicsScene.scene.history.storeHistory("Item B")
+        # elif event.key() == Qt.Key.Key_3:
+        #     self.graphicsScene.scene.history.storeHistory("Item C")
+        elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and not event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
             self.graphicsScene.scene.history.undo()
-        elif event.key() == Qt.Key.Key_5:
+        elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
             self.graphicsScene.scene.history.redo()
         elif event.key() == Qt.Key.Key_H:
             print("HISTORY:   len(%d)" % len(self.graphicsScene.scene.history.history_stack),
                   " -- current_step", self.graphicsScene.scene.history.history_current_step)
-            print(self.graphicsScene.scene.history.history_stack)
+            ix = 0
+            for item in self.graphicsScene.scene.history.history_stack:
+                print("#", ix, "--", item['desc'])
+                ix += 1 
         else:
             super().keyPressEvent(event)
 
@@ -258,6 +261,8 @@ class NodeGraphicsView(QGraphicsView):
                 if edge.nodeGraphicsEdge.intersectsWith(p1, p2):
                     edge.remove()
 
+        self.graphicsScene.scene.history.storeHistory("Delete cutted edges")
+
     def deleteSelected(self):
         '''刪除選擇物件'''
         for item in self.graphicsScene.selectedItems():
@@ -265,6 +270,7 @@ class NodeGraphicsView(QGraphicsView):
                 item.edge.remove()
             elif hasattr(item, 'node'):
                 item.node.remove()
+        self.graphicsScene.scene.history.storeHistory("Delete selected")
 
     def debug_modifiers(self, event: QMouseEvent):
         out = "MODS: "
@@ -311,6 +317,7 @@ class NodeGraphicsView(QGraphicsView):
                 self.dragEdge.end_socket.setConnectedEdge(self.dragEdge)
                 if DEBUG: print("View::edgeDragEnd - reassigned start & end sockets to drag edge", item.socket)
                 self.dragEdge.updatePositions()
+                self.graphicsScene.scene.history.storeHistory("Created new edge by dragging")
                 return True
         
         # if self.dragEdge is not None: pass  # 檢查 self.dragEdge 是否為 None

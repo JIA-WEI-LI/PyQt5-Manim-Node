@@ -42,13 +42,25 @@ class NodeGraphicsNode(QGraphicsItem):
         
         self.initUI()
 
+        self.wasMoved = False
+
     def mouseMoveEvent(self, event: QGraphicsSceneMouseEvent) -> None:
+        '''滑鼠移動事件'''
         super().mouseMoveEvent(event)
         
         # 修復當選取多個物件時線段未被及時更新問題
         for node in self.scene().scene.nodes:
             if node.graphicsNode.isSelected():
                 node.updateConnectedEdges()
+
+        self.wasMoved = True
+
+    def mouseReleaseEvent(self, event: QGraphicsSceneMouseEvent) -> None:
+        super().mouseReleaseEvent(event)
+
+        if self.wasMoved:
+            self.wasMoved = False
+            self.node.scene.history.storeHistory("Node moved")
         
     @property
     def title(self): return self._title

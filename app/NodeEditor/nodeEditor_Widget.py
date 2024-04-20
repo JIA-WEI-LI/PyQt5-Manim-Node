@@ -1,4 +1,3 @@
-from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QWidget, QVBoxLayout
 
 from .Edge.node_Edge import Edge
@@ -7,7 +6,6 @@ from .nodeEditor_Scene import Scene
 from .nodeEditor_GraphicsView import NodeGraphicsView
 
 from config.debug import DebugMode, DebugTimer
-from config.icon import Icon
 from NodeEditorNodes.node_Add import Node_Add, Node_Test
 
 class NodeEditorWidget(QWidget):
@@ -17,8 +15,6 @@ class NodeEditorWidget(QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setGeometry(200 ,200, 800, 600)
-
         self.layout = QVBoxLayout()
         self.layout.setContentsMargins(0, 0, 0, 0)
         self.setLayout(self.layout)
@@ -30,10 +26,6 @@ class NodeEditorWidget(QWidget):
         # 創建圖像視圖
         self.view = NodeGraphicsView(self.scene.nodeGraphicsScene, self)
         self.layout.addWidget(self.view)
-
-        self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
-        self.setWindowTitle("Manim Node Editor")
-        self.show()
 
     def addNodes(self):
         '''新增節點'''

@@ -1,5 +1,6 @@
+import os
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMainWindow, QWidget, QAction
+from PyQt5.QtWidgets import QMainWindow, QWidget, QAction, QFileDialog
 from PyQt5.QtGui import QIcon
 
 from config.icon import Icon
@@ -47,15 +48,23 @@ class NodeEditorWindow(QMainWindow):
         self.show()
 
     def onFileNew(self):
-        print("On File new clicked")
+        '''開啟新視窗(刪除舊有全物件)'''
+        self.centralWidget().scene.clear()
 
     def onFileOpen(self):
-        print("Open file")
+        '''開啟檔案'''
+        filename, filter = QFileDialog.getOpenFileName(self, "開啟檔案")
+        if filename == '':
+            return
+        elif os.path.isfile(filename):
+            self.centralWidget().scene.loadFromFile(filename)
 
     def onFileSave(self):
+        '''儲存檔案'''
         print("Save file")
 
     def onFileSaveAs(self):
+        '''另存新檔'''
         print("Save file as ...")
 
     def onEditUndo(self):

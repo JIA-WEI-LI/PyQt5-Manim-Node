@@ -79,6 +79,9 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 * [x] [Node Editor Tutorial 18: Undo & Redo #1 - Introduction](https://www.youtube.com/watch?v=dsgLJWBE_Lg&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=20)
 * [x] [Node Editor Tutorial 19: Undo & Redo #2 - History Stack](https://www.youtube.com/watch?v=cWnrLndefPA&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=21)
 * [x] [Node Editor Tutorial 20: Undo & Redo #3 - History Stamps](https://www.youtube.com/watch?v=ggFhdzPihzU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=22)
+* [ ] [Node Editor Tutorial 21: How to implement Main Window with Menu](https://www.youtube.com/watch?v=1pbGasGZEbo&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=23)
+* [ ] [Node Editor Tutorial 22: How to implement Clipboard Operations](https://www.youtube.com/watch?v=ZW93RKjEWLM&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=24)
+* [ ] [Node Editor Tutorial 23: How to implement Clipboard Serialization](https://www.youtube.com/watch?v=PdqCogmBeXI&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=25)
 </details>
 
 

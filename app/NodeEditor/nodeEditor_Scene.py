@@ -10,6 +10,7 @@ from PyQt5.QtCore import QLine
 from .Edge.node_Edge import Edge
 from .Node.node_Node import Node
 from .Serialization.node_Serializable import Serializable
+from .nodeEditor_SceneHistory import SceneHistory
 from common.color_sheet import color_manager
 
 PENLIGHT_COLOR = color_manager.get_color("WindowColor", "BLENDER_PEN_LIGHT")
@@ -24,6 +25,7 @@ class Scene(Serializable):
         self.sceneWidth, self.sceneHeight = 64000, 64000
         
         self.__initUI()
+        self.history = SceneHistory(self)
         
     def __initUI(self):
         self.nodeGraphicsScene = NodeGraphicsScene(self)

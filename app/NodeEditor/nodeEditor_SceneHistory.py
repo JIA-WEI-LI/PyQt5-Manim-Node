@@ -17,12 +17,12 @@ class SceneHistory():
         if DEBUG: print("REDO")
 
     def restoreHistory(self):
-        if DEBUG: print("Restoring history ... current_step: @%d" + self.self.history_current_step, 
-                        "(%d)" + len(self.history_stack))
+        if DEBUG: print("Restoring history ... current_step: @%d" % self.history_current_step, 
+                        "(%d)" % len(self.history_stack))
             
     def storeHistory(self, desc):
-        if DEBUG: print("Storing history ... current_step: @%d" + self.self.history_current_step, 
-                        "(%d)" + len(self.history_stack))
+        if DEBUG: print("Storing history ... current_step: @%d" % self.history_current_step, 
+                        "(%d)" % len(self.history_stack))
             
         hs = self.createHistoryStamp(desc)
 

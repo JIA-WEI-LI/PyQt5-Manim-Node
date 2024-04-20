@@ -175,7 +175,7 @@ class NodeGraphicsView(QGraphicsView):
             return 
         
         if self.dragMode() == QGraphicsView.DragMode.RubberBandDrag:
-            print(">> Selected changed")
+            self.graphicsScene.scene.history.storeHistory("Selection changed")
 
         super().mouseReleaseEvent(event)
     

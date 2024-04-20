@@ -239,19 +239,19 @@ class NodeGraphicsView(QGraphicsView):
                 self.deleteSelected()
             else:
                 super().keyPressEvent(event)
-        elif event.key() == Qt.Key.Key_S and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-            self.graphicsScene.scene.saveToFile(GRAPH_JSON_PATH)
-        elif event.key() == Qt.Key.Key_L and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-            self.graphicsScene.scene.loadFromFile(GRAPH_JSON_PATH)
+        # elif event.key() == Qt.Key.Key_S and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+        #     self.graphicsScene.scene.saveToFile(GRAPH_JSON_PATH)
+        # elif event.key() == Qt.Key.Key_L and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+        #     self.graphicsScene.scene.loadFromFile(GRAPH_JSON_PATH)
         # elif event.key() == Qt.Key.Key_1:
         #     self.graphicsScene.scene.history.storeHistory("Item A")
         # elif event.key() == Qt.Key.Key_2:
         #     self.graphicsScene.scene.history.storeHistory("Item B")
         # elif event.key() == Qt.Key.Key_3:
         #     self.graphicsScene.scene.history.storeHistory("Item C")
-        elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and not event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
-            self.graphicsScene.scene.history.undo()
-        elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
+        # elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and not event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
+        #     self.graphicsScene.scene.history.undo()
+        # elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
             self.graphicsScene.scene.history.redo()
         elif event.key() == Qt.Key.Key_H:
             print("HISTORY:   len(%d)" % len(self.graphicsScene.scene.history.history_stack),

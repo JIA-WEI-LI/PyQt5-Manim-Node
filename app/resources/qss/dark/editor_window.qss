@@ -1,3 +1,42 @@
 QGraphicsView { 
     selection-background-color: rgb(255, 255, 255);
 }
+
+QMenuBar {
+    background-color: #222;
+    color: white;
+    font-size: large;
+}
+QMenuBar::item {
+    background-color: #222;
+    padding: 3px 3px;
+    margin: 3px;
+}
+QMenuBar::item:selected {
+    background-color: #555;
+    border-radius: 3px;
+}
+QMenu {
+    background-color: #222;
+    color: white;
+}
+QMenu::item {
+    background-color: #222;
+    padding: 3px 3px;
+    margin: 3px;
+}
+QMenu::item:selected {
+    background-color: #555;
+    border-radius: 3px;
+}
+
+
+QStatusBar {
+    background-color: #222;
+    color: white;
+}
+
+QLabel {
+    font-family: Arial, Helvetica, sans-serif ;
+    color: white;
+}

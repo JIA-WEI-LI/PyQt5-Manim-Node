@@ -3,6 +3,7 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QAction, QFileDialog, QLabel
 from PyQt5.QtGui import QIcon
 
+from common.style_sheet import StyleSheet
 from config.icon import Icon
 from .nodeEditor_Widget import NodeEditorWidget
 
@@ -20,6 +21,7 @@ class NodeEditorWindow(QMainWindow):
         act.triggered.connect(callback)
         return act
 
+    @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
         menubar = self.menuBar()
 
@@ -55,7 +57,7 @@ class NodeEditorWindow(QMainWindow):
         self.show()
 
     def onScenePosChanged(self, x, y):
-        self.status_mouse_pos.setText("Scene Pos: [%d, %d]" % (x, y))
+        self.status_mouse_pos.setText("Scene Pos: [%d, %d] " % (x, y))
 
     def onFileNew(self):
         '''開啟新視窗(刪除舊有全物件)'''
@@ -77,7 +79,7 @@ class NodeEditorWindow(QMainWindow):
 
     def onFileSaveAs(self):
         '''另存新檔'''
-        fname, filter = QFileDialog.getSaveFileName(self, "另存新檔")
+        fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", filter="JSON files (*.json)")
         if fname == '':
             return
         self.filename = fname

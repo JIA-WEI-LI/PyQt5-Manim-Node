@@ -1,6 +1,6 @@
 import os
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMainWindow, QWidget, QAction, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QWidget, QAction, QFileDialog, QLabel
 from PyQt5.QtGui import QIcon
 
 from config.icon import Icon
@@ -43,10 +43,19 @@ class NodeEditorWindow(QMainWindow):
         nodeEditor = NodeEditorWidget(self)
         self.setCentralWidget(nodeEditor)
 
+        # 下方狀態條
+        self.statusBar().showMessage("")
+        self.status_mouse_pos = QLabel("")
+        self.statusBar().addPermanentWidget(self.status_mouse_pos)
+        nodeEditor.view.scenePosChanged.connect(self.onScenePosChanged)
+
         self.setGeometry(200 ,200, 800, 600)
         self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
         self.setWindowTitle("Manim Node Editor")
         self.show()
+
+    def onScenePosChanged(self, x, y):
+        self.status_mouse_pos.setText("Scene Pos: [%d, %d]" % (x, y))
 
     def onFileNew(self):
         '''開啟新視窗(刪除舊有全物件)'''

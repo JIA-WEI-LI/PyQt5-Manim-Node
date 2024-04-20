@@ -1,4 +1,4 @@
-from PyQt5.QtCore import Qt, QEvent
+from PyQt5.QtCore import Qt, QEvent, pyqtSignal
 from PyQt5.QtGui import QKeyEvent, QMouseEvent, QPainter, QWheelEvent
 from PyQt5.QtWidgets import QGraphicsView, QApplication
 
@@ -22,6 +22,8 @@ EDGE_DRAG_START_THRESHOLD = 10
 DEBUG = DebugMode.NODEEDITOR_WINDOW
 
 class NodeGraphicsView(QGraphicsView):
+    scenePosChanged = pyqtSignal(int, int)
+
     def __init__(self, graphicsScene: NodeGraphicsScene, parent=None):
         super().__init__(parent)
         self.graphicsScene = graphicsScene
@@ -229,8 +231,15 @@ class NodeGraphicsView(QGraphicsView):
             self.dragStartPosition = event.pos()
             self.horizontalScrollBar().setValue(self.horizontalScrollBar().value() - delta.x())
             self.verticalScrollBar().setValue(self.verticalScrollBar().value() - delta.y())
-        else:
-            super().mouseMoveEvent(event)
+
+        # 回傳滑鼠座標
+        self.last_scene_mouse_position = self.mapToScene(event.pos())
+        self.scenePosChanged.emit(
+            int(self.last_scene_mouse_position.x()), int(self.last_scene_mouse_position.y())
+        )
+
+        # else:
+        super().mouseMoveEvent(event)
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
         '''鍵盤按鍵事件'''

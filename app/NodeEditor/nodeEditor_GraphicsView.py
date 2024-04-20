@@ -174,6 +174,7 @@ class NodeGraphicsView(QGraphicsView):
             self.cutline.update()
             QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
             self.mode = MODE_NOOP
+            if DEBUG: print("-- LMB Release Cut mode, Drag Mode: ", self.dragMode())
             return 
         
         if self.dragMode() == QGraphicsView.DragMode.RubberBandDrag:
@@ -191,6 +192,8 @@ class NodeGraphicsView(QGraphicsView):
             self.cutline.update()
             QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
             self.mode = MODE_NOOP
+
+            if DEBUG: print("-- RMB Release Cut mode, Drag Mode: ", self.dragMode())
             return
 
         super().mouseReleaseEvent(event)

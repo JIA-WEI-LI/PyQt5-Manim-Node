@@ -21,7 +21,8 @@ class SceneHistory():
                         "(%d)" % len(self.history_stack))
             
     def storeHistory(self, desc):
-        if DEBUG: print("Storing history ... current_step: @%d" % self.history_current_step, 
+        if DEBUG: print("Storing history", '"%s"' % desc,
+                        "... current_step: @%d" % self.history_current_step, 
                         "(%d)" % len(self.history_stack))
             
         hs = self.createHistoryStamp(desc)

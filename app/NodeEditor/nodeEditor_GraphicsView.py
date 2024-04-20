@@ -166,6 +166,17 @@ class NodeGraphicsView(QGraphicsView):
                 res = self.edgeDragEnd(item)
                 if res: return
 
+        if self.mode == MODE_EDGE_CUT:
+            self.cutIntersectingEdge()
+            self.cutline.lines_points = []
+            self.cutline.update()
+            QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
+            self.mode = MODE_NOOP
+            return 
+        
+        if self.dragMode() == QGraphicsView.DragMode.RubberBandDrag:
+            print(">> Selected changed")
+
         super().mouseReleaseEvent(event)
     
     def rightMouseButtonRelease(self, event: QMouseEvent):

@@ -3,7 +3,7 @@ import json
 from collections import OrderedDict
 
 from PyQt5.QtCore import QRectF
-from PyQt5.QtWidgets import QGraphicsScene
+from PyQt5.QtWidgets import QGraphicsScene, QGraphicsView
 from PyQt5.QtGui import QPainter, QPen
 from PyQt5.QtCore import QLine
 
@@ -102,8 +102,15 @@ class NodeGraphicsScene(QGraphicsScene):
         self.penDark.setWidth(2)
         self.setBackgroundBrush(BACKGROUND_COLOR)
 
+        self.selectionChanged.connect(self.onSelectedChanged)
+
     def setGraphicsScene(self, width, height):
         self.setSceneRect(-width//2, -height//2, width, height)
+
+    def onSelectedChanged(self):
+        view = self.views()[0]
+        if view.dragMode() == QGraphicsView.DragMode.NoDrag:
+            print("'Selection changed'")
 
     def drawBackground(self, painter: QPainter, rect: QRectF):
         '''繪製視窗背景'''

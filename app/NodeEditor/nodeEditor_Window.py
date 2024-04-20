@@ -24,20 +24,20 @@ class NodeEditorWindow(QMainWindow):
         menubar = self.menuBar()
 
         # 主畫面選單欄選擇
-        fileMenu = menubar.addMenu('&File')
-        fileMenu.addAction(self.createAct('&New', 'Ctrl+N', "Create New graph", self.onFileNew))
+        fileMenu = menubar.addMenu('&檔案')
+        fileMenu.addAction(self.createAct('&新增檔案', 'Ctrl+N', "新增檔案", self.onFileNew))
         fileMenu.addSeparator()
-        fileMenu.addAction(self.createAct('&Open', 'Ctrl+O', "Open file", self.onFileOpen))
-        fileMenu.addAction(self.createAct('&Save', 'Ctrl+S', "Save file", self.onFileSave))
-        fileMenu.addAction(self.createAct('Save &As...', 'Ctrl+Shift+S', "Save file as ...", self.onFileSaveAs))
+        fileMenu.addAction(self.createAct('&開啟檔案', 'Ctrl+O', "開啟檔案", self.onFileOpen))
+        fileMenu.addAction(self.createAct('&儲存檔案', 'Ctrl+S', "儲存檔案", self.onFileSave))
+        fileMenu.addAction(self.createAct('&另存新檔', 'Ctrl+Shift+S', "另存新檔", self.onFileSaveAs))
         fileMenu.addSeparator()
-        fileMenu.addAction(self.createAct('E&xit', 'Ctrl+Q', "Exit application", self.close))
+        fileMenu.addAction(self.createAct('&退出', 'Ctrl+Q', "退出應用程式", self.close))
 
-        editMenu = menubar.addMenu("&Edit")
-        editMenu.addAction(self.createAct('&Undo', 'Ctrl+Z', "Undo last operation", self.onEditUndo))
-        editMenu.addAction(self.createAct('&Redo', 'Ctrl+Shift+Z', "Redo last operation", self.onEditRedo))
+        editMenu = menubar.addMenu("&編輯")
+        editMenu.addAction(self.createAct('&上一步', 'Ctrl+Z', "返回上一步", self.onEditUndo))
+        editMenu.addAction(self.createAct('&下一步', 'Ctrl+Shift+Z', "返回下一步", self.onEditRedo))
         editMenu.addSeparator()
-        editMenu.addAction(self.createAct('&Delete', 'Del', "Delete selected items", self.onEditDelete))
+        editMenu.addAction(self.createAct('&刪除', 'Del', "刪除選擇物件", self.onEditDelete))
 
         # 節點畫面
         nodeEditor = NodeEditorWidget(self)
@@ -84,10 +84,13 @@ class NodeEditorWindow(QMainWindow):
         self.onFileSave()
 
     def onEditUndo(self):
-        print("Undo last operation")
+        '''返回上一步'''
+        self.centralWidget().scene.history.undo()
 
     def onEditRedo(self):
-        print("Redo last operation")
+        '''返回下一步'''
+        self.centralWidget().scene.history.redo()
 
     def onEditDelete(self):
-        print("Delete selected items")
+        '''刪除物件'''
+        self.centralWidget().scene.nodeGraphicsScene.views()[0].deleteSelected()

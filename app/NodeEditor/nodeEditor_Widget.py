@@ -10,7 +10,7 @@ from config.debug import DebugMode, DebugTimer
 from config.icon import Icon
 from NodeEditorNodes.node_Add import Node_Add, Node_Test
 
-class NodeEditorWindow(QWidget):
+class NodeEditorWidget(QWidget):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
 

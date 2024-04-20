@@ -1,7 +1,7 @@
 import os
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QMainWindow, QWidget, QAction, QFileDialog, QLabel
-from PyQt5.QtGui import QIcon
+from PyQt5.QtGui import QIcon, QFont
 
 from common.style_sheet import StyleSheet
 from config.icon import Icon
@@ -23,7 +23,11 @@ class NodeEditorWindow(QMainWindow):
 
     @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
+        font = QFont()
+        font.setPointSize(10)
+
         menubar = self.menuBar()
+        menubar.setFont(font)
 
         # 主畫面選單欄選擇
         fileMenu = menubar.addMenu('&檔案')

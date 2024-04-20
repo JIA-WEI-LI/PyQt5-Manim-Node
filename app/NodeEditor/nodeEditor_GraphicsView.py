@@ -243,11 +243,11 @@ class NodeGraphicsView(QGraphicsView):
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
         '''鍵盤按鍵事件'''
-        if event.key() == Qt.Key.Key_Delete:
-            if not self.editingFlag:
-                self.deleteSelected()
-            else:
-                super().keyPressEvent(event)
+        # if event.key() == Qt.Key.Key_Delete:
+        #     if not self.editingFlag:
+        #         self.deleteSelected()
+        #     else:
+        #         super().keyPressEvent(event)
         # elif event.key() == Qt.Key.Key_S and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
         #     self.graphicsScene.scene.saveToFile(GRAPH_JSON_PATH)
         # elif event.key() == Qt.Key.Key_L and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
@@ -261,16 +261,16 @@ class NodeGraphicsView(QGraphicsView):
         # elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and not event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
         #     self.graphicsScene.scene.history.undo()
         # elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
-            self.graphicsScene.scene.history.redo()
-        elif event.key() == Qt.Key.Key_H:
-            print("HISTORY:   len(%d)" % len(self.graphicsScene.scene.history.history_stack),
-                  " -- current_step", self.graphicsScene.scene.history.history_current_step)
-            ix = 0
-            for item in self.graphicsScene.scene.history.history_stack:
-                print("#", ix, "--", item['desc'])
-                ix += 1 
-        else:
-            super().keyPressEvent(event)
+        #     self.graphicsScene.scene.history.redo()
+        # elif event.key() == Qt.Key.Key_H:
+        #     print("HISTORY:   len(%d)" % len(self.graphicsScene.scene.history.history_stack),
+        #           " -- current_step", self.graphicsScene.scene.history.history_current_step)
+        #     ix = 0
+        #     for item in self.graphicsScene.scene.history.history_stack:
+        #         print("#", ix, "--", item['desc'])
+        #         ix += 1 
+        # else:
+        super().keyPressEvent(event)
 
     def cutIntersectingEdge(self):
         for ix in range(len(self.cutline.lines_points) - 1):

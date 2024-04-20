@@ -32,41 +32,11 @@ class Node(Serializable):
             socket = Socket(node=self, index=counter, position=RIGHT_TOP, socket_type=item)
             counter += 1
             self.outputs.append(socket)
-
-            # 取消每增加一個連結點自動增加類型
-            # if item == 1: 
-            #     self.content.addCheckbox(f"Output {counter}")
-            # elif item == 2:
-            #     self.content.addComboBox()
-            # elif item == 3:
-            #     self.content.addLabel(f"Output {counter}", isOutput=True)
-            # elif item == 4:
-            #     self.content.addProgressBar()
-            # elif item == 5:
-            #     self.content.addPushButton(f"Output button {counter}")
-            # elif item == 6:
-            #     self.content.addLineEdit(f"Output {counter}")
-            # else: self.content.addLabel(f"Else Output {counter}")
         
         counter = 0
         for item in input:
             socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item)
             counter += 1
-
-            # 取消每增加一個連結點自動增加類型
-            # if item == 1: 
-            #     self.content.addCheckbox(f"Input {counter}")
-            # elif item == 2:
-            #     self.content.addComboBox()
-            # elif item == 3:
-            #     self.content.addLabel(f"Input {counter}")
-            # elif item == 4:
-            #     self.content.addProgressBar()
-            # elif item == 5:
-            #     self.content.addPushButton(f"Input button {counter}")
-            # elif item == 6:
-            #     self.content.addLineEdit(f"Input {counter}")
-            # else: self.content.addLabel(f"Else Input {counter}")
             
             self.inputs.append(socket)
 

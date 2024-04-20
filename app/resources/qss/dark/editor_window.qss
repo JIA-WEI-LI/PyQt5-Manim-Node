@@ -5,11 +5,10 @@ QGraphicsView {
 QMenuBar {
     background-color: #222;
     color: white;
-    font-size: large;
 }
 QMenuBar::item {
     background-color: #222;
-    padding: 3px 3px;
+    padding: 3px 5px;
     margin: 3px;
 }
 QMenuBar::item:selected {

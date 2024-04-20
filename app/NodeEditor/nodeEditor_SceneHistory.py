@@ -20,6 +20,10 @@ class SceneHistory():
     def redo(self):
         if DEBUG: print("REDO")
 
+        if self.history_current_step + 1 < len(self.history_stack):
+            self.history_current_step -= 1
+            self.restoreHistory()
+
     def restoreHistory(self):
         if DEBUG: print("Restoring history ... current_step: @%d" % self.history_current_step, 
                         "(%d)" % len(self.history_stack))

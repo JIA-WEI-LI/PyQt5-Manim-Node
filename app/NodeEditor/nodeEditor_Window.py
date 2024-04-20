@@ -9,6 +9,7 @@ from .nodeEditor_Widget import NodeEditorWidget
 class NodeEditorWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
+        self.filename = None
 
         self.initUI()
 
@@ -53,19 +54,25 @@ class NodeEditorWindow(QMainWindow):
 
     def onFileOpen(self):
         '''開啟檔案'''
-        filename, filter = QFileDialog.getOpenFileName(self, "開啟檔案")
-        if filename == '':
+        fname, filter = QFileDialog.getOpenFileName(self, "開啟檔案")
+        if fname == '':
             return
-        elif os.path.isfile(filename):
-            self.centralWidget().scene.loadFromFile(filename)
+        elif os.path.isfile(fname):
+            self.centralWidget().scene.loadFromFile(fname)
 
     def onFileSave(self):
         '''儲存檔案'''
-        print("Save file")
+        if self.filename is None: return self.onFileSaveAs()
+        self.centralWidget().scene.saveToFile(self.filename)
+        self.statusBar().showMessage("已成功儲存檔案 %s" % self.filename)
 
     def onFileSaveAs(self):
         '''另存新檔'''
-        print("Save file as ...")
+        fname, filter = QFileDialog.getSaveFileName(self, "另存新檔")
+        if fname == '':
+            return
+        self.filename = fname
+        self.onFileSave()
 
     def onEditUndo(self):
         print("Undo last operation")

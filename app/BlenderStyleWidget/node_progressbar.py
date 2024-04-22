@@ -19,10 +19,10 @@ class ControlledProgressBarStyle(QStyle, ContentBaseSetting):
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         # 隨滑鼠動作改變顏色
-        if self.widget.isEnter and not self.widget.dragging:
-            painter.setBrush(QColor(self.color_GRAY_65))
-        elif self.widget.dragging:
+        if self.widget.isEnter and self.widget.dragging:
             painter.setBrush(QColor(self.color_mouseover))
+        elif self.widget.isEnter and not self.widget.dragging:
+            painter.setBrush(QColor(self.color_GRAY_65))
         else:
             painter.setBrush(QColor(self.color_background))
         painter.setPen(Qt.PenStyle.NoPen)
@@ -121,6 +121,7 @@ class ControlledProgressBar(QProgressBar):
         '''滑鼠點擊時更新進度'''
         if event.buttons() == Qt.MouseButton.LeftButton and self.rect().contains(event.pos()):
             self.dragging = True
+            self.update()
             self.updateProgress(event)
             QApplication.setOverrideCursor(QCursor(Qt.CursorShape.BlankCursor))
 
@@ -136,6 +137,7 @@ class ControlledProgressBar(QProgressBar):
             self.dragging = False
             # 將滑鼠游標恢復為默認值
             QApplication.restoreOverrideCursor()
+            self.update()
         else:
             super().mouseReleaseEvent(event)
 

@@ -17,7 +17,7 @@ class CustomItemDelegate(QStyledItemDelegate, ContentBaseSetting):
         fill_rect = option.rect.adjusted(1, 1, -1, -1)
         
         if option.state & QStyle.StateFlag.State_MouseOver:
-            painter.setBrush(QColor(self.GRAY_46))
+            painter.setBrush(QColor(self.color_GRAY_46))
             painter.setPen(Qt.PenStyle.NoPen)
             painter.drawRoundedRect(fill_rect, border_radius, border_radius)
         elif option.state & QStyle.StateFlag.State_Selected:

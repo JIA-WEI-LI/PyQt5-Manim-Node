@@ -41,7 +41,6 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增下拉式選單'''
         comboBox = ComboBox(**kwargs)
         comboBox.addItems(items)
-
         self.vboxLayout.addWidget(comboBox)
         return comboBox
     

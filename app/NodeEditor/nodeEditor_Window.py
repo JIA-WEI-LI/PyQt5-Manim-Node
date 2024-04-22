@@ -74,6 +74,7 @@ class NodeEditorWindow(QMainWindow):
             return
         elif os.path.isfile(fname):
             self.centralWidget().scene.loadFromFile(fname)
+            self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
 
     def onFileSave(self):
         '''儲存檔案'''

@@ -1,6 +1,6 @@
 import os
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QMainWindow, QWidget, QAction, QFileDialog, QLabel
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAction, QFileDialog, QLabel
 from PyQt5.QtGui import QIcon, QFont
 
 from common.style_sheet import StyleSheet
@@ -10,9 +10,9 @@ from .nodeEditor_Widget import NodeEditorWidget
 class NodeEditorWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
-        self.filename = None
-
         self.initUI()
+
+        self.filename = None
 
     def createAct(self, name:str, shortcut:str, tooltip:str, callback):
         act = QAction(name, self)

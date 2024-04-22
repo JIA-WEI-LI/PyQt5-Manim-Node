@@ -115,9 +115,9 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             ('content', self.content.serialize()),
             ])
     
-    def deserialize(self, data, hashmap={}):
+    def deserialize(self, data, hashmap={}, restore_id=True):
         '''載入序列化資訊'''
-        self.id = data['id']
+        if restore_id: self.id = data['id']
         self.output = data['outputs']
         hashmap[data['id']] = self
 
@@ -132,12 +132,12 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         self.inputs, self.outputs = [], []
         for socket_data in data['inputs']:
             new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
-            new_socket.deserialize(socket_data, hashmap)
+            new_socket.deserialize(socket_data, hashmap, restore_id)
             self.inputs.append(new_socket)
         self.outputs = []
         for socket_data in data['outputs']:
             new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
-            new_socket.deserialize(socket_data, hashmap)
+            new_socket.deserialize(socket_data, hashmap, restore_id)
             self.outputs.append(new_socket)
 
         return True

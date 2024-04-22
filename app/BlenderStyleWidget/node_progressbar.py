@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QProgressBar, QStyleOptionProgressBar, QStyle, QStyleOption, QWidget
+from PyQt5.QtWidgets import QApplication, QProgressBar, QStyleOptionProgressBar, QStyle, QStyleOption, QWidget, QSizePolicy
 from PyQt5.QtGui import QCursor, QFocusEvent, QMouseEvent, QPainter, QColor, QFont
 from PyQt5.QtCore import Qt, QPointF
 
@@ -53,12 +53,17 @@ class ControlledProgressBar(QProgressBar):
     '''
     def __init__(self, label="Value", minimum=0, maximum=100, parent=None, **kwargs):
         super().__init__(parent)
+        height = kwargs.get("height", 23)
         tooltip = kwargs.get("tooltip", "")
+        debug = kwargs.get("debug", False)
         initial_percent = kwargs.get("initial_percent", 0.5)
 
         self.label = label
         self.setRange(minimum, maximum)
 
+        self.setFixedHeight(height)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
         if not isinstance(initial_percent, float):
             raise TypeError("initial_percent must be a float")
@@ -67,6 +72,8 @@ class ControlledProgressBar(QProgressBar):
         self.setValue(int(initial_percent*100))
 
         self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
+
+        if debug: self.setStyleSheet("border: 1px solid red;")
 
     def setRange(self, minimum: int, maximum: int) -> None:
         '''設置進度條範圍'''

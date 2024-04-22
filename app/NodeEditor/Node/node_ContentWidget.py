@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePoli
 
 from ..Serialization.node_Serializable import Serializable
 from common.style_sheet import StyleSheet
-from components import *
+from BlenderStyleWidget import *
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
@@ -32,28 +32,17 @@ class NodeContentWidget(QWidget, Serializable):
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addCheckbox(self, text:str, **kwargs):
         '''新增二態複選框'''
-        checkbox = CheckBox(text, **kwargs)
-
-        checkbox.setFixedHeight(self.socketSpace)
-        checkbox.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        checkbox = CheckBox(text, debug=DEBUG, **kwargs)
         self.vboxLayout.addWidget(checkbox)
-        
-        if DEBUG: checkbox.setStyleSheet("border: 1px solid red;")
-        
         return checkbox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addComboBox(self, items:list=["List 1", "List 2", "List 3"], **kwargs):
         '''新增下拉式選單'''
         comboBox = ComboBox(**kwargs)
-        comboBox.setFixedHeight(self.socketSpace)
-        comboBox.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-
         comboBox.addItems(items)
 
         self.vboxLayout.addWidget(comboBox)
-        if DEBUG: comboBox.setStyleSheet("border: 1px solid red;")
-
         return comboBox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -78,34 +67,21 @@ class NodeContentWidget(QWidget, Serializable):
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addLineEdit(self, text:str, **kwargs):
         lineEdit = LineEdit(text, self.width(), **kwargs)
-        lineEdit.setFixedHeight(self.socketSpace)
         self.vboxLayout.addWidget(lineEdit)
-
-        if DEBUG: lineEdit.setStyleSheet("border: 1px solid red;")
         return lineEdit
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addProgressBar(self, label:str="Value", minimum:int=0, maximum:int=10, **kwargs):
         '''新增可控制進度條'''
         progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, **kwargs)
-        progressBar.setFixedHeight(self.socketSpace)
-        progressBar.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-
-        progressBar.setAlignment(Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(progressBar)
-
         return progressBar
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addPushButton(self, text:str, **kwargs):
         '''新增按紐'''
         button = PushButton(text, **kwargs)
-        button.setFixedHeight(self.socketSpace-1)
-        button.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.vboxLayout.addWidget(button)
-        
-        if DEBUG: button.setStyleSheet("color: white; border: 1px solid red;")
-        
         return button
 
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)

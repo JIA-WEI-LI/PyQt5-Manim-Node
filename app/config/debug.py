@@ -3,7 +3,7 @@ class DebugMode:
     NODE_NODE = False
     NODE_SOCKET = False
     NODEEEDITOR_SCENEHISTORY = False
-    NODEEDITOR_WINDOW = True
+    NODEEDITOR_WINDOW = False
     
 class DebugTimer:
     NODE_EDGE = False

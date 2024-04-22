@@ -1,17 +1,17 @@
-from PyQt5.QtWidgets import QApplication, QCheckBox, QWidget, QHBoxLayout, QLabel
+from PyQt5.QtWidgets import QApplication, QCheckBox, QWidget, QHBoxLayout, QLabel, QSizePolicy
 from PyQt5.QtGui import QCursor, QPainter, QPaintEvent, QFont, QFontMetrics, QPainterPath, QPen, QColor
 from PyQt5.QtCore import Qt, QRectF
 
 from common.color_sheet import color_manager
 from .content_BaseSetting import ContentBaseSetting
 
-class WCheckBoxData(object):
+class BCheckBoxData(object):
     Radius = 10
     AnimationTime = 600  # ms
     FontSize, FontSpacing = 16, 0
     TextElide = Qt.TextElideMode.ElideMiddle
 
-class WCheckBox(QCheckBox, ContentBaseSetting):
+class BCheckBox(QCheckBox, ContentBaseSetting):
     '''
     繼承自 QCheckBox，仿造 Blender Node 內部樣式
 
@@ -24,10 +24,10 @@ class WCheckBox(QCheckBox, ContentBaseSetting):
     ### Usage:
         checkBox = CheckBox()
     '''
-    CheckBoxData = WCheckBoxData()
+    CheckBoxData = BCheckBoxData()
    
-    def __init__(self, text:str="", *, CheckBoxData=WCheckBoxData(), **kwargs):
-        super(WCheckBox, self).__init__(None)
+    def __init__(self, text:str="", *, CheckBoxData=BCheckBoxData(), **kwargs):
+        super(BCheckBox, self).__init__(None)
         self.CheckBoxData = CheckBoxData
         tooltip = kwargs.get("tooltip", "")
             
@@ -83,18 +83,21 @@ class CheckBox(QWidget):
         super(CheckBox, self).__init__(parent=parent)
         height = kwargs.get("height", 23)
         tooltip = kwargs.get("tooltip", "")
+        debug = kwargs.get("debug", False)
         self.text = text
         
         self.hLayoutBox = QHBoxLayout(self)
-        self.checkBox = WCheckBox()
+        self.checkBox = BCheckBox()
         self.label = QLabel()
         self.label.setObjectName("nodeCheckboxLabel")
         self.label.setText(self.text)
         
-        self.checkBox.setFixedHeight(height)
-        self.label.setFixedHeight(height)
         self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
         self.hLayoutBox.addWidget(self.checkBox, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=1)
-        
+        self.setFixedHeight(height)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
+
+        if debug: self.setStyleSheet("border: 1px solid red;")

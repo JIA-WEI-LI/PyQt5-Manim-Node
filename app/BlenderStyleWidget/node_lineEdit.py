@@ -1,5 +1,5 @@
 from PyQt5.QtGui import QFocusEvent
-from PyQt5.QtWidgets import QLabel, QHBoxLayout, QWidget, QLineEdit
+from PyQt5.QtWidgets import QLabel, QHBoxLayout, QWidget, QLineEdit, QSizePolicy
 from PyQt5.QtCore import Qt
 
 from common.style_sheet import StyleSheet
@@ -21,16 +21,19 @@ class LineEdit(QWidget):
     '''
     def __init__(self, text: str, max_width:float, parent=None, **kwargs):
         super(LineEdit, self).__init__(parent=parent)
+        height = kwargs.get("height", 23)
+        tooltip = kwargs.get("tooltip", "")
+        debug = kwargs.get("debug", False)
         self.max_width = max_width
         self.text = text
-        tooltip = kwargs.get("tooltip", "")
 
         self.hLayoutBox = QHBoxLayout(self)
         self.label = QLabel()
         self.label.setText(self.text)
         self.lineEdit = QLineEdit()
 
-        self.lineEdit.setFixedHeight(23)
+        self.setFixedHeight(height)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
         self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=6)
         self.hLayoutBox.addWidget(self.lineEdit, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, stretch=4)
@@ -39,6 +42,8 @@ class LineEdit(QWidget):
         self.updateLabelWidth()
         
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
+        
+        if debug: self.setStyleSheet("border: 1px solid red;")
 
     def focusInEvent(self, event: QFocusEvent) -> None:
         self.parentWidget.setEditingFlag(True)

@@ -1,4 +1,4 @@
-from components import *
+from BlenderStyleWidget import *
 from NodeEditor.Node.node_Node import Node
 
 class Node_Add(Node):

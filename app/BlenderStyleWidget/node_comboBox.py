@@ -49,7 +49,9 @@ class ComboBox(QComboBox, ContentBaseSetting):
     '''
     def __init__(self, parent=None, **kwargs):
         super(ComboBox, self).__init__(parent=parent)
+        height = kwargs.get("height", 23)
         tooltip = kwargs.get("tooltip", "")
+        debug = kwargs.get("debug", False)
 
         self.setView(QListView())
         delegate = CustomItemDelegate(self)
@@ -59,12 +61,17 @@ class ComboBox(QComboBox, ContentBaseSetting):
         self.text_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.text_label.setStyleSheet('color: #FFFFFF;')
 
+        self.setFixedHeight(height)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
         self.setToolTip("New ComboBox") if tooltip=="" else self.setToolTip(tooltip)
 
         # 滑鼠進入和離開事件處理程序
         self.enterEvent = self.mouse_enter
         self.leaveEvent = self.mouse_leave
         self.is_mouse_over = False
+
+        if debug: self.setStyleSheet("border: 1px solid red;")
 
     def mouse_enter(self, event):
         self.is_mouse_over = True

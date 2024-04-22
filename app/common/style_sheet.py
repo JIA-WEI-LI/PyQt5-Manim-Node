@@ -31,9 +31,9 @@ class StyleSheet:
                         with open(qss_file, 'r') as f:
                             widget.setStyleSheet(f.read())
                     except FileNotFoundError:
-                        print(f"Error: QSS file not found at {qss_file}")
+                        print("\033[95m Error: QSS file not found at \033[0m", f"{qss_file}")
                     except Exception as e:
-                        print(f"Error applying QSS: {e}")
+                        print("\033[93m Error applying QSS:\033[0m", f"{e}")
                 return func(*args, **kwargs)
             return wrapper
         return decorator

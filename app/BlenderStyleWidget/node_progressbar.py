@@ -1,12 +1,14 @@
 from PyQt5.QtWidgets import QApplication, QProgressBar, QStyleOptionProgressBar, QStyle, QStyleOption, QWidget, QSizePolicy
 from PyQt5.QtGui import QCursor, QFocusEvent, QMouseEvent, QPainter, QColor, QFont
-from PyQt5.QtCore import Qt, QPointF
+from PyQt5.QtCore import QEvent, Qt, QPointF
 
+from common.style_sheet import StyleSheet
 from common.color_sheet import color_manager
 from .content_BaseSetting import ContentBaseSetting
 
 class ControlledProgressBarStyle(QStyle, ContentBaseSetting):
     def drawControl(self, element: QStyle.ControlElement, option: QStyleOption, painter: QPainter, widget: QWidget = None):
+        self.widget = widget
         if element == QStyle.ControlElement.CE_ProgressBar:
             if isinstance(option, QStyleOptionProgressBar):
                 self.drawProgressBar(option, painter)
@@ -15,7 +17,14 @@ class ControlledProgressBarStyle(QStyle, ContentBaseSetting):
         # 繪製背景
         background_rect = option.rect
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.setBrush(QColor(self.color_background))
+
+        # 隨滑鼠動作改變顏色
+        if self.widget.isEnter and not self.widget.dragging:
+            painter.setBrush(QColor(self.color_GRAY_65))
+        elif self.widget.dragging:
+            painter.setBrush(QColor(self.color_mouseover))
+        else:
+            painter.setBrush(QColor(self.color_background))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRoundedRect(background_rect, 3, 3)  # 5 是圓角的半徑，可以自行調整
 
@@ -58,6 +67,8 @@ class ControlledProgressBar(QProgressBar):
         debug = kwargs.get("debug", False)
         initial_percent = kwargs.get("initial_percent", 0.5)
 
+        self.isEnter = False
+        self.dragging = False
         self.label = label
         self.setRange(minimum, maximum)
 
@@ -127,6 +138,16 @@ class ControlledProgressBar(QProgressBar):
             QApplication.restoreOverrideCursor()
         else:
             super().mouseReleaseEvent(event)
+
+    def enterEvent(self, event: QEvent) -> None:
+        super().enterEvent(event)
+        self.isEnter = True
+        self.update()
+
+    def leaveEvent(self, event: QEvent) -> None:
+        super().enterEvent(event)
+        self.isEnter = False
+        self.update()
 
     def updateProgress(self, event):
         mouse_x = event.x()

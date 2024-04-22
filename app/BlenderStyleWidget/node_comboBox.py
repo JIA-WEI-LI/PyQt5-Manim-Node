@@ -17,7 +17,7 @@ class CustomItemDelegate(QStyledItemDelegate, ContentBaseSetting):
         fill_rect = option.rect.adjusted(1, 1, -1, -1)
         
         if option.state & QStyle.StateFlag.State_MouseOver:
-            painter.setBrush(QColor(self.color_lightgray))
+            painter.setBrush(QColor(self.GRAY_46))
             painter.setPen(Qt.PenStyle.NoPen)
             painter.drawRoundedRect(fill_rect, border_radius, border_radius)
         elif option.state & QStyle.StateFlag.State_Selected:
@@ -87,14 +87,14 @@ class ComboBox(QComboBox, ContentBaseSetting):
         border_radius = 3
         padding = 1
 
-        fill_color = QColor(self.color_gray_light)
+        fill_color = QColor(self.color_GRAY_2a)
         if self.is_mouse_over:
-            fill_color = QColor(self.color_mouseover)
+            fill_color = QColor(self.color_GRAY_30)
 
         fill_rect = rect.adjusted(padding, padding, -padding, -padding)
         painter.fillRect(fill_rect, fill_color)
 
-        painter.setPen(QPen(QColor(self.color_lightgray), 0.5))
+        painter.setPen(QPen(QColor(self.color_GRAY_46), 0.5))
 
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
         painter.drawRoundedRect(fill_rect, border_radius, border_radius)

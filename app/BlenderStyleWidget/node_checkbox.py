@@ -57,7 +57,7 @@ class BCheckBox(QCheckBox, ContentBaseSetting):
             painter.setBrush(self.color_clicked)
             painter.setPen(QPen(Qt.PenStyle.NoPen))
         else:
-            painter.setBrush(self.color_background)
+            painter.setBrush(self.color_GRAY_54)
             painter.setPen(QPen(Qt.PenStyle.NoPen))
             
         painter.drawPath(borderPath)

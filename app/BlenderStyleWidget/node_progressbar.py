@@ -24,7 +24,7 @@ class ControlledProgressBarStyle(QStyle, ContentBaseSetting):
         elif self.widget.isEnter and not self.widget.dragging:
             painter.setBrush(QColor(self.color_GRAY_65))
         else:
-            painter.setBrush(QColor(self.color_background))
+            painter.setBrush(QColor(self.color_GRAY_54))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRoundedRect(background_rect, 3, 3)  # 5 是圓角的半徑，可以自行調整
 

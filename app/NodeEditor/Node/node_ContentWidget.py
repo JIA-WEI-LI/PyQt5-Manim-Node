@@ -119,8 +119,10 @@ class NodeContentWidget(QWidget, Serializable):
 
     def serialize(self):
         '''序列化資訊'''
+        types = []
+        for item_type in self.contentLists: types.append(item_type)
         return OrderedDict([
-            ('type', self.contentLists)
+            ('type', types)
         ])
     
     def deserialize(self, data, hashmap={}):

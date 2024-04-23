@@ -60,7 +60,7 @@ class ControlledProgressBar(QProgressBar):
     ### Usage:
         progressBar = ControlledProgressBar(label="Progress", minimum=0, maximum=10, initial_percent=0.8)
     '''
-    def __init__(self, label="Value", minimum=0, maximum=100, parent=None, **kwargs):
+    def __init__(self, label="Value", minimum:int=0, maximum:int=100, parent=None, **kwargs):
         super().__init__(parent)
         height = kwargs.get("height", 23)
         tooltip = kwargs.get("tooltip", "")

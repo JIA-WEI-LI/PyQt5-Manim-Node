@@ -1,28 +1,28 @@
 {
-    "id": 2334983099296,
+    "id": 1654921859856,
     "scene_width": 64000,
     "scene_height": 64000,
     "nodes": [
         {
-            "id": 2334982902064,
+            "id": 1654921866048,
             "title": "Number Add",
             "pos_x": -350.0,
             "pos_y": -250.0,
             "inputs": [
                 {
-                    "id": 2334983144464,
+                    "id": 1654921905072,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2334983144512,
+                    "id": 1654921905120,
                     "index": 1,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2334983148400,
+                    "id": 1654921909008,
                     "index": 2,
                     "position": 2,
                     "socket_type": 2
@@ -30,7 +30,7 @@
             ],
             "outputs": [],
             "content": {
-                "button": {
+                "pushButton": {
                     "text": "Button",
                     "status": false
                 },
@@ -38,7 +38,7 @@
                     "label": "New Value",
                     "minium": 0,
                     "maxium": 10,
-                    "value": 5.0
+                    "value": 0.5
                 },
                 "checkbox": {
                     "text": "TEST",
@@ -47,13 +47,13 @@
             }
         },
         {
-            "id": 2334983144416,
+            "id": 1654921905024,
             "title": "Node_Test",
-            "pos_x": -18.0,
-            "pos_y": -79.0,
+            "pos_x": -29.696000000000012,
+            "pos_y": -52.736,
             "inputs": [
                 {
-                    "id": 2334983189184,
+                    "id": 1654921949792,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
@@ -61,25 +61,25 @@
             ],
             "outputs": [
                 {
-                    "id": 2334983188992,
+                    "id": 1654921936976,
                     "index": 0,
                     "position": 3,
                     "socket_type": 1
                 },
                 {
-                    "id": 2334983189040,
+                    "id": 1654921949648,
                     "index": 1,
                     "position": 3,
                     "socket_type": 2
                 },
                 {
-                    "id": 2334983189088,
+                    "id": 1654921949696,
                     "index": 2,
                     "position": 3,
                     "socket_type": 3
                 },
                 {
-                    "id": 2334983189136,
+                    "id": 1654921949744,
                     "index": 3,
                     "position": 3,
                     "socket_type": 1
@@ -88,7 +88,7 @@
             "content": {
                 "label": {
                     "text": "Output",
-                    "isOutput": true
+                    "isOutput": false
                 },
                 "lineEdit": {
                     "text": "Line Edit",
@@ -98,15 +98,14 @@
                     "label": "Value",
                     "minium": 0,
                     "maxium": 10,
-                    "value": 5.0
+                    "value": 0.5
                 },
                 "comboBox": {
                     "items": [
                         "List 1",
                         "List 1",
                         "List 1"
-                    ],
-                    "status": "List 1"
+                    ]
                 },
                 "checkbox": {
                     "text": "CheckBox",

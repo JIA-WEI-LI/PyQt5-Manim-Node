@@ -140,4 +140,6 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.outputs.append(new_socket)
 
+        self.content.deserialize(data['content'], hashmap)
+
         return True

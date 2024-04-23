@@ -15,9 +15,9 @@ DEBUG = DebugMode.NODE_NODE
 class NodeContentWidget(QWidget, Serializable):
     '''自製標準內部元件構造'''
     def __init__(self, node, parent=None):
-        # super().__init__(parent)
-        self.node = node
         super().__init__(parent)
+        self.node = node
+        # super().__init__(parent)
         self.socketSpace = SOCKET_SPACE-7
         self.contentLists = []
         
@@ -51,7 +51,6 @@ class NodeContentWidget(QWidget, Serializable):
         self.contentLists.append(
             ('comboBox', {
                 'items': items,
-                'status': items[0] if len(items)!=0 else None
             }))
         return comboBox
     
@@ -99,7 +98,7 @@ class NodeContentWidget(QWidget, Serializable):
                 'label': label,
                 'minium': minimum,
                 'maxium': maximum,
-                'value': (maximum+minimum)/2
+                'value': 0.5
             }))
         return progressBar
     
@@ -109,7 +108,7 @@ class NodeContentWidget(QWidget, Serializable):
         button = PushButton(text, **kwargs)
         self.vboxLayout.addWidget(button)
         self.contentLists.append(
-            ('button', {
+            ('pushButton', {
                 'text': text,
                 'status': False
             }))
@@ -148,7 +147,16 @@ class NodeContentWidget(QWidget, Serializable):
         return OrderedDict(self.contentLists)
     
     def deserialize(self, data, hashmap={}):
-        raise False
+        self.vboxLayout.setContentsMargins(0, 3, 3, 0)
+        for content_type, content_data in data.items():
+            if content_type == 'checkbox': self.addCheckbox(content_data['text'])
+            elif content_type == 'comboBox': self.addComboBox(content_data)
+            elif content_type == 'label': self.addLabel(content_data['text'])
+            elif content_type == 'lineEdit': self.addLineEdit(content_data['text'])
+            elif content_type == 'progressBar': self.addProgressBar(content_data['label'], content_data['minium'], content_data['maxium'])
+            elif content_type == 'pushButton': self.addPushButton(content_data['text'])
+            else: print("\033[93m Wrong type.\033[0m")
+        return True
     
 class NodeContentWidgetDefault(QWidget):
     '''預設文字介紹'''

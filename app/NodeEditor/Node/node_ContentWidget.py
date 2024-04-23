@@ -19,6 +19,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.node = node
         super().__init__(parent)
         self.socketSpace = SOCKET_SPACE-7
+        self.contentLists = []
         
         self.initUI()
         
@@ -34,6 +35,7 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增二態複選框'''
         checkbox = CheckBox(text, debug=DEBUG, **kwargs)
         self.vboxLayout.addWidget(checkbox)
+        self.contentLists.append(checkbox)
         return checkbox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -42,6 +44,7 @@ class NodeContentWidget(QWidget, Serializable):
         comboBox = ComboBox(**kwargs)
         comboBox.addItems(items)
         self.vboxLayout.addWidget(comboBox)
+        self.contentLists.append(comboBox)
         return comboBox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -58,7 +61,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.addWidget(label)
 
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
-        
+        self.contentLists.append(label)
         if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         
         return label
@@ -67,6 +70,7 @@ class NodeContentWidget(QWidget, Serializable):
     def addLineEdit(self, text:str, **kwargs):
         lineEdit = LineEdit(text, self.width(), **kwargs)
         self.vboxLayout.addWidget(lineEdit)
+        self.contentLists.append(lineEdit)
         return lineEdit
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -74,6 +78,7 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增可控制進度條'''
         progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, **kwargs)
         self.vboxLayout.addWidget(progressBar)
+        self.contentLists.append(progressBar)
         return progressBar
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -81,6 +86,7 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增按紐'''
         button = PushButton(text, **kwargs)
         self.vboxLayout.addWidget(button)
+        self.contentLists.append(button)
         return button
 
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -114,7 +120,7 @@ class NodeContentWidget(QWidget, Serializable):
     def serialize(self):
         '''序列化資訊'''
         return OrderedDict([
-            
+            ('type', self.contentLists)
         ])
     
     def deserialize(self, data, hashmap={}):

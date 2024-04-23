@@ -30,6 +30,8 @@ class BCheckBox(QCheckBox, ContentBaseSetting):
         super(BCheckBox, self).__init__(None)
         self.CheckBoxData = CheckBoxData
         tooltip = kwargs.get("tooltip", "")
+        
+        self.isEnter = False
             
         self.labelFont = QFont("Times New Roman", 12, weight=QFont.Weight.Bold)
         self.labelFont.setWordSpacing(self.CheckBoxData.FontSpacing)
@@ -56,6 +58,9 @@ class BCheckBox(QCheckBox, ContentBaseSetting):
         if self.isChecked():
             painter.setBrush(self.color_clicked)
             painter.setPen(QPen(Qt.PenStyle.NoPen))
+        elif self.isEnter and not self.isChecked():
+            painter.setBrush(self.color_GRAY_65)
+            painter.setPen(QPen(Qt.PenStyle.NoPen))
         else:
             painter.setBrush(self.color_GRAY_54)
             painter.setPen(QPen(Qt.PenStyle.NoPen))
@@ -71,12 +76,10 @@ class BCheckBox(QCheckBox, ContentBaseSetting):
             painter.drawPath(arrow_path.translated(rect.topLeft()))
 
     def enterEvent(self, event):
-        # QApplication.setOverrideCursor(QCursor(Qt.CursorShape.PointingHandCursor))
-        pass
+        self.isEnter = True
 
     def leaveEvent(self, event):
-        # QApplication.restoreOverrideCursor()
-        pass
+        self.isEnter = False
 
 class CheckBox(QWidget):
     def __init__(self, text: str="Boolean", parent=None, **kwargs):

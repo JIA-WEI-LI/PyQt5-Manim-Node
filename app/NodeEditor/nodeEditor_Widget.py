@@ -6,7 +6,8 @@ from .nodeEditor_Scene import Scene
 from .nodeEditor_GraphicsView import NodeGraphicsView
 
 from config.debug import DebugMode, DebugTimer
-from NodeEditorNodes.node_Add import Node_Add, Node_Test
+from NodeEditorNodes.node_Add import Node_Add
+from NodeEditorNodes.Testing_node import Node_Test
 
 class NodeEditorWidget(QWidget):
     def __init__(self, parent=None) -> None:

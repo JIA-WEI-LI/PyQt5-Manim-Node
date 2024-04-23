@@ -4,3 +4,6 @@ class SceneClipboard():
 
     def serializeSelected(self, delete=False):
         return {}
+    
+    def deserializeFromClipboard(self, data):
+        print("deserialize from clipboard, data: ", data)

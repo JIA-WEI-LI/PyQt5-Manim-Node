@@ -44,9 +44,9 @@ class NodeEditorWindow(QMainWindow):
         editMenu.addAction(self.createAct('&上一步', 'Ctrl+Z', "返回上一步", self.onEditUndo))
         editMenu.addAction(self.createAct('&下一步', 'Ctrl+Shift+Z', "返回下一步", self.onEditRedo))
         editMenu.addSeparator()
-        editMenu.addAction(self.createAct('&剪下', 'Ctrl+X', "剪下物件", self.onEditUndo))
-        editMenu.addAction(self.createAct('&複製', 'Ctrl+C', "複製物件到剪貼簿", self.onEditRedo))
-        editMenu.addAction(self.createAct('&貼上', 'Ctrl+V', "返回下一步", self.onEditRedo))
+        editMenu.addAction(self.createAct('&剪下', 'Ctrl+X', "剪下物件", self.onEditCut))
+        editMenu.addAction(self.createAct('&複製', 'Ctrl+C', "複製物件到剪貼簿", self.onEditCopy))
+        editMenu.addAction(self.createAct('&貼上', 'Ctrl+V', "返回下一步", self.onEditPaste))
         editMenu.addSeparator()
         editMenu.addAction(self.createAct('&刪除', 'Del', "刪除選擇物件", self.onEditDelete))
 
@@ -118,4 +118,16 @@ class NodeEditorWindow(QMainWindow):
         QApplication.instance().clipboard().setText(str_data)
 
     def onEditPaste(self):
-        pass
+        raw_data = QApplication.instance().clipboard().text()
+        
+        try:
+            data = json.loads(raw_data)
+        except ValueError as e:
+            print("\033[93m Pasting og not valid json data!\033[0m")
+            return
+        
+        if 'nodes' not in data:
+            print("JSON doesnot contain any node!")
+            return
+        
+        self.centralWidget().scene.clipboard.deserializeFromClipboard(data)

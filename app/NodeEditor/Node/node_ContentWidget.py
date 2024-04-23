@@ -35,7 +35,11 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增二態複選框'''
         checkbox = CheckBox(text, debug=DEBUG, **kwargs)
         self.vboxLayout.addWidget(checkbox)
-        self.contentLists.append('checkbox')
+        self.contentLists.append(
+            ('checkbox', {
+                'text': text,
+                'status': False
+            }))
         return checkbox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -44,7 +48,11 @@ class NodeContentWidget(QWidget, Serializable):
         comboBox = ComboBox(**kwargs)
         comboBox.addItems(items)
         self.vboxLayout.addWidget(comboBox)
-        self.contentLists.append('comboBox')
+        self.contentLists.append(
+            ('comboBox', {
+                'items': items,
+                'status': items[0] if len(items)!=0 else None
+            }))
         return comboBox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -61,7 +69,11 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.addWidget(label)
 
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
-        self.contentLists.append('label')
+        self.contentLists.append(
+            ('label', {
+                'text': text,
+                'isOutput': isOutput
+            }))
         if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         
         return label
@@ -70,7 +82,11 @@ class NodeContentWidget(QWidget, Serializable):
     def addLineEdit(self, text:str, **kwargs):
         lineEdit = LineEdit(text, self.width(), **kwargs)
         self.vboxLayout.addWidget(lineEdit)
-        self.contentLists.append('lineEdit')
+        self.contentLists.append(
+            ('lineEdit', {
+                'text': text,
+                'current_text': ""
+            }))
         return lineEdit
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -78,7 +94,13 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增可控制進度條'''
         progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, **kwargs)
         self.vboxLayout.addWidget(progressBar)
-        self.contentLists.append('progressBar')
+        self.contentLists.append(
+            ('progressBar', {
+                'label': label,
+                'minium': minimum,
+                'maxium': maximum,
+                'value': (maximum+minimum)/2
+            }))
         return progressBar
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -86,7 +108,11 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增按紐'''
         button = PushButton(text, **kwargs)
         self.vboxLayout.addWidget(button)
-        self.contentLists.append('button')
+        self.contentLists.append(
+            ('button', {
+                'text': text,
+                'status': False
+            }))
         return button
 
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -119,11 +145,7 @@ class NodeContentWidget(QWidget, Serializable):
 
     def serialize(self):
         '''序列化資訊'''
-        types = []
-        for item_type in self.contentLists: types.append(item_type)
-        return OrderedDict([
-            ('type', types)
-        ])
+        return OrderedDict(self.contentLists)
     
     def deserialize(self, data, hashmap={}):
         raise False

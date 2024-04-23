@@ -1,28 +1,28 @@
 {
-    "id": 1762275151760,
+    "id": 2334983099296,
     "scene_width": 64000,
     "scene_height": 64000,
     "nodes": [
         {
-            "id": 1762275155728,
+            "id": 2334982902064,
             "title": "Number Add",
-            "pos_x": -143.0,
-            "pos_y": -152.0,
+            "pos_x": -350.0,
+            "pos_y": -250.0,
             "inputs": [
                 {
-                    "id": 1762275215504,
+                    "id": 2334983144464,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 1762275216272,
+                    "id": 2334983144512,
                     "index": 1,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 1762275218576,
+                    "id": 2334983148400,
                     "index": 2,
                     "position": 2,
                     "socket_type": 2
@@ -30,21 +30,30 @@
             ],
             "outputs": [],
             "content": {
-                "type": [
-                    "button",
-                    "progressBar",
-                    "checkbox"
-                ]
+                "button": {
+                    "text": "Button",
+                    "status": false
+                },
+                "progressBar": {
+                    "label": "New Value",
+                    "minium": 0,
+                    "maxium": 10,
+                    "value": 5.0
+                },
+                "checkbox": {
+                    "text": "TEST",
+                    "status": false
+                }
             }
         },
         {
-            "id": 1762272197328,
+            "id": 2334983144416,
             "title": "Node_Test",
-            "pos_x": 0.0,
-            "pos_y": 0.0,
+            "pos_x": -18.0,
+            "pos_y": -79.0,
             "inputs": [
                 {
-                    "id": 1762275281104,
+                    "id": 2334983189184,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
@@ -52,38 +61,57 @@
             ],
             "outputs": [
                 {
-                    "id": 1762275280080,
+                    "id": 2334983188992,
                     "index": 0,
                     "position": 3,
                     "socket_type": 1
                 },
                 {
-                    "id": 1762275280336,
+                    "id": 2334983189040,
                     "index": 1,
                     "position": 3,
                     "socket_type": 2
                 },
                 {
-                    "id": 1762275280592,
+                    "id": 2334983189088,
                     "index": 2,
                     "position": 3,
                     "socket_type": 3
                 },
                 {
-                    "id": 1762275280848,
+                    "id": 2334983189136,
                     "index": 3,
                     "position": 3,
                     "socket_type": 1
                 }
             ],
             "content": {
-                "type": [
-                    "label",
-                    "lineEdit",
-                    "progressBar",
-                    "comboBox",
-                    "checkbox"
-                ]
+                "label": {
+                    "text": "Output",
+                    "isOutput": true
+                },
+                "lineEdit": {
+                    "text": "Line Edit",
+                    "current_text": ""
+                },
+                "progressBar": {
+                    "label": "Value",
+                    "minium": 0,
+                    "maxium": 10,
+                    "value": 5.0
+                },
+                "comboBox": {
+                    "items": [
+                        "List 1",
+                        "List 1",
+                        "List 1"
+                    ],
+                    "status": "List 1"
+                },
+                "checkbox": {
+                    "text": "CheckBox",
+                    "status": false
+                }
             }
         }
     ],

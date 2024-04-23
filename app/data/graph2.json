@@ -1,44 +1,50 @@
 {
-    "id": 2368838390784,
+    "id": 1666554842896,
     "scene_width": 64000,
     "scene_height": 64000,
     "nodes": [
         {
-            "id": 2368838396928,
+            "id": 1666554846864,
             "title": "Number Add",
-            "pos_x": 156.0,
-            "pos_y": -126.0,
+            "pos_x": -350.0,
+            "pos_y": -250.0,
             "inputs": [
                 {
-                    "id": 2368838435952,
+                    "id": 1666554906640,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2368838436000,
+                    "id": 1666554907408,
                     "index": 1,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2368838439936,
+                    "id": 1666554909712,
                     "index": 2,
                     "position": 2,
                     "socket_type": 2
                 }
             ],
             "outputs": [],
-            "content": {}
+            "content": {
+                "type": [
+                    "button",
+                    "progressBar",
+                    "checkbox"
+                ]
+            }
         },
         {
-            "id": 2368838435904,
+            "id": 1666551888592,
             "title": "Node_Test",
-            "pos_x": -295.0,
-            "pos_y": -131.0,
+            "pos_x": 0.0,
+            "pos_y": 0.0,
             "inputs": [
                 {
-                    "id": 2368838480768,
+                    "id": 1666554972176,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
@@ -46,31 +52,39 @@
             ],
             "outputs": [
                 {
-                    "id": 2368838467904,
+                    "id": 1666554971152,
                     "index": 0,
                     "position": 3,
                     "socket_type": 1
                 },
                 {
-                    "id": 2368838480624,
+                    "id": 1666554971408,
                     "index": 1,
                     "position": 3,
                     "socket_type": 2
                 },
                 {
-                    "id": 2368838480672,
+                    "id": 1666554971664,
                     "index": 2,
                     "position": 3,
                     "socket_type": 3
                 },
                 {
-                    "id": 2368838480720,
+                    "id": 1666554971920,
                     "index": 3,
                     "position": 3,
                     "socket_type": 1
                 }
             ],
-            "content": {}
+            "content": {
+                "type": [
+                    "label",
+                    "lineEdit",
+                    "progressBar",
+                    "comboBox",
+                    "checkbox"
+                ]
+            }
         }
     ],
     "edges": []

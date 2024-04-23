@@ -1,4 +1,5 @@
 import os
+import json
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAction, QFileDialog, QLabel
 from PyQt5.QtGui import QIcon, QFont
@@ -42,6 +43,10 @@ class NodeEditorWindow(QMainWindow):
         editMenu = menubar.addMenu("&編輯")
         editMenu.addAction(self.createAct('&上一步', 'Ctrl+Z', "返回上一步", self.onEditUndo))
         editMenu.addAction(self.createAct('&下一步', 'Ctrl+Shift+Z', "返回下一步", self.onEditRedo))
+        editMenu.addSeparator()
+        editMenu.addAction(self.createAct('&剪下', 'Ctrl+X', "剪下物件", self.onEditUndo))
+        editMenu.addAction(self.createAct('&複製', 'Ctrl+C', "複製物件到剪貼簿", self.onEditRedo))
+        editMenu.addAction(self.createAct('&貼上', 'Ctrl+V', "返回下一步", self.onEditRedo))
         editMenu.addSeparator()
         editMenu.addAction(self.createAct('&刪除', 'Del', "刪除選擇物件", self.onEditDelete))
 
@@ -101,3 +106,16 @@ class NodeEditorWindow(QMainWindow):
     def onEditDelete(self):
         '''刪除物件'''
         self.centralWidget().scene.nodeGraphicsScene.views()[0].deleteSelected()
+
+    def onEditCut(self):
+        data = self.centralWidget().scene.clipboard.serializeSelected(delete = False)
+        str_data = json.dumps(data, indent=4)
+        QApplication.instance().clipboard().setText(str_data)
+
+    def onEditCopy(self):
+        data = self.centralWidget().scene.clipboard.serializeSelected(delete = True)
+        str_data = json.dumps(data, indent=4)
+        QApplication.instance().clipboard().setText(str_data)
+
+    def onEditPaste(self):
+        pass

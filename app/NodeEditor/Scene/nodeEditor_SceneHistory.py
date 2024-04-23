@@ -1,4 +1,4 @@
-from .Edge.node_GraphicsEdge import NodeGraphicsEdge
+from ..Edge.node_GraphicsEdge import NodeGraphicsEdge
 from config.debug import DebugMode
 
 DEBUG = DebugMode.NODEEEDITOR_SCENEHISTORY

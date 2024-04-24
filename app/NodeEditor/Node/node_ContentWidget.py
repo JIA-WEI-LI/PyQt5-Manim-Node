@@ -38,7 +38,8 @@ class NodeContentWidget(QWidget, Serializable):
         self.contentLists.append(
             ('checkbox', {
                 'text': text,
-                'status': False
+                'status': False,
+                'tooltip': kwargs.get("tooltip", "")
             }))
         return checkbox
     
@@ -50,7 +51,8 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.addWidget(comboBox)
         self.contentLists.append(
             ('comboBox', {
-                'list': items
+                'list': items,
+                'tooltip': kwargs.get("tooltip", "")
             }))
         return comboBox
     
@@ -71,7 +73,8 @@ class NodeContentWidget(QWidget, Serializable):
         self.contentLists.append(
             ('label', {
                 'text': text,
-                'isOutput': isOutput
+                'isOutput': isOutput,
+                'tooltip': kwargs.get("tooltip", "")
             }))
         if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         return label
@@ -83,7 +86,8 @@ class NodeContentWidget(QWidget, Serializable):
         self.contentLists.append(
             ('lineEdit', {
                 'text': text,
-                'current_text': ""
+                'current_text': "",
+                'tooltip': kwargs.get("tooltip", "")
             }))
         return lineEdit
     
@@ -97,7 +101,8 @@ class NodeContentWidget(QWidget, Serializable):
                 'label': label,
                 'minium': minimum,
                 'maxium': maximum,
-                'value': 0.5
+                'value': 0.5,
+                'tooltip': kwargs.get("tooltip", "")
             }))
         return progressBar
     
@@ -109,7 +114,8 @@ class NodeContentWidget(QWidget, Serializable):
         self.contentLists.append(
             ('pushButton', {
                 'text': text,
-                'status': False
+                'status': False,
+                'tooltip': kwargs.get("tooltip", "")
             }))
         return button
 
@@ -138,12 +144,12 @@ class NodeContentWidget(QWidget, Serializable):
             content_type = content['type']
             content_data = content['data']
             print("Type: ", content_type, ", Data: ", content_data)
-            if content_type == 'checkbox': self.addCheckbox(content_data['text'])
-            elif content_type == 'comboBox': self.addComboBox(content_data)
-            elif content_type == 'label': self.addLabel(content_data['text'])
-            elif content_type == 'lineEdit': self.addLineEdit(content_data['text'])
-            elif content_type == 'progressBar': self.addProgressBar(content_data['label'], content_data['minium'], content_data['maxium'])
-            elif content_type == 'pushButton': self.addPushButton(content_data['text'])
+            if content_type == 'checkbox': self.addCheckbox(content_data['text'], tooltip=content_data['tooltip'])
+            elif content_type == 'comboBox': self.addComboBox(content_data, tooltip=content_data['tooltip'])
+            elif content_type == 'label': self.addLabel(content_data['text'], isOutput=content_data['isOutput'], tooltip=content_data['tooltip'])
+            elif content_type == 'lineEdit': self.addLineEdit(content_data['text'], tooltip=content_data['tooltip'])
+            elif content_type == 'progressBar': self.addProgressBar(content_data['label'], content_data['minium'], content_data['maxium'], tooltip=content_data['tooltip'])
+            elif content_type == 'pushButton': self.addPushButton(content_data['text'], tooltip=content_data['tooltip'])
             else: print("\033[93m Wrong type.\033[0m")
         return True
     

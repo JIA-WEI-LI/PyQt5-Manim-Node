@@ -1,28 +1,28 @@
 {
-    "id": 1864994611728,
+    "id": 2340197815376,
     "scene_width": 64000,
     "scene_height": 64000,
     "nodes": [
         {
-            "id": 1864994615824,
+            "id": 2340197819344,
             "title": "Number Add",
             "pos_x": -350.0,
             "pos_y": -250.0,
             "inputs": [
                 {
-                    "id": 1864994659344,
+                    "id": 2340197879248,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 1864994660112,
+                    "id": 2340197880016,
                     "index": 1,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 1864994662416,
+                    "id": 2340197882320,
                     "index": 2,
                     "position": 2,
                     "socket_type": 2
@@ -34,7 +34,8 @@
                     "type": "pushButton",
                     "data": {
                         "text": "Push Button",
-                        "status": false
+                        "status": false,
+                        "tooltip": "New Pushbutton Tooltip"
                     }
                 },
                 {
@@ -43,38 +44,40 @@
                         "label": "New Value",
                         "minium": 0,
                         "maxium": 10,
-                        "value": 0.5
+                        "value": 0.5,
+                        "tooltip": "New ProgressBar Tooltip"
                     }
                 },
                 {
                     "type": "checkbox",
                     "data": {
                         "text": "TEST",
-                        "status": false
+                        "status": false,
+                        "tooltip": "New Checkbox Tooltip"
                     }
                 }
             ]
         },
         {
-            "id": 1864994662672,
+            "id": 2340197882576,
             "title": "Node_Test",
             "pos_x": 0.0,
             "pos_y": 0.0,
             "inputs": [
                 {
-                    "id": 1864994725200,
+                    "id": 2340197945104,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 1864994725456,
+                    "id": 2340197945360,
                     "index": 1,
                     "position": 2,
                     "socket_type": 2
                 },
                 {
-                    "id": 1864994725712,
+                    "id": 2340197945616,
                     "index": 2,
                     "position": 2,
                     "socket_type": 3
@@ -82,25 +85,25 @@
             ],
             "outputs": [
                 {
-                    "id": 1864994724048,
+                    "id": 2340197943952,
                     "index": 0,
                     "position": 3,
                     "socket_type": 1
                 },
                 {
-                    "id": 1864994724432,
+                    "id": 2340197944336,
                     "index": 1,
                     "position": 3,
                     "socket_type": 2
                 },
                 {
-                    "id": 1864994724688,
+                    "id": 2340197944592,
                     "index": 2,
                     "position": 3,
                     "socket_type": 3
                 },
                 {
-                    "id": 1864994724944,
+                    "id": 2340197944848,
                     "index": 3,
                     "position": 3,
                     "socket_type": 1
@@ -111,14 +114,16 @@
                     "type": "label",
                     "data": {
                         "text": "Output",
-                        "isOutput": true
+                        "isOutput": true,
+                        "tooltip": ""
                     }
                 },
                 {
                     "type": "lineEdit",
                     "data": {
                         "text": "Line Edit",
-                        "current_text": ""
+                        "current_text": "",
+                        "tooltip": "New Tooltip"
                     }
                 },
                 {
@@ -127,7 +132,8 @@
                         "label": "Value",
                         "minium": 0,
                         "maxium": 10,
-                        "value": 0.5
+                        "value": 0.5,
+                        "tooltip": "\u6e2c\u8a66\u6587\u4ef6"
                     }
                 },
                 {
@@ -137,28 +143,32 @@
                             "List 1",
                             "List 1",
                             "List 1"
-                        ]
+                        ],
+                        "tooltip": ""
                     }
                 },
                 {
                     "type": "label",
                     "data": {
                         "text": "Test Label 1",
-                        "isOutput": false
+                        "isOutput": false,
+                        "tooltip": ""
                     }
                 },
                 {
                     "type": "label",
                     "data": {
                         "text": "Test Label 2",
-                        "isOutput": false
+                        "isOutput": false,
+                        "tooltip": ""
                     }
                 },
                 {
                     "type": "label",
                     "data": {
                         "text": "Test Label 3",
-                        "isOutput": false
+                        "isOutput": false,
+                        "tooltip": ""
                     }
                 }
             ]

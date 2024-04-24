@@ -27,7 +27,7 @@ class NodeContentWidget(QWidget, Serializable):
         
     def initUI(self):
         self.vboxLayout = QVBoxLayout()
-        self.vboxLayout.setContentsMargins(0, 0, 3, 0)
+        self.vboxLayout.setContentsMargins(0, 1, 3, 0)
         self.setLayout(self.vboxLayout)
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -74,7 +74,6 @@ class NodeContentWidget(QWidget, Serializable):
                 'isOutput': isOutput
             }))
         if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
-        
         return label
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -129,26 +128,29 @@ class NodeContentWidget(QWidget, Serializable):
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value
 
-    def setFixedHeightForAll(self):
-        total_height = self.vboxLayout.sizeHint().height()  # 獲取 vBoxLayout 的總高度
-        item_count = self.vboxLayout.count()  # 獲取 vBoxLayout 中元素的數量
-        if item_count == 0:
-            return
-        avg_height = total_height // item_count  # 計算平均高度
+    # def setFixedHeightForAll(self):
+    #     total_height = self.vboxLayout.sizeHint().height()  # 獲取 vBoxLayout 的總高度
+    #     item_count = self.vboxLayout.count()  # 獲取 vBoxLayout 中元素的數量
+    #     if item_count == 0:
+    #         return
+    #     avg_height = total_height // item_count  # 計算平均高度
 
-        # 將每個元素的高度設置為平均高度
-        for i in range(item_count):
-            item_widget = self.vboxLayout.itemAt(i).widget()
-            if item_widget is not None:
-                item_widget.setFixedHeight(avg_height)
+    #     # 將每個元素的高度設置為平均高度
+    #     for i in range(item_count):
+    #         item_widget = self.vboxLayout.itemAt(i).widget()
+    #         if item_widget is not None:
+    #             item_widget.setFixedHeight(avg_height)
 
     def serialize(self):
         '''序列化資訊'''
-        return OrderedDict(self.contentLists)
+        return False
     
     def deserialize(self, data, hashmap={}):
         self.vboxLayout.setContentsMargins(0, 3, 3, 0)
-        for content_type, content_data in data.items():
+        for content in data:
+            content_type = content['type']
+            content_data = content['data']
+            print("Type: ", content_type, ", Data: ", content_data)
             if content_type == 'checkbox': self.addCheckbox(content_data['text'])
             elif content_type == 'comboBox': self.addComboBox(content_data)
             elif content_type == 'label': self.addLabel(content_data['text'])

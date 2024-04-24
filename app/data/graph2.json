@@ -1,118 +1,177 @@
 {
-    "id": 1654921859856,
+    "id": 2494870114896,
     "scene_width": 64000,
     "scene_height": 64000,
     "nodes": [
         {
-            "id": 1654921866048,
+            "id": 2494870118864,
             "title": "Number Add",
-            "pos_x": -350.0,
-            "pos_y": -250.0,
+            "pos_x": 90.0,
+            "pos_y": -119.0,
             "inputs": [
                 {
-                    "id": 1654921905072,
+                    "id": 2494870178704,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 1654921905120,
+                    "id": 2494870179472,
                     "index": 1,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 1654921909008,
+                    "id": 2494870181776,
                     "index": 2,
                     "position": 2,
                     "socket_type": 2
                 }
             ],
             "outputs": [],
-            "content": {
-                "pushButton": {
-                    "text": "Button",
-                    "status": false
+            "content": [
+                {
+                    "type": "pushButton",
+                    "data": {
+                        "text": "Push Button",
+                        "status": false
+                    }
                 },
-                "progressBar": {
-                    "label": "New Value",
-                    "minium": 0,
-                    "maxium": 10,
-                    "value": 0.5
+                {
+                    "type": "progressBar",
+                    "data": {
+                        "label": "New Value",
+                        "minium": 0,
+                        "maxium": 10,
+                        "value": 0.5
+                    }
                 },
-                "checkbox": {
-                    "text": "TEST",
-                    "status": false
+                {
+                    "type": "checkbox",
+                    "data": {
+                        "text": "TEST",
+                        "status": false
+                    }
                 }
-            }
+            ]
         },
         {
-            "id": 1654921905024,
+            "id": 2494869257232,
             "title": "Node_Test",
-            "pos_x": -29.696000000000012,
-            "pos_y": -52.736,
+            "pos_x": -216.0,
+            "pos_y": -89.0,
             "inputs": [
                 {
-                    "id": 1654921949792,
+                    "id": 2494870244496,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
+                },
+                {
+                    "id": 2494870244752,
+                    "index": 1,
+                    "position": 2,
+                    "socket_type": 2
+                },
+                {
+                    "id": 2494870245008,
+                    "index": 2,
+                    "position": 2,
+                    "socket_type": 3
                 }
             ],
             "outputs": [
                 {
-                    "id": 1654921936976,
+                    "id": 2494870243344,
                     "index": 0,
                     "position": 3,
                     "socket_type": 1
                 },
                 {
-                    "id": 1654921949648,
+                    "id": 2494870243728,
                     "index": 1,
                     "position": 3,
                     "socket_type": 2
                 },
                 {
-                    "id": 1654921949696,
+                    "id": 2494870243984,
                     "index": 2,
                     "position": 3,
                     "socket_type": 3
                 },
                 {
-                    "id": 1654921949744,
+                    "id": 2494870244240,
                     "index": 3,
                     "position": 3,
                     "socket_type": 1
                 }
             ],
-            "content": {
-                "label": {
-                    "text": "Output",
-                    "isOutput": false
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "isOutput": false
+                    }
                 },
-                "lineEdit": {
-                    "text": "Line Edit",
-                    "current_text": ""
+                {
+                    "type": "lineEdit",
+                    "data": {
+                        "text": "Line Edit",
+                        "current_text": ""
+                    }
                 },
-                "progressBar": {
-                    "label": "Value",
-                    "minium": 0,
-                    "maxium": 10,
-                    "value": 0.5
+                {
+                    "type": "progressBar",
+                    "data": {
+                        "label": "Value",
+                        "minium": 0,
+                        "maxium": 10,
+                        "value": 0.5
+                    }
                 },
-                "comboBox": {
-                    "items": [
-                        "List 1",
-                        "List 1",
-                        "List 1"
-                    ]
+                {
+                    "type": "comboBox",
+                    "data": {
+                        "items": {
+                            "items": [
+                                "List 1",
+                                "List 1",
+                                "List 1"
+                            ]
+                        }
+                    }
                 },
-                "checkbox": {
-                    "text": "CheckBox",
-                    "status": false
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 1",
+                        "isOutput": false
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 2",
+                        "isOutput": false
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 3",
+                        "isOutput": false
+                    }
                 }
-            }
+            ]
         }
     ],
-    "edges": []
+    "edges": [
+        {
+            "id": 2494859613648,
+            "edge_type": 2,
+            "start": 2494870243728,
+            "end": 2494870181776
+        }
+    ]
 }

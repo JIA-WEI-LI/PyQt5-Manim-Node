@@ -1,6 +1,6 @@
 class DebugMode:
     NODE_EDGE = False
-    NODE_NODE = True
+    NODE_NODE = False
     NODE_SOCKET = False
     NODEEEDITOR_SCENEHISTORY = False
     NODEEDITOR_WINDOW = False

@@ -17,7 +17,6 @@ class NodeContentWidget(QWidget, Serializable):
     def __init__(self, node, parent=None):
         super().__init__(parent)
         self.node = node
-        # super().__init__(parent)
         self.socketSpace = SOCKET_SPACE-7
         self.contentLists = []
         

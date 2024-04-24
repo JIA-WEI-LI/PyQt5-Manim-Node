@@ -1,28 +1,28 @@
 {
-    "id": 2494870114896,
+    "id": 1864994611728,
     "scene_width": 64000,
     "scene_height": 64000,
     "nodes": [
         {
-            "id": 2494870118864,
+            "id": 1864994615824,
             "title": "Number Add",
-            "pos_x": 90.0,
-            "pos_y": -119.0,
+            "pos_x": -350.0,
+            "pos_y": -250.0,
             "inputs": [
                 {
-                    "id": 2494870178704,
+                    "id": 1864994659344,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2494870179472,
+                    "id": 1864994660112,
                     "index": 1,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2494870181776,
+                    "id": 1864994662416,
                     "index": 2,
                     "position": 2,
                     "socket_type": 2
@@ -56,25 +56,25 @@
             ]
         },
         {
-            "id": 2494869257232,
+            "id": 1864994662672,
             "title": "Node_Test",
-            "pos_x": -216.0,
-            "pos_y": -89.0,
+            "pos_x": 0.0,
+            "pos_y": 0.0,
             "inputs": [
                 {
-                    "id": 2494870244496,
+                    "id": 1864994725200,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2494870244752,
+                    "id": 1864994725456,
                     "index": 1,
                     "position": 2,
                     "socket_type": 2
                 },
                 {
-                    "id": 2494870245008,
+                    "id": 1864994725712,
                     "index": 2,
                     "position": 2,
                     "socket_type": 3
@@ -82,25 +82,25 @@
             ],
             "outputs": [
                 {
-                    "id": 2494870243344,
+                    "id": 1864994724048,
                     "index": 0,
                     "position": 3,
                     "socket_type": 1
                 },
                 {
-                    "id": 2494870243728,
+                    "id": 1864994724432,
                     "index": 1,
                     "position": 3,
                     "socket_type": 2
                 },
                 {
-                    "id": 2494870243984,
+                    "id": 1864994724688,
                     "index": 2,
                     "position": 3,
                     "socket_type": 3
                 },
                 {
-                    "id": 2494870244240,
+                    "id": 1864994724944,
                     "index": 3,
                     "position": 3,
                     "socket_type": 1
@@ -111,7 +111,7 @@
                     "type": "label",
                     "data": {
                         "text": "Output",
-                        "isOutput": false
+                        "isOutput": true
                     }
                 },
                 {
@@ -133,13 +133,11 @@
                 {
                     "type": "comboBox",
                     "data": {
-                        "items": {
-                            "items": [
-                                "List 1",
-                                "List 1",
-                                "List 1"
-                            ]
-                        }
+                        "list": [
+                            "List 1",
+                            "List 1",
+                            "List 1"
+                        ]
                     }
                 },
                 {
@@ -166,12 +164,5 @@
             ]
         }
     ],
-    "edges": [
-        {
-            "id": 2494859613648,
-            "edge_type": 2,
-            "start": 2494870243728,
-            "end": 2494870181776
-        }
-    ]
+    "edges": []
 }

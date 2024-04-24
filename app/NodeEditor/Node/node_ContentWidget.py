@@ -50,7 +50,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.addWidget(comboBox)
         self.contentLists.append(
             ('comboBox', {
-                'items': items,
+                'list': items
             }))
         return comboBox
     

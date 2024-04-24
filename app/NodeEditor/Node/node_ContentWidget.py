@@ -128,19 +128,6 @@ class NodeContentWidget(QWidget, Serializable):
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value
 
-    # def setFixedHeightForAll(self):
-    #     total_height = self.vboxLayout.sizeHint().height()  # 獲取 vBoxLayout 的總高度
-    #     item_count = self.vboxLayout.count()  # 獲取 vBoxLayout 中元素的數量
-    #     if item_count == 0:
-    #         return
-    #     avg_height = total_height // item_count  # 計算平均高度
-
-    #     # 將每個元素的高度設置為平均高度
-    #     for i in range(item_count):
-    #         item_widget = self.vboxLayout.itemAt(i).widget()
-    #         if item_widget is not None:
-    #             item_widget.setFixedHeight(avg_height)
-
     def serialize(self):
         '''序列化資訊'''
         return False

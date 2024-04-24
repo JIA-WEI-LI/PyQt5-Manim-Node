@@ -102,9 +102,11 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 
     def serialize(self):
         '''序列化資訊'''
-        inputs, outputs = [], []
+        inputs, outputs, contents = [], [], []
         for socket in self.inputs: inputs.append(socket.serialize())
         for socket in self.outputs: outputs.append(socket.serialize())
+        for content_type, content_data in self.content.contentLists:
+            contents.append({'type': content_type, 'data': content_data})
         return OrderedDict([
             ('id', self.id),
             ('title', self.title),
@@ -112,7 +114,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             ('pos_y', self.graphicsNode.scenePos().y()),
             ('inputs', inputs),
             ('outputs', outputs),
-            ('content', self.content.serialize()),
+            ('content', contents),
             ])
     
     def deserialize(self, data, hashmap={}, restore_id=True):
@@ -134,10 +136,11 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.inputs.append(new_socket)
-        self.outputs = []
         for socket_data in data['outputs']:
             new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.outputs.append(new_socket)
+
+        self.content.deserialize(data['content'], hashmap)
 
         return True

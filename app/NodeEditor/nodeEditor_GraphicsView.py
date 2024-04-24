@@ -246,11 +246,8 @@ class NodeGraphicsView(QGraphicsView):
 
     def keyPressEvent(self, event: QKeyEvent) -> None:
         '''鍵盤按鍵事件'''
-        # if event.key() == Qt.Key.Key_Delete:
-        #     if not self.editingFlag:
-        #         self.deleteSelected()
-        #     else:
-        #         super().keyPressEvent(event)
+        if event.key() == Qt.Key.Key_K:
+            print(" Content children: ", len(self.graphicsScene.scene.nodes[0].content.children()))
         # elif event.key() == Qt.Key.Key_S and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
         #     self.graphicsScene.scene.saveToFile(GRAPH_JSON_PATH)
         # elif event.key() == Qt.Key.Key_L and event.modifiers() & Qt.KeyboardModifier.ControlModifier:

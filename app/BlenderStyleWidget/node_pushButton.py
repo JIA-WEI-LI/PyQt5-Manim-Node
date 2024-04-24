@@ -6,7 +6,7 @@ class PushButton(QPushButton):
     '''自定義點擊式按鈕'''
     def __init__(self, text:str="", parent=None, **kwargs):
         super().__init__(parent)
-        height = kwargs.get("height", 22)
+        height = kwargs.get("height", 21)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
 

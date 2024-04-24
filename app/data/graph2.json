@@ -1,76 +1,177 @@
 {
-    "id": 2368838390784,
+    "id": 2289705735440,
     "scene_width": 64000,
     "scene_height": 64000,
     "nodes": [
         {
-            "id": 2368838396928,
+            "id": 2289705739408,
             "title": "Number Add",
-            "pos_x": 156.0,
-            "pos_y": -126.0,
+            "pos_x": -350.0,
+            "pos_y": -250.0,
             "inputs": [
                 {
-                    "id": 2368838435952,
+                    "id": 2289705799312,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2368838436000,
+                    "id": 2289705800016,
                     "index": 1,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2368838439936,
+                    "id": 2289705802320,
                     "index": 2,
                     "position": 2,
                     "socket_type": 2
                 }
             ],
             "outputs": [],
-            "content": {}
+            "content": [
+                {
+                    "type": "pushButton",
+                    "data": {
+                        "text": "Push Button",
+                        "status": false,
+                        "tooltip": "New Pushbutton Tooltip"
+                    }
+                },
+                {
+                    "type": "progressBar",
+                    "data": {
+                        "label": "New Value",
+                        "minium": 0,
+                        "maxium": 10,
+                        "value": 0.5,
+                        "tooltip": "New ProgressBar Tooltip"
+                    }
+                },
+                {
+                    "type": "checkbox",
+                    "data": {
+                        "text": "TEST",
+                        "status": false,
+                        "tooltip": "New Checkbox Tooltip"
+                    }
+                }
+            ]
         },
         {
-            "id": 2368838435904,
+            "id": 2289699199056,
             "title": "Node_Test",
-            "pos_x": -295.0,
-            "pos_y": -131.0,
+            "pos_x": 17.0,
+            "pos_y": -128.0,
             "inputs": [
                 {
-                    "id": 2368838480768,
+                    "id": 2289705864976,
                     "index": 0,
                     "position": 2,
                     "socket_type": 1
+                },
+                {
+                    "id": 2289705865232,
+                    "index": 1,
+                    "position": 2,
+                    "socket_type": 2
+                },
+                {
+                    "id": 2289705865488,
+                    "index": 2,
+                    "position": 2,
+                    "socket_type": 3
                 }
             ],
             "outputs": [
                 {
-                    "id": 2368838467904,
+                    "id": 2289705863888,
                     "index": 0,
                     "position": 3,
                     "socket_type": 1
                 },
                 {
-                    "id": 2368838480624,
+                    "id": 2289705864208,
                     "index": 1,
                     "position": 3,
                     "socket_type": 2
                 },
                 {
-                    "id": 2368838480672,
+                    "id": 2289705864464,
                     "index": 2,
                     "position": 3,
                     "socket_type": 3
                 },
                 {
-                    "id": 2368838480720,
+                    "id": 2289705864720,
                     "index": 3,
                     "position": 3,
                     "socket_type": 1
                 }
             ],
-            "content": {}
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "isOutput": true,
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "lineEdit",
+                    "data": {
+                        "text": "Line Edit",
+                        "current_text": "",
+                        "tooltip": "New Tooltip"
+                    }
+                },
+                {
+                    "type": "progressBar",
+                    "data": {
+                        "label": "Value",
+                        "minium": 0,
+                        "maxium": 10,
+                        "value": 0.5,
+                        "tooltip": "\u6e2c\u8a66\u6587\u4ef6"
+                    }
+                },
+                {
+                    "type": "comboBox",
+                    "data": {
+                        "list": [
+                            "List 1",
+                            "List 1",
+                            "List 1"
+                        ],
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 1",
+                        "isOutput": false,
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 2",
+                        "isOutput": false,
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 3",
+                        "isOutput": false,
+                        "tooltip": ""
+                    }
+                }
+            ]
         }
     ],
     "edges": []

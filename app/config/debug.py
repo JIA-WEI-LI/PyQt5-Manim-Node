@@ -3,7 +3,7 @@ class DebugMode:
     NODE_NODE = False
     NODE_SOCKET = False
     NODEEDITOR_SCENEHISTORY = False
-    NODEEDITOR_CLIPBOARD = True
+    NODEEDITOR_CLIPBOARD = False
     NODEEDITOR_WINDOW = False
     
 class DebugTimer:

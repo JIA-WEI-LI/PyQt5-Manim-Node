@@ -5,12 +5,6 @@ from PyQt5.QtCore import Qt, QRectF
 from common.color_sheet import color_manager
 from .content_BaseSetting import ContentBaseSetting
 
-class BCheckBoxData(object):
-    Radius = 10
-    AnimationTime = 600  # ms
-    FontSize, FontSpacing = 16, 0
-    TextElide = Qt.TextElideMode.ElideMiddle
-
 class BCheckBox(QCheckBox, ContentBaseSetting):
     '''
     繼承自 QCheckBox，仿造 Blender Node 內部樣式
@@ -24,17 +18,15 @@ class BCheckBox(QCheckBox, ContentBaseSetting):
     ### Usage:
         checkBox = CheckBox()
     '''
-    CheckBoxData = BCheckBoxData()
    
-    def __init__(self, text:str="", *, CheckBoxData=BCheckBoxData(), **kwargs):
+    def __init__(self, text:str="", **kwargs):
         super(BCheckBox, self).__init__(None)
-        self.CheckBoxData = CheckBoxData
         tooltip = kwargs.get("tooltip", "")
         
         self.isEnter = False
             
         self.labelFont = QFont("Times New Roman", 12, weight=QFont.Weight.Bold)
-        self.labelFont.setWordSpacing(self.CheckBoxData.FontSpacing)
+        self.labelFont.setWordSpacing(0)
         self.labelFont.setStyleHint(QFont.StyleHint.Monospace)
         self.labelFontMetrics = QFontMetrics(self.labelFont)
         self.setFont(self.labelFont)

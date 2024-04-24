@@ -81,7 +81,11 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 * [x] [Node Editor Tutorial 20: Undo & Redo #3 - History Stamps](https://www.youtube.com/watch?v=ggFhdzPihzU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=22)
 * [x] [Node Editor Tutorial 21: How to implement Main Window with Menu](https://www.youtube.com/watch?v=1pbGasGZEbo&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=23)
 * [x] [Node Editor Tutorial 22: How to implement Clipboard Operations](https://www.youtube.com/watch?v=ZW93RKjEWLM&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=24)
-* [ ] [Node Editor Tutorial 23: How to implement Clipboard Serialization](https://www.youtube.com/watch?v=PdqCogmBeXI&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=25)
+* [x] [Node Editor Tutorial 23: How to implement Clipboard Serialization](https://www.youtube.com/watch?v=PdqCogmBeXI&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=25)
+* [ ] [Node Editor Tutorial 24: Bugfixing Crashes, Missing Edge](https://www.youtube.com/watch?v=FPP4RcGeQpU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=26)
+* [ ] [Node Editor Tutorial 25: Adding File Has Changed Dialog](https://www.youtube.com/watch?v=hxqDA1UQ03c&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=27)
+* [ ] [Node Editor Tutorial 26: Socket with multiple Edges](https://www.youtube.com/watch?v=sKzNjQb3eWA&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=28)
+* [ ] [Node Editor Tutorial 27: How to set up python package with tests and docs](https://www.youtube.com/watch?v=KPfrK8Smwrs&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=29)
 </details>
 
 

@@ -144,12 +144,34 @@ class NodeContentWidget(QWidget, Serializable):
             content_type = content['type']
             content_data = content['data']
             print("Type: ", content_type, ", Data: ", content_data)
-            if content_type == 'checkbox': self.addCheckbox(content_data['text'], tooltip=content_data['tooltip'])
-            elif content_type == 'comboBox': self.addComboBox(content_data, tooltip=content_data['tooltip'])
-            elif content_type == 'label': self.addLabel(content_data['text'], isOutput=content_data['isOutput'], tooltip=content_data['tooltip'])
-            elif content_type == 'lineEdit': self.addLineEdit(content_data['text'], tooltip=content_data['tooltip'])
-            elif content_type == 'progressBar': self.addProgressBar(content_data['label'], content_data['minium'], content_data['maxium'], tooltip=content_data['tooltip'])
-            elif content_type == 'pushButton': self.addPushButton(content_data['text'], tooltip=content_data['tooltip'])
+            if content_type == 'checkbox': 
+                self.addCheckbox(
+                    content_data['text'], 
+                    tooltip=content_data['tooltip'])
+            elif content_type == 'comboBox': 
+                self.addComboBox(
+                    content_data['list'], 
+                    tooltip=content_data['tooltip'])
+            elif content_type == 'label': 
+                self.addLabel(
+                    content_data['text'], 
+                    isOutput=content_data['isOutput'], 
+                    tooltip=content_data['tooltip'])
+            elif content_type == 'lineEdit': 
+                self.addLineEdit(
+                    content_data['text'], 
+                    tooltip=content_data['tooltip'])
+            elif content_type == 'progressBar': 
+                self.addProgressBar(
+                    content_data['label'], 
+                    content_data['minium'],
+                    content_data['maxium'], 
+                    initial_percent=content_data['value'], 
+                    tooltip=content_data['tooltip'])
+            elif content_type == 'pushButton': 
+                self.addPushButton(
+                    content_data['text'], 
+                    tooltip=content_data['tooltip'])
             else: print("\033[93m Wrong type.\033[0m")
         return True
     

@@ -1,5 +1,6 @@
 from collections import OrderedDict
 from NodeEditor.Node.node_Node import Node
+from NodeEditor.Edge.node_Edge import Edge
 from NodeEditor.Edge.node_GraphicsEdge import NodeGraphicsEdge
 
 from config.debug import DebugMode
@@ -83,3 +84,11 @@ class SceneClipboard():
 
             pos = new_node.pos
             new_node.setPos(pos.x() + offset_x, pos.y() + offset_y)
+
+        # 創建各個線段
+        if 'edges' in data:
+            for edge_data in data['edges']:
+                new_edge = Edge(self.scene)
+                new_edge.deserialize(edge_data, hashmap, restore_id=False)
+
+        self.scene.history.storeHistory("Pasted elements in scene")

@@ -83,10 +83,6 @@ class NodeGraphicsView(QGraphicsView):
     
     def middleMouseButtonPress(self, event: QMouseEvent):
         '''按下滑鼠中鍵'''
-        # self.setDragMode(QGraphicsView.DragMode.ScrollHandDrag)
-        # if DEBUG: print("Press Drag Mode: ", self.dragMode())
-        # self.dragStartPosition = event.pos()
-
         releaseEvent = QMouseEvent(QEvent.Type.MouseButtonRelease, event.localPos(), event.screenPos(), Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton, event.modifiers())
         super().mouseReleaseEvent(releaseEvent)
         self.setDragMode(QGraphicsView.DragMode.ScrollHandDrag)
@@ -95,11 +91,6 @@ class NodeGraphicsView(QGraphicsView):
 
     def middleMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠中鍵'''
-        # self.setDragMode(QGraphicsView.DragMode.NoDrag)
-        # QApplication.restoreOverrideCursor()
-        # if DEBUG: print("Release Drag Mode: ", self.dragMode())
-        # self.dragStartPosition = None
-
         fakeEvent = QMouseEvent(event.type(), event.localPos(), event.screenPos(), Qt.MouseButton.LeftButton, event.buttons() | Qt.MouseButton.LeftButton, event.modifiers())
         super().mouseReleaseEvent(fakeEvent)
         self.setDragMode(QGraphicsView.DragMode.RubberBandDrag)

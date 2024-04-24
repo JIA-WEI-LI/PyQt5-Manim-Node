@@ -1,7 +1,7 @@
 from ..Edge.node_GraphicsEdge import NodeGraphicsEdge
 from config.debug import DebugMode
 
-DEBUG = DebugMode.NODEEEDITOR_SCENEHISTORY
+DEBUG = DebugMode.NODEEDITOR_SCENEHISTORY
 
 class SceneHistory():
     def __init__(self, scene):

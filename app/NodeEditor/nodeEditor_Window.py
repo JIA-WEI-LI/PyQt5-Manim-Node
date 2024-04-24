@@ -108,12 +108,12 @@ class NodeEditorWindow(QMainWindow):
         self.centralWidget().scene.nodeGraphicsScene.views()[0].deleteSelected()
 
     def onEditCut(self):
-        data = self.centralWidget().scene.clipboard.serializeSelected(delete = False)
+        data = self.centralWidget().scene.clipboard.serializeSelected(delete = True)
         str_data = json.dumps(data, indent=4)
         QApplication.instance().clipboard().setText(str_data)
 
     def onEditCopy(self):
-        data = self.centralWidget().scene.clipboard.serializeSelected(delete = True)
+        data = self.centralWidget().scene.clipboard.serializeSelected(delete = False)
         str_data = json.dumps(data, indent=4)
         QApplication.instance().clipboard().setText(str_data)
 

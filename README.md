@@ -88,6 +88,11 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 * [ ] [Node Editor Tutorial 27: How to set up python package with tests and docs](https://www.youtube.com/watch?v=KPfrK8Smwrs&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=29)
 </details>
 
+<details>
+<summary>第三部分：節點編輯器進階功能</summary>
+
+* [ ] [Node Editor Tutorial 28: Calculator Example Introduction](https://www.youtube.com/watch?v=CQHqzVwXPVo&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=30)
+</details>
 
 ---
 

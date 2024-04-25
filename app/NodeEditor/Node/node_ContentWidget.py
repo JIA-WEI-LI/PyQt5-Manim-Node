@@ -26,7 +26,7 @@ class NodeContentWidget(QWidget, Serializable):
         
     def initUI(self):
         self.vboxLayout = QVBoxLayout()
-        self.vboxLayout.setContentsMargins(0, 1, 3, 0)
+        self.vboxLayout.setContentsMargins(0, 0, 3, 0)
         self.setLayout(self.vboxLayout)
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
@@ -141,7 +141,7 @@ class NodeContentWidget(QWidget, Serializable):
         for content in data:
             content_type = content['type']
             content_data = content['data']
-            # if DEBUG: print("Type: ", content_type, ", Data: ", content_data)
+            if DEBUG: print("Type: ", content_type, ", Data: ", content_data)
             if content_type == 'checkbox': 
                 obj = self.addCheckbox(
                     content_data['text'], 

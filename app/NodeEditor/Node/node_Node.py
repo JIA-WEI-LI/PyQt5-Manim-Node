@@ -115,6 +115,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             ('inputs', inputs),
             ('outputs', outputs),
             ('content', contents),
+            ('content_height', self.content.height())
             ])
     
     def deserialize(self, data, hashmap={}, restore_id=True):
@@ -142,5 +143,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             self.outputs.append(new_socket)
 
         self.content.deserialize(data['content'], hashmap)
+        # 使用額外儲存節點內部高度解決變形問題
+        self.content.setFixedHeight(data['content_height'])
 
         return True

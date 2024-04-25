@@ -64,7 +64,7 @@ class Node(Serializable):
             # 如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
             y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + (index + len(self.output)) * (space + 1) * self.socketSpace
-            if DEBUG: print(f" ---> Pos {index} is bottom, \
+            if DEBUG: print(f"Node {self.id} ---> Pos {index} is bottom, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + 2 * padding: {2*int(self.graphicsNode.padding)} \
 + edgeSize: {int(self.graphicsNode.edgeSize)} \
@@ -72,7 +72,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 * socketSpace: {int(self.socketSpace)}")
         else:
             y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + index * (space + 1) * self.socketSpace
-            if DEBUG: print(f" ---> Pos {index} is top, \
+            if DEBUG: print(f"Node {self.id} ---> Pos {index} is top, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + 2 * padding: {2*int(self.graphicsNode.padding)} \
 + edgeSize: {int(self.graphicsNode.edgeSize)} \
@@ -115,6 +115,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             ('inputs', inputs),
             ('outputs', outputs),
             ('content', contents),
+            ('content_height', self.content.height())
             ])
     
     def deserialize(self, data, hashmap={}, restore_id=True):
@@ -142,5 +143,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             self.outputs.append(new_socket)
 
         self.content.deserialize(data['content'], hashmap)
+        # 使用額外儲存節點內部高度解決變形問題
+        self.content.setFixedHeight(data['content_height'])
 
         return True

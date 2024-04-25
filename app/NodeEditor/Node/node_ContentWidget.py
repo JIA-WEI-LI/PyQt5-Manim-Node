@@ -142,7 +142,7 @@ class NodeContentWidget(QWidget, Serializable):
         for content in data:
             content_type = content['type']
             content_data = content['data']
-            print("Type: ", content_type, ", Data: ", content_data)
+            if DEBUG: print("Type: ", content_type, ", Data: ", content_data)
             if content_type == 'checkbox': 
                 self.addCheckbox(
                     content_data['text'], 

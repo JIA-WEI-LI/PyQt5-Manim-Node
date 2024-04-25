@@ -1,5 +1,5 @@
 import math
-from PyQt5.QtCore import Qt, QPointF
+from PyQt5.QtCore import QRectF, Qt, QPointF
 from PyQt5.QtWidgets import QGraphicsPathItem
 from PyQt5.QtGui import QPainter, QPainterPath, QPen
 
@@ -40,6 +40,12 @@ class NodeGraphicsEdge(QGraphicsPathItem):
     
     def setDestination(self, x, y):
         self.posDestination = [x, y]
+
+    def boundingRect(self) -> QRectF:
+        return self.shape().boundingRect()
+    
+    def shape(self):
+        return self.calcPath()
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         self.setPath(self.calcPath())

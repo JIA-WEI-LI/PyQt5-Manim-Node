@@ -252,36 +252,12 @@ class NodeGraphicsView(QGraphicsView):
             for node in self.graphicsScene.scene.nodes:
                 vlayout = node.content.vboxLayout
                 print(f"Node {node} ---> Content Layout: {vlayout},\n{' ' * 23}"
-                        f"  Node    Size: ({node.get_height()})\n{' ' * 23}"
+                        f"  Node graphicsNode Height: {node.graphicsNode.height}\n{' ' * 23}"
                         f"  Content Size: ({node.content.geometry().width()} , {node.content.geometry().height()})\n{' ' * 23}"
                         f"  Parent  Size: ({vlayout.parentWidget().geometry().width()} , {vlayout.parentWidget().geometry().height()})\n{' ' * 23}"
                         f"  Pos: ({vlayout.geometry().x()} , {vlayout.geometry().y()})"
                         f"  Size: ({vlayout.geometry().width()} , {vlayout.geometry().height()})"
                         f"  Item: {vlayout.count()}  Space: {vlayout.spacing()}")
-
-                # for content in node.content.vboxLayout
-        # elif event.key() == Qt.Key.Key_S and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-        #     self.graphicsScene.scene.saveToFile(GRAPH_JSON_PATH)
-        # elif event.key() == Qt.Key.Key_L and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-        #     self.graphicsScene.scene.loadFromFile(GRAPH_JSON_PATH)
-        # elif event.key() == Qt.Key.Key_1:
-        #     self.graphicsScene.scene.history.storeHistory("Item A")
-        # elif event.key() == Qt.Key.Key_2:
-        #     self.graphicsScene.scene.history.storeHistory("Item B")
-        # elif event.key() == Qt.Key.Key_3:
-        #     self.graphicsScene.scene.history.storeHistory("Item C")
-        # elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and not event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
-        #     self.graphicsScene.scene.history.undo()
-        # elif event.key() == Qt.Key.Key_Z and event.modifiers() & Qt.KeyboardModifier.ControlModifier and event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
-        #     self.graphicsScene.scene.history.redo()
-        # elif event.key() == Qt.Key.Key_H:
-        #     print("HISTORY:   len(%d)" % len(self.graphicsScene.scene.history.history_stack),
-        #           " -- current_step", self.graphicsScene.scene.history.history_current_step)
-        #     ix = 0
-        #     for item in self.graphicsScene.scene.history.history_stack:
-        #         print("#", ix, "--", item['desc'])
-        #         ix += 1 
-        # else:
         super().keyPressEvent(event)
 
     def cutIntersectingEdge(self):

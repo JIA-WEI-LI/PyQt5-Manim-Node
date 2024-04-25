@@ -249,6 +249,13 @@ class NodeGraphicsView(QGraphicsView):
         '''鍵盤按鍵事件'''
         if event.key() == Qt.Key.Key_K:
             print(" Content children: ", len(self.graphicsScene.scene.nodes[0].content.children()))
+            for node in self.graphicsScene.scene.nodes:
+                print(f"Node {node} ---> Content Layout: {node.content.vboxLayout},\n                       "
+                        f"  Pos: ({node.content.vboxLayout.geometry().x()} , {node.content.vboxLayout.geometry().y()})"
+                        f"  Size: ({node.content.vboxLayout.geometry().width()} , {node.content.vboxLayout.geometry().height()})"
+                        f"  Item: {node.content.vboxLayout.count()}  Space: {node.content.vboxLayout.spacing()}")
+
+                # for content in node.content.vboxLayout
         # elif event.key() == Qt.Key.Key_S and event.modifiers() & Qt.KeyboardModifier.ControlModifier:
         #     self.graphicsScene.scene.saveToFile(GRAPH_JSON_PATH)
         # elif event.key() == Qt.Key.Key_L and event.modifiers() & Qt.KeyboardModifier.ControlModifier:

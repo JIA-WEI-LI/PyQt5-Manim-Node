@@ -142,33 +142,33 @@ class NodeContentWidget(QWidget, Serializable):
         for content in data:
             content_type = content['type']
             content_data = content['data']
-            print("Type: ", content_type, ", Data: ", content_data)
+            # if DEBUG: print("Type: ", content_type, ", Data: ", content_data)
             if content_type == 'checkbox': 
-                self.addCheckbox(
+                obj = self.addCheckbox(
                     content_data['text'], 
                     tooltip=content_data['tooltip'])
             elif content_type == 'comboBox': 
-                self.addComboBox(
+                obj = self.addComboBox(
                     content_data['list'], 
                     tooltip=content_data['tooltip'])
             elif content_type == 'label': 
-                self.addLabel(
+                obj = self.addLabel(
                     content_data['text'], 
                     isOutput=content_data['isOutput'], 
                     tooltip=content_data['tooltip'])
             elif content_type == 'lineEdit': 
-                self.addLineEdit(
+                obj = self.addLineEdit(
                     content_data['text'], 
                     tooltip=content_data['tooltip'])
             elif content_type == 'progressBar': 
-                self.addProgressBar(
+                obj = self.addProgressBar(
                     content_data['label'], 
                     content_data['minium'],
                     content_data['maxium'], 
                     initial_percent=content_data['value'], 
                     tooltip=content_data['tooltip'])
             elif content_type == 'pushButton': 
-                self.addPushButton(
+                obj = self.addPushButton(
                     content_data['text'], 
                     tooltip=content_data['tooltip'])
             else: print("\033[93m Wrong type.\033[0m")

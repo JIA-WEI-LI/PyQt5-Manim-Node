@@ -33,6 +33,7 @@ class NodeGraphicsView(QGraphicsView):
 
         self.mode = MODE_NOOP
         self.editingFlag = False
+        self.rubberBandDraggingRectangle = False
 
         self.zoomInFactor = 1.25
         self.zoomClamp = True
@@ -122,6 +123,7 @@ class NodeGraphicsView(QGraphicsView):
         if self.mode == MODE_EDGE_DRAG:
             res = self.edgeDragEnd(item)
             if res: return
+
         super().mousePressEvent(event)
 
     def rightMouseButtonPress(self, event: QMouseEvent):
@@ -149,6 +151,8 @@ class NodeGraphicsView(QGraphicsView):
                 super().mouseReleaseEvent(fakeEvent)
                 QApplication.setOverrideCursor(Qt.CursorShape.CrossCursor)
                 return
+            else:
+                self.rubberBandDraggingRectangle = True
     
     def leftMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠左鍵'''
@@ -167,16 +171,8 @@ class NodeGraphicsView(QGraphicsView):
         if self.mode == MODE_EDGE_DRAG:
             if self.distanceBetweenClickAndReleaseIsOff(event):
                 res = self.edgeDragEnd(item)
+                print(res)
                 if res: return
-
-        if self.mode == MODE_EDGE_CUT:
-            self.cutIntersectingEdge()
-            self.cutline.lines_points = []
-            self.cutline.update()
-            QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
-            self.mode = MODE_NOOP
-            if DEBUG: print("-- LMB Release Cut mode, Drag Mode: ", self.dragMode())
-            return 
         
         if self.dragMode() == QGraphicsView.DragMode.RubberBandDrag:
             self.graphicsScene.scene.history.storeHistory("Selection changed")
@@ -196,6 +192,10 @@ class NodeGraphicsView(QGraphicsView):
 
             if DEBUG: print("-- RMB Release Cut mode, Drag Mode: ", self.dragMode())
             return
+
+        if self.rubberBandDraggingRectangle:
+            self.graphicsScene.scene.history.storeHistory("Selection changed")
+            self.rubberBandDraggingRectangle = True
 
         super().mouseReleaseEvent(event)
     

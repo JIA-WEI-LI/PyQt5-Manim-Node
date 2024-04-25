@@ -171,7 +171,6 @@ class NodeGraphicsView(QGraphicsView):
         if self.mode == MODE_EDGE_DRAG:
             if self.distanceBetweenClickAndReleaseIsOff(event):
                 res = self.edgeDragEnd(item)
-                print(res)
                 if res: return
         
         if self.dragMode() == QGraphicsView.DragMode.RubberBandDrag:

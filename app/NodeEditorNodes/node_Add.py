@@ -8,3 +8,6 @@ class Node_Add(Node):
         self.content.addPushButton("Push Button", tooltip="New Pushbutton Tooltip")
         self.content.addProgressBar("New Value", tooltip="New ProgressBar Tooltip")
         self.content.addCheckbox("TEST", tooltip="New Checkbox Tooltip")
+
+    def get_height(self):
+        return self.content.vboxLayout.geometry().height()

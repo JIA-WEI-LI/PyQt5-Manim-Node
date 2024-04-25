@@ -12,3 +12,6 @@ class Node_Test(Node):
         self.content.addLabel("Test Label 1")
         self.content.addLabel("Test Label 2")
         self.content.addLabel("Test Label 3")
+
+    def get_height(self):
+        return self.content.vboxLayout.geometry().height()

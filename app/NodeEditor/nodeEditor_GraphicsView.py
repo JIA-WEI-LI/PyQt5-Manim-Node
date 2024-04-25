@@ -250,10 +250,14 @@ class NodeGraphicsView(QGraphicsView):
         if event.key() == Qt.Key.Key_K:
             print(" Content children: ", len(self.graphicsScene.scene.nodes[0].content.children()))
             for node in self.graphicsScene.scene.nodes:
-                print(f"Node {node} ---> Content Layout: {node.content.vboxLayout},\n                       "
-                        f"  Pos: ({node.content.vboxLayout.geometry().x()} , {node.content.vboxLayout.geometry().y()})"
-                        f"  Size: ({node.content.vboxLayout.geometry().width()} , {node.content.vboxLayout.geometry().height()})"
-                        f"  Item: {node.content.vboxLayout.count()}  Space: {node.content.vboxLayout.spacing()}")
+                vlayout = node.content.vboxLayout
+                print(f"Node {node} ---> Content Layout: {vlayout},\n{' ' * 23}"
+                        f"  Node    Size: ({node.get_height()})\n{' ' * 23}"
+                        f"  Content Size: ({node.content.geometry().width()} , {node.content.geometry().height()})\n{' ' * 23}"
+                        f"  Parent  Size: ({vlayout.parentWidget().geometry().width()} , {vlayout.parentWidget().geometry().height()})\n{' ' * 23}"
+                        f"  Pos: ({vlayout.geometry().x()} , {vlayout.geometry().y()})"
+                        f"  Size: ({vlayout.geometry().width()} , {vlayout.geometry().height()})"
+                        f"  Item: {vlayout.count()}  Space: {vlayout.spacing()}")
 
                 # for content in node.content.vboxLayout
         # elif event.key() == Qt.Key.Key_S and event.modifiers() & Qt.KeyboardModifier.ControlModifier:

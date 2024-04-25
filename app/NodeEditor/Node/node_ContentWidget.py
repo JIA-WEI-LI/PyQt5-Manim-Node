@@ -138,7 +138,6 @@ class NodeContentWidget(QWidget, Serializable):
         return False
     
     def deserialize(self, data, hashmap={}):
-        self.vboxLayout.setSpacing(7)   # 使用自定義元素間隔解決內容間隔偏差問題
         for content in data:
             content_type = content['type']
             content_data = content['data']

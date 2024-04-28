@@ -1,6 +1,7 @@
 from PyQt5.QtCore import Qt, QEvent, pyqtSignal
 from PyQt5.QtGui import QKeyEvent, QMouseEvent, QPainter, QWheelEvent
 from PyQt5.QtWidgets import QGraphicsView, QApplication
+from memory_profiler import profile
 
 from .Edge.node_Edge import Edge, EDGE_TYPE_BEZIER
 from .Edge.node_GraphicsEdge import NodeGraphicsEdge
@@ -157,7 +158,7 @@ class NodeGraphicsView(QGraphicsView):
     def leftMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠左鍵'''
         item = self.getItemAtClick(event)
-
+        
         # 使用快捷鍵選取複數物件
         if hasattr(item, "node") or isinstance(item, NodeGraphicsEdge) or item is None:
             if event.modifiers() & Qt.KeyboardModifier.ShiftModifier:
@@ -166,17 +167,24 @@ class NodeGraphicsView(QGraphicsView):
                                         Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton,
                                         event.modifiers() | Qt.KeyboardModifier.ControlModifier)
                 super().mouseReleaseEvent(fakeEvent)
+                if DEBUG: print(" == LMB Release: fakeEvent Finish ==")
                 return 
             
         if self.mode == MODE_EDGE_DRAG:
             if self.distanceBetweenClickAndReleaseIsOff(event):
                 res = self.edgeDragEnd(item)
-                if res: return
+                if DEBUG: print(" == LMB Release: edgeDragEnd Finish ==")
+                if res:
+                    if DEBUG: print(" == LMB Release: res Finish == ") 
+                    return
         
         if self.dragMode() == QGraphicsView.DragMode.RubberBandDrag:
             self.graphicsScene.scene.history.storeHistory("Selection changed")
+            if DEBUG: print(" == LMB Release: storeHistory Finish ==")
 
+        if DEBUG: print(" == LMB Release == ")
         super().mouseReleaseEvent(event)
+        if DEBUG: print(" == LMB Release: super() == ")
     
     def rightMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠右鍵'''
@@ -195,6 +203,7 @@ class NodeGraphicsView(QGraphicsView):
         if self.rubberBandDraggingRectangle:
             self.graphicsScene.scene.history.storeHistory("Selection changed")
             self.rubberBandDraggingRectangle = True
+            if DEBUG: print("-- RMB Release rubberBandDraggingRectangle: ", self.rubberBandDraggingRectangle)
 
         super().mouseReleaseEvent(event)
     

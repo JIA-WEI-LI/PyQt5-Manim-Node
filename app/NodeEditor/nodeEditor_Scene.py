@@ -25,11 +25,29 @@ class Scene(Serializable):
         self.edges = []
         self.sceneWidth, self.sceneHeight = 64000, 64000
         
-        self.has_been_modified = True
+        self._has_been_modified = False
+        self._has_been_modified_listeners = []
 
         self.initUI()
         self.history = SceneHistory(self)
         self.clipboard = SceneClipboard(self)
+
+    @property
+    def has_been_modified(self):
+        return self._has_been_modified
+    
+    @has_been_modified.setter
+    def has_been_modified(self, value):
+        if not self._has_been_modified and value:
+            self._has_been_modified = value
+
+            for callback in self._has_been_modified_listeners:
+                callback()
+
+        self._has_been_modified = value
+
+    def addHasBeenModifiedListener(self, callback):
+        self._has_been_modified_listeners.append(callback)
         
     def initUI(self):
         self.nodeGraphicsScene = NodeGraphicsScene(self)
@@ -51,17 +69,23 @@ class Scene(Serializable):
         while len(self.nodes) > 0:
             self.nodes[0].remove()
 
+        self.has_been_modified = False
+
     def saveToFile(self, file_name):
         with open(file_name, "w") as file:
             file.write(json.dumps(self.serialize(), indent=4))
-        print(f"Saving to {file_name} was successfull")
+            print(f"Saving to {file_name} was successfull")
+
+            self.has_been_modified = False
 
     def loadFromFile(self, file_name):
         with open(file_name, "r") as file:
             raw_data = file.read()
             data = json.loads(raw_data)
             self.deserialize(data)
-        print(f"Loading {file_name} was successfull")
+            print(f"Loading {file_name} was successfull")
+
+            self.has_been_modified = False
 
     def serialize(self):
         '''序列化資訊'''

@@ -12,9 +12,8 @@ from .nodeEditor_Widget import NodeEditorWidget
 class NodeEditorWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
-        self.initUI()
-
         self.filename = None
+        self.initUI()
 
     def createAct(self, name:str, shortcut:str, tooltip:str, callback):
         act = QAction(name, self)
@@ -56,6 +55,7 @@ class NodeEditorWindow(QMainWindow):
 
         # 節點畫面
         nodeEditor = NodeEditorWidget(self)
+        nodeEditor.scene.addHasBeenModifiedListener(self.changeTitle)
         self.setCentralWidget(nodeEditor)
 
         # 下方狀態條
@@ -66,8 +66,20 @@ class NodeEditorWindow(QMainWindow):
 
         self.setGeometry(200 ,200, 800, 600)
         self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
-        self.setWindowTitle("Manim Node Editor")
+        self.changeTitle()
         self.show()
+
+    def changeTitle(self):
+        title = "Node Editor - "
+        if self.filename == None:
+            title += "New"
+        else:
+            title += os.path.basename(self.filename)
+
+        if self.centralWidget().scene.has_been_modified:
+            title += "*"
+
+        self.setWindowTitle(title)
 
     def closeEvent(self, event: QCloseEvent) -> None:
         if self.maybeSave():
@@ -96,22 +108,30 @@ class NodeEditorWindow(QMainWindow):
 
     def onFileNew(self):
         '''開啟新視窗(刪除舊有全物件)'''
-        self.centralWidget().scene.clear()
+        if self.maybeSave():
+            self.centralWidget().scene.clear()
+            self.filename = None
+            self.changeTitle()
 
     def onFileOpen(self):
         '''開啟檔案'''
-        fname, filter = QFileDialog.getOpenFileName(self, "開啟檔案")
-        if fname == '':
-            return
-        elif os.path.isfile(fname):
-            self.centralWidget().scene.loadFromFile(fname)
-            self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
+        if self.maybeSave():
+            fname, filter = QFileDialog.getOpenFileName(self, "開啟檔案")
+            if fname == '':
+                return
+            if os.path.isfile(fname):
+                self.centralWidget().scene.loadFromFile(fname)
+                self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
+                self.filename = fname
+                self.changeTitle()
 
     def onFileSave(self) -> bool:
         '''儲存檔案'''
         if self.filename is None: return self.onFileSaveAs()
         self.centralWidget().scene.saveToFile(self.filename)
         self.statusBar().showMessage("已成功儲存檔案 %s" % self.filename)
+        
+        self.changeTitle()
         return True
 
     def onFileSaveAs(self) -> bool:

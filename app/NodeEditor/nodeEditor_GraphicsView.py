@@ -277,7 +277,7 @@ class NodeGraphicsView(QGraphicsView):
                 if edge.nodeGraphicsEdge.intersectsWith(p1, p2):
                     edge.remove()
 
-        self.graphicsScene.scene.history.storeHistory("Delete cutted edges")
+        self.graphicsScene.scene.history.storeHistory("Delete cutted edges", setModified=True)
 
     def deleteSelected(self):
         '''刪除選擇物件'''
@@ -286,7 +286,7 @@ class NodeGraphicsView(QGraphicsView):
                 item.edge.remove()
             elif hasattr(item, 'node'):
                 item.node.remove()
-        self.graphicsScene.scene.history.storeHistory("Delete selected")
+        self.graphicsScene.scene.history.storeHistory("Delete selected", setModified=True)
 
     def debug_modifiers(self, event: QMouseEvent):
         out = "MODS: "
@@ -333,7 +333,7 @@ class NodeGraphicsView(QGraphicsView):
                 self.dragEdge.end_socket.setConnectedEdge(self.dragEdge)
                 if DEBUG: print("View::edgeDragEnd - reassigned start & end sockets to drag edge", item.socket)
                 self.dragEdge.updatePositions()
-                self.graphicsScene.scene.history.storeHistory("Created new edge by dragging")
+                self.graphicsScene.scene.history.storeHistory("Created new edge by dragging", setModified=True)
                 return True
         
         # if self.dragEdge is not None: pass  # 檢查 self.dragEdge 是否為 None

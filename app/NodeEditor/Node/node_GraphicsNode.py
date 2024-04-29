@@ -56,11 +56,12 @@ class NodeGraphicsNode(QGraphicsItem):
         self.wasMoved = True
 
     def mouseReleaseEvent(self, event: QGraphicsSceneMouseEvent) -> None:
+        '''滑鼠放開事件'''
         super().mouseReleaseEvent(event)
 
         if self.wasMoved:
             self.wasMoved = False
-            self.node.scene.history.storeHistory("Node moved")
+            self.node.scene.history.storeHistory("Node moved", setModified=True)
         
     @property
     def title(self): return self._title

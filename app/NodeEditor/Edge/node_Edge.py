@@ -1,3 +1,5 @@
+import gc
+gc.enable()
 from collections import OrderedDict
 
 from .node_GraphicsEdge import NodeGraphicsEdgeDirect, NodeGraphicsEdgeBezier

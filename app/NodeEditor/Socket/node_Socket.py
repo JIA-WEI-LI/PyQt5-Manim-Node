@@ -1,3 +1,5 @@
+import gc
+gc.enable()
 from collections import OrderedDict
 
 from ..Serialization.node_Serializable import Serializable

@@ -1,9 +1,10 @@
 import os
 import json
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAction, QFileDialog, QLabel
-from PyQt5.QtGui import QIcon, QFont
+from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAction, QFileDialog, QLabel, QMessageBox
+from PyQt5.QtGui import QCloseEvent, QIcon, QFont
 
+from BlenderStyleWidget.window_messageBox import MessageBox
 from common.style_sheet import StyleSheet
 from config.icon import Icon
 from .nodeEditor_Widget import NodeEditorWidget
@@ -24,6 +25,9 @@ class NodeEditorWindow(QMainWindow):
 
     @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
+        # 隱藏最上方視窗標題列
+        # self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
+
         font = QFont()
         font.setPointSize(10)
 
@@ -65,6 +69,28 @@ class NodeEditorWindow(QMainWindow):
         self.setWindowTitle("Manim Node Editor")
         self.show()
 
+    def closeEvent(self, event: QCloseEvent) -> None:
+        if self.maybeSave():
+            event.accept()
+        else:
+            event.ignore()
+
+    def isModified(self):
+        return self.centralWidget().scene.has_been_modified
+
+    def maybeSave(self) -> bool:
+        if not self.isModified():
+            return True
+        
+        res = QMessageBox.warning(self, "是否確認關閉檔案？", "此文件即將被關閉，您希望另存新檔嗎？",
+                                        QMessageBox.StandardButton.Save | QMessageBox.StandardButton.Discard | QMessageBox.StandardButton.Cancel)
+        if res == QMessageBox.StandardButton.Save:
+            return self.onFileSave()
+        elif res == QMessageBox.StandardButton.Cancel:
+            return False
+        
+        return True
+
     def onScenePosChanged(self, x, y):
         self.status_mouse_pos.setText("Scene Pos: [%d, %d] " % (x, y))
 
@@ -81,19 +107,21 @@ class NodeEditorWindow(QMainWindow):
             self.centralWidget().scene.loadFromFile(fname)
             self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
 
-    def onFileSave(self):
+    def onFileSave(self) -> bool:
         '''儲存檔案'''
         if self.filename is None: return self.onFileSaveAs()
         self.centralWidget().scene.saveToFile(self.filename)
         self.statusBar().showMessage("已成功儲存檔案 %s" % self.filename)
+        return True
 
-    def onFileSaveAs(self):
+    def onFileSaveAs(self) -> bool:
         '''另存新檔'''
         fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", filter="JSON files (*.json)")
         if fname == '':
-            return
+            return False
         self.filename = fname
         self.onFileSave()
+        return True
 
     def onEditUndo(self):
         '''返回上一步'''

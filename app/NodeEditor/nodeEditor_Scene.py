@@ -25,6 +25,8 @@ class Scene(Serializable):
         self.edges = []
         self.sceneWidth, self.sceneHeight = 64000, 64000
         
+        self.has_been_modified = True
+
         self.initUI()
         self.history = SceneHistory(self)
         self.clipboard = SceneClipboard(self)

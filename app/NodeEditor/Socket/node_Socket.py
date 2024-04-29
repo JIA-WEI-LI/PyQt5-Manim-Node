@@ -44,7 +44,7 @@ class Socket(Serializable):
     def removeAllEdges(self):
         while self.edges:
             edge = self.edges.pop(0)
-            edge.clear()
+            edge.remove()
     
     def serialize(self):
         '''序列化資訊'''

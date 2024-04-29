@@ -31,19 +31,21 @@ class Socket(Serializable):
         return "<Socket %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
         
     def getSocketPosition(self, *, space:int=0):
-        if DebugMode.NODE_SOCKET: print("  Get Socket Pos: ", self.index, self.position, " node: ", self.node)
+        # if DebugMode.NODE_SOCKET: print("  Get Socket Pos: ", self.index, self.position, " node: ", self.node)
         res = self.node.getSocketPosition(self.index, self.position, space=space)
-        if DebugMode.NODE_SOCKET: print("  res: ", res)
+        # if DebugMode.NODE_SOCKET: print("  res: ", res)
         return res
         
     def addEdge(self, edge):
         self.edges.append(edge)
 
     def removeEdge(self, edge):
+        # BUG：切割線段或點擊時有機率無錯誤輸出閃退(常見於移動節點後)
         if edge in self.edges: self.edges.remove(edge)
         else: print("!W: ", "Socket::removeEdge", "wanna remove edge", edge, "from self.edges but it's not a list!")
 
     def removeAllEdges(self):
+        # BUG：切割線段或點擊時有機率無錯誤輸出閃退(常見於移動節點後)
         while self.edges:
             edge = self.edges.pop(0)
             edge.remove()

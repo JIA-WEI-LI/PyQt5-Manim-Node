@@ -190,6 +190,7 @@ class NodeGraphicsView(QGraphicsView):
         '''放開滑鼠右鍵'''
         # BUG: 開啟APP後先移動節點後使用切割會觸發閃退
         item = self.getItemAtClick(event)
+        if DEBUG: print("-- RMB Release , Drag Mode: ", self.dragMode(), " self.node = ", self.mode)
 
         if self.mode == MODE_EDGE_CUT:
             self.cutIntersectingEdge()
@@ -197,8 +198,7 @@ class NodeGraphicsView(QGraphicsView):
             self.cutline.update()
             QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
             self.mode = MODE_NOOP
-
-            if DEBUG: print("-- RMB Release Cut mode, Drag Mode: ", self.dragMode())
+            if DEBUG: print("-- RMB Release Cut mode, Drag Mode: ", self.dragMode(), " self.node = ", self.mode)
             return
 
         if self.rubberBandDraggingRectangle:
@@ -206,6 +206,7 @@ class NodeGraphicsView(QGraphicsView):
             self.rubberBandDraggingRectangle = True
             if DEBUG: print("-- RMB Release rubberBandDraggingRectangle: ", self.rubberBandDraggingRectangle)
 
+        if DEBUG: print("-- RMB Release 2, Drag Mode: ", self.dragMode(), " self.node = ", self.mode)
         super().mouseReleaseEvent(event)
     
     def wheelEvent(self, event: QWheelEvent):
@@ -275,7 +276,7 @@ class NodeGraphicsView(QGraphicsView):
             p2 = self.cutline.lines_points[ix - 1]
 
             for edge in self.graphicsScene.scene.edges:
-                if edge.nodeGraphicsEdge.intersectsWith(p1, p2):
+                if edge and edge.nodeGraphicsEdge.intersectsWith(p1, p2):
                     edge.remove()
 
         self.graphicsScene.scene.history.storeHistory("Delete cutted edges", setModified=True)

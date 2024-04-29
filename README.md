@@ -3,7 +3,9 @@
 
 _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數學動畫製作軟體_
 ## 資料夾說明
-* app - 主資料夾
+<details>
+<summary> app - 主資料夾</summary>
+
 * common - 常用設定資料夾
   * color_sheet.py - 獲取顏色列表
   * performance_utils.py - 自製運行測試時間
@@ -40,6 +42,7 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
   * qss - QSS 樣式資料夾
   * screenshot - 螢幕截圖資料夾
 * main.py - 主運行程式
+</details>
 
 ## 進度
 > 參考影片清單：[https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz](https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz)

@@ -18,6 +18,7 @@ class Edge(Serializable):
         self.end_socket = end_socket
         self.edge_type = edge_type
 
+        # DELETED
         # self.start_socket.edge = self
         # if self.end_socket is not None:
         #     self.end_socket.edge = self
@@ -37,7 +38,7 @@ class Edge(Serializable):
     def start_socket(self, value):
         self._start_socket = value
         if self.start_socket is not None:
-            self.start_socket.edge = self
+            self.start_socket.setConnectedEdge(self)
 
     @property
     def end_socket(self): return self._end_socket
@@ -45,7 +46,7 @@ class Edge(Serializable):
     def end_socket(self, value):
         self._end_socket = value
         if self.end_socket is not None:
-            self.end_socket.edge = self
+            self.end_socket.setConnectedEdge(self)
 
     @property
     def edge_type(self): return self._edge_type
@@ -85,9 +86,9 @@ class Edge(Serializable):
         
     def remove_from_sockets(self):
         '''判斷移除連結點'''
-        # 經過修正後
+        # TODO：Fix in future 
         if self.start_socket is not None:
-            self.start_socket.edge = None
+            self.start_socket.setConnectedEdge(None)
         if self.end_socket is not None:
             self.end_socket.edge = None
 

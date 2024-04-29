@@ -27,7 +27,7 @@ class NodeGraphicsNode(QGraphicsItem):
         self.titleHeight = 26.0
         self.titlePadding = 6.0
 
-        # 節點高度隨輸入與輸出點多寡改變
+        # HACK：節點高度隨輸入與輸出點多寡改變
         self.height = self.titleHeight + 2 * self.padding + 0* self.edgeSize + (len(self.node.input) + len(self.node.output)) * self.node.socketSpace
         
         # 標題

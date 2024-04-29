@@ -10,20 +10,20 @@ RIGHT_TOP = 3
 RIGHT_BOTTOM = 4
 
 class Socket(Serializable):
-    def __init__(self, node, *,  position, index:int=0, socket_type=1, space:int=0) -> None:
+    def __init__(self, node, *, index:int=0, position=LEFT_BOTTOM, socket_type=1, space:int=0, muliti_edges:bool=True) -> None:
         super().__init__()
         self.node = node
-        self.position = position
         self.index = index
-        
+        self.position = position
         self.socket_type = socket_type
+        self.is_multi_edges = muliti_edges
         
         if DebugMode.NODE_SOCKET: print("Socket -- creating with", self.index, self.position, "for node", self.node)
 
         self.graphicsSocket = NodeGraphicsSocket(self, self.socket_type)
         self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position, space = space))
         
-        self.edge = None
+        self.edges = []
  
     def __str__(self) -> str:
         return "<Socket %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
@@ -35,21 +35,23 @@ class Socket(Serializable):
         return res
         
     def setConnectedEdge(self, edge=None):
-        self.edge = edge
+        self.edges = edge
 
     def hasEdge(self):
-        return self.edge is not None
+        return self.edges is not None
     
     def serialize(self):
         '''序列化資訊'''
         return OrderedDict([
             ('id', self.id),
             ('index', self.index),
+            ('multi_edges', self.is_multi_edges),
             ('position', self.position),
             ('socket_type', self.socket_type)
         ])
     
     def deserialize(self, data, hashmap={}, restore_id=True):
         if restore_id: self.id = data['id']
+        self.is_multi_edges = data['multi_edges']
         hashmap[data['id']] = self
         return True

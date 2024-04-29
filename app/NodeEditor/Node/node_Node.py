@@ -61,7 +61,7 @@ class Node(Serializable):
         '''設置連結點位置'''
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
-            # 如果設置底下開始，節點的編號也會從底部開始計算
+            # BUG：如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
             y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + (index + len(self.output)) * (space + 1) * self.socketSpace
             if DEBUG: print(f"Node {self.id} ---> Pos {index} is bottom, \
@@ -125,7 +125,6 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         hashmap[data['id']] = self
 
         self.setPos(data['pos_x'], data['pos_y'])
-
         self.title = data['title']
         
         data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
@@ -143,7 +142,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             self.outputs.append(new_socket)
 
         self.content.deserialize(data['content'], hashmap)
-        # 使用額外儲存節點內部高度解決變形問題
+        # TODO：暫時使用額外儲存節點內部高度解決變形問題
         self.content.setFixedHeight(data['content_height'])
 
         return True

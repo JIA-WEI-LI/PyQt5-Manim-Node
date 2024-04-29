@@ -80,8 +80,6 @@ class NodeGraphicsEdgeBezier(NodeGraphicsEdge):
         s = self.posSource
         d = self.posDestination
         dist = (d[0]-s[0]) * 0.5
-        # 尚未了解為何不加入此行會崩潰
-        # if s[0] > d[0]: dist *= -1
         
         cpx_s = +dist
         cpx_d = -dist

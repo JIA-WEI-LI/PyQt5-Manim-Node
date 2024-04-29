@@ -14,6 +14,10 @@ class Edge(Serializable):
     def __init__(self, scene, start_socket:Socket=None, end_socket:Socket=None, edge_type=EDGE_TYPE_DIRECT) -> None:
         super().__init__()
         self.scene = scene
+
+        self._start_socket = None
+        self._end_socket = None
+
         self.start_socket = start_socket
         self.end_socket = end_socket
         self.edge_type = edge_type
@@ -36,17 +40,25 @@ class Edge(Serializable):
     def start_socket(self): return self._start_socket
     @start_socket.setter
     def start_socket(self, value):
+        # 如果之前有分配連結點，則刪除連結點
+        if self._start_socket is not None:
+            self._start_socket.removeEdge(self)
+        # 分配新的開始連結點
         self._start_socket = value
         if self.start_socket is not None:
-            self.start_socket.setConnectedEdge(self)
+            self.start_socket.addEdge(self)
 
     @property
     def end_socket(self): return self._end_socket
     @end_socket.setter
     def end_socket(self, value):
+        # 如果之前有分配連結點，則刪除連結點
+        if self._end_socket is not None:
+            self._end_socket.removeEdge(self)
+        # 分配新的結束連結點
         self._end_socket = value
         if self.end_socket is not None:
-            self.end_socket.setConnectedEdge(self)
+            self.end_socket.addEdge(self)
 
     @property
     def edge_type(self): return self._edge_type
@@ -86,11 +98,13 @@ class Edge(Serializable):
         
     def remove_from_sockets(self):
         '''判斷移除連結點'''
-        # TODO：Fix in future 
-        if self.start_socket is not None:
-            self.start_socket.setConnectedEdge(None)
-        if self.end_socket is not None:
-            self.end_socket.edge = None
+        # FIXME：Fix in future 
+        # if self.start_socket is not None:
+        #     self.start_socket.removeEdge(None)
+        # if self.end_socket is not None:
+        #     self.end_socket.removeEdge(None)
+        self.end_socket = None
+        self.start_socket = None
 
     def remove(self):
         if DEBUG: print("# Removing Edge: ", self)

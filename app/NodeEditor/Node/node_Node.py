@@ -83,16 +83,17 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
     
     def updateConnectedEdges(self):
         for socket in self.inputs + self.outputs:
-            if socket.hasEdge():
-                socket.edge.updatePositions()
+            for edge in socket.edges:
+                edge.updatePositions()
     
     def remove(self):
         if DEBUG: print("> Removing Node: ", self)
         if DEBUG: print(" - remove all edge from sockets")
         for socket in (self.inputs + self.outputs):
-            if socket.hasEdge():
-                if DEBUG: print("    - removing from socket: ", socket, " edge: ", socket.edge)
-                socket.edge.remove()
+            # if socket.hasEdge():
+            for edge in socket.edges:
+                if DEBUG: print("    - removing from socket: ", socket, " edge: ", edge)
+                edge.edge.remove()
         if DEBUG: print(" - remove graphicsNode: ", self)
         self.scene.nodeGraphicsScene.removeItem(self.graphicsNode)
         self.graphicsNode = None

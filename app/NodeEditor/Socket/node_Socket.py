@@ -34,11 +34,12 @@ class Socket(Serializable):
         if DebugMode.NODE_SOCKET: print("  res: ", res)
         return res
         
-    def setConnectedEdge(self, edge=None):
-        self.edges = edge
+    def addEdge(self, edge):
+        self.edges.append(edge)
 
-    def hasEdge(self):
-        return self.edges is not None
+    def removeEdge(self, edge):
+        if edge in self.edges: self.edges.remove(edge)
+        else: print("!W: ", "Socket::removeEdge", "wanna remove edge", edge, "from self.edges but it's not a list!")
     
     def serialize(self):
         '''序列化資訊'''

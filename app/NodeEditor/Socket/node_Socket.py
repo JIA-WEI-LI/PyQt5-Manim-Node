@@ -40,6 +40,11 @@ class Socket(Serializable):
     def removeEdge(self, edge):
         if edge in self.edges: self.edges.remove(edge)
         else: print("!W: ", "Socket::removeEdge", "wanna remove edge", edge, "from self.edges but it's not a list!")
+
+    def removeAllEdges(self):
+        while self.edges:
+            edge = self.edges.pop(0)
+            edge.clear()
     
     def serialize(self):
         '''序列化資訊'''

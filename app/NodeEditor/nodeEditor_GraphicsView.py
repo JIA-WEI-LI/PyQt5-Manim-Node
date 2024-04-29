@@ -135,7 +135,7 @@ class NodeGraphicsView(QGraphicsView):
         if DEBUG:
             if isinstance(item, NodeGraphicsEdge): print("RMB DEBUG: ", item.edge, "connecting sockets: ",
                                                          item.edge.start_socket, " <--> ", item.edge.end_socket)
-            if type(item) is NodeGraphicsSocket: print("RMB DEBUG: ", item.socket, "has edge", item.socket.edge)
+            if type(item) is NodeGraphicsSocket: print("RMB DEBUG: ", item.socket, "has edge", item.socket.edges)
             
             if item is None:
                 print("Scene: ")
@@ -188,6 +188,7 @@ class NodeGraphicsView(QGraphicsView):
     
     def rightMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠右鍵'''
+        # BUG: 開啟APP後先移動節點後使用切割會觸發閃退
         item = self.getItemAtClick(event)
 
         if self.mode == MODE_EDGE_CUT:
@@ -330,8 +331,12 @@ class NodeGraphicsView(QGraphicsView):
                 # if DEBUG: print("View::edgeDragEnd -   - , previous End Socket:", self.previousEdge)
                 # if item.socket.hasEdge():
                 #     item.socket.edge.remove()
-                for edge in item.socket.edges:
-                    edge.remove()
+                # for edge in item.socket.edges:
+                #     if DEBUG: print("View::edgeDragEnd ~ cleanup edges IN target: ", edge)
+                #     edge.remove()
+                #     if DEBUG: print("View::edgeDragEnd ~ cleanup edges IN target: ", edge, "removed...")
+                if item.socket.is_multi_edges: pass
+                else: item.socket.removeAllEdges()
                 # if DEBUG: print("View::edgeDragEnd - assign End Socket", item.socket)
                 # if self.previousEdge is not None: self.previousEdge.remove()
                 # if DEBUG: print("View::edgeDragEnd - previousEdge edge remove")

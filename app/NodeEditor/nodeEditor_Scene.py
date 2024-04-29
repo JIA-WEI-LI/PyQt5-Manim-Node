@@ -34,8 +34,8 @@ class Scene(Serializable):
 
     @property
     def has_been_modified(self):
+        return False
         return self._has_been_modified
-    
     @has_been_modified.setter
     def has_been_modified(self, value):
         if not self._has_been_modified and value:

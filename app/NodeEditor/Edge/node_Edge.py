@@ -124,12 +124,11 @@ class Edge(Serializable):
 
     def serialize(self):
         '''序列化資訊'''
-        end_id = self.end_socket.id if self.end_socket is not None else None
         return OrderedDict([
             ('id', self.id),
             ('edge_type', self.edge_type),
-            ('start', self.start_socket.id),
-            ('end', end_id)
+            ('start', self.start_socket.id if self.start_socket is not None else None),
+            ('end', self.end_socket.id if self.end_socket is not None else None)
         ])
     
     def deserialize(self, data, hashmap={}, restore_id=True):

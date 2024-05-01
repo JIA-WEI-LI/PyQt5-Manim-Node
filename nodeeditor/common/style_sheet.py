@@ -16,7 +16,7 @@ class StyleSheet:
     @staticmethod
     def path(style_type, theme=Theme.DARK):
         theme = theme if theme == Theme.DARK else theme
-        return f"app\\resources\\qss\\{theme.value.lower()}\\{style_type}.qss"
+        return f"nodeeditor\\resources\\qss\\{theme.value.lower()}\\{style_type}.qss"
     
     @staticmethod
     def apply(style_type, theme=None):

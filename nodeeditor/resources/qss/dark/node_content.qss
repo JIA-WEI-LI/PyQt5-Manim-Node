@@ -1,11 +1,7 @@
-#contentLabel {
+QLabel {
     background-color: transparent;
     color: white;
-}
-
-QLabel {
     font-family: Arial, Helvetica, sans-serif ;
-    color: white
 }
 
 QPushButton {

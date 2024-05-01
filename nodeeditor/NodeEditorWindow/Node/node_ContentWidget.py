@@ -58,24 +58,15 @@ class NodeContentWidget(QWidget, Serializable):
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addLabel(self, text:str, isOutput=False, **kwargs):
         '''新增文字標籤，並可根據輸入或輸出改變置左或置右'''
-        tooltip = kwargs.get("tooltip", "")
-        
-        label = QLabel(self)
-        label.setObjectName("contentLabel")
-        
-        label.setText(text)
-        label.setFixedHeight(self.socketSpace)
+        label = Label(text, **kwargs)
         if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
-
-        self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
         self.contentLists.append(
             ('label', {
                 'text': text,
                 'isOutput': isOutput,
                 'tooltip': kwargs.get("tooltip", "")
             }))
-        if DEBUG: label.setStyleSheet("color: white; border: 1px solid red;")
         return label
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)

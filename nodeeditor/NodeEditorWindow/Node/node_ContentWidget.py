@@ -71,6 +71,7 @@ class NodeContentWidget(QWidget, Serializable):
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addLineEdit(self, text:str, **kwargs):
+        '''新增單行文字輸入框'''
         lineEdit = LineEdit(text, self.width(), **kwargs)
         self.vboxLayout.addWidget(lineEdit)
         self.contentLists.append(

@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 PyQt5
 memory-profiler
+=======
+PyQt5
+>>>>>>> parent of a39dbb9 (新增py內建記憶體偵測機制)

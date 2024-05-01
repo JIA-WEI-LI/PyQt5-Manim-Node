@@ -18,7 +18,7 @@ class NodeGraphicsNode(QGraphicsItem):
         self.node = node
         self.content = self.node.content
         
-        self.titleFont = QFont("Ubuntu", 10)
+        self.titleFont = QFont("Arial", 11)
         
         self.width = 180  # 節點寬高
         # self.height = 240
@@ -89,7 +89,7 @@ class NodeGraphicsNode(QGraphicsItem):
         self.titleItem.node = self.node
         self.titleItem.setDefaultTextColor(NodeGraphicsColorSetting.TITLEITEM_COLOR)
         self.titleItem.setFont(self.titleFont)
-        self.titleItem.setPos(self.titlePadding, self.titlePadding//2)
+        self.titleItem.setPos(self.titlePadding, self.titlePadding//4)
         self.titleItem.setTextWidth(self.width - 2 * self.titlePadding)
         
     def initContent(self):

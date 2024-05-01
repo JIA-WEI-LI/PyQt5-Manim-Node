@@ -1,8 +1,7 @@
-from PyQt5.QtWidgets import QApplication, QCheckBox, QWidget, QHBoxLayout, QLabel, QSizePolicy
-from PyQt5.QtGui import QCursor, QPainter, QPaintEvent, QFont, QFontMetrics, QPainterPath, QPen, QColor
+from PyQt5.QtWidgets import QCheckBox, QWidget, QHBoxLayout, QLabel, QSizePolicy
+from PyQt5.QtGui import QPainter, QPaintEvent, QFont, QFontMetrics, QPainterPath, QPen, QColor
 from PyQt5.QtCore import Qt, QRectF
 
-from common.color_sheet import color_manager
 from .content_BaseSetting import ContentBaseSetting
 
 class BCheckBox(QCheckBox, ContentBaseSetting):

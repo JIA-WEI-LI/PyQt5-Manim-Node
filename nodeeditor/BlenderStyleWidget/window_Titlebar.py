@@ -1,6 +1,6 @@
-from PyQt5.QtCore import QEvent, QSize, Qt
+from PyQt5.QtCore import QSize, Qt
 from PyQt5.QtGui import QIcon
-from PyQt5.QtWidgets import QApplication, QHBoxLayout, QLabel, QMainWindow, QStyle, QToolButton, QVBoxLayout, QWidget
+from PyQt5.QtWidgets import QHBoxLayout, QLabel, QToolButton, QWidget
 # https://www.pythonguis.com/tutorials/custom-title-bar-pyqt6/
 
 class MainWindowTitleBar(QWidget):

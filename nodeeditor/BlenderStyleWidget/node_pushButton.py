@@ -1,6 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QPushButton, QSizePolicy
-
-from common.style_sheet import StyleSheet
+from PyQt5.QtWidgets import QPushButton, QSizePolicy
 
 class PushButton(QPushButton):
     '''自定義點擊式按鈕'''

@@ -1,9 +1,7 @@
 from PyQt5.QtWidgets import QApplication, QProgressBar, QStyleOptionProgressBar, QStyle, QStyleOption, QWidget, QSizePolicy
-from PyQt5.QtGui import QCursor, QFocusEvent, QMouseEvent, QPainter, QColor, QFont
+from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QFont
 from PyQt5.QtCore import QEvent, Qt, QPointF
 
-from common.style_sheet import StyleSheet
-from common.color_sheet import color_manager
 from .content_BaseSetting import ContentBaseSetting
 
 class ControlledProgressBarStyle(QStyle, ContentBaseSetting):

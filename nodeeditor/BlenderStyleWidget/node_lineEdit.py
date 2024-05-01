@@ -2,8 +2,6 @@ from PyQt5.QtGui import QFocusEvent
 from PyQt5.QtWidgets import QLabel, QHBoxLayout, QWidget, QLineEdit, QSizePolicy
 from PyQt5.QtCore import Qt
 
-from common.style_sheet import StyleSheet
-
 class LineEdit(QWidget):
     '''
         自定義LineEdit部件

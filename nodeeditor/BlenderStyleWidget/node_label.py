@@ -1,6 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QLabel, QSizePolicy
-
-from common.style_sheet import StyleSheet
+from PyQt5.QtWidgets import QLabel, QSizePolicy
 
 class Label(QLabel):
     '''自定義文字'''

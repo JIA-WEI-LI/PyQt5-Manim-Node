@@ -10,6 +10,7 @@ LEFT_TOP = 1
 LEFT_BOTTOM = 2
 RIGHT_TOP = 3
 RIGHT_BOTTOM = 4
+DEBUG = DebugMode.NODE_SOCKET
 
 class Socket(Serializable):
     def __init__(self, node, *, index:int=0, position=LEFT_BOTTOM, socket_type=1, space:int=0, muliti_edges:bool=True) -> None:
@@ -20,7 +21,7 @@ class Socket(Serializable):
         self.socket_type = socket_type
         self.is_multi_edges = muliti_edges
         
-        if DebugMode.NODE_SOCKET: print("Socket -- creating with", self.index, self.position, "for node", self.node)
+        if DEBUG: print("Socket -- creating with", self.index, self.position, "for node", self.node)
 
         self.graphicsSocket = NodeGraphicsSocket(self, self.socket_type)
         self.graphicsSocket.setPos(*self.node.getSocketPosition(index, position, space = space))

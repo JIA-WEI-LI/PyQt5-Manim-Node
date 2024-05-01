@@ -45,7 +45,7 @@ class Socket(Serializable):
         else: print("!W: ", "Socket::removeEdge", "wanna remove edge", edge, "from self.edges but it's not a list!")
 
     def removeAllEdges(self):
-        # BUG：切割線段或點擊時有機率無錯誤輸出閃退(常見於移動節點後)
+        # BUG：未觸發此段程式碼
         while self.edges:
             edge = self.edges.pop(0)
             edge.remove()

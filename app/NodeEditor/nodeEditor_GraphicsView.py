@@ -336,8 +336,10 @@ class NodeGraphicsView(QGraphicsView):
                 #     if DEBUG: print("View::edgeDragEnd ~ cleanup edges IN target: ", edge)
                 #     edge.remove()
                 #     if DEBUG: print("View::edgeDragEnd ~ cleanup edges IN target: ", edge, "removed...")
-                if item.socket.is_multi_edges: pass
-                else: item.socket.removeAllEdges()
+                if not item.socket.is_multi_edges: 
+                    item.socket.removeAllEdges()
+                if not self.drag_start_socket.is_multi_edges:
+                    self.drag_start_socket.removeAllEdges()
                 # if DEBUG: print("View::edgeDragEnd - assign End Socket", item.socket)
                 # if self.previousEdge is not None: self.previousEdge.remove()
                 # if DEBUG: print("View::edgeDragEnd - previousEdge edge remove")

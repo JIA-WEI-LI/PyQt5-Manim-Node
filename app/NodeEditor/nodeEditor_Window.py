@@ -64,7 +64,8 @@ class NodeEditorWindow(QMainWindow):
         self.statusBar().addPermanentWidget(self.status_mouse_pos)
         nodeEditor.view.scenePosChanged.connect(self.onScenePosChanged)
 
-        self.setGeometry(200 ,200, 800, 600)
+        # self.setGeometry(200 ,200, 1960, 1280)
+        self.showMaximized() 
         self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
         self.changeTitle()
         self.show()

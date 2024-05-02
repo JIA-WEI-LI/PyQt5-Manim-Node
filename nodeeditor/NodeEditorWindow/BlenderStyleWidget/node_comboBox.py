@@ -6,7 +6,7 @@ from .content_BaseSetting import ContentBaseSetting
 
 CURRENT_INDEX:int = 0
 
-class CustomItemDelegate(QStyledItemDelegate, ContentBaseSetting):
+class ComboBoxItemDelegate(QStyledItemDelegate, ContentBaseSetting):
     '''自定義元素樣式'''
     def paint(self, painter: QPainter, option: QStyleOptionViewItem, index: QModelIndex):
         option_copy = QStyleOptionViewItem(option)
@@ -54,7 +54,7 @@ class ComboBox(QComboBox, ContentBaseSetting):
         debug = kwargs.get("debug", False)
 
         self.setView(QListView())
-        delegate = CustomItemDelegate(self)
+        delegate = ComboBoxItemDelegate(self)
         self.setItemDelegate(delegate)
 
         self.text_label = QLabel(self)

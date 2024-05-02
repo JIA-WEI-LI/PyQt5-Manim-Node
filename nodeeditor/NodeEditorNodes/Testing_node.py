@@ -1,4 +1,4 @@
-from BlenderStyleWidget import *
+from NodeEditorWindow import *
 from NodeEditorWindow.Node.node_Node import Node
 
 class Node_Test(Node):

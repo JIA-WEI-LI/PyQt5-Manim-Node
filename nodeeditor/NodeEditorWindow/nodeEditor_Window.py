@@ -4,12 +4,12 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAction, QFileDialog, QLabel, QMessageBox
 from PyQt5.QtGui import QCloseEvent, QIcon, QFont
 
-from BlenderStyleWidget.window_messageBox import MessageBox
+from .BlenderStyleWidget.window_messageBox import MessageBox
 from common.style_sheet import StyleSheet
 from config.icon import Icon
 from .nodeEditor_Widget import NodeEditorWidget
 
-class NodeEditorWindow(QMainWindow):
+class NodeEditorMainWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
         self.filename = None

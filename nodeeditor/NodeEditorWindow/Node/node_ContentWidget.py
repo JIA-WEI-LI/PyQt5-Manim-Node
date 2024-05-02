@@ -6,7 +6,7 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePoli
 
 from ..Serialization.node_Serializable import Serializable
 from common.style_sheet import StyleSheet
-from BlenderStyleWidget import *
+from ..BlenderStyleWidget import *
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30

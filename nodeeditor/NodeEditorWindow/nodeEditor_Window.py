@@ -35,25 +35,27 @@ class NodeEditorMainWindow(QMainWindow):
         menubar = self.menuBar()
         menubar.setFont(font)
 
+        self.createActions()
+
         # 主畫面選單欄選擇
         fileMenu = menubar.addMenu('&檔案')
-        fileMenu.addAction(self.createAct('&新增檔案', 'Ctrl+N', "新增檔案", self.onFileNew))
+        fileMenu.addAction()
         fileMenu.addSeparator()
-        fileMenu.addAction(self.createAct('&開啟檔案', 'Ctrl+O', "開啟檔案", self.onFileOpen))
-        fileMenu.addAction(self.createAct('&儲存檔案', 'Ctrl+S', "儲存檔案", self.onFileSave))
-        fileMenu.addAction(self.createAct('&另存新檔', 'Ctrl+Shift+S', "另存新檔", self.onFileSaveAs))
+        fileMenu.addAction()
+        fileMenu.addAction()
+        fileMenu.addAction()
         fileMenu.addSeparator()
-        fileMenu.addAction(self.createAct('&退出', 'Ctrl+Q', "退出應用程式", self.close))
+        fileMenu.addAction()
 
         editMenu = menubar.addMenu("&編輯")
-        editMenu.addAction(self.createAct('&上一步', 'Ctrl+Z', "返回上一步", self.onEditUndo))
-        editMenu.addAction(self.createAct('&下一步', 'Ctrl+Shift+Z', "返回下一步", self.onEditRedo))
+        editMenu.addAction()
+        editMenu.addAction()
         editMenu.addSeparator()
-        editMenu.addAction(self.createAct('&剪下', 'Ctrl+X', "剪下物件", self.onEditCut))
-        editMenu.addAction(self.createAct('&複製', 'Ctrl+C', "複製物件到剪貼簿", self.onEditCopy))
-        editMenu.addAction(self.createAct('&貼上', 'Ctrl+V', "返回下一步", self.onEditPaste))
+        editMenu.addAction()
+        editMenu.addAction()
+        editMenu.addAction()
         editMenu.addSeparator()
-        editMenu.addAction(self.createAct('&刪除', 'Del', "刪除選擇物件", self.onEditDelete))
+        editMenu.addAction()
 
         # 節點畫面
         nodeEditor = NodeEditorWidget(self)
@@ -85,8 +87,18 @@ class NodeEditorMainWindow(QMainWindow):
         self.setWindowTitle(title)
 
     def createActions(self):
-        # TODO:未來將製作相關功能
-        pass
+        self.actNew = self.createAct('&新增檔案', 'Ctrl+N', "新增檔案", self.onFileNew)
+        self.actOpen = self.createAct('&開啟檔案', 'Ctrl+O', "開啟檔案", self.onFileOpen)
+        self.actSave = self.createAct('&儲存檔案', 'Ctrl+S', "儲存檔案", self.onFileSave)
+        self.actSaveAs = self.createAct('&另存新檔', 'Ctrl+Shift+S', "另存新檔", self.onFileSaveAs)
+        self.actExit = self.createAct('&退出', 'Ctrl+Q', "退出應用程式", self.close)
+
+        self.actUndo = self.createAct('&上一步', 'Ctrl+Z', "返回上一步", self.onEditUndo)
+        self.actRedo = self.createAct('&下一步', 'Ctrl+Shift+Z', "返回下一步", self.onEditRedo)
+        self.actCut = self.createAct('&剪下', 'Ctrl+X', "剪下物件", self.onEditCut)
+        self.actCopy = self.createAct('&複製', 'Ctrl+C', "複製物件到剪貼簿", self.onEditCopy)
+        self.actPaste = self.createAct('&貼上', 'Ctrl+V', "返回下一步", self.onEditPaste)
+        self.actDeleted = self.createAct('&刪除', 'Del', "刪除選擇物件", self.onEditDelete)
 
     def updateMenus(self):
         pass

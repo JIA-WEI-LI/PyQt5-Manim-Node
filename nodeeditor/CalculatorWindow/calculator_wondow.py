@@ -1,6 +1,8 @@
 from PyQt5.QtCore import Qt, QSignalMapper
-from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea
+from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWidget
+from PyQt5.QtGui import QCloseEvent
 
+from common.utils import dumpException
 from NodeEditorWindow import NodeEditorMainWindow
 
 class CalaulatorMainWindow(NodeEditorMainWindow):
@@ -27,8 +29,18 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
         self.createStatusBar()
         self.updateMenus()
 
+        self.createNodesDock()
+
         self.readSettings()
         self.setWindowTitle("Calaulator Example")
+
+    def closeEvent(self, event: QCloseEvent) -> None:
+        try:
+            if self.maybeSave():
+                event.accept()
+            else:
+                event.ignore()
+        except Exception as e: dumpException(e)
 
     def createMenus(self):
         pass
@@ -36,14 +48,21 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
     def createToolBars(self):
         pass
 
+    def createNodesDock(self):
+        self.listWidget = QListWidget()
+        self.listWidget.addItem("Add")
+        self.listWidget.addItem("Substract")
+        self.listWidget.addItem("Multiply")
+        self.listWidget.addItem("Divide")
+
+        self.items = QDockWidget("Nodes")
+        self.items.setWidget(self.listWidget)
+        self.items.setFloating(False)
+
+        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.items)
+
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
-
-    def updateMenus(self):
-        pass
-
-    def readSettings(self):
-        pass
 
     def setActiveSubWindow(self, window):
         if window:

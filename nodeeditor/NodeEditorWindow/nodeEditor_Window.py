@@ -1,6 +1,6 @@
 import os
 import json
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSettings, QPoint, QSize
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAction, QFileDialog, QLabel, QMessageBox
 from PyQt5.QtGui import QCloseEvent, QIcon, QFont
 
@@ -86,6 +86,9 @@ class NodeEditorMainWindow(QMainWindow):
 
     def createActions(self):
         # TODO:未來將製作相關功能
+        pass
+
+    def updateMenus(self):
         pass
 
     def closeEvent(self, event: QCloseEvent) -> None:
@@ -186,3 +189,15 @@ class NodeEditorMainWindow(QMainWindow):
             return
         
         self.centralWidget().scene.clipboard.deserializeFromClipboard(data)
+
+    def readSettings(self):
+        settings = QSettings(self.name_company, self.name_projuct)
+        pos = settings.value('pos', QPoint(200, 200))
+        size = settings.value('size', QSize(400, 400))
+        self.move(pos)
+        self.resize(size)
+
+    def writeSetting(self):
+        setting = QSettings(self.name_company, self.name_projuct)
+        setting.setValue('pos', self.pos())
+        setting.setValue('size', self.size())

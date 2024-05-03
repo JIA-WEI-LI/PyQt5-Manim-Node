@@ -29,33 +29,8 @@ class NodeEditorMainWindow(QMainWindow):
         # 隱藏最上方視窗標題列
         # self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
 
-        font = QFont()
-        font.setPointSize(10)
-
-        menubar = self.menuBar()
-        menubar.setFont(font)
-
         self.createActions()
-
-        # 主畫面選單欄選擇
-        fileMenu = menubar.addMenu('&檔案')
-        fileMenu.addAction()
-        fileMenu.addSeparator()
-        fileMenu.addAction()
-        fileMenu.addAction()
-        fileMenu.addAction()
-        fileMenu.addSeparator()
-        fileMenu.addAction()
-
-        editMenu = menubar.addMenu("&編輯")
-        editMenu.addAction()
-        editMenu.addAction()
-        editMenu.addSeparator()
-        editMenu.addAction()
-        editMenu.addAction()
-        editMenu.addAction()
-        editMenu.addSeparator()
-        editMenu.addAction()
+        self.createMenus()
 
         # 節點畫面
         nodeEditor = NodeEditorWidget(self)
@@ -99,6 +74,28 @@ class NodeEditorMainWindow(QMainWindow):
         self.actCopy = self.createAct('&複製', 'Ctrl+C', "複製物件到剪貼簿", self.onEditCopy)
         self.actPaste = self.createAct('&貼上', 'Ctrl+V', "返回下一步", self.onEditPaste)
         self.actDeleted = self.createAct('&刪除', 'Del', "刪除選擇物件", self.onEditDelete)
+
+    def createMenus(self):
+        # 主畫面選單欄選擇
+        menubar = self.menuBar()
+        self.fileMenu = menubar.addMenu('&檔案')
+        self.fileMenu.addAction(self.actNew)
+        self.fileMenu.addSeparator()
+        self.fileMenu.addAction(self.actOpen)
+        self.fileMenu.addAction(self.actSave)
+        self.fileMenu.addAction(self.actSaveAs)
+        self.fileMenu.addSeparator()
+        self.fileMenu.addAction(self.actExit)
+
+        self.editMenu = menubar.addMenu("&編輯")
+        self.editMenu.addAction(self.actUndo)
+        self.editMenu.addAction(self.actRedo)
+        self.editMenu.addSeparator()
+        self.editMenu.addAction(self.actCut)
+        self.editMenu.addAction(self.actCopy)
+        self.editMenu.addAction(self.actPaste)
+        self.editMenu.addSeparator()
+        self.editMenu.addAction(self.actDeleted)
 
     def updateMenus(self):
         pass

@@ -42,8 +42,14 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
                 event.ignore()
         except Exception as e: dumpException(e)
 
-    def createMenus(self):
+    def updateMenus(self):
         pass
+
+    def createActions(self):
+        super().createActions()
+    
+    def createMenus(self):
+        super().createMenus()
 
     def createToolBars(self):
         pass

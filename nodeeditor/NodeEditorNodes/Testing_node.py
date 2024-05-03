@@ -1,5 +1,4 @@
 from NodeEditorWindow import *
-from NodeEditorWindow.Node.node_Node import Node
 
 class Node_Test(Node):
     def __init__(self, scene, title="Node_Test", input=[1, 2, 3], output=[1, 2, 3, 1]):

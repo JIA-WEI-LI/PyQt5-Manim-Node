@@ -1,10 +1,2 @@
-<<<<<<< HEAD
 PyQt5
-<<<<<<< HEAD
 memory-profiler
-=======
-PyQt5
->>>>>>> parent of a39dbb9 (新增py內建記憶體偵測機制)
-=======
-memory_profiler
->>>>>>> parent of 662df48 (Merge commit '6393302e7a9c6919ae9f7bb526d8db8d2a52ffd2')

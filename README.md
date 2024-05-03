@@ -87,14 +87,15 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 * [x] [Node Editor Tutorial 23: How to implement Clipboard Serialization](https://www.youtube.com/watch?v=PdqCogmBeXI&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=25)
 * [x] [Node Editor Tutorial 24: Bugfixing Crashes, Missing Edge](https://www.youtube.com/watch?v=FPP4RcGeQpU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=26)
 * [x] [Node Editor Tutorial 25: Adding File Has Changed Dialog](https://www.youtube.com/watch?v=hxqDA1UQ03c&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=27)
-* [ ] [Node Editor Tutorial 26: Socket with multiple Edges](https://www.youtube.com/watch?v=sKzNjQb3eWA&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=28)
+* [x] [Node Editor Tutorial 26: Socket with multiple Edges](https://www.youtube.com/watch?v=sKzNjQb3eWA&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=28)
 * [ ] [Node Editor Tutorial 27: How to set up python package with tests and docs](https://www.youtube.com/watch?v=KPfrK8Smwrs&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=29)
 </details>
 
 <details>
 <summary>第三部分：節點編輯器進階功能</summary>
 
-* [ ] [Node Editor Tutorial 28: Calculator Example Introduction](https://www.youtube.com/watch?v=CQHqzVwXPVo&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=30)
+* [x] [Node Editor Tutorial 28: Calculator Example Introduction](https://www.youtube.com/watch?v=CQHqzVwXPVo&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=30)
+* [ ] [Node Editor Tutorial 29: Refactoring Window, Menu and Actions](https://www.youtube.com/watch?v=esZVsLeQklg&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=31)
 </details>
 
 ---

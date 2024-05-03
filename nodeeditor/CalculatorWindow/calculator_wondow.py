@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt, QSignalMapper
 from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea
 
-from nodeeditor.NodeEditorWindow.nodeEditor_Window import NodeEditorMainWindow
+from NodeEditorWindow import NodeEditorMainWindow
 
 class CalaulatorMainWindow(NodeEditorMainWindow):
     def initUI(self):

@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QApplication
 
-from calculator_wondow import CalaulatorMainWindow
+from CalculatorWindow.calculator_wondow import CalaulatorMainWindow
 from memory_profiler import profile
 
 @profile

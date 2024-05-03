@@ -12,6 +12,8 @@ from .nodeEditor_Widget import NodeEditorWidget
 class NodeEditorMainWindow(QMainWindow):
     def __init__(self, parent=None) -> None:
         super().__init__(parent=parent)
+        self.name_company = 'Blenderfreak'
+        self.name_projuct = 'NodeEditor'
         self.filename = None
         self.initUI()
 
@@ -81,6 +83,10 @@ class NodeEditorMainWindow(QMainWindow):
             title += "*"
 
         self.setWindowTitle(title)
+
+    def createActions(self):
+        # TODO:未來將製作相關功能
+        pass
 
     def closeEvent(self, event: QCloseEvent) -> None:
         if self.maybeSave():

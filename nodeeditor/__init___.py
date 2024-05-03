@@ -1,2 +1,2 @@
-from BlenderStyleWidget import *
-from NodeEditorWindow.nodeEditor_Window import NodeEditorWindow
+from NodeEditorWindow.BlenderStyleWidget import *
+from NodeEditorWindow.nodeEditor_Window import NodeEditorMainWindow

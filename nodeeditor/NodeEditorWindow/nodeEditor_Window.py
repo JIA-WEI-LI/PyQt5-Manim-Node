@@ -34,15 +34,11 @@ class NodeEditorMainWindow(QMainWindow):
         self.createMenus()
 
         # 節點畫面
-        nodeEditor = NodeEditorWidget(self)
-        nodeEditor.scene.addHasBeenModifiedListener(self.changeTitle)
-        self.setCentralWidget(nodeEditor)
+        self.nodeEditor = NodeEditorWidget(self)
+        self.nodeEditor.scene.addHasBeenModifiedListener(self.changeTitle)
+        self.setCentralWidget(self.nodeEditor)
 
-        # 下方狀態條
-        self.statusBar().showMessage("")
-        self.status_mouse_pos = QLabel("")
-        self.statusBar().addPermanentWidget(self.status_mouse_pos)
-        nodeEditor.view.scenePosChanged.connect(self.onScenePosChanged)
+        self.createStatusBar()
 
         # self.setGeometry(200 ,200, 1960, 1280)
         self.showMaximized() 
@@ -61,6 +57,12 @@ class NodeEditorMainWindow(QMainWindow):
             title += "*"
 
         self.setWindowTitle(title)
+
+    def createStatusBar(self):
+        self.statusBar().showMessage("")
+        self.status_mouse_pos = QLabel("")
+        self.statusBar().addPermanentWidget(self.status_mouse_pos)
+        self.nodeEditor.view.scenePosChanged.connect(self.onScenePosChanged)
 
     def createActions(self):
         self.actNew = QAction('&新增檔案', self, shortcut='Ctrl+N', statusTip="新增檔案", triggered=self.onFileNew)

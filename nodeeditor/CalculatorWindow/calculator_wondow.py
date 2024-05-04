@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QSignalMapper
-from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWidget
-from PyQt5.QtGui import QCloseEvent
+from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWidget, QAction
+from PyQt5.QtGui import QCloseEvent, QKeySequence
 
 from common.utils import dumpException
 from NodeEditorWindow import NodeEditorMainWindow
@@ -47,6 +47,17 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
 
     def createActions(self):
         super().createActions()
+
+        self.closeAct = QAction("Cl&ose", self, statusTip="Close the active window", triggered=self.mdiArea.closeActiveSubWindow)
+        self.closeAllAct = QAction("Close &All", self, statusTip="Close all the windows", triggered=self.mdiArea.closeAllSubWindows)
+        self.tileAct = QAction("&Tile", self, statusTip="Tile the windows", triggered=self.mdiArea.tileSubWindows)
+        self.cascadeAct = QAction("&Cascade", self, statusTip="Cascade the windows", triggered=self.mdiArea.cascadeSubWindows)
+        self.nextAct = QAction("&Next", self, shortcut=QKeySequence.StandardKey.NextChild, statusTip="Move the focus to the next window", triggered=self.mdiArea.activateNextSubWindow)
+        self.previousAct = QAction("&Previous", self, shortcut=QKeySequence.StandardKey.PreviousChild, statusTip="Move the focus to the previous window", triggered=self.mdiArea.activatePreviousSubWindow)
+        self.separatorAct = QAction(self)
+        self.separatorAct.setSeparator(True)
+
+        self.aboutAct = QAction("&About", self, statusTip="Show the application's About box", triggered=self.about)
     
     def createMenus(self):
         super().createMenus()

@@ -17,12 +17,13 @@ class NodeEditorMainWindow(QMainWindow):
         self.filename = None
         self.initUI()
 
-    def createAct(self, name:str, shortcut:str, tooltip:str, callback):
-        act = QAction(name, self)
-        act.setShortcut(shortcut)
-        act.setToolTip(tooltip)
-        act.triggered.connect(callback)
-        return act
+    # DELETED：刪除自創工具列按鈕
+    # def createAct(self, name:str, shortcut:str, tooltip:str, callback):
+    #     act = QAction(name, self)
+    #     act.setShortcut(shortcut)
+    #     act.setToolTip(tooltip)
+    #     act.triggered.connect(callback)
+    #     return act
 
     @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
@@ -62,18 +63,18 @@ class NodeEditorMainWindow(QMainWindow):
         self.setWindowTitle(title)
 
     def createActions(self):
-        self.actNew = self.createAct('&新增檔案', 'Ctrl+N', "新增檔案", self.onFileNew)
-        self.actOpen = self.createAct('&開啟檔案', 'Ctrl+O', "開啟檔案", self.onFileOpen)
-        self.actSave = self.createAct('&儲存檔案', 'Ctrl+S', "儲存檔案", self.onFileSave)
-        self.actSaveAs = self.createAct('&另存新檔', 'Ctrl+Shift+S', "另存新檔", self.onFileSaveAs)
-        self.actExit = self.createAct('&退出', 'Ctrl+Q', "退出應用程式", self.close)
+        self.actNew = QAction('&新增檔案', self, shortcut='Ctrl+N', statusTip="新增檔案", triggered=self.onFileNew)
+        self.actOpen = QAction('&開啟檔案', self,  shortcut='Ctrl+O', statusTip="開啟檔案", triggered=self.onFileOpen)
+        self.actSave = QAction('&儲存檔案', self,  shortcut='Ctrl+S', statusTip="儲存檔案", triggered=self.onFileSave)
+        self.actSaveAs = QAction('&另存新檔', self,  shortcut='Ctrl+Shift+S', statusTip="另存新檔", triggered=self.onFileSaveAs)
+        self.actExit = QAction('&退出', self,  shortcut='Ctrl+Q', statusTip="退出應用程式", triggered=self.close)
 
-        self.actUndo = self.createAct('&上一步', 'Ctrl+Z', "返回上一步", self.onEditUndo)
-        self.actRedo = self.createAct('&下一步', 'Ctrl+Shift+Z', "返回下一步", self.onEditRedo)
-        self.actCut = self.createAct('&剪下', 'Ctrl+X', "剪下物件", self.onEditCut)
-        self.actCopy = self.createAct('&複製', 'Ctrl+C', "複製物件到剪貼簿", self.onEditCopy)
-        self.actPaste = self.createAct('&貼上', 'Ctrl+V', "返回下一步", self.onEditPaste)
-        self.actDeleted = self.createAct('&刪除', 'Del', "刪除選擇物件", self.onEditDelete)
+        self.actUndo = QAction('&上一步', self,  shortcut='Ctrl+Z', statusTip="返回上一步", triggered=self.onEditUndo)
+        self.actRedo = QAction('&下一步', self,  shortcut='Ctrl+Shift+Z', statusTip="返回下一步", triggered=self.onEditRedo)
+        self.actCut = QAction('&剪下', self,  shortcut='Ctrl+X', statusTip="剪下物件", triggered=self.onEditCut)
+        self.actCopy = QAction('&複製', self,  shortcut='Ctrl+C', statusTip="複製物件到剪貼簿", triggered=self.onEditCopy)
+        self.actPaste = QAction('&貼上', self,  shortcut='Ctrl+V', statusTip="返回下一步", triggered=self.onEditPaste)
+        self.actDeleted = QAction('&刪除', self,  shortcut='Del', statusTip="刪除選擇物件", triggered=self.onEditDelete)
 
     def createMenus(self):
         # 主畫面選單欄選擇

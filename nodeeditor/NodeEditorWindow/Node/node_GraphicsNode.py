@@ -1,6 +1,6 @@
 from PyQt5.QtCore import Qt, QRectF 
 from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
-from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath
+from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath, QColor
 
 from common.color_sheet import color_manager
 from config.debug import DebugMode
@@ -118,7 +118,7 @@ class NodeGraphicsNode(QGraphicsItem):
         pathTitle.addRect(0, self.titleHeight - self.edgeSize, self.edgeSize, self.edgeSize)
         pathTitle.addRect(self.width - self.edgeSize, self.titleHeight - self.edgeSize, self.edgeSize, self.edgeSize)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(self.node.node_color))
+        painter.setBrush(QBrush(QColor(self.node.node_color)))
         painter.drawPath(pathTitle.simplified())
         # 描述
         pathContent = QPainterPath()

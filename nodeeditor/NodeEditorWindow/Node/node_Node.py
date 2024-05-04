@@ -12,7 +12,7 @@ DEBUG = DebugMode.NODE_NODE
 
 class Node(Serializable):
     '''節點'''
-    def __init__(self, scene, title="Undefined Node", input=[], output=[], node_color=color_manager.get_color("NodeColor", "BLENDER_BRUSH_TITLE")):
+    def __init__(self, scene, title="Undefined Node", input=[], output=[], node_color:str=color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[0]):
         super().__init__()
         self.scene = scene
         self._title = title
@@ -118,6 +118,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             ('pos_y', self.graphicsNode.scenePos().y()),
             ('inputs', inputs),
             ('outputs', outputs),
+            ('node_color', self.node_color),
             ('content', contents),
             ('content_height', self.content.height())
             ])
@@ -130,6 +131,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 
         self.setPos(data['pos_x'], data['pos_y'])
         self.title = data['title']
+        self.node_color = data['node_color']
         
         data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
         data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)

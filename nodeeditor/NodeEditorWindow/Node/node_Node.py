@@ -93,7 +93,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             # if socket.hasEdge():
             for edge in socket.edges:
                 if DEBUG: print("    - removing from socket: ", socket, " edge: ", edge)
-                edge.edge.remove()
+                edge.remove()
         if DEBUG: print(" - remove graphicsNode: ", self)
         self.scene.nodeGraphicsScene.removeItem(self.graphicsNode)
         self.graphicsNode = None

@@ -4,6 +4,7 @@ from .node_ContentWidget import NodeContentWidget
 from .node_GraphicsNode import NodeGraphicsNode
 from ..Serialization.node_Serializable import Serializable
 from ..Socket.node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
+from common.color_sheet import color_manager
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
@@ -11,13 +12,15 @@ DEBUG = DebugMode.NODE_NODE
 
 class Node(Serializable):
     '''節點'''
-    def __init__(self, scene, title="Undefined Node", input=[], output=[]):
+    def __init__(self, scene, title="Undefined Node", input=[], output=[], node_color=color_manager.get_color("NodeColor", "BLENDER_BRUSH_TITLE")):
         super().__init__()
         self.scene = scene
         self._title = title
         self.input = input
         self.output = output
         self.socketSpace = SOCKET_SPACE   # 連結點之間空間
+        # HACK: 自定義節點標題顏色
+        self.node_color = node_color
         
         self.content = NodeContentWidget(self)
         self.graphicsNode = NodeGraphicsNode(self)

@@ -1,89 +1,320 @@
 {
-    "id": 2130598409856,
+    "id": 1516104244480,
     "scene_width": 64000,
     "scene_height": 64000,
     "nodes": [
         {
-            "id": 2130598432496,
-            "title": "Number Add",
-            "pos_x": 163.0,
-            "pos_y": -34.0,
+            "id": 1516105567888,
+            "title": "Integer",
+            "pos_x": -405.0,
+            "pos_y": 230.0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "id": 1516105627264,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "content": [
+                {
+                    "type": "progressBar",
+                    "data": {
+                        "label": "Integer",
+                        "minium": 0,
+                        "maxium": 100,
+                        "value": 0.5,
+                        "tooltip": "Output Integer"
+                    }
+                }
+            ],
+            "content_height": 28
+        },
+        {
+            "id": 1516105627216,
+            "title": "Integer",
+            "pos_x": -411.0,
+            "pos_y": -20.0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "id": 1516118175536,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "content": [
+                {
+                    "type": "progressBar",
+                    "data": {
+                        "label": "Integer",
+                        "minium": 0,
+                        "maxium": 100,
+                        "value": 0.5,
+                        "tooltip": "Output Integer"
+                    }
+                }
+            ],
+            "content_height": 28
+        },
+        {
+            "id": 1516118168336,
+            "title": "Add",
+            "pos_x": -162.0,
+            "pos_y": -1.0,
             "inputs": [
                 {
-                    "id": 2130598487792,
+                    "id": 1516118175680,
                     "index": 0,
                     "multi_edges": false,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2130598491680,
+                    "id": 1516118175728,
                     "index": 1,
                     "multi_edges": false,
                     "position": 2,
                     "socket_type": 1
-                },
-                {
-                    "id": 2130598491728,
-                    "index": 2,
-                    "multi_edges": false,
-                    "position": 2,
-                    "socket_type": 2
                 }
             ],
-            "outputs": [],
+            "outputs": [
+                {
+                    "id": 1516118175584,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
             "content": [
                 {
-                    "type": "pushButton",
+                    "type": "label",
                     "data": {
-                        "text": "Push Button",
-                        "status": false,
-                        "tooltip": "New Pushbutton Tooltip"
+                        "text": "Output",
+                        "isOutput": true,
+                        "tooltip": ""
                     }
                 },
                 {
-                    "type": "progressBar",
+                    "type": "label",
                     "data": {
-                        "label": "New Value",
-                        "minium": 0,
-                        "maxium": 10,
-                        "value": 0.5,
-                        "tooltip": "New ProgressBar Tooltip"
+                        "text": "Input A",
+                        "isOutput": false,
+                        "tooltip": "First input number"
                     }
                 },
                 {
-                    "type": "checkbox",
+                    "type": "label",
                     "data": {
-                        "text": "TEST",
-                        "status": false,
-                        "tooltip": "New Checkbox Tooltip"
+                        "text": "Input B",
+                        "isOutput": false,
+                        "tooltip": "Second input number"
                     }
                 }
             ],
             "content_height": 88
         },
         {
-            "id": 2130598487744,
-            "title": "Node_Test",
-            "pos_x": -208.89600000000002,
-            "pos_y": -47.104,
+            "id": 1516088766256,
+            "title": "Substract",
+            "pos_x": 38.0,
+            "pos_y": 59.0,
             "inputs": [
                 {
-                    "id": 2130628947232,
+                    "id": 1516118330976,
                     "index": 0,
                     "multi_edges": false,
                     "position": 2,
                     "socket_type": 1
                 },
                 {
-                    "id": 2130628947280,
+                    "id": 1516118331024,
+                    "index": 1,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 1516089947920,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "isOutput": true,
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input A",
+                        "isOutput": false,
+                        "tooltip": "First input number"
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input B",
+                        "isOutput": false,
+                        "tooltip": "Second input number"
+                    }
+                }
+            ],
+            "content_height": 88
+        },
+        {
+            "id": 1516094711248,
+            "title": "Multiply",
+            "pos_x": 239.0,
+            "pos_y": 114.0,
+            "inputs": [
+                {
+                    "id": 1516118331312,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                },
+                {
+                    "id": 1516118331360,
+                    "index": 1,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 1516118331264,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "isOutput": true,
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input A",
+                        "isOutput": false,
+                        "tooltip": "First input number"
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input B",
+                        "isOutput": false,
+                        "tooltip": "Second input number"
+                    }
+                }
+            ],
+            "content_height": 88
+        },
+        {
+            "id": 1516103032832,
+            "title": "Divide",
+            "pos_x": 442.0,
+            "pos_y": 179.0,
+            "inputs": [
+                {
+                    "id": 1516118331408,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                },
+                {
+                    "id": 1516118331600,
+                    "index": 1,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 1516118331072,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "isOutput": true,
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input A",
+                        "isOutput": false,
+                        "tooltip": "First input number"
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input B",
+                        "isOutput": false,
+                        "tooltip": "Second input number"
+                    }
+                }
+            ],
+            "content_height": 88
+        },
+        {
+            "id": 1516105019328,
+            "title": "Node_Test",
+            "pos_x": 716.0,
+            "pos_y": 38.0,
+            "inputs": [
+                {
+                    "id": 1516118331984,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                },
+                {
+                    "id": 1516118332032,
                     "index": 1,
                     "multi_edges": false,
                     "position": 2,
                     "socket_type": 2
                 },
                 {
-                    "id": 2130628947328,
+                    "id": 1516118332080,
                     "index": 2,
                     "multi_edges": false,
                     "position": 2,
@@ -92,28 +323,28 @@
             ],
             "outputs": [
                 {
-                    "id": 2130628947040,
+                    "id": 1516118331648,
                     "index": 0,
                     "multi_edges": true,
                     "position": 3,
                     "socket_type": 1
                 },
                 {
-                    "id": 2130628947088,
+                    "id": 1516118331840,
                     "index": 1,
                     "multi_edges": true,
                     "position": 3,
                     "socket_type": 2
                 },
                 {
-                    "id": 2130628947136,
+                    "id": 1516118331888,
                     "index": 2,
                     "multi_edges": true,
                     "position": 3,
                     "socket_type": 3
                 },
                 {
-                    "id": 2130628947184,
+                    "id": 1516118331936,
                     "index": 3,
                     "multi_edges": true,
                     "position": 3,
@@ -188,16 +419,52 @@
     ],
     "edges": [
         {
-            "id": 2130629075808,
+            "id": 1516102863520,
             "edge_type": 2,
-            "start": 2130628947040,
-            "end": 2130598487792
+            "start": 1516118175584,
+            "end": 1516118330976
         },
         {
-            "id": 2130629076288,
+            "id": 1516090701824,
             "edge_type": 2,
-            "start": 2130628947184,
-            "end": 2130598491680
+            "start": 1516089947920,
+            "end": 1516118331312
+        },
+        {
+            "id": 1516088766832,
+            "edge_type": 2,
+            "start": 1516118331264,
+            "end": 1516118331408
+        },
+        {
+            "id": 1516118514656,
+            "edge_type": 2,
+            "start": 1516118175536,
+            "end": 1516118175680
+        },
+        {
+            "id": 1516118514704,
+            "edge_type": 2,
+            "start": 1516105627264,
+            "end": 1516118175728
+        },
+        {
+            "id": 1516118514752,
+            "edge_type": 2,
+            "start": 1516105627264,
+            "end": 1516118331024
+        },
+        {
+            "id": 1516118514800,
+            "edge_type": 2,
+            "start": 1516105627264,
+            "end": 1516118331360
+        },
+        {
+            "id": 1516118514848,
+            "edge_type": 2,
+            "start": 1516105627264,
+            "end": 1516118331600
         }
     ]
 }

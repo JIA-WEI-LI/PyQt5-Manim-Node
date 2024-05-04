@@ -118,7 +118,7 @@ class NodeGraphicsNode(QGraphicsItem):
         pathTitle.addRect(0, self.titleHeight - self.edgeSize, self.edgeSize, self.edgeSize)
         pathTitle.addRect(self.width - self.edgeSize, self.titleHeight - self.edgeSize, self.edgeSize, self.edgeSize)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(NodeGraphicsColorSetting.TITLEITEM_BRUSH))
+        painter.setBrush(QBrush(self.node.node_color))
         painter.drawPath(pathTitle.simplified())
         # 描述
         pathContent = QPainterPath()

@@ -35,12 +35,12 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
         self.setWindowTitle("Calaulator Example")
 
     def closeEvent(self, event: QCloseEvent) -> None:
-        try:
-            if self.maybeSave():
-                event.accept()
-            else:
-                event.ignore()
-        except Exception as e: dumpException(e)
+        self.mdiArea.closeAllSubWindows()
+        if self.mdiArea.currentSubWindow():
+            event.ignore()
+        else:
+            self.writeSetting()
+            event.accept()
 
     def updateMenus(self):
         pass

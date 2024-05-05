@@ -1,13 +1,17 @@
 import sys
-from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QApplication, QStyleFactory
 
-from CalculatorWindow.calculator_wondow import CalaulatorMainWindow
+from CalculatorWindow.calculator_wondow import CalculatorMainWindow
 from memory_profiler import profile
 
 @profile
 def main():
     app = QApplication(sys.argv)
-    window = CalaulatorMainWindow()
+
+    # print(QStyleFactory.keys())
+    # app.setStyle('Fusion')    修改不同樣式
+
+    window = CalculatorMainWindow()
     window.show()
     sys.exit(app.exec_())
 

@@ -16,7 +16,10 @@ class StyleSheet:
     @staticmethod
     def path(style_type, theme=Theme.DARK):
         theme = theme if theme == Theme.DARK else theme
-        return f"nodeeditor\\resources\\qss\\{theme.value.lower()}\\{style_type}.qss"
+        if style_type not in [StyleSheet.NODE_COMBOBOX, StyleSheet.NODE_CONTENT, StyleSheet.EDITOR_WINDOW]:
+            return style_type  # 使用自定義路徑
+        else:
+            return f"nodeeditor\\resources\\qss\\{theme.value.lower()}\\{style_type}.qss"
     
     @staticmethod
     def apply(style_type, theme=None):

@@ -1,0 +1,96 @@
+QMenuBar {
+    background-color: #222;
+    color: white;
+}
+QMenuBar::item {
+    background-color: #222;
+    padding: 3px 5px;
+    margin: 3px;
+}
+QMenuBar::item:selected {
+    background-color: #555;
+    border-radius: 3px;
+}
+QMenu {
+    background-color: #222;
+    color: white;
+}
+QMenu::item {
+    background-color: #222;
+    padding: 3px 3px;
+    margin: 3px;
+}
+QMenu::item:selected {
+    background-color: #555;
+    border-radius: 3px;
+}
+
+QMainWindow {
+    background-color: #222;
+}
+
+QMdiArea {
+    background-color: transparent;
+}
+
+QTabBar {
+    background-color: #222;
+    border: none;
+}
+QTabBar::tab {
+    background-color: transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    color: white;
+    margin-right: 1px;
+    height: 25px;
+}
+QTabBar::tab:selected {
+    background-color: #444;
+}
+QTabBar::tab:hover {
+    background-color: #555;
+    border-radius: 3px;
+}
+QTabWidget {
+    background-color: #222;
+}
+QTabWidget::pane {
+    background-color: transparent;
+}
+QTabBar::close-button {
+    image: url(nodeeditor\\resources\\icons\\icon_close.svg);
+    background-color: transparent;
+    color: white;
+    border-radius: 4px;
+}
+QTabBar::close-button:hover {
+    background-color: #9b1d1d;
+    color: white;
+    border-radius: 4px;
+}
+QTabBar::close-button:pressed {
+    background-color: #691414;
+}
+
+
+QListWidget {
+    background-color: #333;
+    border-radius: 3px;
+    color: white;
+}
+QListWidget::item:hover {
+    background-color: #666;
+    border-radius: 3px;
+    color: white;
+}
+
+QDockWidget {
+    background-color: #222;
+    color: white;
+}
+
+QStatusBar {
+    background-color: #222;
+    color: white;
+}

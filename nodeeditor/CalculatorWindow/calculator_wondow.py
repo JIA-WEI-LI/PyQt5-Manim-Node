@@ -3,10 +3,12 @@ from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWi
 from PyQt5.QtGui import QCloseEvent, QKeySequence
 
 from common.utils import dumpException
+from common.style_sheet import StyleSheet
 from .calaulator_subWindow import CalculatorSubWindow
 from NodeEditorWindow import NodeEditorMainWindow
 
-class CalaulatorMainWindow(NodeEditorMainWindow):
+class CalculatorMainWindow(NodeEditorMainWindow):
+    @StyleSheet.apply("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss")
     def initUI(self):
         self.name_company = 'Blenderfreak'
         self.name_projuct = 'Calaulator NodeEditor'

@@ -1,5 +1,6 @@
 QGraphicsView { 
     selection-background-color: rgb(255, 255, 255);
+    border: none;
 }
 
 QMenuBar {

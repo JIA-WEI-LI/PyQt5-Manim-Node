@@ -34,7 +34,7 @@ class NodeEditorMainWindow(QMainWindow):
 
         # 節點畫面
         self.nodeEditor = NodeEditorWidget(self)
-        self.nodeEditor.scene.addHasBeenModifiedListener(self.changeTitle)
+        self.nodeEditor.scene.addHasBeenModifiedListener(self.setTitle)
         self.setCentralWidget(self.nodeEditor)
 
         self.createStatusBar()
@@ -42,15 +42,12 @@ class NodeEditorMainWindow(QMainWindow):
         # self.setGeometry(200 ,200, 1960, 1280)
         self.showMaximized() 
         self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
-        self.changeTitle()
+        self.setTitle()
         self.show()
 
-    def changeTitle(self):
+    def setTitle(self):
         title = "Node Editor - "
         title += self.getCurrentNodeEditorWidget().getUserFriendlyFilename()
-
-        if self.getCurrentNodeEditorWidget().isModified():
-            title += "*"
 
         self.setWindowTitle(title)
 
@@ -132,7 +129,7 @@ class NodeEditorMainWindow(QMainWindow):
         if self.maybeSave():
             self.getCurrentNodeEditorWidget().scene.clear()
             self.filename = None
-            self.changeTitle()
+            self.setTitle()
 
     def onFileOpen(self):
         '''開啟檔案'''
@@ -144,7 +141,7 @@ class NodeEditorMainWindow(QMainWindow):
                 self.getCurrentNodeEditorWidget().scene.loadFromFile(fname)
                 self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
                 self.filename = fname
-                self.changeTitle()
+                self.setTitle()
 
     def onFileSave(self) -> bool:
         '''儲存檔案'''
@@ -152,7 +149,7 @@ class NodeEditorMainWindow(QMainWindow):
         self.getCurrentNodeEditorWidget().scene.saveToFile(self.filename)
         self.statusBar().showMessage("已成功儲存檔案 %s" % self.filename)
         
-        self.changeTitle()
+        self.setTitle()
         return True
 
     def onFileSaveAs(self) -> bool:

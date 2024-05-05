@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWi
 from PyQt5.QtGui import QCloseEvent, QKeySequence
 
 from common.utils import dumpException
+from .calaulator_subWindow import CalculatorSubWindow
 from NodeEditorWindow import NodeEditorMainWindow
 
 class CalaulatorMainWindow(NodeEditorMainWindow):
@@ -58,6 +59,10 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
         self.separatorAct.setSeparator(True)
 
         self.aboutAct = QAction("&關於", self, statusTip="Show the application's About box", triggered=self.about)
+
+    def onFileNew(self):
+        subwnd = self.createMdiChild()
+        subwnd.show()
     
     def about(self):
         QMessageBox.about(self, "關於計算器節點編輯器範例",
@@ -122,6 +127,11 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
 
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
+
+    def createMdiChild(self):
+        nodeeditor = CalculatorSubWindow()
+        subwnd = self.mdiArea.addSubWindow(nodeeditor)
+        return subwnd
 
     def setActiveSubWindow(self, window):
         if window:

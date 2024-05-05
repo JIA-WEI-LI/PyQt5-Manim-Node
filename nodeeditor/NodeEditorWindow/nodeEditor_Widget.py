@@ -31,6 +31,9 @@ class NodeEditorWidget(QWidget):
         self.view = NodeGraphicsView(self.scene.nodeGraphicsScene, self)
         self.layout.addWidget(self.view)
 
+    def isModified(self):
+        return self.scene.has_been_modified
+
     def isFilanameSet(self):
         return self.filename is not None
     

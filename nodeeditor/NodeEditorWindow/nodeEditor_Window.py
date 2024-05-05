@@ -47,12 +47,9 @@ class NodeEditorMainWindow(QMainWindow):
 
     def changeTitle(self):
         title = "Node Editor - "
-        if self.filename == None:
-            title += "New"
-        else:
-            title += os.path.basename(self.filename)
+        title += self.getCurrentNodeEditorWidget().getUserFriendlyFilename()
 
-        if self.centralWidget().scene.has_been_modified:
+        if self.getCurrentNodeEditorWidget().isModified():
             title += "*"
 
         self.setWindowTitle(title)
@@ -109,7 +106,10 @@ class NodeEditorMainWindow(QMainWindow):
             event.ignore()
 
     def isModified(self):
-        return self.centralWidget().scene.has_been_modified
+        return self.getCurrentNodeEditorWidget().scene.has_been_modified
+    
+    def getCurrentNodeEditorWidget(self):
+        return self.centralWidget()
 
     def maybeSave(self) -> bool:
         if not self.isModified():
@@ -130,7 +130,7 @@ class NodeEditorMainWindow(QMainWindow):
     def onFileNew(self):
         '''開啟新視窗(刪除舊有全物件)'''
         if self.maybeSave():
-            self.centralWidget().scene.clear()
+            self.getCurrentNodeEditorWidget().scene.clear()
             self.filename = None
             self.changeTitle()
 
@@ -141,7 +141,7 @@ class NodeEditorMainWindow(QMainWindow):
             if fname == '':
                 return
             if os.path.isfile(fname):
-                self.centralWidget().scene.loadFromFile(fname)
+                self.getCurrentNodeEditorWidget().scene.loadFromFile(fname)
                 self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
                 self.filename = fname
                 self.changeTitle()
@@ -149,7 +149,7 @@ class NodeEditorMainWindow(QMainWindow):
     def onFileSave(self) -> bool:
         '''儲存檔案'''
         if self.filename is None: return self.onFileSaveAs()
-        self.centralWidget().scene.saveToFile(self.filename)
+        self.getCurrentNodeEditorWidget().scene.saveToFile(self.filename)
         self.statusBar().showMessage("已成功儲存檔案 %s" % self.filename)
         
         self.changeTitle()
@@ -166,23 +166,23 @@ class NodeEditorMainWindow(QMainWindow):
 
     def onEditUndo(self):
         '''返回上一步'''
-        self.centralWidget().scene.history.undo()
+        self.getCurrentNodeEditorWidget().scene.history.undo()
 
     def onEditRedo(self):
         '''返回下一步'''
-        self.centralWidget().scene.history.redo()
+        self.getCurrentNodeEditorWidget().scene.history.redo()
 
     def onEditDelete(self):
         '''刪除物件'''
-        self.centralWidget().scene.nodeGraphicsScene.views()[0].deleteSelected()
+        self.getCurrentNodeEditorWidget().scene.nodeGraphicsScene.views()[0].deleteSelected()
 
     def onEditCut(self):
-        data = self.centralWidget().scene.clipboard.serializeSelected(delete = True)
+        data = self.getCurrentNodeEditorWidget().scene.clipboard.serializeSelected(delete = True)
         str_data = json.dumps(data, indent=4)
         QApplication.instance().clipboard().setText(str_data)
 
     def onEditCopy(self):
-        data = self.centralWidget().scene.clipboard.serializeSelected(delete = False)
+        data = self.getCurrentNodeEditorWidget().scene.clipboard.serializeSelected(delete = False)
         str_data = json.dumps(data, indent=4)
         QApplication.instance().clipboard().setText(str_data)
 
@@ -199,7 +199,7 @@ class NodeEditorMainWindow(QMainWindow):
             print("JSON doesnot contain any node!")
             return
         
-        self.centralWidget().scene.clipboard.deserializeFromClipboard(data)
+        self.getCurrentNodeEditorWidget().scene.clipboard.deserializeFromClipboard(data)
 
     def readSettings(self):
         settings = QSettings(self.name_company, self.name_projuct)

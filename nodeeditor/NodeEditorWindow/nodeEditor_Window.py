@@ -14,7 +14,6 @@ class NodeEditorMainWindow(QMainWindow):
         super().__init__(parent=parent)
         self.name_company = 'Blenderfreak'
         self.name_projuct = 'NodeEditor'
-        self.filename = None
         self.initUI()
 
     # DELETED：刪除自創工具列按鈕

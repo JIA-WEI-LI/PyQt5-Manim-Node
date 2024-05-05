@@ -105,7 +105,7 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
 
             action = self.windowMenu.addAction(text)
             action.setCheckable(True)
-            action.setChecked(child == self.activeMdiChild())   # HACK：原為 action.setChecked(child in self.activeMdiChild()) 無法運作
+            action.setChecked(child is self.activeMdiChild())
             action.triggered.connect(self.windowMapper.map)
             self.windowMapper.setMapping(action, window)
 

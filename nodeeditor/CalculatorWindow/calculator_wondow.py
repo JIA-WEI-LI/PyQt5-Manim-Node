@@ -96,18 +96,18 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
         windows = self.mdiArea.subWindowList()
         self.separatorAct.setVisible(len(windows)!=0)
 
-        # for i, window in enumerate(windows):
-        #     child = window.widget()
+        for i, window in enumerate(windows):
+            child = window.widget()
 
-        #     text = "%d %s" % (i+1, child.userFriendlyCurrentFile())
-        #     if i<9:
-        #         text = '&' + text
+            text = "%d %s" % (i+1, child.getUserFriendlyFilename())
+            if i<9:
+                text = '&' + text
 
-        #     action = self.windowMenu.addAction(text)
-        #     action.setCheckable(True)
-        #     action.setChecked(child in self.activeMdiChild())
-        #     action.triggered.connect(self.windowMapper.map)
-        #     self.windowMapper.setMapping(action, window)
+            action = self.windowMenu.addAction(text)
+            action.setCheckable(True)
+            action.setChecked(child == self.activeMdiChild())   # HACK：原為 action.setChecked(child in self.activeMdiChild()) 無法運作
+            action.triggered.connect(self.windowMapper.map)
+            self.windowMapper.setMapping(action, window)
 
     def createToolBars(self):
         pass
@@ -132,6 +132,13 @@ class CalaulatorMainWindow(NodeEditorMainWindow):
         nodeeditor = CalculatorSubWindow()
         subwnd = self.mdiArea.addSubWindow(nodeeditor)
         return subwnd
+    
+    def activeMdiChild(self):
+        """回傳 NodeEditorWidget"""
+        activeSubWindow = self.mdiArea.activeSubWindow()
+        if activeSubWindow:
+            return activeSubWindow.widget()
+        return None
 
     def setActiveSubWindow(self, window):
         if window:

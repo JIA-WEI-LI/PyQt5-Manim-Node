@@ -34,7 +34,7 @@ class NodeEditorWidget(QWidget):
     def isFilanameSet(self):
         return self.filename is not None
     
-    def getUserFriendlyfilename(self):
+    def getUserFriendlyFilename(self):
         name = os.path.basename(self.filename) if self.isFilanameSet() else "New Graph"
         # TODO: 新增 has_been_modified 邏輯
         return name 

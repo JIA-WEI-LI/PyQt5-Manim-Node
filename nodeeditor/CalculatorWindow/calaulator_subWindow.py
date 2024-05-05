@@ -9,4 +9,4 @@ class CalculatorSubWindow(NodeEditorWidget):
         self.setTitle()
 
     def setTitle(self):
-        self.setWindowTitle(self.getUserFriendlyfilename())
+        self.setWindowTitle(self.getUserFriendlyFilename())

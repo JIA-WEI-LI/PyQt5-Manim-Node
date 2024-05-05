@@ -8,5 +8,7 @@ class CalculatorSubWindow(NodeEditorWidget):
 
         self.setTitle()
 
+        self.scene.addHasBeenModifiedListener(self.setTitle)
+
     def setTitle(self):
         self.setWindowTitle(self.getUserFriendlyFilename())

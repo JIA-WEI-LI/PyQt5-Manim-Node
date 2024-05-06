@@ -75,6 +75,7 @@ class NodeEditorMainWindow(QMainWindow):
         # 主畫面選單欄選擇
         menubar = self.menuBar()
         self.fileMenu = menubar.addMenu('&檔案')
+        self.fileMenu.setMinimumWidth(150)
         self.fileMenu.addAction(self.actNew)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.actOpen)
@@ -84,6 +85,7 @@ class NodeEditorMainWindow(QMainWindow):
         self.fileMenu.addAction(self.actExit)
 
         self.editMenu = menubar.addMenu("&編輯")
+        self.editMenu.setMinimumWidth(150)
         self.editMenu.addAction(self.actUndo)
         self.editMenu.addAction(self.actRedo)
         self.editMenu.addSeparator()

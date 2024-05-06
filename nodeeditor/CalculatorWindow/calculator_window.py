@@ -121,6 +121,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         super().createMenus()
 
         self.windowMenu = self.menuBar().addMenu("&視窗")
+        self.windowMenu.setMinimumWidth(150)
         self.updateWindowMenu()
         self.windowMenu.aboutToShow.connect(self.updateWindowMenu)
 
@@ -128,6 +129,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
 
         self.helpMenu = self.menuBar().addMenu('&幫助')
         self.helpMenu.addAction(self.aboutAct)
+        self.helpMenu.setMinimumWidth(150)
 
     def updateWindowMenu(self):
         self.windowMenu.clear()

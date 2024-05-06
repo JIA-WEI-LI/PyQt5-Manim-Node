@@ -123,6 +123,10 @@ class ControlledProgressBar(QProgressBar):
             self.updateProgress(event)
             QApplication.setOverrideCursor(QCursor(Qt.CursorShape.BlankCursor))
 
+    def mouseDoubleClickEvent(self, event: QMouseEvent):
+        '''滑鼠雙擊時更新進度'''
+        return super().mouseDoubleClickEvent(event)
+    
     def mouseMoveEvent(self, event):
         '''滑鼠移動時，如果正在拖動，更新進度'''
         if hasattr(self, 'dragging') and self.dragging:

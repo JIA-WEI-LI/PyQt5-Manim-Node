@@ -56,15 +56,14 @@ class NodeContentWidget(QWidget, Serializable):
         return comboBox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addLabel(self, text:str, isOutput=False, **kwargs):
-        '''新增文字標籤，並可根據輸入或輸出改變置左或置右'''
+    def addInputLabel(self, text:str, **kwargs):
+        '''新增輸入文字標籤'''
         label = Label(text, **kwargs)
-        if isOutput: label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+        label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
         self.contentLists.append(
             ('label', {
                 'text': text,
-                'isOutput': isOutput,
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return label
@@ -121,6 +120,19 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.addWidget(spinBox)
 
         return spinBox
+    
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addOutputLabel(self, text:str, **kwargs):
+        '''新增輸出文字標籤'''
+        label = Label(text, **kwargs)
+        label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
+        self.vboxLayout.addWidget(label)
+        self.contentLists.append(
+            ('label', {
+                'text': text,
+                'tooltip': kwargs.get("tooltip", "")
+            }))
+        return label
 
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value
@@ -142,10 +154,9 @@ class NodeContentWidget(QWidget, Serializable):
                 obj = self.addComboBox(
                     content_data['list'], 
                     tooltip=content_data['tooltip'])
-            elif content_type == 'label': 
-                obj = self.addLabel(
+            elif content_type == 'inputLabel': 
+                obj = self.addInputLabel(
                     content_data['text'], 
-                    isOutput=content_data['isOutput'], 
                     tooltip=content_data['tooltip'])
             elif content_type == 'lineEdit': 
                 obj = self.addLineEdit(
@@ -160,6 +171,10 @@ class NodeContentWidget(QWidget, Serializable):
                     tooltip=content_data['tooltip'])
             elif content_type == 'pushButton': 
                 obj = self.addPushButton(
+                    content_data['text'], 
+                    tooltip=content_data['tooltip'])
+            elif content_type == 'outputLabel': 
+                obj = self.addOutputLabel(
                     content_data['text'], 
                     tooltip=content_data['tooltip'])
             else: print("\033[93m Wrong type.\033[0m")

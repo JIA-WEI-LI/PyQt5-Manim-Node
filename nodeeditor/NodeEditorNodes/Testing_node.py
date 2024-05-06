@@ -1,7 +1,7 @@
 from NodeEditorWindow import *
 
 class Node_Test(Node):
-    def __init__(self, scene, title="Node_Test", input=[1, 2, 3], output=[1, 2, 3, 3, 4, 1]):
+    def __init__(self, scene, title="Node_Test", input=[1, 2, 3, 0 ,1], output=[1, 2, 3, 3, 4, 1]):
         super().__init__(scene, title, input, output)
 
         self.content.addOutputLabel("Output")

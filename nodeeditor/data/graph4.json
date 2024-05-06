@@ -1,0 +1,555 @@
+{
+    "id": 3098322847456,
+    "scene_width": 64000,
+    "scene_height": 64000,
+    "nodes": [
+        {
+            "id": 3098320474464,
+            "title": "Integer",
+            "pos_x": -100.0,
+            "pos_y": -100.0,
+            "inputs": [
+                {
+                    "id": 3098351195808,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 3098351191872,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "node_color": "#FF83314a",
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Value",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "progressBar",
+                    "data": {
+                        "label": "Integer",
+                        "minium": 0,
+                        "maxium": 100,
+                        "value": 0.5,
+                        "tooltip": "Output Integer"
+                    }
+                }
+            ],
+            "content_height": 54
+        },
+        {
+            "id": 3098312495648,
+            "title": "Integer",
+            "pos_x": -200.0,
+            "pos_y": -200.0,
+            "inputs": [
+                {
+                    "id": 3098351279744,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 3098351279696,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "node_color": "#FF83314a",
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Value",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "progressBar",
+                    "data": {
+                        "label": "Integer",
+                        "minium": 0,
+                        "maxium": 100,
+                        "value": 0.5,
+                        "tooltip": "Output Integer"
+                    }
+                }
+            ],
+            "content_height": 54
+        },
+        {
+            "id": 3098351279648,
+            "title": "Add",
+            "pos_x": 0.0,
+            "pos_y": 0.0,
+            "inputs": [],
+            "outputs": [
+                {
+                    "id": 3098351279792,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "node_color": "#FF246283",
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input A",
+                        "tooltip": "First input number"
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input B",
+                        "tooltip": "Second input number"
+                    }
+                }
+            ],
+            "content_height": 84
+        },
+        {
+            "id": 3098316448752,
+            "title": "Substract",
+            "pos_x": 100.0,
+            "pos_y": 100.0,
+            "inputs": [
+                {
+                    "id": 3098351280176,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                },
+                {
+                    "id": 3098351280224,
+                    "index": 1,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 3098351280128,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "node_color": "#FF246283",
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input A",
+                        "tooltip": "First input number"
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input B",
+                        "tooltip": "Second input number"
+                    }
+                }
+            ],
+            "content_height": 84
+        },
+        {
+            "id": 3098351279936,
+            "title": "Multiply",
+            "pos_x": 200.0,
+            "pos_y": 200.0,
+            "inputs": [
+                {
+                    "id": 3098351280512,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                },
+                {
+                    "id": 3098351280560,
+                    "index": 1,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 3098351280464,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "node_color": "#FF246283",
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input A",
+                        "tooltip": "First input number"
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input B",
+                        "tooltip": "Second input number"
+                    }
+                }
+            ],
+            "content_height": 84
+        },
+        {
+            "id": 3098351280272,
+            "title": "Divide",
+            "pos_x": 300.0,
+            "pos_y": 300.0,
+            "inputs": [
+                {
+                    "id": 3098351280800,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                },
+                {
+                    "id": 3098351280848,
+                    "index": 1,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 3098351280608,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "node_color": "#FF246283",
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input A",
+                        "tooltip": "First input number"
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Input B",
+                        "tooltip": "Second input number"
+                    }
+                }
+            ],
+            "content_height": 84
+        },
+        {
+            "id": 3098305739040,
+            "title": "Node_Test",
+            "pos_x": 538.0,
+            "pos_y": -187.0,
+            "inputs": [
+                {
+                    "id": 3098351281328,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                },
+                {
+                    "id": 3098351281376,
+                    "index": 1,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 2
+                },
+                {
+                    "id": 3098351281424,
+                    "index": 2,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 3
+                },
+                {
+                    "id": 0,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 2,
+                    "socket_type": 1
+                },
+                {
+                    "id": 3098351281520,
+                    "index": 4,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 3098351280896,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                },
+                {
+                    "id": 3098351281088,
+                    "index": 1,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 2
+                },
+                {
+                    "id": 3098351281136,
+                    "index": 2,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 3
+                },
+                {
+                    "id": 3098351281184,
+                    "index": 3,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 3
+                },
+                {
+                    "id": 3098351281232,
+                    "index": 4,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 4
+                },
+                {
+                    "id": 3098351281280,
+                    "index": 5,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 1
+                }
+            ],
+            "node_color": "#FF246283",
+            "content": [
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Output",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "checkbox",
+                    "data": {
+                        "text": "Check Box",
+                        "status": false,
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "lineEdit",
+                    "data": {
+                        "text": "Line Edit",
+                        "current_text": "",
+                        "tooltip": "New Tooltip"
+                    }
+                },
+                {
+                    "type": "lineEdit",
+                    "data": {
+                        "text": "",
+                        "current_text": "",
+                        "tooltip": "New Tooltip"
+                    }
+                },
+                {
+                    "type": "progressBar",
+                    "data": {
+                        "label": "Value",
+                        "minium": 0,
+                        "maxium": 10,
+                        "value": 0.5,
+                        "tooltip": "\u6e2c\u8a66\u6587\u4ef6"
+                    }
+                },
+                {
+                    "type": "comboBox",
+                    "data": {
+                        "list": [
+                            "List 1",
+                            "List 1",
+                            "List 1"
+                        ],
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 1",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 2",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 3",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 1",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 2",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 3",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 1",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 2",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 3",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 1",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 2",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 3",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 1",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 2",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "label",
+                    "data": {
+                        "text": "Test Label 3",
+                        "tooltip": ""
+                    }
+                }
+            ],
+            "content_height": 624
+        }
+    ],
+    "edges": []
+}

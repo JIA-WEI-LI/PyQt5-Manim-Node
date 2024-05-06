@@ -141,7 +141,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         
         data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
         data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
-        self.graphicsNode.height = self.graphicsNode.titleHeight + self.graphicsNode.padding
+        self.graphicsNode.height = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding
 
         self.inputs, self.outputs = [], []
         for socket_data in data['inputs']:

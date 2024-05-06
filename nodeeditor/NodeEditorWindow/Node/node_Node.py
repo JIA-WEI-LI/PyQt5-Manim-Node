@@ -41,6 +41,7 @@ class Node(Serializable):
             if item != 0:
                 socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item, muliti_edges=False)
             else:
+                # HACK: 自製空連結點
                 socket = NullSocket(node=self)
             counter += 1
             
@@ -126,7 +127,6 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             ('outputs', outputs),
             ('node_color', self.node_color),
             ('content', contents),
-            ('content_height', self.content.height())
             ])
     
     def deserialize(self, data, hashmap={}, restore_id=True):
@@ -141,7 +141,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         
         data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
         data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
-        self.graphicsNode.height = self.graphicsNode.titleHeight + 2 * self.graphicsNode.padding + len(data['inputs'] + data['outputs']) * self.socketSpace
+        self.graphicsNode.height = self.graphicsNode.titleHeight + self.graphicsNode.padding
 
         self.inputs, self.outputs = [], []
         for socket_data in data['inputs']:
@@ -154,7 +154,5 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             self.outputs.append(new_socket)
 
         self.content.deserialize(data['content'], hashmap)
-        # TODO：暫時使用額外儲存節點內部高度解決變形問題
-        self.content.setFixedHeight(data['content_height'])
 
         return True

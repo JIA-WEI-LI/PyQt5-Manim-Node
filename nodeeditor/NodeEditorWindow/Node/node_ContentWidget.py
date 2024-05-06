@@ -65,7 +65,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.addWidget(label)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
-            ('label', {
+            ('inputLabel', {
                 'text': text,
                 'tooltip': kwargs.get("tooltip", "")
             }))
@@ -137,7 +137,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.addWidget(label)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
-            ('label', {
+            ('outputLabel', {
                 'text': text,
                 'tooltip': kwargs.get("tooltip", "")
             }))

@@ -82,7 +82,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
                     else:
                         nodeeditor = CalculatorSubWindow()
                         if nodeeditor.fileLoad(fname):
-                            self.statusBar().showMessage("File is loaded" % fname, 5000)
+                            self.statusBar().showMessage("File %s loaded" % fname, 5000)
                             nodeeditor.setTitle()
                             subwnd = self.mdiArea.addSubWindow(nodeeditor)
                             subwnd.show()

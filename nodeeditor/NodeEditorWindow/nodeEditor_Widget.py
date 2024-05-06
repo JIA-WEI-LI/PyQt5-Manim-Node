@@ -47,6 +47,7 @@ class NodeEditorWidget(QWidget):
         try:
             self.scene.loadFromFile(filename)
             self.filename = filename
+            return True
         except InvalidFile as e:
             print(e)
             QApplication.restoreOverrideCursor()

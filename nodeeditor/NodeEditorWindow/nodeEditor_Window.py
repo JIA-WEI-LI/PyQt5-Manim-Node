@@ -130,7 +130,7 @@ class NodeEditorMainWindow(QMainWindow):
         '''開啟新視窗(刪除舊有全物件)'''
         if self.maybeSave():
             self.getCurrentNodeEditorWidget().scene.clear()
-            self.filename = None
+            self.getCurrentNodeEditorWidget().filename = None
             self.setTitle()
 
     def onFileOpen(self):
@@ -142,14 +142,14 @@ class NodeEditorMainWindow(QMainWindow):
             if os.path.isfile(fname):
                 self.getCurrentNodeEditorWidget().scene.loadFromFile(fname)
                 self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
-                self.filename = fname
+                self.getCurrentNodeEditorWidget().filename = fname
                 self.setTitle()
 
     def onFileSave(self) -> bool:
         '''儲存檔案'''
-        if self.filename is None: return self.onFileSaveAs()
-        self.getCurrentNodeEditorWidget().scene.saveToFile(self.filename)
-        self.statusBar().showMessage("已成功儲存檔案 %s" % self.filename)
+        if self.getCurrentNodeEditorWidget().filename is None: return self.onFileSaveAs()
+        self.getCurrentNodeEditorWidget().fileSave()
+        self.statusBar().showMessage("已成功儲存檔案 %s" % self.getCurrentNodeEditorWidget().filename)
         
         self.setTitle()
         return True
@@ -159,7 +159,7 @@ class NodeEditorMainWindow(QMainWindow):
         fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", filter="JSON files (*.json)")
         if fname == '':
             return False
-        self.filename = fname
+        self.getCurrentNodeEditorWidget().filename = fname
         self.onFileSave()
         return True
 

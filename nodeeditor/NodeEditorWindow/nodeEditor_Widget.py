@@ -1,9 +1,10 @@
 import os
-from PyQt5.QtWidgets import QWidget, QVBoxLayout
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QApplication, QMessageBox
 
 from .Edge.node_Edge import Edge
 from .Node.node_Node import Node
-from .nodeEditor_Scene import Scene
+from .nodeEditor_Scene import Scene, InvalidFile
 from .nodeEditor_GraphicsView import NodeGraphicsView
 
 from config.debug import DebugMode, DebugTimer
@@ -40,6 +41,21 @@ class NodeEditorWidget(QWidget):
     def getUserFriendlyFilename(self):
         name = os.path.basename(self.filename) if self.isFilanameSet() else "New Graph"
         return name + ("*" if self.isModified() else "")
+
+    def fileLoad(self, filename):
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+        try:
+            self.scene.loadFromFile(filename)
+            self.filename = filename
+        except InvalidFile as e:
+            print(e)
+            QApplication.restoreOverrideCursor()
+            QMessageBox.warning(self, "Error loading %s" % os.path.basename(filename), str(e))
+            return False
+        finally:
+            QApplication.restoreOverrideCursor()
+
+        return False
 
     def addNodes(self):
         '''新增節點'''

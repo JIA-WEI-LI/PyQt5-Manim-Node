@@ -1,5 +1,6 @@
-from PyQt5.QtCore import Qt, QSignalMapper
-from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWidget, QAction, QMessageBox
+import os
+from PyQt5.QtCore import Qt, QSignalMapper, QFileInfo
+from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWidget, QAction, QMessageBox, QFileDialog
 from PyQt5.QtGui import QCloseEvent, QKeySequence
 
 from common.utils import dumpException
@@ -63,8 +64,31 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.aboutAct = QAction("&關於", self, statusTip="Show the application's About box", triggered=self.about)
 
     def onFileNew(self):
-        subwnd = self.createMdiChild()
-        subwnd.show()
+        try:
+            subwnd = self.createMdiChild()
+            subwnd.show()
+        except Exception as e: dumpException(e)
+
+    def onFileOpen(self):
+        '''開啟檔案'''
+        fnames, filter = QFileDialog.getOpenFileNames(self, "開啟檔案")
+        
+        try:
+            for fname in fnames:
+                if fname:
+                    existing = self.findMdiChild(fname)
+                    if existing:
+                        self.mdiArea.setActiveSubWindow(existing)
+                    else:
+                        nodeeditor = CalculatorSubWindow()
+                        if nodeeditor.fileLoad(fname):
+                            self.statusBar().showMessage("File is loaded" % fname, 5000)
+                            nodeeditor.setTitle()
+                            subwnd = self.mdiArea.addSubWindow(nodeeditor)
+                            subwnd.show()
+                        else:
+                            nodeeditor.close()
+        except Exception as e: dumpException(e)
     
     def about(self):
         QMessageBox.about(self, "關於計算器節點編輯器範例",
@@ -134,6 +158,12 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         nodeeditor = CalculatorSubWindow()
         subwnd = self.mdiArea.addSubWindow(nodeeditor)
         return subwnd
+    
+    def findMdiChild(self, filename):
+        for window in self.mdiArea.subWindowList():
+            if window.widget().filename == filename:
+                return window
+        return None
     
     def activeMdiChild(self):
         """回傳 NodeEditorWidget"""

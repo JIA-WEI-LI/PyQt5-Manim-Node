@@ -1,3 +1,4 @@
+import os
 import math
 import json
 from collections import OrderedDict
@@ -13,10 +14,13 @@ from .Serialization.node_Serializable import Serializable
 from .Scene.nodeEditor_SceneHistory import SceneHistory
 from .Scene.nodeEditor_SceneClipboard import SceneClipboard
 from common.color_sheet import color_manager
+from common.utils import dumpException
 
 PENLIGHT_COLOR = color_manager.get_color("WindowColor", "BLENDER_PEN_LIGHT")
 PENDARK_COLOR = color_manager.get_color("WindowColor", "BLENDER_PEN_DARK")
 BACKGROUND_COLOR = color_manager.get_color("WindowColor", "BLENDER_BACKGROUND")
+
+class InvalidFile(Exception): pass
 
 class Scene(Serializable):
     def __init__(self):
@@ -80,12 +84,18 @@ class Scene(Serializable):
 
             self.has_been_modified = False
 
-    def loadFromFile(self, file_name):
-        with open(file_name, "r") as file:
+    def loadFromFile(self, filename):
+        with open(filename, "r") as file:
             raw_data = file.read()
-            data = json.loads(raw_data)
-            self.deserialize(data)
-            print(f"Loading {file_name} was successfull")
+            try:
+                data = json.loads(raw_data)
+                self.deserialize(data)
+                self.has_been_modified = False
+                print(f"Loading {filename} was successfull")
+            except json.JSONDecodeError:
+                raise InvalidFile("%s is not a valid JSON file" % os.path.basename(filename))
+            except Exception as e:
+                dumpException(e)
 
             self.has_been_modified = False
 

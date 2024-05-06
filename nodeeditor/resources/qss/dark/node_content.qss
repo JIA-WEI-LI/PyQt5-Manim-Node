@@ -7,15 +7,15 @@ QLabel {
 QCheckBox {
     background-color: #222;
 }
-QCheckBox:hover {
-    background-color: #656565;
-    border-radius: 4px;
-}
 QCheckBox::indicator {
     background-color: #545454;
     border-radius: 4px;
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+}
+QCheckBox::indicator:hover {
+    background-color: #656565;
+    border-radius: 4px;
 }
 QCheckBox::indicator:checked {
     background-color: #4772b3;

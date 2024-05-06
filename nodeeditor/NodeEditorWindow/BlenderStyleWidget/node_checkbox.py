@@ -96,8 +96,6 @@ class CheckBox(QWidget):
         self.setFixedHeight(height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 
-        
-
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
 
         if debug: self.setStyleSheet("border: 1px solid red;")

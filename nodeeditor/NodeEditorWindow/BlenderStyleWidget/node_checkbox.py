@@ -81,16 +81,22 @@ class CheckBox(QWidget):
         self.text = text
         
         self.hLayoutBox = QHBoxLayout(self)
-        self.checkBox = BCheckBox()
+        # self.checkBox = BCheckBox()
+        self.checkBox = QCheckBox()
         self.label = QLabel()
         self.label.setObjectName("nodeCheckboxLabel")
         self.label.setText(self.text)
+
+        self.checkBox.setFixedWidth(height-3)
+        self.checkBox.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
         
         self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
         self.hLayoutBox.addWidget(self.checkBox, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=1)
         self.setFixedHeight(height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+        
 
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
 

@@ -4,6 +4,25 @@ QLabel {
     font-family: Arial, Helvetica, sans-serif ;
 }
 
+QCheckBox {
+    background-color: #222;
+}
+QCheckBox:hover {
+    background-color: #656565;
+    border-radius: 4px;
+}
+QCheckBox::indicator {
+    background-color: #545454;
+    border-radius: 4px;
+    width: 20px;
+    height: 20px;
+}
+QCheckBox::indicator:checked {
+    background-color: #4772b3;
+    border-radius: 4px;
+    image: url(nodeeditor\\resources\\icons\\icon_check.svg);
+}
+
 QPushButton {
     color: white; 
     background-color: transparent; 

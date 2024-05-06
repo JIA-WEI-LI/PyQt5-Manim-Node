@@ -3,7 +3,7 @@ from collections import OrderedDict
 from .node_ContentWidget import NodeContentWidget
 from .node_GraphicsNode import NodeGraphicsNode
 from ..Serialization.node_Serializable import Serializable
-from ..Socket.node_Socket import Socket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
+from ..Socket.node_Socket import Socket, NullSocket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
 from common.color_sheet import color_manager
 from config.debug import DebugMode
 
@@ -38,7 +38,11 @@ class Node(Serializable):
         
         counter = 0
         for item in input:
-            socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item, muliti_edges=False)
+            if item != 0:
+                socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item, muliti_edges=False)
+            else:
+                # HACK: 自製空連結點
+                socket = NullSocket(node=self, index=counter)
             counter += 1
             
             self.inputs.append(socket)
@@ -86,17 +90,20 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
     
     def updateConnectedEdges(self):
         for socket in self.inputs + self.outputs:
-            for edge in socket.edges:
-                edge.updatePositions()
+            # HACK: 因為有建立自定義空白連結點 NullSocket，所有 socket 相關皆需判斷
+            if type(socket) == Socket:
+                for edge in socket.edges:
+                    edge.updatePositions()
     
     def remove(self):
         if DEBUG: print("> Removing Node: ", self)
         if DEBUG: print(" - remove all edge from sockets")
         for socket in (self.inputs + self.outputs):
-            # if socket.hasEdge():
-            for edge in socket.edges:
-                if DEBUG: print("    - removing from socket: ", socket, " edge: ", edge)
-                edge.remove()
+            # HACK: 因為有建立自定義空白連結點 NullSocket，所有 socket 相關皆需判斷
+            if type(socket) == Socket:
+                for edge in socket.edges:
+                    if DEBUG: print("    - removing from socket: ", socket, " edge: ", edge)
+                    edge.remove()
         if DEBUG: print(" - remove graphicsNode: ", self)
         self.scene.nodeGraphicsScene.removeItem(self.graphicsNode)
         self.graphicsNode = None
@@ -119,6 +126,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             ('inputs', inputs),
             ('outputs', outputs),
             ('node_color', self.node_color),
+            ('content', contents),
             ('content', contents)
             ])
     
@@ -134,11 +142,14 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         
         data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
         data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
-        self.graphicsNode.height = self.graphicsNode.titleHeight + self.graphicsNode.padding
+        self.graphicsNode.height = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding
 
         self.inputs, self.outputs = [], []
         for socket_data in data['inputs']:
-            new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            if socket_data['id'] != 0:
+                new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            else:
+                new_socket = NullSocket(node=self, index=socket_data['index'])
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.inputs.append(new_socket)
         for socket_data in data['outputs']:

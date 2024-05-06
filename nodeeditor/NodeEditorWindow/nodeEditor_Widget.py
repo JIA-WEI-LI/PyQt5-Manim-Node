@@ -69,14 +69,17 @@ class NodeEditorWidget(QWidget):
         '''新增節點'''
         # 放置初始節點
         node_int0 = Node_Integer(self.scene)
-        node_int1 = Node_Integer(self.scene)
+        node_str = Node_String(self.scene)
+        node_Normalize = Node_Normalize(self.scene)
         node1 = Node_Add(self.scene)
         node2 = Node_Substract(self.scene)
         node3 = Node_Multiply(self.scene)
         node4 = Node_Divide(self.scene)
         node_Test = Node_Test(self.scene)
+        
         node_int0.setPos(-100, -100)
-        node_int1.setPos(-200, -200)
+        node_str.setPos(-200, -200)
+        node_Normalize.setPos(-300, -300)
         node1.setPos(0, 0)
         node2.setPos(100, 100)
         node3.setPos(200, 200)

@@ -66,3 +66,29 @@ class Socket(Serializable):
         self.is_multi_edges = data['multi_edges']
         hashmap[data['id']] = self
         return True
+    
+class NullSocket(Serializable):
+    '''創建空連結點代表空格'''
+    def __init__(self, node, *, index:int=0, position=LEFT_BOTTOM, socket_type=1, space:int=0, muliti_edges:bool=True) -> None:
+        super().__init__()
+        self.node = node
+        self.index = index
+        self.position = position
+        self.socket_type = socket_type
+        self.is_multi_edges = muliti_edges
+
+    def serialize(self):
+        '''序列化資訊'''
+        return OrderedDict([
+            ('id', 0),
+            ('index', self.index),
+            ('multi_edges', self.is_multi_edges),
+            ('position', self.position),
+            ('socket_type', self.socket_type)
+        ])
+    
+    def deserialize(self, data, hashmap={}, restore_id=True):
+        if restore_id: self.id = data['id']
+        self.is_multi_edges = data['multi_edges']
+        hashmap[data['id']] = self
+        return True

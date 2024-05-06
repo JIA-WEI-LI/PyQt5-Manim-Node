@@ -92,6 +92,14 @@ QDockWidget {
     background-color: #222;
     color: white;
 }
+QDockWidget::close-button {
+    background-color: transparent;
+    border: none;
+    border-radius: 3px;
+}
+QDockWidget::close-button:hover {
+    background-color: #9b1d1d;
+}
 
 QStatusBar {
     background-color: #222;

@@ -34,6 +34,7 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增二態複選框'''
         checkbox = CheckBox(text, debug=DEBUG, **kwargs)
         self.vboxLayout.addWidget(checkbox)
+        self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('checkbox', {
                 'text': text,
@@ -48,6 +49,7 @@ class NodeContentWidget(QWidget, Serializable):
         comboBox = ComboBox(**kwargs)
         comboBox.addItems(items)
         self.vboxLayout.addWidget(comboBox)
+        self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('comboBox', {
                 'list': items,
@@ -61,6 +63,7 @@ class NodeContentWidget(QWidget, Serializable):
         label = Label(text, **kwargs)
         label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
+        self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('label', {
                 'text': text,
@@ -73,6 +76,7 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增單行文字輸入框'''
         lineEdit = LineEdit(text, self.width(), **kwargs)
         self.vboxLayout.addWidget(lineEdit)
+        self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('lineEdit', {
                 'text': text,
@@ -86,6 +90,7 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增可控制進度條'''
         progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, **kwargs)
         self.vboxLayout.addWidget(progressBar)
+        self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('progressBar', {
                 'label': label,
@@ -101,6 +106,7 @@ class NodeContentWidget(QWidget, Serializable):
         '''新增按紐'''
         button = PushButton(text, **kwargs)
         self.vboxLayout.addWidget(button)
+        self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('pushButton', {
                 'text': text,
@@ -118,6 +124,7 @@ class NodeContentWidget(QWidget, Serializable):
 
         spinBox.setAlignment(Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(spinBox)
+        self.node.graphicsNode.height += 30
 
         return spinBox
     
@@ -127,6 +134,7 @@ class NodeContentWidget(QWidget, Serializable):
         label = Label(text, **kwargs)
         label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
+        self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('label', {
                 'text': text,

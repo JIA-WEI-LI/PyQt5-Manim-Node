@@ -69,6 +69,28 @@ class CalculatorMainWindow(NodeEditorMainWindow):
             subwnd.show()
         except Exception as e: dumpException(e)
 
+    def onFileSave(self):
+        '''儲存檔案'''
+        current_nodeeditor = self.activeMdiChild()
+        if current_nodeeditor:
+            if not current_nodeeditor.isFilenameSet():
+                return self.onFileSaveAs()
+            else:
+                current_nodeeditor.fileSave()   # HACK:不傳遞任何參數，保持原檔案名稱儲存
+                self.statusBar().showMessage("已成功儲存檔案 %s" % current_nodeeditor.filename, 5000)
+                return True
+
+    def onFileSaveAs(self):
+        '''另存新檔'''
+        current_nodeeditor = self.activeMdiChild()
+        if current_nodeeditor:
+            fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", filter="JSON files (*.json)")
+            if fname == '': return False
+            current_nodeeditor.fileSave(fname)
+            current_nodeeditor.setTitle()
+            self.statusBar().showMessage("已成功儲存檔案 %s" % fname)
+            return True
+
     def onFileOpen(self):
         '''開啟檔案'''
         fnames, filter = QFileDialog.getOpenFileNames(self, "開啟檔案")

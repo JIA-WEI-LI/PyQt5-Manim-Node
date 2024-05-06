@@ -35,11 +35,11 @@ class NodeEditorWidget(QWidget):
     def isModified(self):
         return self.scene.has_been_modified
 
-    def isFilanameSet(self):
+    def isFilenameSet(self):
         return self.filename is not None
     
     def getUserFriendlyFilename(self):
-        name = os.path.basename(self.filename) if self.isFilanameSet() else "New Graph"
+        name = os.path.basename(self.filename) if self.isFilenameSet() else "New Graph"
         return name + ("*" if self.isModified() else "")
 
     def fileLoad(self, filename):
@@ -57,6 +57,13 @@ class NodeEditorWidget(QWidget):
             QApplication.restoreOverrideCursor()
 
         return False
+    
+    def fileSave(self, filename=None):
+        if filename is not None: self.filename = filename
+        QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
+        self.scene.saveToFile(self.filename)
+        QApplication.restoreOverrideCursor()
+        return True
 
     def addNodes(self):
         '''新增節點'''

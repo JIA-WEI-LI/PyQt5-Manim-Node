@@ -85,7 +85,7 @@ class Scene(Serializable):
             self.has_been_modified = False
 
     def loadFromFile(self, filename):
-        with open(filename, "r") as file:
+        with open(filename, "r", encoding='utf-8') as file:
             raw_data = file.read()
             try:
                 data = json.loads(raw_data)

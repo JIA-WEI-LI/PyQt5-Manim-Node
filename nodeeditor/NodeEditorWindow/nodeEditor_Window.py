@@ -140,10 +140,11 @@ class NodeEditorMainWindow(QMainWindow):
             if fname == '':
                 return
             if os.path.isfile(fname):
-                self.getCurrentNodeEditorWidget().scene.loadFromFile(fname)
-                self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
-                self.getCurrentNodeEditorWidget().filename = fname
-                self.setTitle()
+                # self.getCurrentNodeEditorWidget().scene.loadFromFile(fname)
+                # self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
+                # self.getCurrentNodeEditorWidget().filename = fname
+                # self.setTitle()
+                self.getCurrentNodeEditorWidget().fileLoad(fname)
 
     def onFileSave(self) -> bool:
         '''儲存檔案'''
@@ -159,8 +160,8 @@ class NodeEditorMainWindow(QMainWindow):
         fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", filter="JSON files (*.json)")
         if fname == '':
             return False
-        self.getCurrentNodeEditorWidget().filename = fname
-        self.onFileSave()
+        self.getCurrentNodeEditorWidget().fileSave(fname)
+        self.statusBar().showMessage("已成功另存新檔 %s" % self.getCurrentNodeEditorWidget().filename)
         return True
 
     def onEditUndo(self):

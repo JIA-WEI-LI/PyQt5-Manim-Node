@@ -4,75 +4,88 @@ from PyQt5.QtCore import Qt, QRectF
 
 from .content_BaseSetting import ContentBaseSetting
 
-class BCheckBox(QCheckBox, ContentBaseSetting):
-    '''
-    繼承自 QCheckBox，仿造 Blender Node 內部樣式
+# class BCheckBox(QCheckBox, ContentBaseSetting):
+#     '''
+#     繼承自 QCheckBox，仿造 Blender Node 內部樣式
 
-    ### Attributes:
-        CheckBoxData (WCheckBoxData): CheckBox 的資料類別，預設為 WCheckBoxData()。
+#     ### Attributes:
+#         CheckBoxData (WCheckBoxData): CheckBox 的資料類別，預設為 WCheckBoxData()。
 
-    ### Parameters:
-        CheckBoxData (WCheckBoxData): CheckBox 的資料類別，預設為 WCheckBoxData()。
+#     ### Parameters:
+#         CheckBoxData (WCheckBoxData): CheckBox 的資料類別，預設為 WCheckBoxData()。
 
-    ### Usage:
-        checkBox = CheckBox()
-    '''
+#     ### Usage:
+#         checkBox = CheckBox()
+#     '''
    
-    def __init__(self, text:str="", **kwargs):
-        super(BCheckBox, self).__init__(None)
-        tooltip = kwargs.get("tooltip", "")
+#     def __init__(self, text:str="", **kwargs):
+#         super(BCheckBox, self).__init__(None)
+#         tooltip = kwargs.get("tooltip", "")
         
-        self.isEnter = False
+#         self.isEnter = False
             
-        self.labelFont = QFont("Times New Roman", 12, weight=QFont.Weight.Bold)
-        self.labelFont.setWordSpacing(0)
-        self.labelFont.setStyleHint(QFont.StyleHint.Monospace)
-        self.labelFontMetrics = QFontMetrics(self.labelFont)
-        self.setFont(self.labelFont)
-        self.clicked.connect(self.update)  # 將點擊事件連接到更新函數
+#         self.labelFont = QFont("Times New Roman", 12, weight=QFont.Weight.Bold)
+#         self.labelFont.setWordSpacing(0)
+#         self.labelFont.setStyleHint(QFont.StyleHint.Monospace)
+#         self.labelFontMetrics = QFontMetrics(self.labelFont)
+#         self.setFont(self.labelFont)
+#         self.clicked.connect(self.update)  # 將點擊事件連接到更新函數
 
-        self.setChecked(False)
+#         self.setChecked(False)
 
-        self.setToolTip(None) if tooltip=="" else self.setToolTip(tooltip)
+#         self.setToolTip(None) if tooltip=="" else self.setToolTip(tooltip)
 
-    def paintEvent(self, event: QPaintEvent):
-        painter = QPainter(self)
-        painter.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.TextAntialiasing)
+#     def paintEvent(self, event: QPaintEvent):
+#         painter = QPainter(self)
+#         painter.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.TextAntialiasing)
 
-        size = min(self.width(), self.height())
-        rect = QRectF(0, 0, size, size)
-        rect.moveCenter(QRectF(self.rect()).center())
+#         size = min(self.width(), self.height())
+#         rect = QRectF(0, 0, size, size)
+#         rect.moveCenter(QRectF(self.rect()).center())
 
-        borderPath = QPainterPath()
-        borderPath.addRoundedRect(rect, 30, 30, Qt.SizeMode.RelativeSize)
+#         borderPath = QPainterPath()
+#         borderPath.addRoundedRect(rect, 30, 30, Qt.SizeMode.RelativeSize)
 
-        if self.isChecked():
-            painter.setBrush(self.color_clicked)
-            painter.setPen(QPen(Qt.PenStyle.NoPen))
-        elif self.isEnter and not self.isChecked():
-            painter.setBrush(self.color_GRAY_65)
-            painter.setPen(QPen(Qt.PenStyle.NoPen))
-        else:
-            painter.setBrush(self.color_GRAY_54)
-            painter.setPen(QPen(Qt.PenStyle.NoPen))
+#         if self.isChecked():
+#             painter.setBrush(self.color_clicked)
+#             painter.setPen(QPen(Qt.PenStyle.NoPen))
+#         elif self.isEnter and not self.isChecked():
+#             painter.setBrush(self.color_GRAY_65)
+#             painter.setPen(QPen(Qt.PenStyle.NoPen))
+#         else:
+#             painter.setBrush(self.color_GRAY_54)
+#             painter.setPen(QPen(Qt.PenStyle.NoPen))
             
-        painter.drawPath(borderPath)
+#         painter.drawPath(borderPath)
 
-        if self.isChecked():
-            painter.setPen(QPen(Qt.GlobalColor.white, size * .125, cap=Qt.PenCapStyle.RoundCap, join=Qt.PenJoinStyle.RoundJoin))
-            arrow_path = QPainterPath()
-            arrow_path.moveTo(size * .25, size * .5)
-            arrow_path.lineTo(size * .40, size * .65)
-            arrow_path.lineTo(size * .7, size * .325)
-            painter.drawPath(arrow_path.translated(rect.topLeft()))
+#         if self.isChecked():
+#             painter.setPen(QPen(Qt.GlobalColor.white, size * .125, cap=Qt.PenCapStyle.RoundCap, join=Qt.PenJoinStyle.RoundJoin))
+#             arrow_path = QPainterPath()
+#             arrow_path.moveTo(size * .25, size * .5)
+#             arrow_path.lineTo(size * .40, size * .65)
+#             arrow_path.lineTo(size * .7, size * .325)
+#             painter.drawPath(arrow_path.translated(rect.topLeft()))
 
-    def enterEvent(self, event):
-        self.isEnter = True
+#     def enterEvent(self, event):
+#         self.isEnter = True
 
-    def leaveEvent(self, event):
-        self.isEnter = False
+#     def leaveEvent(self, event):
+#         self.isEnter = False
 
 class CheckBox(QWidget):
+    '''
+        自定義勾選框
+        ### Parameters:
+            parent (QWidget): 父窗口部件，預設為None。
+            text (str): 顯示勾選框右側文字內容。
+            **tooltip (str): 自定義提示字框內容文字。
+
+        ### Attributes:
+            text (str): 顯示勾選框右側文字內容。
+
+        ### Usage:
+            checkbox = CheckBox(parent, text="CheckBox")
+    '''
     def __init__(self, text: str="Boolean", parent=None, **kwargs):
         super(CheckBox, self).__init__(parent=parent)
         height = kwargs.get("height", 23)
@@ -81,7 +94,6 @@ class CheckBox(QWidget):
         self.text = text
         
         self.hLayoutBox = QHBoxLayout(self)
-        # self.checkBox = BCheckBox()
         self.checkBox = QCheckBox()
         self.label = QLabel()
         self.label.setObjectName("nodeCheckboxLabel")

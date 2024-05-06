@@ -57,7 +57,7 @@ class Node_Integer(Node):
         self.content.addProgressBar("Integer", minimum=0, maximum=100, tooltip="Output Integer")
 
 class Node_String(Node):
-    def __init__(self, scene, title="String", input=[], output=[1]):
+    def __init__(self, scene, title="String", input=[], output=[2]):
         super().__init__(scene, title, input, output)
         self.node_color = color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[3]
         

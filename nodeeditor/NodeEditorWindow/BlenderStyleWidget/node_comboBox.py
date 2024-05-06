@@ -10,7 +10,7 @@ class ComboBoxItemDelegate(QStyledItemDelegate, ContentBaseSetting):
     '''自定義元素樣式'''
     def paint(self, painter: QPainter, option: QStyleOptionViewItem, index: QModelIndex):
         option_copy = QStyleOptionViewItem(option)
-        # TODO：暫定設定每個元素的高度
+        # HACK：暫定設定每個元素的高度
         option_copy.rect.setHeight(25)
 
         border_radius = 5

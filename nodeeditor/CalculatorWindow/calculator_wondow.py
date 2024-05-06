@@ -125,7 +125,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.items.setWidget(self.listWidget)
         self.items.setFloating(False)
 
-        self.addDockWidget(Qt.DockWidgetArea.RightDockWidgetArea, self.items)
+        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.items)
 
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")

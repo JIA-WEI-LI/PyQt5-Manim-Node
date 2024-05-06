@@ -33,8 +33,13 @@ class LineEdit(QWidget):
         self.setFixedHeight(height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
-        self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=6)
-        self.hLayoutBox.addWidget(self.lineEdit, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, stretch=4)
+        self.lineEdit.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+
+        if self.text != "": 
+            self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=6)
+            self.hLayoutBox.addWidget(self.lineEdit, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, stretch=4)
+        else:
+            self.hLayoutBox.addWidget(self.lineEdit, alignment=Qt.AlignmentFlag.AlignVCenter, stretch=1)
 
         if self.width() > max_width - 3: self.setFixedWidth(max_width - 3)
         self.updateLabelWidth()

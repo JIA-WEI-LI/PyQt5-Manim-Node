@@ -50,7 +50,6 @@ QMessageBox QLabel {
     background-color: transparent;
     color: white;
     font-family: Arial, Helvetica, sans-serif ;
-    font-size: larger;
     width: 40px;
     height: 40px;
 }

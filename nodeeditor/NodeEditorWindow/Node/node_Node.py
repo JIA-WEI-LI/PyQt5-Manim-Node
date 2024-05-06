@@ -42,7 +42,7 @@ class Node(Serializable):
                 socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item, muliti_edges=False)
             else:
                 # HACK: 自製空連結點
-                socket = NullSocket(node=self)
+                socket = NullSocket(node=self, index=counter)
             counter += 1
             
             self.inputs.append(socket)
@@ -145,7 +145,10 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 
         self.inputs, self.outputs = [], []
         for socket_data in data['inputs']:
-            new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            if socket_data['id'] != 0:
+                new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            else:
+                new_socket = NullSocket(node=self, index=socket_data['index'])
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.inputs.append(new_socket)
         for socket_data in data['outputs']:

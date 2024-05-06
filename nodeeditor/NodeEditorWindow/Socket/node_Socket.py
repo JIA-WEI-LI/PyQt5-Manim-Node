@@ -86,3 +86,9 @@ class NullSocket(Serializable):
             ('position', self.position),
             ('socket_type', self.socket_type)
         ])
+    
+    def deserialize(self, data, hashmap={}, restore_id=True):
+        if restore_id: self.id = data['id']
+        self.is_multi_edges = data['multi_edges']
+        hashmap[data['id']] = self
+        return True

@@ -12,3 +12,5 @@ class ContentBaseSetting:
         self.color_GRAY_65 = color_manager.get_color("BLENDERCOLOR", "GRAY_65")
         self.color_clicked = color_manager.get_color("BLENDERCOLOR", "CLICKED")
         self.color_mouseover = color_manager.get_color("BLENDERCOLOR", "HOVER")
+
+        self.content_height = kwargs.get("content_height", 24)

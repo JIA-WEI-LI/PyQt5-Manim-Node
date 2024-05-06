@@ -132,6 +132,7 @@ class NodeContentWidget(QWidget, Serializable):
     def addOutputLabel(self, text:str, **kwargs):
         '''新增輸出文字標籤'''
         label = Label(text, **kwargs)
+        label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
         self.node.graphicsNode.height += 30

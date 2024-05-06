@@ -2,7 +2,9 @@ from PyQt5.QtGui import QFocusEvent
 from PyQt5.QtWidgets import QLabel, QHBoxLayout, QWidget, QLineEdit, QSizePolicy
 from PyQt5.QtCore import Qt
 
-class LineEdit(QWidget):
+from .content_BaseSetting import ContentBaseSetting
+
+class LineEdit(QWidget, ContentBaseSetting):
     '''
         自定義LineEdit部件
         ### Parameters:
@@ -19,7 +21,6 @@ class LineEdit(QWidget):
     '''
     def __init__(self, text: str, max_width:float, parent=None, **kwargs):
         super(LineEdit, self).__init__(parent=parent)
-        height = kwargs.get("height", 23)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
         self.max_width = max_width
@@ -30,7 +31,7 @@ class LineEdit(QWidget):
         self.label.setText(self.text)
         self.lineEdit = QLineEdit()
 
-        self.setFixedHeight(height)
+        self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
         self.lineEdit.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)

@@ -37,7 +37,7 @@ class ControlledProgressBarStyle(QStyle, ContentBaseSetting):
         painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRoundedRect(progress_rect, 3, 3)
 
-class ControlledProgressBar(QProgressBar):
+class ControlledProgressBar(QProgressBar, ContentBaseSetting):
     '''
     自定義進度條
     ### Parameters:
@@ -60,7 +60,6 @@ class ControlledProgressBar(QProgressBar):
     '''
     def __init__(self, label="Value", minimum:int=0, maximum:int=100, parent=None, **kwargs):
         super().__init__(parent)
-        height = kwargs.get("height", 23)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
         initial_percent = kwargs.get("initial_percent", 0.5)
@@ -70,7 +69,7 @@ class ControlledProgressBar(QProgressBar):
         self.label = label
         self.setRange(minimum, maximum)
 
-        self.setFixedHeight(height)
+        self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 

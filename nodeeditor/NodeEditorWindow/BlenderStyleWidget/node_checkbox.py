@@ -72,7 +72,7 @@ from .content_BaseSetting import ContentBaseSetting
 #     def leaveEvent(self, event):
 #         self.isEnter = False
 
-class CheckBox(QWidget):
+class CheckBox(QWidget, ContentBaseSetting):
     '''
         自定義勾選框
         ### Parameters:
@@ -88,7 +88,6 @@ class CheckBox(QWidget):
     '''
     def __init__(self, text: str="Boolean", parent=None, **kwargs):
         super(CheckBox, self).__init__(parent=parent)
-        height = kwargs.get("height", 23)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
         self.text = text
@@ -99,13 +98,13 @@ class CheckBox(QWidget):
         self.label.setObjectName("nodeCheckboxLabel")
         self.label.setText(self.text)
 
-        self.checkBox.setFixedWidth(height-3)
+        self.checkBox.setFixedWidth(self.content_height-3)
         self.checkBox.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
         
         self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
         self.hLayoutBox.addWidget(self.checkBox, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=1)
-        self.setFixedHeight(height)
+        self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)

@@ -49,7 +49,6 @@ class ComboBox(QComboBox, ContentBaseSetting):
     '''
     def __init__(self, parent=None, **kwargs):
         super(ComboBox, self).__init__(parent=parent)
-        height = kwargs.get("height", 23)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
 
@@ -61,7 +60,7 @@ class ComboBox(QComboBox, ContentBaseSetting):
         self.text_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.text_label.setStyleSheet('color: #FFFFFF;')
 
-        self.setFixedHeight(height)
+        self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 
         self.setToolTip("New ComboBox") if tooltip=="" else self.setToolTip(tooltip)

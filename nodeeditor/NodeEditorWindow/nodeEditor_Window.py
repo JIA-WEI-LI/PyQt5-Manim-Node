@@ -16,14 +16,6 @@ class NodeEditorMainWindow(QMainWindow):
         self.name_projuct = 'NodeEditor'
         self.initUI()
 
-    # DELETED：刪除自創工具列按鈕
-    # def createAct(self, name:str, shortcut:str, tooltip:str, callback):
-    #     act = QAction(name, self)
-    #     act.setShortcut(shortcut)
-    #     act.setToolTip(tooltip)
-    #     act.triggered.connect(callback)
-    #     return act
-
     @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
         # 隱藏最上方視窗標題列
@@ -140,10 +132,6 @@ class NodeEditorMainWindow(QMainWindow):
             if fname == '':
                 return
             if os.path.isfile(fname):
-                # self.getCurrentNodeEditorWidget().scene.loadFromFile(fname)
-                # self.statusBar().showMessage("已成功開啟檔案 %s" % fname)
-                # self.getCurrentNodeEditorWidget().filename = fname
-                # self.setTitle()
                 self.getCurrentNodeEditorWidget().fileLoad(fname)
 
     def onFileSave(self) -> bool:

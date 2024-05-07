@@ -63,3 +63,18 @@ class Node_String(Node):
         
         self.content.addOutputLabel("String")
         self.content.addLineEdit("")
+
+class Node_ValueToString(Node):
+    def __init__(self, scene, title="Value to String", input=[1], output=[2]):
+        super().__init__(scene, title, input, output)
+
+        self.content.addOutputLabel("String")
+        self.content.addProgressBar("Value")
+
+class Node_StringToValue(Node):
+    def __init__(self, scene, title="String to Value", input=[2], output=[0, 1]):
+        super().__init__(scene, title, input, output)
+
+        self.content.addComboBox(["Interger", "Float", "Double"])
+        self.content.addOutputLabel("Value")
+        self.content.addLineEdit("String")

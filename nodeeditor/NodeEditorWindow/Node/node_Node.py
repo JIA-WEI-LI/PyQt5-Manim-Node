@@ -32,7 +32,9 @@ class Node(Serializable):
         self.outputs = []
         counter = 0
         for item in output:
-            socket = Socket(node=self, index=counter, position=RIGHT_TOP, socket_type=item, muliti_edges=True)
+            if item != 0:
+                socket = Socket(node=self, index=counter, position=RIGHT_TOP, socket_type=item, muliti_edges=True)
+            else: socket = NullSocket(node=self, index=counter)   # HACK: 自製空連結點
             counter += 1
             self.outputs.append(socket)
         
@@ -40,9 +42,7 @@ class Node(Serializable):
         for item in input:
             if item != 0:
                 socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item, muliti_edges=False)
-            else:
-                # HACK: 自製空連結點
-                socket = NullSocket(node=self, index=counter)
+            else: socket = NullSocket(node=self, index=counter)   # HACK: 自製空連結點
             counter += 1
             
             self.inputs.append(socket)
@@ -148,12 +148,13 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         for socket_data in data['inputs']:
             if socket_data['id'] != 0:
                 new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
-            else:
-                new_socket = NullSocket(node=self, index=socket_data['index'])
+            else: new_socket = NullSocket(node=self, index=socket_data['index'])
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.inputs.append(new_socket)
         for socket_data in data['outputs']:
-            new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            if socket_data['id'] != 0: 
+                new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            else: new_socket = NullSocket(node=self, index=socket_data['index'])
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.outputs.append(new_socket)
 

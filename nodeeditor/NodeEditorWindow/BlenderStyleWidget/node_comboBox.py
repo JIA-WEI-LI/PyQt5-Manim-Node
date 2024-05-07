@@ -17,7 +17,7 @@ class ComboBoxItemDelegate(QStyledItemDelegate, ContentBaseSetting):
         fill_rect = option.rect.adjusted(1, 1, -1, -1)
         
         if option.state & QStyle.StateFlag.State_MouseOver:
-            painter.setBrush(QColor(self.color_GRAY_46))
+            painter.setBrush(QColor(self.color_GRAY_24))
             painter.setPen(Qt.PenStyle.NoPen)
             painter.drawRoundedRect(fill_rect, border_radius, border_radius)
         elif option.state & QStyle.StateFlag.State_Selected:
@@ -61,7 +61,7 @@ class ComboBox(QComboBox, ContentBaseSetting):
         self.text_label.setStyleSheet('color: #FFFFFF;')
 
         self.setFixedHeight(self.content_height)
-        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
         self.setToolTip("New ComboBox") if tooltip=="" else self.setToolTip(tooltip)
 

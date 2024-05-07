@@ -7,6 +7,7 @@ from .content_BaseSetting import ContentBaseSetting
 
 class SpinBoxStyle(QStyle, ContentBaseSetting):
     def drawControl(self, element: QStyle.ControlElement, option: QStyleOption, painter: QPainter, widget: QWidget = None):
+        self.widget = widget
         if element == QStyle.ControlElement.CE_ProgressBar:
             if isinstance(option, QStyleOptionSpinBox):
                 self.drawSpinBox(option, painter)
@@ -18,9 +19,16 @@ class SpinBoxStyle(QStyle, ContentBaseSetting):
         # 繪製背景
         background_rect = option.rect
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.setBrush(QColor(self.color_GRAY_54))
+
+        # 根據滑鼠動作改變顏色
+        if self.widget.isEnter and self.widget.dragging:
+            painter.setBrush(QColor(self.color_GRAY_65))
+        elif self.widget.isEnter and not self.widget.dragging:
+            painter.setBrush(QColor(self.color_GRAY_65))
+        else:
+            painter.setBrush(QColor(self.color_GRAY_54))
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.drawRoundedRect(background_rect, 3, 3)  # 5 是圓角的半徑，可以自行調整
+        painter.drawRoundedRect(background_rect, 3, 3)# 5 是圓角的半徑，可以自行調整
 
     def drawSpinBoxButtons(self, option: QStyleOption, painter: QPainter):
         if option.subControls & QStyle.SubControl.SC_SpinBoxUp:
@@ -56,11 +64,11 @@ class SpinBox(QSpinBox, ContentBaseSetting):
     ### Usage:
         spinBox = ControlledSpinBox(label="Value", minimum=0, maximum=10, initial_percent=0.8)
     '''
-    def __init__(self, label="Value", minimum=0, maximum=100, parent=None, **kwargs):
+    def __init__(self, label="Value", minimum=0, maximum=100000, parent=None, **kwargs):
         super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
-        initial_percent = kwargs.get("initial_percent", 0.5)
+        self.current_value = kwargs.get("value", 1)
 
         self.isEnter = False
         self.dragging = False
@@ -73,11 +81,9 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
-        if not isinstance(initial_percent, float):
-            raise TypeError("initial_percent must be a float")
-        if initial_percent < 0 or initial_percent > 1:
-            raise ValueError("initial_percent must be between 0 and 1")
-        self.setValue(int(initial_percent*100))
+        # if not isinstance(value, int):
+        #     raise TypeError("initial_percent must be a int")
+        self.setValue(int(self.current_value))
 
         self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
 
@@ -107,8 +113,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         painter.drawText(QPointF(5, self.height() / 2 + 5), self.label)
 
         # 繪製數值
-        progress = self.value()
-        text = f"{progress}"
+        text = f"{self.current_value}"
         text_rect = painter.boundingRect(self.rect(), Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
         text_rect.adjust(-5, 0, -5, 0)
         painter.drawText(text_rect, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
@@ -117,14 +122,15 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         '''滑鼠點擊時更新進度'''
         if event.buttons() == Qt.MouseButton.LeftButton and self.rect().contains(event.pos()):
             self.dragging = True
+            self.last_mouse_x = event.x()
             self.update()
-            self.updateProgress(event)
+            self.updateValue(event)
             QApplication.setOverrideCursor(QCursor(Qt.CursorShape.BlankCursor))
 
     def mouseMoveEvent(self, event):
         '''滑鼠移動時，如果正在拖動，更新進度'''
         if hasattr(self, 'dragging') and self.dragging:
-            self.updateProgress(event)
+            self.updateValue(event)
         super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):
@@ -147,19 +153,16 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         self.isEnter = False
         self.update()
 
-    def updateProgress(self, event):
+    def updateValue(self, event):
         mouse_x = event.x()
-        total_width = self.width()
-
-        progress_percent = mouse_x / total_width
-        if progress_percent < 0:
-            self.setValue(0)
-            return
-        if progress_percent > 1:
-            self.setValue(100)
-            return
+        print(" - current_value =", self.current_value, ",  mouse_x = ", mouse_x)
         # 計算實際進度值
-        value = progress_percent * (self.max_value - self.min_value) + self.min_value
+        self.current_value = int(mouse_x)
+        if self.current_value < self.min_value:
+            self.setValue(self.min_value)
+        if self.current_value > self.max_value:
+            self.setValue(self.max_value)
 
+        print(" > min_value =", self.min_value, ", max_value = ", self.max_value, ", current = ", self.current_value)
         # 設置SpinBox的值
-        self.setValue(int(progress_percent * 100))
+        self.setValue(self.current_value)

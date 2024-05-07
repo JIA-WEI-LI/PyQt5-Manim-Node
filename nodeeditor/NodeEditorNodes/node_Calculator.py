@@ -55,7 +55,7 @@ class Node_Integer(Node):
         self.node_color = color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[3]
         
         self.content.addOutputLabel("Value")
-        self.content.addSpinBox("Integer", minimum=0, maximum=100, tooltip="Output Integer")
+        self.content.addSpinBox("Integer", minimum=0, maximum=100000, tooltip="Output Integer")
 
 class Node_String(Node):
     def __init__(self, scene, title="String", input=[], output=[2]):

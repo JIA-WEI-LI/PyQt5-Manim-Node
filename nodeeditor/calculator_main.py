@@ -9,7 +9,8 @@ from memory_profiler import profile
 
 @profile
 def main():
-    app = QApplication(sys.argv)
+    # HACK:  + ['-platform', 'windows:darkmode=1'] 可使用 window 內建的暗黑模式
+    app = QApplication(sys.argv + ['-platform', 'windows:darkmode=1'])
 
     # print(QStyleFactory.keys())
     # app.setStyle('Fusion')    修改不同樣式

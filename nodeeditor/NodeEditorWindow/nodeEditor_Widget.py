@@ -8,6 +8,7 @@ from .nodeEditor_Scene import Scene, InvalidFile
 from .nodeEditor_GraphicsView import NodeGraphicsView
 
 from config.debug import DebugMode, DebugTimer
+from common.style_sheet import StyleSheet
 from NodeEditorNodes.node_Calculator import *
 from NodeEditorNodes.Testing_node import Node_Test
 
@@ -42,6 +43,7 @@ class NodeEditorWidget(QWidget):
         name = os.path.basename(self.filename) if self.isFilenameSet() else "New Graph"
         return name + ("*" if self.isModified() else "")
 
+    @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def fileLoad(self, filename):
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
         try:

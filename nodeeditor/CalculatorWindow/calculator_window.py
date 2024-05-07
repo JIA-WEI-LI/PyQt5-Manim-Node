@@ -118,6 +118,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
                             nodeeditor.close()
         except Exception as e: dumpException(e)
     
+    # @StyleSheet.apply("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss")
     def about(self):
         QMessageBox.about(self, "關於計算器節點編輯器範例",
                           "此 <b>計算器節點編輯器</b> 範例在於如何使用雙介面演示 PyQt5 和 節點編輯器，相關訊息可以參閱： "

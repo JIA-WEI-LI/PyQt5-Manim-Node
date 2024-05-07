@@ -9,7 +9,7 @@ from memory_profiler import profile
 
 @profile
 def main():
-    app = QApplication(sys.argv)
+    app = QApplication(sys.argv + ['-platform', 'windows:darkmode=1'])
     window = NodeEditorMainWindow()
     sys.exit(app.exec_())
 

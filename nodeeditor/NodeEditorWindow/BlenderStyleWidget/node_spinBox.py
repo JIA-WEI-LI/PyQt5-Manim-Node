@@ -157,11 +157,9 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         mouse_x = event.x()
         print(" - current_value =", self.current_value, ",  mouse_x = ", mouse_x)
         # 計算實際進度值
-        self.current_value = int(mouse_x)
-        if self.current_value < self.min_value:
-            self.setValue(self.min_value)
-        if self.current_value > self.max_value:
-            self.setValue(self.max_value)
+        self.current_value += int(mouse_x - self.last_mouse_x)
+        if self.current_value < self.min_value: self.current_value = self.min_value
+        if self.current_value > self.max_value: self.current_value = self.max_value
 
         print(" > min_value =", self.min_value, ", max_value = ", self.max_value, ", current = ", self.current_value)
         # 設置SpinBox的值

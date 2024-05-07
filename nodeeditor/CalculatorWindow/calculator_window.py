@@ -78,6 +78,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
             else:
                 current_nodeeditor.fileSave()   # HACK:不傳遞任何參數，保持原檔案名稱儲存
                 self.statusBar().showMessage("已成功儲存檔案 %s" % current_nodeeditor.filename, 5000)
+                current_nodeeditor.setTitle()
                 return True
 
     def onFileSaveAs(self):

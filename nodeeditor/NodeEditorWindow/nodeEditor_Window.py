@@ -136,21 +136,30 @@ class NodeEditorMainWindow(QMainWindow):
 
     def onFileSave(self) -> bool:
         '''儲存檔案'''
-        if not self.getCurrentNodeEditorWidget().isFilenameSet(): return self.onFileSaveAs()
-        self.getCurrentNodeEditorWidget().fileSave()
-        self.statusBar().showMessage("已成功儲存檔案 %s" % self.getCurrentNodeEditorWidget().filename)
+        current_widget = self.getCurrentNodeEditorWidget()
+        if current_widget is None: return
+
+        if not current_widget.isFilenameSet(): return self.onFileSaveAs()
+
+        current_widget.fileSave()
+        self.statusBar().showMessage("已成功儲存檔案 %s" % current_widget.filename, 5000)
         self.setTitle()
-        if hasattr(self.getCurrentNodeEditorWidget(), "setTitle"):
-            self.getCurrentNodeEditorWidget().setTitle()
+        # HACK: 支援 MDI
+        if hasattr(current_widget, "setTitle"): current_widget.setTitle()
         return True
 
     def onFileSaveAs(self) -> bool:
         '''另存新檔'''
+        current_widget = self.getCurrentNodeEditorWidget()
+        if current_widget is None: return
         fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", filter="JSON files (*.json)")
-        if fname == '':
-            return False
-        self.getCurrentNodeEditorWidget().fileSave(fname)
-        self.statusBar().showMessage("已成功另存新檔 %s" % self.getCurrentNodeEditorWidget().filename)
+        if fname == '': return False
+        current_widget.fileSave(fname)
+        self.statusBar().showMessage("已成功另存新檔 %s" % current_widget.filename, 5000)
+        
+        # HACK: 支援 MDI
+        if hasattr(current_widget, "setTitle"): current_widget.setTitle()
+        else: self.setTitle()
         return True
 
     def onEditUndo(self):

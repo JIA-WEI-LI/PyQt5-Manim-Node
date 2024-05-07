@@ -50,7 +50,6 @@ class Node_Normalize(Node):
 
 class Node_Integer(Node):
     def __init__(self, scene, title="Integer", input=[], output=[1]):
-        # TODO: 使用 SpinBox
         super().__init__(scene, title, input, output)
         self.node_color = color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[3]
         
@@ -70,7 +69,7 @@ class Node_ValueToString(Node):
         super().__init__(scene, title, input, output)
 
         self.content.addOutputLabel("String")
-        self.content.addProgressBar("Value")
+        self.content.addSpinBox("Value", minimum=0, maximum=100000, tooltip="Intput Integer")
 
 class Node_StringToValue(Node):
     def __init__(self, scene, title="String to Value", input=[2], output=[0, 1]):

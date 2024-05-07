@@ -46,19 +46,6 @@ class CalculatorMainWindow(NodeEditorMainWindow):
             self.writeSetting()
             event.accept()
 
-    def updateMenus(self):
-        active = self.activeMdiChild()
-        hasMdiChild = (active is not None)
-        
-        self.actSave.setEnabled(hasMdiChild)
-        self.actSaveAs.setEnabled(hasMdiChild)
-        self.actClose.setEnabled(hasMdiChild)
-        self.actCloseAll.setEnabled(hasMdiChild)
-        self.actTile.setEnabled(hasMdiChild)
-        self.actCascade.setEnabled(hasMdiChild)
-        self.actNext.setEnabled(hasMdiChild)
-        self.actPreviewous.setEnabled(hasMdiChild)
-
     def createActions(self):
         super().createActions()
 
@@ -74,7 +61,10 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.actAbout = QAction("&關於", self, statusTip="Show the application's About box", triggered=self.about)
 
     def getCurrentNodeEditorWidget(self):
-        return self.activeMdiChild()
+        activeSubWindow = self.mdiArea.activeSubWindow()
+        if activeSubWindow:
+            return activeSubWindow.widget()
+        return None
 
     def onFileNew(self):
         try:
@@ -147,6 +137,19 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.helpMenu.addAction(self.actAbout)
         self.helpMenu.setMinimumWidth(150)
 
+    def updateMenus(self):
+        active = self.getCurrentNodeEditorWidget()
+        hasMdiChild = (active is not None)
+        
+        self.actSave.setEnabled(hasMdiChild)
+        self.actSaveAs.setEnabled(hasMdiChild)
+        self.actClose.setEnabled(hasMdiChild)
+        self.actCloseAll.setEnabled(hasMdiChild)
+        self.actTile.setEnabled(hasMdiChild)
+        self.actCascade.setEnabled(hasMdiChild)
+        self.actNext.setEnabled(hasMdiChild)
+        self.actPreviewous.setEnabled(hasMdiChild)
+
     def updateWindowMenu(self):
         self.windowMenu.clear()
         self.windowMenu.addAction(self.actClose)
@@ -171,7 +174,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
 
             action = self.windowMenu.addAction(text)
             action.setCheckable(True)
-            action.setChecked(child is self.activeMdiChild())
+            action.setChecked(child is self.getCurrentNodeEditorWidget())
             action.triggered.connect(self.windowMapper.map)
             self.windowMapper.setMapping(action, window)
 
@@ -205,12 +208,13 @@ class CalculatorMainWindow(NodeEditorMainWindow):
                 return window
         return None
     
-    def activeMdiChild(self):
-        """回傳 NodeEditorWidget"""
-        activeSubWindow = self.mdiArea.activeSubWindow()
-        if activeSubWindow:
-            return activeSubWindow.widget()
-        return None
+    # DELETED
+    # def activeMdiChild(self):
+    #     """回傳 NodeEditorWidget"""
+    #     activeSubWindow = self.mdiArea.activeSubWindow()
+    #     if activeSubWindow:
+    #         return activeSubWindow.widget()
+    #     return None
 
     def setActiveSubWindow(self, window):
         if window:

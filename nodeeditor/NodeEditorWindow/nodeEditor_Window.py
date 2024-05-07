@@ -136,31 +136,30 @@ class NodeEditorMainWindow(QMainWindow):
 
     def onFileSave(self) -> bool:
         '''儲存檔案'''
-        current_widget = self.getCurrentNodeEditorWidget()
-        if current_widget is None: return
+        current_nodeeditor = self.getCurrentNodeEditorWidget()
+        if current_nodeeditor is not None:
+            if not current_nodeeditor.isFilenameSet(): return self.onFileSaveAs()
+            current_nodeeditor.fileSave()
+            self.statusBar().showMessage("已成功儲存檔案 %s" % current_nodeeditor.filename, 5000)
 
-        if not current_widget.isFilenameSet(): return self.onFileSaveAs()
-
-        current_widget.fileSave()
-        self.statusBar().showMessage("已成功儲存檔案 %s" % current_widget.filename, 5000)
-        self.setTitle()
-        # HACK: 支援 MDI
-        if hasattr(current_widget, "setTitle"): current_widget.setTitle()
-        return True
+            # HACK: 支援 MDI
+            if hasattr(current_nodeeditor, "setTitle"): current_nodeeditor.setTitle()
+            else: self.setTitle()
+            return True
 
     def onFileSaveAs(self) -> bool:
         '''另存新檔'''
-        current_widget = self.getCurrentNodeEditorWidget()
-        if current_widget is None: return
-        fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", filter="JSON files (*.json)")
-        if fname == '': return False
-        current_widget.fileSave(fname)
-        self.statusBar().showMessage("已成功另存新檔 %s" % current_widget.filename, 5000)
-        
-        # HACK: 支援 MDI
-        if hasattr(current_widget, "setTitle"): current_widget.setTitle()
-        else: self.setTitle()
-        return True
+        current_nodeeditor = self.getCurrentNodeEditorWidget()
+        if current_nodeeditor is not None:
+            fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", filter="JSON files (*.json)")
+            if fname == '': return False
+            current_nodeeditor.fileSave(fname)
+            self.statusBar().showMessage("已成功另存新檔 %s" % current_nodeeditor.filename, 5000)
+            
+            # HACK: 支援 MDI
+            if hasattr(current_nodeeditor, "setTitle"): current_nodeeditor.setTitle()
+            else: self.setTitle()
+            return True
 
     def onEditUndo(self):
         '''返回上一步'''

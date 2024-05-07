@@ -96,9 +96,11 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 
 * [x] [Node Editor Tutorial 28: Calculator Example Introduction](https://www.youtube.com/watch?v=CQHqzVwXPVo&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=30)
 * [x] [Node Editor Tutorial 29: Refactoring Window, Menu and Actions](https://www.youtube.com/watch?v=esZVsLeQklg&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=31)
-* [x] [Node Editor Tutorial 30: How to create MDI sub-windows](https://www.youtube.com/watch?v=_Nl6lg0MgpI&t=14s)
-* [ ] [Node Editor Tutorial 31: Refactoring Styles + Bonus: Dark Skin](https://www.youtube.com/watch?v=NRJmy3ke4bo&t=50s)( 跳過：使用其他方式取代樣式設定 )
-* [x] [Node Editor Tutorial 32: Refactoring Open, Save, Save As](https://www.youtube.com/watch?v=w6yX-CV1uNw&t=72s)
+* [x] [Node Editor Tutorial 30: How to create MDI sub-windows](https://www.youtube.com/watch?v=_Nl6lg0MgpI&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=32)
+* [ ] [Node Editor Tutorial 31: Refactoring Styles + Bonus: Dark Skin](https://www.youtube.com/watch?v=NRJmy3ke4bo&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=33)( 跳過：使用其他方式取代樣式設定 )
+* [x] [Node Editor Tutorial 32: Refactoring Open, Save, Save As](https://www.youtube.com/watch?v=w6yX-CV1uNw&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=34)
+* [x] [Node Editor Tutorial 33: Finishing Refactoring Open, Save, Save As](https://www.youtube.com/watch?v=3MldRa5OEpE&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=35)
+* [ ] [Node Editor Tutorial 34: Updating Edit Menu](https://www.youtube.com/watch?v=Ajj6wkOdKKk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=36)
 </details>
 
 ---

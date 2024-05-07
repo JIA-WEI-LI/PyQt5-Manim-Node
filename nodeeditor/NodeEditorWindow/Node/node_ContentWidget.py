@@ -145,6 +145,18 @@ class NodeContentWidget(QWidget, Serializable):
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return label
+    
+    def addVectorSpinBox(self, **kwargs):
+        '''新增向量型數值框'''
+        vector = Vector2SpinBox(**kwargs)
+        vector.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.vboxLayout.addWidget(vector)
+        self.node.graphicsNode.height += 60
+        self.contentLists.append(
+            ('outputLabel', {
+                'tooltip': kwargs.get("tooltip", "")
+            }))
+        return vector
 
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value

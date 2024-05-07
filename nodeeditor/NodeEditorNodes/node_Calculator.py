@@ -78,3 +78,12 @@ class Node_StringToValue(Node):
         self.content.addComboBox(["Interger", "Float", "Double"])
         self.content.addOutputLabel("Value")
         self.content.addLineEdit("String")
+
+class Node_Vector2(Node):
+    def __init__(self, scene, title="Vector 2", input=[1, 1], output=[3]):
+        super().__init__(scene, title, input, output)
+
+        self.content.addOutputLabel("Vector")
+        # self.content.addVectorSpinBox()
+        self.content.addSpinBox("X")
+        self.content.addSpinBox("Y")

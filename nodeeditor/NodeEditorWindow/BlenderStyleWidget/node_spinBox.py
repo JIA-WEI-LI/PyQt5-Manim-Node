@@ -2,7 +2,6 @@ from PyQt5.QtWidgets import QApplication, QStyleOptionSpinBox, QStyle, QStyleOpt
 from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QFont
 from PyQt5.QtCore import Qt, QPointF, QEvent
 
-from common.color_sheet import color_manager
 from .content_BaseSetting import ContentBaseSetting
 
 class SpinBoxStyle(QStyle, ContentBaseSetting):

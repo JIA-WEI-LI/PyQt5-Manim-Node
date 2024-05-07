@@ -1,7 +1,7 @@
 import os
 from PyQt5.QtCore import Qt, QSignalMapper, QFileInfo
 from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWidget, QAction, QMessageBox, QFileDialog
-from PyQt5.QtGui import QCloseEvent, QKeySequence
+from PyQt5.QtGui import QCloseEvent, QKeySequence, QBrush, QColor
 
 from common.utils import dumpException
 from common.style_sheet import StyleSheet
@@ -21,6 +21,8 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.mdiArea.setDocumentMode(True)
         self.mdiArea.setTabsClosable(True)
         self.mdiArea.setTabsMovable(True)
+        # HACK: 調整背景顏色
+        self.mdiArea.setBackground(QBrush(QColor(20, 20, 20, 80)))
         self.setCentralWidget(self.mdiArea)
 
         self.mdiArea.subWindowActivated.connect(self.updateMenus)

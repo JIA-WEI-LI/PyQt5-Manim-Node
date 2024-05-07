@@ -1,26 +1,24 @@
-from PyQt5.QtWidgets import QApplication, QStyleOptionSpinBox, QStyle, QStyleOption, QWidget, QSpinBox
+from PyQt5.QtWidgets import QApplication, QStyleOptionSpinBox, QStyle, QStyleOption, QWidget, QSpinBox, QSizePolicy
 from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QFont
-from PyQt5.QtCore import Qt, QPointF
+from PyQt5.QtCore import Qt, QPointF, QEvent
 
 from common.color_sheet import color_manager
+from .content_BaseSetting import ContentBaseSetting
 
-class SpinBoxColorSetting:
-    BLENDER_BACKGROUND = color_manager.get_color("ProgressbarColor", "BLENDER_BACKGROUND")
-    BLENDER_PROGRESSBAR = color_manager.get_color("ProgressbarColor", "BLENDER_PROGRESSBAR")
-
-class SpinBoxStyle(QStyle):
+class SpinBoxStyle(QStyle, ContentBaseSetting):
     def drawControl(self, element: QStyle.ControlElement, option: QStyleOption, painter: QPainter, widget: QWidget = None):
         if element == QStyle.ControlElement.CE_ProgressBar:
             if isinstance(option, QStyleOptionSpinBox):
                 self.drawSpinBox(option, painter)
         elif element == QStyle.ControlElement.CE_SpinBox:
             self.drawSpinBoxButtons(option, painter)
+            self.drawSpinBox(option, painter)  # 繪製SpinBox背景
 
     def drawSpinBox(self, option: QStyleOptionSpinBox, painter: QPainter):
         # 繪製背景
         background_rect = option.rect
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.setBrush(QColor(SpinBoxColorSetting.BLENDER_BACKGROUND))
+        painter.setBrush(QColor(self.color_GRAY_54))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRoundedRect(background_rect, 3, 3)  # 5 是圓角的半徑，可以自行調整
 
@@ -33,50 +31,57 @@ class SpinBoxStyle(QStyle):
     def drawSpinBoxButton(self, button: QStyleOptionSpinBox, option: QStyleOption, painter: QPainter):
         button_rect = self.subControlRect(QStyle.ComplexControl.CC_SpinBox, option, button)
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
-        painter.setBrush(QColor(SpinBoxColorSetting.BLENDER_PROGRESSBAR))
+        painter.setBrush(QColor(self.color_GRAY_54))
         painter.setPen(Qt.PenStyle.NoPen)
         painter.drawRoundedRect(button_rect, 3, 3)
 
-class SpinBox(QSpinBox):
+class SpinBox(QSpinBox, ContentBaseSetting):
     '''
-    自定義可控制數值調整器
+    自定義SpinBox
     ### Parameters:
-        label (str): 調整器的標籤，預設為"Value"。
-        minimum (int): 調整器的最小值，預設為0。
-        maximum (int): 調整器的最大值，預設為10^6。
-        **initial (float): 調整器的初始值，預設為 1。
+        label (str): SpinBox的標籤，預設為"Value"。
+        minimum (int): SpinBox的最小值，預設為0。
+        maximum (int): SpinBox的最大值，預設為100。
+        **initial_percent (float): SpinBox的初始百分比，預設為0.5。
         **tooltip (str): 自定義提示字框內容文字。
 
     ### Attributes:
-        label (str): 調整器的標籤。
-        minimum (int): 調整器的最小值。
-        maximum (int): 調整器的最大值。
+        label (str): SpinBox的標籤。
+        minimum (int): SpinBox的最小值。
+        maximum (int): SpinBox的最大值。
 
     ### Raises:
-        ValueError: 若initial不在範圍內時，會引發此錯誤。
+        ValueError: 若initial_percent不在0~1的範圍內時，會引發此錯誤。
 
     ### Usage:
-        spinBox = SpinBox(label="SpinBox", minimum=0, maximum=10, initial=10)
+        spinBox = ControlledSpinBox(label="Value", minimum=0, maximum=10, initial_percent=0.8)
     '''
-    def __init__(self, label="Value", minimum=0, maximum=100000, parent=None, **kwargs):
+    def __init__(self, label="Value", minimum=0, maximum=100, parent=None, **kwargs):
         super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
-        initial = kwargs.get("initial", 0.5)
+        debug = kwargs.get("debug", False)
+        initial_percent = kwargs.get("initial_percent", 0.5)
 
+        self.isEnter = False
+        self.dragging = False
         self.label = label
         self.setRange(minimum, maximum)
+        
+        self.lineEdit().setVisible(False)
+        self.lineEdit().setDisabled(True)
+        self.setFixedHeight(self.content_height)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
-        self.lineEdit().setStyleSheet("color: transparent;")
-        self.lineEdit().setReadOnly(True)
-        self.lineEdit().setText("")
-
-        if not isinstance(initial, float):
-            raise TypeError("initial must be a float")
-        if initial < self.min_value or initial > self.max_value:
-            raise ValueError("initial must be between minimum and maximum")
-        self.setValue(int(initial))
+        if not isinstance(initial_percent, float):
+            raise TypeError("initial_percent must be a float")
+        if initial_percent < 0 or initial_percent > 1:
+            raise ValueError("initial_percent must be between 0 and 1")
+        self.setValue(int(initial_percent*100))
 
         self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
+
+        if debug: self.setStyleSheet("border: 1px solid red;")
 
     def setRange(self, minimum: int, maximum: int) -> None:
         '''設置進度條範圍'''
@@ -85,7 +90,7 @@ class SpinBox(QSpinBox):
 
     def paintEvent(self, event):
         painter = QPainter(self)
-        style = SpinBoxStyle()
+        style = SpinBoxStyle()  # 使用您定義的SpinBoxStyle
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         opt = QStyleOptionSpinBox()
@@ -108,32 +113,18 @@ class SpinBox(QSpinBox):
         text_rect.adjust(-5, 0, -5, 0)
         painter.drawText(text_rect, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
 
-    def mousePressEvent(self, event: QMouseEvent):
+    def mousePressEvent(self, event):
         '''滑鼠點擊時更新進度'''
         if event.buttons() == Qt.MouseButton.LeftButton and self.rect().contains(event.pos()):
             self.dragging = True
-            self.last_x = event.x()
+            self.update()
+            self.updateProgress(event)
             QApplication.setOverrideCursor(QCursor(Qt.CursorShape.BlankCursor))
 
     def mouseMoveEvent(self, event):
         '''滑鼠移動時，如果正在拖動，更新進度'''
         if hasattr(self, 'dragging') and self.dragging:
-            current_x = event.x()
-            total_width = self.width()
-            
-            # 計算滑鼠水平移動距離
-            delta_x = current_x - self.last_x
-            self.last_x = current_x
-            
-            # 根據移動距離更新 spin_percent
-            spin_percent = self.value() + delta_x / total_width * 100
-            if spin_percent < self.min_value:
-                spin_percent = self.min_value
-            if spin_percent > self.max_value:
-                spin_percent = self.max_value
-            
-            self.setValue(int(spin_percent))
-            
+            self.updateProgress(event)
         super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):
@@ -142,20 +133,33 @@ class SpinBox(QSpinBox):
             self.dragging = False
             # 將滑鼠游標恢復為默認值
             QApplication.restoreOverrideCursor()
+            self.update()
         else:
             super().mouseReleaseEvent(event)
 
-    def updateSpin(self, event):
+    def enterEvent(self, event: QEvent) -> None:
+        super().enterEvent(event)
+        self.isEnter = True
+        self.update()
+
+    def leaveEvent(self, event: QEvent) -> None:
+        super().enterEvent(event)
+        self.isEnter = False
+        self.update()
+
+    def updateProgress(self, event):
         mouse_x = event.x()
         total_width = self.width()
 
-        spin_percent = mouse_x / total_width
-        if spin_percent < self.min_value:
-            self.setValue(self.min_value)
+        progress_percent = mouse_x / total_width
+        if progress_percent < 0:
+            self.setValue(0)
             return
-        if spin_percent > self.max_value:
-            self.setValue(self.max_value)
+        if progress_percent > 1:
+            self.setValue(100)
             return
+        # 計算實際進度值
+        value = progress_percent * (self.max_value - self.min_value) + self.min_value
 
-        # 設置實際的值
-        self.setValue(int(spin_percent))
+        # 設置SpinBox的值
+        self.setValue(int(progress_percent * 100))

@@ -116,16 +116,19 @@ class NodeContentWidget(QWidget, Serializable):
         return button
 
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addSpinBox(self, label:str="Value", **kwargs):
+    def addSpinBox(self, label:str="Value", minimum:int=0, maximum:int=10, **kwargs):
         '''新增可控制數值調整器'''
-        spinBox = SpinBox(label=label, **kwargs)
-        spinBox.setFixedHeight(self.socketSpace)
-        spinBox.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-
-        spinBox.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+        spinBox = SpinBox(label=label, minimum=minimum, maximum=maximum, **kwargs)
         self.vboxLayout.addWidget(spinBox)
         self.node.graphicsNode.height += 30
-
+        self.contentLists.append(
+            ('spinBox', {
+                'label': label,
+                'minium': minimum,
+                'maxium': maximum,
+                'value': 0.5,
+                'tooltip': kwargs.get("tooltip", "")
+            }))
         return spinBox
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)

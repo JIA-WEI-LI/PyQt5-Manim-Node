@@ -146,12 +146,13 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return label
     
-    def addVectorSpinBox(self, **kwargs):
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addVectorSpinBox(self, degree:int=3, **kwargs):
         '''新增向量型數值框'''
-        vector = Vector2SpinBox(**kwargs)
+        vector = VectorSpinBox(degree=degree, **kwargs)
         vector.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.vboxLayout.addWidget(vector)
-        self.node.graphicsNode.height += 60
+        self.node.graphicsNode.height += degree*30
         self.contentLists.append(
             ('outputLabel', {
                 'tooltip': kwargs.get("tooltip", "")

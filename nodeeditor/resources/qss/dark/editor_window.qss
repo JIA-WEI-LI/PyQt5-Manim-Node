@@ -6,6 +6,7 @@ QGraphicsView {
 QMenuBar {
     background-color: #222;
     color: white;
+    font-size: 16px;
 }
 QMenuBar::item {
     background-color: #222;
@@ -19,6 +20,7 @@ QMenuBar::item:selected {
 QMenu {
     background-color: #222;
     color: white;
+    font-size: 14px;
 }
 QMenu::item {
     background-color: #222;

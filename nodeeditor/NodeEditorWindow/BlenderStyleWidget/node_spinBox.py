@@ -109,7 +109,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         painter.setFont(font)
         painter.setBackgroundMode(Qt.BGMode.TransparentMode)
         painter.setPen(QColor(Qt.GlobalColor.white))
-        painter.drawText(QPointF(5, self.height() / 2 + 5), self.label)
+        painter.drawText(QPointF(10, self.height() / 2 + 5), self.label)
 
         # 繪製數值
         text = f"{self.current_value}"

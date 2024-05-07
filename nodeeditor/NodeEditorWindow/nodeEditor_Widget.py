@@ -75,7 +75,7 @@ class NodeEditorWidget(QWidget):
         node_Normalize = Node_Normalize(self.scene)
         node_ValueToString = Node_ValueToString(self.scene)
         node_StringToValue = Node_StringToValue(self.scene)
-        node_Vector2 = Node_Vector2(self.scene)
+        node_Vector2 = Node_Vector3(self.scene)
         node1 = Node_Add(self.scene)
         node2 = Node_Substract(self.scene)
         node3 = Node_Multiply(self.scene)

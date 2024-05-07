@@ -84,7 +84,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         #     raise TypeError("initial_percent must be a int")
         self.setValue(int(self.current_value))
 
-        self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
+        self.setToolTip(self.label) if tooltip=="" else self.setToolTip(tooltip)
 
         if self.debug: self.setStyleSheet("border: 1px solid red;")
 

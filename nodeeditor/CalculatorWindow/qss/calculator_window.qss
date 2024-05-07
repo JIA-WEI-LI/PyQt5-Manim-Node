@@ -1,7 +1,7 @@
 QMenuBar {
     background-color: #222;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
 }
 QMenuBar::item {
     background-color: #222;

@@ -1,5 +1,8 @@
+import os
 import sys
 from PyQt5.QtWidgets import QApplication, QStyleFactory
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from CalculatorWindow.calculator_window import CalculatorMainWindow
 from memory_profiler import profile

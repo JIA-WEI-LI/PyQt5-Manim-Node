@@ -24,6 +24,10 @@ QMenu::item:selected {
     background-color: #555;
     border-radius: 3px;
 }
+QMenu::item:disabled {
+    background-color: #222;
+    color: #999;
+}
 
 QMainWindow {
     background-color: #222;

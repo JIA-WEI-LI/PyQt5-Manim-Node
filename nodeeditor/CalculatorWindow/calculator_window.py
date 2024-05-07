@@ -47,21 +47,31 @@ class CalculatorMainWindow(NodeEditorMainWindow):
             event.accept()
 
     def updateMenus(self):
-        pass
+        active = self.activeMdiChild()
+        hasMdiChild = (active is not None)
+        
+        self.actSave.setEnabled(hasMdiChild)
+        self.actSaveAs.setEnabled(hasMdiChild)
+        self.actClose.setEnabled(hasMdiChild)
+        self.actCloseAll.setEnabled(hasMdiChild)
+        self.actTile.setEnabled(hasMdiChild)
+        self.actCascade.setEnabled(hasMdiChild)
+        self.actNext.setEnabled(hasMdiChild)
+        self.actPreviewous.setEnabled(hasMdiChild)
 
     def createActions(self):
         super().createActions()
 
-        self.closeAct = QAction("&關閉子視窗", self, statusTip="Close the active window", triggered=self.mdiArea.closeActiveSubWindow)
-        self.closeAllAct = QAction("關閉&全視窗", self, statusTip="Close all the windows", triggered=self.mdiArea.closeAllSubWindows)
-        self.tileAct = QAction("&磚瓦式分割", self, statusTip="Tile the windows", triggered=self.mdiArea.tileSubWindows)
-        self.cascadeAct = QAction("&瀑布式分割", self, statusTip="Cascade the windows", triggered=self.mdiArea.cascadeSubWindows)
-        self.nextAct = QAction("&下一視窗", self, shortcut=QKeySequence.StandardKey.NextChild, statusTip="Move the focus to the next window", triggered=self.mdiArea.activateNextSubWindow)
-        self.previousAct = QAction("&上一視窗", self, shortcut=QKeySequence.StandardKey.PreviousChild, statusTip="Move the focus to the previous window", triggered=self.mdiArea.activatePreviousSubWindow)
-        self.separatorAct = QAction(self)
-        self.separatorAct.setSeparator(True)
+        self.actClose = QAction("&關閉子視窗", self, statusTip="Close the active window", triggered=self.mdiArea.closeActiveSubWindow)
+        self.actCloseAll = QAction("關閉&全視窗", self, statusTip="Close all the windows", triggered=self.mdiArea.closeAllSubWindows)
+        self.actTile = QAction("&磚瓦式分割", self, statusTip="Tile the windows", triggered=self.mdiArea.tileSubWindows)
+        self.actCascade = QAction("&瀑布式分割", self, statusTip="Cascade the windows", triggered=self.mdiArea.cascadeSubWindows)
+        self.actNext = QAction("&下一視窗", self, shortcut=QKeySequence.StandardKey.NextChild, statusTip="Move the focus to the next window", triggered=self.mdiArea.activateNextSubWindow)
+        self.actPreviewous = QAction("&上一視窗", self, shortcut=QKeySequence.StandardKey.PreviousChild, statusTip="Move the focus to the previous window", triggered=self.mdiArea.activatePreviousSubWindow)
+        self.actSeparator = QAction(self)
+        self.actSeparator.setSeparator(True)
 
-        self.aboutAct = QAction("&關於", self, statusTip="Show the application's About box", triggered=self.about)
+        self.actAbout = QAction("&關於", self, statusTip="Show the application's About box", triggered=self.about)
 
     def onFileNew(self):
         try:
@@ -129,23 +139,23 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.menuBar().addSeparator()
 
         self.helpMenu = self.menuBar().addMenu('&幫助')
-        self.helpMenu.addAction(self.aboutAct)
+        self.helpMenu.addAction(self.actAbout)
         self.helpMenu.setMinimumWidth(150)
 
     def updateWindowMenu(self):
         self.windowMenu.clear()
-        self.windowMenu.addAction(self.closeAct)
-        self.windowMenu.addAction(self.closeAllAct)
+        self.windowMenu.addAction(self.actClose)
+        self.windowMenu.addAction(self.actCloseAll)
         self.windowMenu.addSeparator()
-        self.windowMenu.addAction(self.tileAct)
-        self.windowMenu.addAction(self.cascadeAct)
+        self.windowMenu.addAction(self.actTile)
+        self.windowMenu.addAction(self.actCascade)
         self.windowMenu.addSeparator()
-        self.windowMenu.addAction(self.nextAct)
-        self.windowMenu.addAction(self.previousAct)
-        self.windowMenu.addAction(self.separatorAct)
+        self.windowMenu.addAction(self.actNext)
+        self.windowMenu.addAction(self.actPreviewous)
+        self.windowMenu.addAction(self.actSeparator)
 
         windows = self.mdiArea.subWindowList()
-        self.separatorAct.setVisible(len(windows)!=0)
+        self.actSeparator.setVisible(len(windows)!=0)
 
         for i, window in enumerate(windows):
             child = window.widget()

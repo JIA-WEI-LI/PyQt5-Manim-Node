@@ -98,7 +98,7 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 * [x] [Node Editor Tutorial 29: Refactoring Window, Menu and Actions](https://www.youtube.com/watch?v=esZVsLeQklg&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=31)
 * [x] [Node Editor Tutorial 30: How to create MDI sub-windows](https://www.youtube.com/watch?v=_Nl6lg0MgpI&t=14s)
 * [ ] [Node Editor Tutorial 31: Refactoring Styles + Bonus: Dark Skin](https://www.youtube.com/watch?v=NRJmy3ke4bo&t=50s)( 跳過：使用其他方式取代樣式設定 )
-* [ ] [Node Editor Tutorial 32: Refactoring Open, Save, Save As](https://www.youtube.com/watch?v=w6yX-CV1uNw&t=72s)
+* [x] [Node Editor Tutorial 32: Refactoring Open, Save, Save As](https://www.youtube.com/watch?v=w6yX-CV1uNw&t=72s)
 </details>
 
 ---

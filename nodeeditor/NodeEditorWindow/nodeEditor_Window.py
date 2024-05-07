@@ -136,11 +136,12 @@ class NodeEditorMainWindow(QMainWindow):
 
     def onFileSave(self) -> bool:
         '''儲存檔案'''
-        if self.getCurrentNodeEditorWidget().filename is None: return self.onFileSaveAs()
+        if not self.getCurrentNodeEditorWidget().isFilenameSet(): return self.onFileSaveAs()
         self.getCurrentNodeEditorWidget().fileSave()
         self.statusBar().showMessage("已成功儲存檔案 %s" % self.getCurrentNodeEditorWidget().filename)
-        
         self.setTitle()
+        if hasattr(self.getCurrentNodeEditorWidget(), "setTitle"):
+            self.getCurrentNodeEditorWidget().setTitle()
         return True
 
     def onFileSaveAs(self) -> bool:

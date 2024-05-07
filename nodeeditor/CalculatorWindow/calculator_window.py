@@ -73,23 +73,26 @@ class CalculatorMainWindow(NodeEditorMainWindow):
 
         self.actAbout = QAction("&關於", self, statusTip="Show the application's About box", triggered=self.about)
 
+    def getCurrentNodeEditorWidget(self):
+        return self.activeMdiChild()
+
     def onFileNew(self):
         try:
             subwnd = self.createMdiChild()
             subwnd.show()
         except Exception as e: dumpException(e)
 
-    def onFileSave(self):
-        '''儲存檔案'''
-        current_nodeeditor = self.activeMdiChild()
-        if current_nodeeditor:
-            if not current_nodeeditor.isFilenameSet():
-                return self.onFileSaveAs()
-            else:
-                current_nodeeditor.fileSave()   # HACK:不傳遞任何參數，保持原檔案名稱儲存
-                self.statusBar().showMessage("已成功儲存檔案 %s" % current_nodeeditor.filename, 5000)
-                current_nodeeditor.setTitle()
-                return True
+    # def onFileSave(self):
+    #     '''儲存檔案'''
+    #     current_nodeeditor = self.getCurrentNodeEditorWidget()
+    #     if current_nodeeditor:
+    #         if not current_nodeeditor.isFilenameSet():
+    #             return self.onFileSaveAs()
+    #         else:
+    #             current_nodeeditor.fileSave()   # HACK:不傳遞任何參數，保持原檔案名稱儲存
+    #             self.statusBar().showMessage("已成功儲存檔案 %s" % current_nodeeditor.filename, 5000)
+    #             current_nodeeditor.setTitle()
+    #             return True
 
     def onFileSaveAs(self):
         '''另存新檔'''

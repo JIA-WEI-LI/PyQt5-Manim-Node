@@ -67,7 +67,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
     def __init__(self, label="Value", minimum=0, maximum=100000, parent=None, **kwargs):
         super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
-        debug = kwargs.get("debug", False)
+        self.debug = kwargs.get("debug", False)
         self.current_value = kwargs.get("value", 1)
 
         self.isEnter = False
@@ -87,7 +87,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
 
         self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
 
-        if debug: self.setStyleSheet("border: 1px solid red;")
+        if self.debug: self.setStyleSheet("border: 1px solid red;")
 
     def setRange(self, minimum: int, maximum: int) -> None:
         '''設置進度條範圍'''
@@ -155,12 +155,11 @@ class SpinBox(QSpinBox, ContentBaseSetting):
 
     def updateValue(self, event):
         mouse_x = event.x()
-        print(" - current_value =", self.current_value, ",  mouse_x = ", mouse_x)
         # 計算實際進度值
         self.current_value += int(mouse_x - self.last_mouse_x)
         if self.current_value < self.min_value: self.current_value = self.min_value
         if self.current_value > self.max_value: self.current_value = self.max_value
 
-        print(" > min_value =", self.min_value, ", max_value = ", self.max_value, ", current = ", self.current_value)
+        if self.debug: print(" > min_value =", self.min_value, ", max_value = ", self.max_value, ", current = ", self.current_value)
         # 設置SpinBox的值
         self.setValue(self.current_value)

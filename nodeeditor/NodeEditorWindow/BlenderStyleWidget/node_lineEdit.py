@@ -1,4 +1,3 @@
-from typing import Optional
 from PyQt5.QtGui import QFocusEvent
 from PyQt5.QtWidgets import QLabel, QHBoxLayout, QWidget, QLineEdit, QSizePolicy
 from PyQt5.QtCore import Qt
@@ -9,7 +8,7 @@ class LineEdit(QWidget, ContentBaseSetting):
     '''
         自定義LineEdit部件
         ### Parameters:
-            text (Optional[str]): QLineEdit部件的標籤文字。
+            text (str): QLineEdit部件的標籤文字。
             max_width (float): QLineEdit部件的最大寬度。
             **tooltip (str): 自定義提示字框內容文字。
 
@@ -20,7 +19,7 @@ class LineEdit(QWidget, ContentBaseSetting):
         ### Usage:
             lineEdit = LineEdit(text="MyLineEdit", max_width=100)
     '''
-    def __init__(self, text: Optional[str], max_width:float, parent=None, **kwargs):
+    def __init__(self, text: str, max_width:float, parent=None, **kwargs):
         super(LineEdit, self).__init__(parent=parent)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
@@ -29,7 +28,7 @@ class LineEdit(QWidget, ContentBaseSetting):
 
         self.hLayoutBox = QHBoxLayout(self)
         self.label = QLabel()
-        if self.text is not None: self.label.setText(self.text)
+        self.label.setText(self.text)
         self.lineEdit = QLineEdit()
 
         self.setFixedHeight(self.content_height)
@@ -37,7 +36,7 @@ class LineEdit(QWidget, ContentBaseSetting):
         self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
         self.lineEdit.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-        if self.text is not None: 
+        if self.text != "": 
             self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=6)
             self.hLayoutBox.addWidget(self.lineEdit, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, stretch=4)
         else:

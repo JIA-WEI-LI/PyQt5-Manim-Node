@@ -33,13 +33,13 @@ class NodeEditorWidget(QWidget):
         self.layout.addWidget(self.view)
 
     def isModified(self):
-        return self.scene.has_been_modified
+        return self.scene.isModified()
 
     def isFilenameSet(self):
         return self.filename is not None
     
     def getSelectedItems(self):
-        return self.scene.nodeGraphicsScene.selectedItems()
+        return self.scene.getSelectedItems()
     
     def hasSelectedItems(self):
         return self.getSelectedItems() != []

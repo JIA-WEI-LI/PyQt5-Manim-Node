@@ -61,7 +61,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         ValueError: 若initial_percent不在0~1的範圍內時，會引發此錯誤。
 
     ### Usage:
-        spinBox = ControlledSpinBox(label="Value", minimum=0, maximum=10, initial_percent=0.8)
+        spinBox = SpinBox(label="Value", minimum=0, maximum=10, initial_percent=0.8)
     '''
     def __init__(self, label="Value", minimum=0, maximum=100000, parent=None, **kwargs):
         super().__init__(parent)

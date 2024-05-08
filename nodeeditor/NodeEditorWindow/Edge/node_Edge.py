@@ -24,13 +24,6 @@ class Edge(Serializable):
         self.end_socket = end_socket
         self.edge_type = edge_type
 
-        # DELETED
-        # self.start_socket.edge = self
-        # if self.end_socket is not None:
-        #     self.end_socket.edge = self
-
-        # self.nodeGraphicsEdge = NodeGraphicsEdgeDirect(self) if edge_type == EDGE_TYPE_DIRECT else NodeGraphicsEdgeBezier(self)
-        # self.updatePositions()
         if DEBUG: print("Edge: ", self.nodeGraphicsEdge.posSource, "to", self.nodeGraphicsEdge.posDestination)
         # self.scene.nodeGraphicsScene.addItem(self.nodeGraphicsEdge)
         self.scene.addEdge(self)

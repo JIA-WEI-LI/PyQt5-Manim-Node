@@ -5,8 +5,8 @@ from .node_spinBox import SpinBox
 
 class VectorSpinBox(QWidget, ContentBaseSetting):
     def __init__(self, degree:list=["x", "y", "z"], parent=None, **kwargs):
-        # TODO: 改成輸入 List[str] 並透過 List 計算維度
         super().__init__(parent)
+        # BUG: 目前此功能高度與節點高度仍有些微落差
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
         spinBox_list = [None] * len(degree)

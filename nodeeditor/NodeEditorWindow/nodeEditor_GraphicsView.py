@@ -328,36 +328,16 @@ class NodeGraphicsView(QGraphicsView):
 
         if type(item) is NodeGraphicsSocket:
             if item.socket != self.drag_start_socket:
-                # DELETED
-                # if DEBUG: print("View::edgeDragEnd -   - , previous End Socket:", self.previousEdge)
-                # if item.socket.hasEdge():
-                #     item.socket.edge.remove()
-                # for edge in item.socket.edges:
-                #     if DEBUG: print("View::edgeDragEnd ~ cleanup edges IN target: ", edge)
-                #     edge.remove()
-                #     if DEBUG: print("View::edgeDragEnd ~ cleanup edges IN target: ", edge, "removed...")
                 if not item.socket.is_multi_edges: 
                     item.socket.removeAllEdges()
                 if not self.drag_start_socket.is_multi_edges:
                     self.drag_start_socket.removeAllEdges()
-                # if DEBUG: print("View::edgeDragEnd - assign End Socket", item.socket)
-                # if self.previousEdge is not None: self.previousEdge.remove()
-                # if DEBUG: print("View::edgeDragEnd - previousEdge edge remove")
-                # self.drag_edge.start_socket = self.drag_start_socket
-                # self.drag_edge.end_socket = item.socket
-                # self.drag_edge.start_socket.setConnectedEdge(self.drag_edge)
-                # self.drag_edge.end_socket.setConnectedEdge(self.drag_edge)
-                # if DEBUG: print("View::edgeDragEnd - reassigned start & end sockets to drag edge", item.socket)
-                # self.drag_edge.updatePositions()
+
                 new_edge = Edge(self.graphicsScene.scene, self.drag_start_socket, item.socket, edge_type=EDGE_TYPE_BEZIER)
                 if DEBUG: print("View::edgeDragEnd ~ created new edge: ", new_edge, " connecting ", new_edge.start_socket, " <--> ", new_edge.end_socket)
                 self.graphicsScene.scene.history.storeHistory("Created new edge by dragging", setModified=True)
                 return True
         
-        # if self.dragEdge is not None: pass  # 檢查 self.dragEdge 是否為 None
-        
-        # if self.previousEdge is not None:
-        #     self.previousEdge.start_socket.edge = self.previousEdge
         if DEBUG: print("View::edgeDragEnd - everything done")
         return False
     

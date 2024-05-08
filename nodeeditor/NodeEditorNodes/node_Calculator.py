@@ -5,7 +5,7 @@ from NodeEditorWindow.Node.node_Node import Node
 from common.color_sheet import color_manager
 
 class Node_Add(Node):
-    def __init__(self, scene, title="Add", input=[1, 1, 1], output=[1]):
+    def __init__(self, scene, title="Add", input=[1, 1], output=[1]):
         super().__init__(scene, title, input, output)
         self.node_color = color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[0]
         

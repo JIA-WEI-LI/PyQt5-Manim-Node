@@ -116,7 +116,7 @@ class NodeContentWidget(QWidget, Serializable):
         return button
 
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
-    def addSpinBox(self, label:str="Value", minimum:int=0, maximum:int=100000, **kwargs):
+    def addSpinBox(self, label:str="Value", minimum:int=0, maximum:int=100000, initial_value:int=1, **kwargs):
         '''新增可控制數值調整器'''
         spinBox = SpinBox(label=label, minimum=minimum, maximum=maximum, **kwargs)
         self.vboxLayout.addWidget(spinBox)
@@ -126,7 +126,7 @@ class NodeContentWidget(QWidget, Serializable):
                 'label': label,
                 'minium': minimum,
                 'maxium': maximum,
-                'value': 1,
+                'value': initial_value,
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return spinBox
@@ -154,7 +154,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.addWidget(vector)
         self.node.graphicsNode.height += len(degree)*30
         self.contentLists.append(
-            ('outputLabel', {
+            ('vectorSpinBox', {
                 'degree': degree,
                 'tooltip': kwargs.get("tooltip", "")
             }))
@@ -199,9 +199,20 @@ class NodeContentWidget(QWidget, Serializable):
                 obj = self.addPushButton(
                     content_data['text'], 
                     tooltip=content_data['tooltip'])
+            elif content_type == 'spinBox': 
+                obj = self.addSpinBox(
+                    content_data['label'],
+                    content_data['minium'],
+                    content_data['maxium'], 
+                    initial_value=content_data['value'],
+                    tooltip=content_data['tooltip'])
             elif content_type == 'outputLabel': 
                 obj = self.addOutputLabel(
                     content_data['text'], 
+                    tooltip=content_data['tooltip'])
+            elif content_type == 'vectorSpinBox': 
+                obj = self.addVectorSpinBox(
+                    content_data['degree'],
                     tooltip=content_data['tooltip'])
             else: print("\033[93m Wrong type: \033[0m", content_type)
         return True

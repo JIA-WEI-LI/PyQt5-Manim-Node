@@ -27,7 +27,6 @@ class NodeEditorWidget(QWidget):
 
         # 創建圖像場景
         self.scene = Scene()
-        self.addNodes()
 
         # 創建圖像視圖
         self.view = NodeGraphicsView(self.scene.nodeGraphicsScene, self)
@@ -54,6 +53,12 @@ class NodeEditorWidget(QWidget):
     def getUserFriendlyFilename(self):
         name = os.path.basename(self.filename) if self.isFilenameSet() else "New Graph"
         return name + ("*" if self.isModified() else "")
+    
+    def fileNew(self):
+        self.scene.clear()
+        self.filename = None
+        self.scene.history.clear()
+        self.scene.history.storeInitialHistoryStamp()
 
     @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def fileLoad(self, filename):
@@ -61,6 +66,8 @@ class NodeEditorWidget(QWidget):
         try:
             self.scene.loadFromFile(filename)
             self.filename = filename
+            self.scene.history.clear()
+            self.scene.history.storeInitialHistoryStamp()
             return True
         except InvalidFile as e:
             print(e)
@@ -110,3 +117,5 @@ class NodeEditorWidget(QWidget):
 
         # edge1 = Edge(self.scene, node2.outputs[0], node1.inputs[0])
         # edge1 = Edge(self.scene, node2.outputs[0], node3.inputs[0], edge_type=2)
+
+        self.scene.history.storeInitialHistoryStamp()

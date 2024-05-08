@@ -71,6 +71,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
     def onFileNew(self):
         try:
             subwnd = self.createMdiChild()
+            subwnd.widget().fileNew()
             subwnd.show()
         except Exception as e: dumpException(e)
 

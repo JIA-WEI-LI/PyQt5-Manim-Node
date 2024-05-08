@@ -11,6 +11,8 @@ from memory_profiler import profile
 def main():
     app = QApplication(sys.argv + ['-platform', 'windows:darkmode=1'])
     window = NodeEditorMainWindow()
+    window.nodeEditor.addNodes()
+
     sys.exit(app.exec_())
 
 if __name__ == '__main__':

@@ -12,15 +12,6 @@ class Node_Add(Node):
         self.content.addOutputLabel("Output")
         label1 = self.content.addInputLabel("Input A", tooltip="First input number")
         label2 = self.content.addInputLabel("Input B", tooltip="Second input number")
-        label3 = self.content.addInputLabel("Input C", tooltip="Third input number")
-        geo1 = label1.geometry()
-        geo2 = label2.geometry()
-        geo3 = label3.geometry()
-
-        print("Spacing : ", geo1.top()-geo2.top(), "top1: ", geo1.top(), "top2:", geo2.top())
-        print("Spacing : ", geo1.bottom()-geo2.top(), "bottom1: ", geo1.bottom(), "top2:", geo2.top())
-        print("Spacing : ", geo1.bottom()-geo2.bottom(), "bottom1: ", geo1.bottom(), "bottom 2:", geo2.bottom())
-        print("Spacing h: ", geo1.height())
 
 class Node_Substract(Node):
     def __init__(self, scene, title="Substract", input=[1, 1], output=[1]):

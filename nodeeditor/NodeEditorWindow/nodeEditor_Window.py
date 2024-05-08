@@ -50,11 +50,11 @@ class NodeEditorMainWindow(QMainWindow):
         self.nodeEditor.view.scenePosChanged.connect(self.onScenePosChanged)
 
     def createActions(self):
-        self.actNew = QAction('&新增檔案', self, shortcut='Ctrl+N', statusTip="新增檔案", triggered=self.onFileNew)
+        self.actNew = QAction(QIcon(Icon.ICON_DOCUMENT), '&新增檔案', self, shortcut='Ctrl+N', statusTip="新增檔案", triggered=self.onFileNew)
         self.actOpen = QAction('&開啟檔案', self,  shortcut='Ctrl+O', statusTip="開啟檔案", triggered=self.onFileOpen)
         self.actSave = QAction('&儲存檔案', self,  shortcut='Ctrl+S', statusTip="儲存檔案", triggered=self.onFileSave)
         self.actSaveAs = QAction('&另存新檔', self,  shortcut='Ctrl+Shift+S', statusTip="另存新檔", triggered=self.onFileSaveAs)
-        self.actExit = QAction('&退出', self,  shortcut='Ctrl+Q', statusTip="退出應用程式", triggered=self.close)
+        self.actExit = QAction(QIcon(Icon.ICON_POWER), '&退出', self,  shortcut='Ctrl+Q', statusTip="退出應用程式", triggered=self.close)
 
         self.actUndo = QAction('&上一步', self,  shortcut='Ctrl+Z', statusTip="返回上一步", triggered=self.onEditUndo)
         self.actRedo = QAction('&下一步', self,  shortcut='Ctrl+Shift+Z', statusTip="返回下一步", triggered=self.onEditRedo)
@@ -67,7 +67,7 @@ class NodeEditorMainWindow(QMainWindow):
         # 主畫面選單欄選擇
         menubar = self.menuBar()
         self.fileMenu = menubar.addMenu('&檔案')
-        self.fileMenu.setMinimumWidth(150)
+        self.fileMenu.setMinimumWidth(200)
         self.fileMenu.addAction(self.actNew)
         self.fileMenu.addSeparator()
         self.fileMenu.addAction(self.actOpen)
@@ -77,7 +77,7 @@ class NodeEditorMainWindow(QMainWindow):
         self.fileMenu.addAction(self.actExit)
 
         self.editMenu = menubar.addMenu("&編輯")
-        self.editMenu.setMinimumWidth(150)
+        self.editMenu.setMinimumWidth(200)
         self.editMenu.addAction(self.actUndo)
         self.editMenu.addAction(self.actRedo)
         self.editMenu.addSeparator()

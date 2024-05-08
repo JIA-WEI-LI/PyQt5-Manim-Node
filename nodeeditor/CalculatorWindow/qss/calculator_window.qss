@@ -97,6 +97,8 @@ QListWidget::item:hover {
 QDockWidget {
     background-color: #222;
     color: white;
+    font-family: Arial, Helvetica, sans-serif ;
+    font-size: 14px;
 }
 QDockWidget::close-button {
     background-color: transparent;

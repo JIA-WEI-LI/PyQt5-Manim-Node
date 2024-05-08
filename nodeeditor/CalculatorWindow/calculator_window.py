@@ -136,7 +136,6 @@ class CalculatorMainWindow(NodeEditorMainWindow):
 
     def updateEditMenu(self):
         '''設定 工具列-編輯 在無法使用時不顯示；可使用時顯示'''
-        print("update Edit Menu")
         active = self.getCurrentNodeEditorWidget()
         hasMdiChild = (active is not None)
 

@@ -31,18 +31,7 @@ class NodeContentWidget(QWidget, Serializable):
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addCheckbox(self, text:str, **kwargs):
-        ''' 新增自定義勾選框
-            ### Parameters:
-                parent (QWidget): 父窗口部件，預設為None。
-                text (str): 顯示勾選框右側文字內容。
-                **tooltip (str): 自定義提示字框內容文字。
-
-            ### Attributes:
-                text (str): 顯示勾選框右側文字內容。
-
-            ### Usage:
-                self.content.addCheckBox(text="CheckBox")
-        '''
+        '''新增二態複選框'''
         checkbox = CheckBox(text, debug=DEBUG, **kwargs)
         self.vboxLayout.addWidget(checkbox)
         self.node.graphicsNode.height += 30
@@ -56,17 +45,7 @@ class NodeContentWidget(QWidget, Serializable):
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addComboBox(self, items:list=["List 1", "List 2", "List 3"], **kwargs):
-        ''' 新增自定義下拉式選單
-            ### Parameters:
-                parent (QWidget): 父窗口部件，預設為None。
-                **tooltip (str): 自定義提示字框內容文字。
-
-            ### Attributes:
-                text_label (QLabel): 顯示當前選擇文本的標籤。
-
-            ### Usage:
-                self.content.addComboBox = ComboBox(["a", "b", "c"])
-        '''
+        '''新增下拉式選單'''
         comboBox = ComboBox(**kwargs)
         comboBox.addItems(items)
         self.vboxLayout.addWidget(comboBox)
@@ -80,18 +59,7 @@ class NodeContentWidget(QWidget, Serializable):
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addInputLabel(self, text:str, **kwargs):
-        ''' 新增自定義文字
-            ### Parameters:
-                parent (QWidget): 父窗口部件，預設為None。
-                text (str): 顯示文字內容。
-                **tooltip (str): 自定義提示字框內容文字。
-
-            ### Attributes:
-                text (str): 顯示文字內容。
-
-            ### Usage:
-                self.content.addLabel(text="mylabel")
-        '''
+        '''新增輸入文字標籤'''
         label = Label(text, **kwargs)
         label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
@@ -105,19 +73,7 @@ class NodeContentWidget(QWidget, Serializable):
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addLineEdit(self, text:str, **kwargs):
-        ''' 新增自定義單行文件輸入
-            ### Parameters:
-                text (str): QLineEdit部件的標籤文字。
-                max_width (float): QLineEdit部件的最大寬度。
-                **tooltip (str): 自定義提示字框內容文字。
-
-            ### Attributes:
-                text (str): QLineEdit部件的標籤文字。
-                max_width (float): QLineEdit部件的最大寬度。
-
-            ### Usage:
-                self.content.addLineEdit(text="MyLineEdit", max_width=100)
-        '''
+        '''新增單行文字輸入框'''
         lineEdit = LineEdit(text, self.width(), **kwargs)
         self.vboxLayout.addWidget(lineEdit)
         self.node.graphicsNode.height += 30
@@ -131,25 +87,7 @@ class NodeContentWidget(QWidget, Serializable):
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addProgressBar(self, label:str="Value", minimum:int=0, maximum:int=10, **kwargs):
-        '''新增自定義進度條
-            ### Parameters:
-                label (str): 進度條的標籤，預設為"Value"。
-                minimum (int): 進度條的最小值，預設為0。
-                maximum (int): 進度條的最大值，預設為100。
-                **initial_percent (float): 進度條的初始百分比，預設為0.5。
-                **tooltip (str): 自定義提示字框內容文字。
-
-            ### Attributes:
-                label (str): 進度條的標籤。
-                minimum (int): 進度條的最小值。
-                maximum (int): 進度條的最大值。
-
-            ### Raises:
-                ValueError: 若initial_percent不在0~1的範圍內時，會引發此錯誤。
-
-            ### Usage:
-                progressBar = ControlledProgressBar(label="Progress", minimum=0, maximum=10, initial_percent=0.8)
-        '''
+        '''新增可控制進度條'''
         progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, **kwargs)
         self.vboxLayout.addWidget(progressBar)
         self.node.graphicsNode.height += 30
@@ -179,25 +117,7 @@ class NodeContentWidget(QWidget, Serializable):
 
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addSpinBox(self, label:str="Value", minimum:int=0, maximum:int=100000, **kwargs):
-        ''' 新增自定義 SpinBox
-            ### Parameters:
-                label (str): SpinBox的標籤，預設為"Value"。
-                minimum (int): SpinBox的最小值，預設為0。
-                maximum (int): SpinBox的最大值，預設為100。
-                **initial_percent (float): SpinBox的初始百分比，預設為0.5。
-                **tooltip (str): 自定義提示字框內容文字。
-
-            ### Attributes:
-                label (str): SpinBox的標籤。
-                minimum (int): SpinBox的最小值。
-                maximum (int): SpinBox的最大值。
-
-            ### Raises:
-                ValueError: 若initial_percent不在0~1的範圍內時，會引發此錯誤。
-
-            ### Usage:
-                self.content.addSpinBox(label="Value", minimum=0, maximum=10, initial_percent=0.8)
-        '''
+        '''新增可控制數值調整器'''
         spinBox = SpinBox(label=label, minimum=minimum, maximum=maximum, **kwargs)
         self.vboxLayout.addWidget(spinBox)
         self.node.graphicsNode.height += 30

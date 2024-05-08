@@ -18,7 +18,6 @@ class LineEdit(QWidget, ContentBaseSetting):
             max_width (float): QLineEdit部件的最大寬度。
 
         ### Usage:
-            lineEdit = LineEdit(text="", max_width=100)
             lineEdit = LineEdit(text="MyLineEdit", max_width=100)
     '''
     def __init__(self, text: Optional[str], max_width:float, parent=None, **kwargs):

@@ -115,7 +115,10 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.helpMenu.addAction(self.actAbout)
         self.helpMenu.setMinimumWidth(150)
 
+        self.editMenu.aboutToShow.connect(self.updateEditMenu)
+
     def updateMenus(self):
+        '''設定 工具列-檔案 在無法使用時不顯示；可使用時顯示'''
         active = self.getCurrentNodeEditorWidget()
         hasMdiChild = (active is not None)
         
@@ -128,7 +131,24 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.actNext.setEnabled(hasMdiChild)
         self.actPreviewous.setEnabled(hasMdiChild)
 
+        self.updateEditMenu()
+
+    def updateEditMenu(self):
+        '''設定 工具列-編輯 在無法使用時不顯示；可使用時顯示'''
+        print("update Edit Menu")
+        active = self.getCurrentNodeEditorWidget()
+        hasMdiChild = (active is not None)
+
+        self.actPaste.setEnabled(hasMdiChild)
+        self.actCut.setEnabled(hasMdiChild and active.hasSelectedItems())
+        self.actCopy.setEnabled(hasMdiChild and active.hasSelectedItems())
+        self.actDeleted.setEnabled(hasMdiChild and active.hasSelectedItems())
+
+        self.actUndo.setEnabled(hasMdiChild and active.canUndo())
+        self.actRedo.setEnabled(hasMdiChild and active.canRedo())
+
     def updateWindowMenu(self):
+        '''設定 工具列-視窗 在無法使用時不顯示；可使用時顯示'''
         self.windowMenu.clear()
         self.windowMenu.addAction(self.actClose)
         self.windowMenu.addAction(self.actCloseAll)
@@ -160,6 +180,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         pass
 
     def createNodesDock(self):
+        '''創造可移動式分割視窗'''
         self.listWidget = QListWidget()
         self.listWidget.addItem("Add")
         self.listWidget.addItem("Substract")

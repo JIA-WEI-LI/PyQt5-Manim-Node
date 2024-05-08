@@ -39,6 +39,18 @@ class NodeEditorWidget(QWidget):
     def isFilenameSet(self):
         return self.filename is not None
     
+    def getSelectedItems(self):
+        return self.scene.nodeGraphicsScene.selectedItems()
+    
+    def hasSelectedItems(self):
+        return self.getSelectedItems() != []
+    
+    def canUndo(self):
+        return self.scene.history.canUndo()
+    
+    def canRedo(self):
+        return self.scene.history.canRedo()
+    
     def getUserFriendlyFilename(self):
         name = os.path.basename(self.filename) if self.isFilenameSet() else "New Graph"
         return name + ("*" if self.isModified() else "")

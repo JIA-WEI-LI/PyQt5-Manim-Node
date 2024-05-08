@@ -124,7 +124,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.contentLists.append(
             ('lineEdit', {
                 'text': text,
-                'current_text': "",
+                'max_width': self.width(),
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return lineEdit
@@ -267,6 +267,7 @@ class NodeContentWidget(QWidget, Serializable):
             elif content_type == 'lineEdit': 
                 obj = self.addLineEdit(
                     content_data['text'], 
+                    content_data['max_width'],
                     tooltip=content_data['tooltip'])
             elif content_type == 'progressBar': 
                 obj = self.addProgressBar(

@@ -117,7 +117,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         text_rect.adjust(-5, 0, -5, 0)
         painter.drawText(text_rect, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
 
-    def mousePressEvent(self, event):
+    def mousePressEvent(self, event: QMouseEvent):
         '''滑鼠點擊時更新進度'''
         if event.buttons() == Qt.MouseButton.LeftButton and self.rect().contains(event.pos()):
             self.dragging = True
@@ -126,13 +126,13 @@ class SpinBox(QSpinBox, ContentBaseSetting):
             self.updateValue(event)
             QApplication.setOverrideCursor(QCursor(Qt.CursorShape.BlankCursor))
 
-    def mouseMoveEvent(self, event):
+    def mouseMoveEvent(self, event: QMouseEvent):
         '''滑鼠移動時，如果正在拖動，更新進度'''
         if hasattr(self, 'dragging') and self.dragging:
             self.updateValue(event)
         super().mouseMoveEvent(event)
 
-    def mouseReleaseEvent(self, event):
+    def mouseReleaseEvent(self, event: QMouseEvent):
         '''釋放滑鼠後，停止拖動'''
         if hasattr(self, 'dragging') and self.dragging:
             self.dragging = False
@@ -154,8 +154,9 @@ class SpinBox(QSpinBox, ContentBaseSetting):
 
     def updateValue(self, event):
         mouse_x = event.x()
+        speed = 100 if QApplication.keyboardModifiers() & Qt.KeyboardModifier.ControlModifier else 1
         # 計算實際進度值
-        self.current_value += int(mouse_x - self.last_mouse_x)
+        self.current_value += int((mouse_x - self.last_mouse_x) / speed)
         if self.current_value < self.min_value: self.current_value = self.min_value
         if self.current_value > self.max_value: self.current_value = self.max_value
 

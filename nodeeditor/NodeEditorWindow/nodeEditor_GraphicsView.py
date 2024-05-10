@@ -202,8 +202,8 @@ class NodeGraphicsView(QGraphicsView):
             return
 
         if self.rubberBandDraggingRectangle:
-            self.graphicsScene.scene.history.storeHistory("Selection changed")
             self.rubberBandDraggingRectangle = True
+            self.graphicsScene.scene.history.storeHistory("Selection changed")
             if DEBUG: print("-- RMB Release rubberBandDraggingRectangle: ", self.rubberBandDraggingRectangle)
 
         if DEBUG: print("-- RMB Release 2, Drag Mode: ", self.dragMode(), " self.node = ", self.mode)

@@ -20,28 +20,22 @@ class NodeGraphicsNode(QGraphicsItem):
         
         self.titleFont = QFont("Arial", 11)
         
+        self._was_moved = False
+        self._last_selected_stste = False
+
+        self.initSize()
+        self.initUI()
+
+    def initSize(self):
         self.width = 180  # 節點寬高
-        # self.height = 240
-        self.padding = 4.0  # 連結點位置出血區
+        self._padding = 4.0  # 連結點位置出血區
         self.edgeSize = 10.0
         self.titleHeight = 26.0
         self.titlePadding = 6.0
+        self.height = self.titleHeight + 2*self._padding
 
-        self.height = self.titleHeight + 2*self.padding
-        
-        # 標題
-        self.initTitle()
-        self.title = self.node.title
-        
-        # 連結點
-        self.initSockets()
-
-        # 內部元素
-        self.initContent()
-        
-        self.initUI()
-
-        self.wasMoved = False
+    def onSelected(self):
+        print("graphicsNode onSelecterd")
 
     def mouseMoveEvent(self, event: QGraphicsSceneMouseEvent) -> None:
         '''滑鼠移動事件'''
@@ -52,15 +46,19 @@ class NodeGraphicsNode(QGraphicsItem):
             if node.graphicsNode.isSelected():
                 node.updateConnectedEdges()
 
-        self.wasMoved = True
+        self._was_moved = True
 
     def mouseReleaseEvent(self, event: QGraphicsSceneMouseEvent) -> None:
         '''滑鼠放開事件'''
         super().mouseReleaseEvent(event)
 
-        if self.wasMoved:
-            self.wasMoved = False
+        if self._was_moved:
+            self._was_moved = False
             self.node.scene.history.storeHistory("Node moved", setModified=True)
+
+        if self._last_selected_stste != self.isSelected():
+            self._last_selected_stste = self.isSelected()
+            self.onSelected()
         
     @property
     def title(self): return self._title
@@ -81,6 +79,11 @@ class NodeGraphicsNode(QGraphicsItem):
     def initUI(self):
         self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsSelectable)
         self.setFlag(QGraphicsItem.GraphicsItemFlag.ItemIsMovable)
+
+        self.initTitle()
+        self.title = self.node.title
+        self.initSockets()
+        self.initContent()
     
     def initTitle(self):
         '''節點主名稱標題'''

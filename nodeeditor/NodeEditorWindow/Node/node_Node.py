@@ -70,18 +70,18 @@ class Node(Serializable):
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # BUG：如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + (index + len(self.output)) * (space + 1) * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + (index + len(self.output)) * (space + 1) * self.socketSpace
             if DEBUG: print(f"Node {self.id} ---> Pos {index} is bottom, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
-+ 2 * padding: {2*int(self.graphicsNode.padding)} \
++ 2 * padding: {2*int(self.graphicsNode._padding)} \
 + edgeSize: {int(self.graphicsNode.edgeSize)} \
 + (index: {int(index)} +len(output): {int(len(self.output))}) \
 * socketSpace: {int(self.socketSpace)}")
         else:
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding + self.graphicsNode.edgeSize + index * (space + 1) * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + index * (space + 1) * self.socketSpace
             if DEBUG: print(f"Node {self.id} ---> Pos {index} is top, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
-+ 2 * padding: {2*int(self.graphicsNode.padding)} \
++ 2 * padding: {2*int(self.graphicsNode._padding)} \
 + edgeSize: {int(self.graphicsNode.edgeSize)} \
 + (index: {int(index)} +len(output): {int(len(self.output))}) \
 * socketSpace: {int(self.socketSpace)}")
@@ -142,7 +142,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         
         data['inputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
         data['outputs'].sort(key=lambda socket: socket['index'] + socket['position'] * 10000)
-        self.graphicsNode.height = self.graphicsNode.titleHeight + 2* self.graphicsNode.padding
+        self.graphicsNode.height = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding
 
         self.inputs, self.outputs = [], []
         for socket_data in data['inputs']:

@@ -43,16 +43,17 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return checkbox
     
-    def addColorPicker(self, **kwargs):
+    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
+    def addColorPickerButton(self, **kwargs):
         '''新增顏色選擇按鈕'''
-        colorPicker = ColorPicker(**kwargs)
-        self.vboxLayout.addWidget(colorPicker)
+        colorPickerButton = ColorPickerButton(**kwargs)
+        self.vboxLayout.addWidget(colorPickerButton)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
-            ('colorPicker', {
+            ('colorPickerButton', {
                 'tooltip': kwargs.get("tooltip", "")
             }))
-        return colorPicker
+        return colorPickerButton
     
     @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addComboBox(self, items:list=["List 1", "List 2", "List 3"], **kwargs):

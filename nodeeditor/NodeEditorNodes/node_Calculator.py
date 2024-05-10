@@ -92,3 +92,12 @@ class Node_Vector3(Node):
 
         self.content.addOutputLabel("Vector")
         self.content.addVectorSpinBox()
+
+class Node_Color(Node):
+    def __init__(self, scene, title="Color", input=[], output=[1, 1, 1]):
+        super().__init__(scene, title, input, output)
+
+        self.content.addOutputLabel("RGB")
+        self.content.addOutputLabel("HSV")
+        self.content.addOutputLabel("HEX")
+        self.content.addColorPickerButton()

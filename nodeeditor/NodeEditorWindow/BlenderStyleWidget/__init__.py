@@ -1,6 +1,6 @@
-__all__ = ['CheckBox', 'ColorPicker', 'ComboBox', 'Label', 'LineEdit', 'ControlledProgressBar', 'PushButton', 'SpinBox', 'VectorSpinBox']
+__all__ = ['CheckBox', 'ColorPickerButton', 'ComboBox', 'Label', 'LineEdit', 'ControlledProgressBar', 'PushButton', 'SpinBox', 'VectorSpinBox']
 from .node_checkbox import CheckBox
-from .node_colorPicker import ColorPicker
+from .node_colorPicker import ColorPickerButton
 from .node_comboBox import ComboBox
 from .node_label import Label
 from .node_lineEdit import LineEdit

@@ -23,6 +23,10 @@ QCheckBox::indicator:checked {
     image: url(nodeeditor\\resources\\icons\\icon_check.svg);
 }
 
+QColorDialog {
+    background-color: #222;
+}
+
 QPushButton {
     color: white; 
     background-color: transparent; 

@@ -19,7 +19,7 @@ class LineEdit(QWidget, ContentBaseSetting):
         ### Usage:
             lineEdit = LineEdit(text="MyLineEdit", max_width=100)
     '''
-    def __init__(self, text: str, max_width:float, parent=None, **kwargs):
+    def __init__(self, text: str, max_width:float=100, parent=None, **kwargs):
         super(LineEdit, self).__init__(parent=parent)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)

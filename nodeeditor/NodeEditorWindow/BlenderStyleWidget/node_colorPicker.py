@@ -1,10 +1,9 @@
-from PyQt5.QtWidgets import QPushButton, QVBoxLayout, QColorDialog, QSizePolicy
-from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QColor
-
+from PyQt5.QtWidgets import QPushButton, QSizePolicy, QDialog, QColorDialog
 from .content_BaseSetting import ContentBaseSetting
+from .node_lineEdit import LineEdit
+from common.style_sheet import StyleSheet
 
-class ColorPicker(QPushButton, ContentBaseSetting):
+class ColorPickerButton(QPushButton, ContentBaseSetting):
     '''
     自定義顏色選擇器按鈕
     ### Parameters:
@@ -31,9 +30,22 @@ class ColorPicker(QPushButton, ContentBaseSetting):
             self.setStyleSheet("border: 1px solid red;")
 
     def pickColor(self):
-        # 顯示顏色選擇器對話框
-        color = QColorDialog.getColor()
+        # 創建顏色選擇器對話框
+        colorPickerDialog = ColorDialog()
+        color = colorPickerDialog.exec_()
+        
+        if color == QDialog.Accepted:
+            selected_color = colorPickerDialog.selectedColor()
+            self.setStyleSheet(f"background-color: {selected_color.name()}")
 
-        if color.isValid():
-            # 如果選擇有效的顏色，則設置按鈕背景色
-            self.setStyleSheet(f"background-color: {color.name()}")
+
+class ColorDialog(QColorDialog):
+    '''
+    自定義的顏色選擇對話框
+    '''
+    def __init__(self, parent=None):
+        super().__init__(parent)
+
+    def showEvent(self, event):
+        super().showEvent(event)
+        self.setStyleSheet("background-color: #CCCCCC;")

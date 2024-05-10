@@ -21,7 +21,7 @@ class NodeGraphicsNode(QGraphicsItem):
         self.titleFont = QFont("Arial", 11)
         
         self._was_moved = False
-        self._last_selected_stste = False
+        self._last_selected_state = False
 
         self.initSize()
         self.initUI()
@@ -35,7 +35,7 @@ class NodeGraphicsNode(QGraphicsItem):
         self.height = self.titleHeight + 2*self._padding
 
     def onSelected(self):
-        print("graphicsNode onSelecterd")
+        self.node.scene.nodeGraphicsScene.itemSelected.emit()
 
     def mouseMoveEvent(self, event: QGraphicsSceneMouseEvent) -> None:
         '''滑鼠移動事件'''
@@ -56,8 +56,9 @@ class NodeGraphicsNode(QGraphicsItem):
             self._was_moved = False
             self.node.scene.history.storeHistory("Node moved", setModified=True)
 
-        if self._last_selected_stste != self.isSelected():
-            self._last_selected_stste = self.isSelected()
+        if self._last_selected_state != self.isSelected():
+            self.node.scene.resetLastSelectedStates()
+            self._last_selected_state = self.isSelected()
             self.onSelected()
         
     @property

@@ -20,7 +20,7 @@ class NodeGraphicsEdge(QGraphicsPathItem):
     def __init__(self, edge, parent=None):
         super().__init__(parent)
         self.edge = edge
-        self._last_selected_stste = False
+        self._last_selected_state = False
 
         self.initUI()
         self.initAssets()
@@ -41,12 +41,13 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         self._penDragging.setStyle(Qt.PenStyle.DashLine)
 
     def onSelected(self):
-        print("graphicsEdge onSelecterd")
+        self.edge.scene.nodeGraphicsScene.itemSelected.emit()
 
     def mouseReleaseEvent(self, event: QGraphicsSceneMouseEvent) -> None:
         super().mouseReleaseEvent(event)
-        if self._last_selected_stste != self.isSelected():
-            self._last_selected_stste = self.isSelected()
+        if self._last_selected_state != self.isSelected():
+            self.edge.scene.resetLastSelectedStates()
+            self._last_selected_state = self.isSelected()
             self.onSelected()
         
     def setSource(self, x, y):

@@ -6,7 +6,7 @@ from collections import OrderedDict
 from PyQt5.QtCore import QRectF
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsView
 from PyQt5.QtGui import QPainter, QPen
-from PyQt5.QtCore import QLine
+from PyQt5.QtCore import QLine, pyqtSignal
 
 from .Edge.node_Edge import Edge
 from .Node.node_Node import Node
@@ -31,10 +31,25 @@ class Scene(Serializable):
         
         self._has_been_modified = False
         self._has_been_modified_listeners = []
+        self._item_selected_listeners = []
+        self._items_deselected_listeners = []
 
         self.initUI()
         self.history = SceneHistory(self)
         self.clipboard = SceneClipboard(self)
+
+        self.nodeGraphicsScene.itemSelected.connect(self.onItemSelected)
+        self.nodeGraphicsScene.itemsDeselected.connect(self.onItemsDeselected)
+
+    def initUI(self):
+        self.nodeGraphicsScene = NodeGraphicsScene(self)
+        self.nodeGraphicsScene.setGraphicsScene(self.sceneWidth, self.sceneHeight)
+
+    def onItemSelected(self):
+        print("SCENE:: ~onItemSelected")
+
+    def onItemsDeselected(self):
+        print("SCENE:: ~onItemsDeselected")
 
     def isModified(self):
         return self.has_been_modified
@@ -58,10 +73,18 @@ class Scene(Serializable):
 
     def addHasBeenModifiedListener(self, callback):
         self._has_been_modified_listeners.append(callback)
-        
-    def initUI(self):
-        self.nodeGraphicsScene = NodeGraphicsScene(self)
-        self.nodeGraphicsScene.setGraphicsScene(self.sceneWidth, self.sceneHeight)
+
+    def addItemSelectedListener(self, callback):
+        self._item_selected_listeners.append(callback)
+
+    def addItemsDeselectedListener(self, callback):
+        self._items_deselected_listeners.append(callback)
+
+    def resetLastSelectedStates(self):
+        for node in self.nodes:
+            node.graphicsNode._last_selected_state = False
+        for edge in self.edges:
+            edge.nodeGraphicsEdge._last_selected_state = False
         
     def addNode(self, node):
         self.nodes.append(node)
@@ -136,6 +159,9 @@ class Scene(Serializable):
 
 class NodeGraphicsScene(QGraphicsScene):
     '''繪製節點編輯器視窗背景'''
+    itemSelected = pyqtSignal()
+    itemsDeselected = pyqtSignal()
+
     def __init__(self, scene, parent=None):
         super().__init__(parent)
         self.scene = scene

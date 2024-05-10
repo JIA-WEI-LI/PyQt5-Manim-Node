@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QStyleOptionSpinBox, QStyle, QStyleOption, QWidget, QSpinBox, QSizePolicy
+from PyQt5.QtWidgets import QApplication, QStyleOptionSpinBox, QStyle, QStyleOption, QWidget, QSpinBox, QSizePolicy, QInputDialog
 from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QFont
 from PyQt5.QtCore import Qt, QPointF, QEvent
 
@@ -154,9 +154,10 @@ class SpinBox(QSpinBox, ContentBaseSetting):
 
     def updateValue(self, event):
         mouse_x = event.x()
-        speed = 100 if QApplication.keyboardModifiers() & Qt.KeyboardModifier.ControlModifier else 1
+        speed = 2 if QApplication.keyboardModifiers() & Qt.KeyboardModifier.ControlModifier else 1
         # 計算實際進度值
         self.current_value += int((mouse_x - self.last_mouse_x) / speed)
+        self.last_mouse_x = event.x()
         if self.current_value < self.min_value: self.current_value = self.min_value
         if self.current_value > self.max_value: self.current_value = self.max_value
 

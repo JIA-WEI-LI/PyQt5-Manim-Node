@@ -11,7 +11,7 @@ class Node_Test(Node):
         self.content.addProgressBar(tooltip="測試文件")
         self.content.addComboBox(["List 1", "List 1", "List 1"])
         self.content.addColorPickerButton()
-        self.content.addInputLabel("Test Label 2")
+        self.content.addPushButton("Button")
         self.content.addInputLabel("Test Label 3")
         self.content.addInputLabel("Test Label 2")
         self.content.addInputLabel("Test Label 3")

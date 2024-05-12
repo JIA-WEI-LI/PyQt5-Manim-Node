@@ -65,7 +65,7 @@ class ColorDialog(QColorDialog):
             button.setStyleSheet("color: white; background-color: #545454; border-radius: 3px;")
 
             button_style = """
-                QPushButton { color: white; background-color: #545454; border-radius: 3px; }
+                QPushButton { color: white; background-color: #545454; border-radius: 3px; font-family: Arial, Helvetica, sans-serif ; }
                 QPushButton:hover { background-color: #656565; }
                 QPushButton:pressed { background-color: #222; }
             """
@@ -81,6 +81,7 @@ class ColorDialog(QColorDialog):
                     background-color:  #545454; 
                     border-radius: 3px;
                     qproperty-alignment: AlignCenter;
+                    font-family: Arial, Helvetica, sans-serif ;
                 }
 
                 QSpinBox::up-button {
@@ -114,7 +115,7 @@ class ColorDialog(QColorDialog):
                     color: white; 
                     background-color:  #545454; 
                     border-radius: 3px;
-                    letter-spacing: 2px; }
+                    font-family: Arial, Helvetica, sans-serif ; }
                 QLineEdit:hover { background-color: #656565; }
             """
             lineEdit.setStyleSheet(lineEdit_style)

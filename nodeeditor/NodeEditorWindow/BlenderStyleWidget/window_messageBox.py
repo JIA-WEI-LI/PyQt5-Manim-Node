@@ -1,6 +1,7 @@
 import typing
-
 from PyQt5.QtWidgets import QMessageBox
+
+from common.style_sheet import StyleSheet
 
 class MessageBox(QMessageBox):
     @staticmethod

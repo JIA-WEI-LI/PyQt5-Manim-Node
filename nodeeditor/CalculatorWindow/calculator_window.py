@@ -9,7 +9,7 @@ from .calaulator_subWindow import CalculatorSubWindow
 from NodeEditorWindow import NodeEditorMainWindow
 
 class CalculatorMainWindow(NodeEditorMainWindow):
-    @StyleSheet.apply("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss")
+    # @StyleSheet.apply("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss")
     def initUI(self):
         self.name_company = 'Blenderfreak'
         self.name_projuct = 'Calaulator NodeEditor'
@@ -39,6 +39,8 @@ class CalculatorMainWindow(NodeEditorMainWindow):
 
         self.readSettings()
         self.setWindowTitle("Calaulator Example")
+
+        StyleSheet.applyStyle("editor_window", self)
 
     def closeEvent(self, event: QCloseEvent) -> None:
         self.mdiArea.closeAllSubWindows()

@@ -60,7 +60,7 @@ class NodeEditorWidget(QWidget):
         self.scene.history.clear()
         self.scene.history.storeInitialHistoryStamp()
 
-    @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
+    # @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def fileLoad(self, filename):
         QApplication.setOverrideCursor(Qt.CursorShape.WaitCursor)
         try:
@@ -76,6 +76,7 @@ class NodeEditorWidget(QWidget):
             return False
         finally:
             QApplication.restoreOverrideCursor()
+            StyleSheet.applyStyle("editor_window", self)
 
         return False
     

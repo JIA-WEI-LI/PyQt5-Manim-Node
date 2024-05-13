@@ -40,4 +40,13 @@ class StyleSheet:
                 return func(*args, **kwargs)
             return wrapper
         return decorator
-
+    
+    def applyStyle(style_type, widget):
+        qss_file = StyleSheet().path(style_type) 
+        try:
+            with open(qss_file, 'r') as f:
+                widget.setStyleSheet(f.read())
+        except FileNotFoundError:
+            print("\033[95m Error: QSS file not found at \033[0m", f"{qss_file}")
+        except Exception as e:
+            print("\033[93m Error applying QSS:\033[0m", f"{e}")

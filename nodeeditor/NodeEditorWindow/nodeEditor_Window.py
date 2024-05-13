@@ -16,7 +16,7 @@ class NodeEditorMainWindow(QMainWindow):
         self.name_projuct = 'NodeEditor'
         self.initUI()
 
-    @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
+    # @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
         # 隱藏最上方視窗標題列
         # self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
@@ -36,6 +36,8 @@ class NodeEditorMainWindow(QMainWindow):
         self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
         self.setTitle()
         self.show()
+
+        StyleSheet.applyStyle("editor_window", self)
 
     def setTitle(self):
         title = "Node Editor - "

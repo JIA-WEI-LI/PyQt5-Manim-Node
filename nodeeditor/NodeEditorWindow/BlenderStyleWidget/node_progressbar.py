@@ -61,8 +61,9 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
     def __init__(self, label="Value", minimum:int=0, maximum:int=100, parent=None, **kwargs):
         super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
-        debug = kwargs.get("debug", False)
+        self.debug = kwargs.get("debug", False)
         initial_percent = kwargs.get("initial_percent", 0.5)
+        self.apply_style = False
 
         self.isEnter = False
         self.dragging = False
@@ -81,7 +82,7 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
 
         self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
 
-        if debug: self.setStyleSheet("border: 1px solid red;")
+        if self.debug: self.setStyleSheet("border: 1px solid red;")
 
     def setRange(self, minimum: int, maximum: int) -> None:
         '''設置進度條範圍'''

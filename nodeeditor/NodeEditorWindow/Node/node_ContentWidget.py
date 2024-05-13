@@ -29,7 +29,6 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.setContentsMargins(0, 0, 3, 0)
         self.setLayout(self.vboxLayout)
     
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addCheckbox(self, text:str, **kwargs):
         '''新增二態複選框'''
         checkbox = CheckBox(text, debug=DEBUG, **kwargs)
@@ -43,19 +42,18 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return checkbox
     
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addColorPickerButton(self, **kwargs):
         '''新增顏色選擇按鈕'''
         colorPickerButton = ColorPickerButton(**kwargs)
         self.vboxLayout.addWidget(colorPickerButton)
         self.node.graphicsNode.height += 30
+        # TODO:新增預設顏色序列化儲存 / 新增調整後顏色再次開啟之預設顏色
         self.contentLists.append(
             ('colorPickerButton', {
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return colorPickerButton
     
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addComboBox(self, items:list=["List 1", "List 2", "List 3"], **kwargs):
         '''新增下拉式選單'''
         comboBox = ComboBox(**kwargs)
@@ -69,7 +67,6 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return comboBox
     
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addInputLabel(self, text:str, **kwargs):
         '''新增輸入文字標籤'''
         label = Label(text, **kwargs)
@@ -83,7 +80,6 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return label
     
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addLineEdit(self, text:str, **kwargs):
         '''新增單行文字輸入框'''
         lineEdit = LineEdit(text, self.width(), **kwargs)
@@ -97,7 +93,6 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return lineEdit
     
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addProgressBar(self, label:str="Value", minimum:int=0, maximum:int=10, **kwargs):
         '''新增可控制進度條'''
         progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, **kwargs)
@@ -113,7 +108,6 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return progressBar
     
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addPushButton(self, text:str, **kwargs):
         '''新增按紐'''
         button = PushButton(text, **kwargs)
@@ -127,7 +121,6 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return button
 
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addSpinBox(self, label:str="Value", minimum:int=0, maximum:int=100000, initial_value:int=1, **kwargs):
         '''新增可控制數值調整器'''
         spinBox = SpinBox(label=label, minimum=minimum, maximum=maximum, **kwargs)
@@ -143,7 +136,6 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return spinBox
     
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addOutputLabel(self, text:str, **kwargs):
         '''新增輸出文字標籤'''
         label = Label(text, **kwargs)
@@ -158,7 +150,6 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return label
     
-    @StyleSheet.apply(StyleSheet.NODE_CONTENT)
     def addVectorSpinBox(self, degree:list=["x", "y", "z"], **kwargs):
         '''新增向量型數值框'''
         vector = VectorSpinBox(degree=degree, **kwargs)

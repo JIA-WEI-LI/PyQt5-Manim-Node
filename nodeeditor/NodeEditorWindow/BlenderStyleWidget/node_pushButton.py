@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QPushButton, QSizePolicy
 
+from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class PushButton(QPushButton, ContentBaseSetting):
@@ -13,5 +14,6 @@ class PushButton(QPushButton, ContentBaseSetting):
         self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
-
+        StyleSheet.applyStyle("node_content", self)
+        
         if debug: self.setStyleSheet("border: 1px solid red;")

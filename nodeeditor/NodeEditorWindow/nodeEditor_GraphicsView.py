@@ -48,7 +48,7 @@ class NodeGraphicsView(QGraphicsView):
 
         self.dragStartPosition = None  # 滑鼠開始拖曳位置
 
-    @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
+    # @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
         self.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.HighQualityAntialiasing | QPainter.RenderHint.TextAntialiasing | QPainter.RenderHint.SmoothPixmapTransform)
 
@@ -60,6 +60,8 @@ class NodeGraphicsView(QGraphicsView):
         # 可拖曳滑鼠選擇複數物件
         self.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
         self.setDragMode(QGraphicsView.DragMode.RubberBandDrag)
+
+        StyleSheet.applyStyle("editor_window", self)
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
         '''滑鼠點擊事件'''

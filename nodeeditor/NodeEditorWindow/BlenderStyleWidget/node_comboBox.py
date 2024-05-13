@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QComboBox, QStyledItemDelegate, QStyleOptionViewItem
 from PyQt5.QtCore import Qt, QModelIndex
 from PyQt5.QtGui import QColor, QFont, QPainter, QPen
 
+from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 CURRENT_INDEX:int = 0
@@ -59,16 +60,16 @@ class ComboBox(QComboBox, ContentBaseSetting):
         self.text_label = QLabel(self)
         self.text_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         self.text_label.setStyleSheet('color: #FFFFFF;')
-
         self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-
-        self.setToolTip("New ComboBox") if tooltip=="" else self.setToolTip(tooltip)
 
         # 滑鼠進入和離開事件處理程序
         self.enterEvent = self.mouse_enter
         self.leaveEvent = self.mouse_leave
         self.is_mouse_over = False
+
+        self.setToolTip("New ComboBox") if tooltip=="" else self.setToolTip(tooltip)
+        StyleSheet.applyStyle("node_content", self)
 
         if debug: self.setStyleSheet("border: 1px solid red;")
 

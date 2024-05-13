@@ -2,6 +2,7 @@ from PyQt5.QtGui import QFocusEvent
 from PyQt5.QtWidgets import QLabel, QHBoxLayout, QWidget, QLineEdit, QSizePolicy
 from PyQt5.QtCore import Qt
 
+from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class LineEdit(QWidget, ContentBaseSetting):
@@ -46,6 +47,7 @@ class LineEdit(QWidget, ContentBaseSetting):
         self.updateLabelWidth()
         
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
+        StyleSheet.applyStyle("node_content", self)
         
         if debug: self.setStyleSheet("border: 1px solid red;")
 

@@ -1,5 +1,6 @@
 from PyQt5.QtWidgets import QVBoxLayout, QWidget, QSizePolicy
 
+from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 from .node_spinBox import SpinBox
 
@@ -21,6 +22,7 @@ class VectorSpinBox(QWidget, ContentBaseSetting):
         self.setLayout(self.vBoxLayout)
         self.setFixedHeight((self.content_height+4)*len(degree))
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        StyleSheet.applyStyle("node_content", self)
 
         self.setToolTip("") if tooltip=="" else self.setToolTip(tooltip)
         

@@ -26,9 +26,9 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
         self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
+        StyleSheet.applyStyle("node_content", self)
 
-        if debug: 
-            self.setStyleSheet("border: 1px solid red;")
+        if debug: self.setStyleSheet("border: 1px solid red;")
 
     def pickColor(self):
         # 創建顏色選擇器對話框
@@ -38,7 +38,6 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
         if color == QDialog.Accepted:
             selected_color = colorPickerDialog.selectedColor()
             self.setStyleSheet(f"background-color: {selected_color.name()}")
-
 
 class ColorDialog(QColorDialog):
     '''

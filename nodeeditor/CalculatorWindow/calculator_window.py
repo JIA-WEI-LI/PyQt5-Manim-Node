@@ -40,7 +40,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.readSettings()
         self.setWindowTitle("Calaulator Example")
 
-        StyleSheet.applyStyle("editor_window", self)
+        StyleSheet.applyStyle("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss", self)
 
     def closeEvent(self, event: QCloseEvent) -> None:
         self.mdiArea.closeAllSubWindows()

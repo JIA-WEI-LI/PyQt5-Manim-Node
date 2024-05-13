@@ -64,6 +64,14 @@ class Node_String(Node):
         self.content.addOutputLabel("String")
         self.content.addLineEdit("")
 
+class Node_Boolean(Node):
+    def __init__(self, scene, title="Boolean", input=[], output=[4]):
+        super().__init__(scene, title, input, output)
+        
+        self.node_type(3)
+        self.content.addOutputLabel("boolean")
+        self.content.addCheckbox("boolean")
+
 class Node_ValueToString(Node):
     def __init__(self, scene, title="Value to String", input=[1], output=[2]):
         super().__init__(scene, title, input, output)

@@ -6,30 +6,32 @@ from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class LineEdit(QWidget, ContentBaseSetting):
-    '''
-        自定義LineEdit部件
-        ### Parameters:
-            text (str): QLineEdit部件的標籤文字。
-            max_width (float): QLineEdit部件的最大寬度。
-            **tooltip (str): 自定義提示字框內容文字。
+    ''' Custom LineEdit widget
 
-        ### Attributes:
-            text (str): QLineEdit部件的標籤文字。
-            max_width (float): QLineEdit部件的最大寬度。
+        Parameters :
+        ---------
+            label_text (str): The label text of the QLineEdit widget.
+            max_width (float): The maximum width of the QLineEdit widget.
 
-        ### Usage:
+        Attributes :
+        ---------
+            label_text (str): The label text of the QLineEdit widget.
+            max_width (float): The maximum width of the QLineEdit widget.
+
+        Usage :
+        ---------
             lineEdit = LineEdit(text="MyLineEdit", max_width=100)
     '''
-    def __init__(self, text: str, max_width:float=100, parent=None, **kwargs):
+    def __init__(self, label_text: str="", max_width:float=100, parent=None, **kwargs):
         super(LineEdit, self).__init__(parent=parent)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
         self.max_width = max_width
-        self.text = text
+        self.label_text = label_text
 
         self.hLayoutBox = QHBoxLayout(self)
         self.label = QLabel()
-        self.label.setText(self.text)
+        self.label.setText(self.label_text)
         self.lineEdit = QLineEdit()
 
         self.setFixedHeight(self.content_height)
@@ -37,7 +39,7 @@ class LineEdit(QWidget, ContentBaseSetting):
         self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
         self.lineEdit.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
 
-        if self.text != "": 
+        if self.label_text != "": 
             self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=6)
             self.hLayoutBox.addWidget(self.lineEdit, alignment=Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, stretch=4)
         else:
@@ -46,7 +48,7 @@ class LineEdit(QWidget, ContentBaseSetting):
         if self.width() > max_width - 3: self.setFixedWidth(max_width - 3)
         self.updateLabelWidth()
         
-        self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
+        self.setToolTip(label_text) if tooltip=="" else self.setToolTip(tooltip)
         StyleSheet.applyStyle("node_content", self)
         
         if debug: self.setStyleSheet("border: 1px solid red;")

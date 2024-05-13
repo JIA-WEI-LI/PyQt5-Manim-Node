@@ -96,6 +96,7 @@ class Node_Vector3(Node):
 class Node_Color(Node):
     def __init__(self, scene, title="Color", input=[], output=[0, 3]):
         super().__init__(scene, title, input, output)
+        self.node_color = color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[3]
 
         self.content.addComboBox(["RGB", "HSV", "HEX"])
         self.content.addOutputLabel("RGB")

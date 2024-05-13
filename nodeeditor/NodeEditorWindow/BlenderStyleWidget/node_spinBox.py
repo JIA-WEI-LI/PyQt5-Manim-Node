@@ -43,31 +43,35 @@ class SpinBoxStyle(QStyle, ContentBaseSetting):
         painter.drawRoundedRect(button_rect, 3, 3)
 
 class SpinBox(QSpinBox, ContentBaseSetting):
-    '''
-    自定義SpinBox
-    ### Parameters:
-        label (str): SpinBox的標籤，預設為"Value"。
-        minimum (int): SpinBox的最小值，預設為0。
-        maximum (int): SpinBox的最大值，預設為100。
-        **initial_percent (float): SpinBox的初始百分比，預設為0.5。
-        **tooltip (str): 自定義提示字框內容文字。
+    """ Custom spinbox that can be control.
 
-    ### Attributes:
-        label (str): SpinBox的標籤。
-        minimum (int): SpinBox的最小值。
-        maximum (int): SpinBox的最大值。
+        Parameters :
+        ---------
+            label (str): The label text of the SpinBox widget.
+            minimum (int): The minimum value of the SpinBox. Default is 0.
+            maximum (int): The maximum value of the SpinBox. Default is 1000000.
+            initial_value (Union[float, int]): The initial value of the SpinBox. Default is 1.
 
-    ### Raises:
-        ValueError: 若initial_percent不在0~1的範圍內時，會引發此錯誤。
+        Attributes:
+        ---------
+            label (str): The label text of the SpinBox widget.
+                minimum (int): The minimum value of the SpinBox. Default is 0.
+                maximum (int): The maximum value of the SpinBox. Default is 1000000.
+                initial_value (Union[float, int]): The initial value of the SpinBox. Default is 1.
+        
+        Raises:
+        ---------
+            ValueError: If initial_value is not an integer.
 
-    ### Usage:
-        spinBox = ControlledSpinBox(label="Value", minimum=0, maximum=10, initial_percent=0.8)
-    '''
-    def __init__(self, label="Value", minimum=0, maximum=100000, parent=None, **kwargs):
+        Usage:
+        ---------
+            SpinBox = SpinBox(label="SpinBox", minimum=0, maximum=100000, initial_value=1)
+    """
+    def __init__(self, label:str="Value", minimum:int=0, maximum:int=100000, initial_value:int=1, parent=None, **kwargs):
         super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
         self.debug = kwargs.get("debug", False)
-        self.current_value = kwargs.get("value", 1)
+        self.initial_value = initial_value
 
         self.isEnter = False
         self.dragging = False
@@ -80,9 +84,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
-        # if not isinstance(value, int):
-        #     raise TypeError("initial_percent must be a int")
-        self.setValue(int(self.current_value))
+        self._setInitialValue(self.initial_value)
 
         self.setToolTip(self.label) if tooltip=="" else self.setToolTip(tooltip)
 
@@ -92,6 +94,16 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         '''設置進度條範圍'''
         self.min_value = minimum
         self.max_value = maximum
+
+    def _setInitialValue(self, initial_value: int):
+        '''Set the initial value of the progress bar based on the input.
+
+        The initial value can be provided as either a float representing a percentage
+        (e.g., 0.5 for 50%) or an integer representing an absolute value.
+        '''
+        if isinstance(initial_value, int):
+            self.setValue(initial_value)
+        else: raise TypeError("initial_value must be an integer")
 
     def paintEvent(self, event):
         painter = QPainter(self)
@@ -112,7 +124,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         painter.drawText(QPointF(10, self.height() / 2 + 5), self.label)
 
         # 繪製數值
-        text = f"{self.current_value}"
+        text = f"{self.initial_value}"
         text_rect = painter.boundingRect(self.rect(), Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
         text_rect.adjust(-5, 0, -5, 0)
         painter.drawText(text_rect, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
@@ -156,11 +168,11 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         mouse_x = event.x()
         speed = 2 if QApplication.keyboardModifiers() & Qt.KeyboardModifier.ControlModifier else 1
         # 計算實際進度值
-        self.current_value += int((mouse_x - self.last_mouse_x) / speed)
+        self.initial_value += int((mouse_x - self.last_mouse_x) / speed)
         self.last_mouse_x = event.x()
-        if self.current_value < self.min_value: self.current_value = self.min_value
-        if self.current_value > self.max_value: self.current_value = self.max_value
+        if self.initial_value < self.min_value: self.initial_value = self.min_value
+        if self.initial_value > self.max_value: self.initial_value = self.max_value
 
-        if self.debug: print(" > min_value =", self.min_value, ", max_value = ", self.max_value, ", current = ", self.current_value)
+        if self.debug: print(" > min_value =", self.min_value, ", max_value = ", self.max_value, ", current = ", self.initial_value)
         # 設置SpinBox的值
-        self.setValue(self.current_value)
+        self.setValue(self.initial_value)

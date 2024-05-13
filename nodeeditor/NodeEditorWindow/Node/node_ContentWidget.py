@@ -1,3 +1,4 @@
+from typing import Union
 from collections import OrderedDict
 
 from PyQt5.QtCore import Qt
@@ -30,7 +31,20 @@ class NodeContentWidget(QWidget, Serializable):
         self.setLayout(self.vboxLayout)
     
     def addCheckbox(self, text:str, **kwargs):
-        '''新增二態複選框'''
+        """ Adds a custom checkbox to the layout.
+
+            Parameters :
+            ---------
+                text ( str ) : The text displayed on the right side of the checkbox.
+
+            Returns :
+            ---------
+                CheckBox: The created checkbox widget.
+
+            Usage :
+            ---------
+                checkbox = self.content.addCheckbox(text="Checkbox")
+        """
         checkbox = CheckBox(text, debug=DEBUG, **kwargs)
         self.vboxLayout.addWidget(checkbox)
         self.node.graphicsNode.height += 30
@@ -43,7 +57,16 @@ class NodeContentWidget(QWidget, Serializable):
         return checkbox
     
     def addColorPickerButton(self, **kwargs):
-        '''新增顏色選擇按鈕'''
+        """ Adds a custom colorpicker button to the layout.
+
+            Returns :
+            ---------
+                colorPickerButton: The created colorPickerButton widget.
+
+            Usage :
+            ---------
+                color_picker_button = self.content.addColorPickerButton()
+        """
         colorPickerButton = ColorPickerButton(**kwargs)
         self.vboxLayout.addWidget(colorPickerButton)
         self.node.graphicsNode.height += 30
@@ -55,7 +78,20 @@ class NodeContentWidget(QWidget, Serializable):
         return colorPickerButton
     
     def addComboBox(self, items:list=["List 1", "List 2", "List 3"], **kwargs):
-        '''新增下拉式選單'''
+        """Adds a custom combobox to the layout.
+
+            Parameters :
+            ---------
+                items ( List[str] ) : A list of items to populate the combobox.
+
+            Returns :
+            ---------
+                comboBox: The created comboBox widget.
+
+            Usage :
+            ---------
+                combo_box = self.content.addComboBox(items=["List 1", "List 2", "List 3"], parent)
+        """
         comboBox = ComboBox(**kwargs)
         comboBox.addItems(items)
         self.vboxLayout.addWidget(comboBox)
@@ -67,8 +103,21 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return comboBox
     
-    def addInputLabel(self, text:str, **kwargs):
-        '''新增輸入文字標籤'''
+    def addInputLabel(self, text:str="Input Label", **kwargs):
+        """Adds a input label to the left side of layout.
+
+            Parameters :
+            ---------
+                text ( str ) : The text displayed on the label.
+
+            Returns :
+            ---------
+                label: The created Label widget.
+
+            Usage :
+            ---------
+                input_label = self.content.addInputLabel(text="Input Label")
+        """
         label = Label(text, **kwargs)
         label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
@@ -80,22 +129,51 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return label
     
-    def addLineEdit(self, text:str, **kwargs):
-        '''新增單行文字輸入框'''
-        lineEdit = LineEdit(text, self.width(), **kwargs)
+    def addLineEdit(self, label:str="", **kwargs):
+        """Adds a LineEdit to the layout.
+
+            Parameters :
+            ---------
+                label ( str ) : The label text of the QLineEdit widget.
+
+            Returns :
+            ---------
+                lineEdit: The created lineEdit widget.
+
+            Usage :
+            ---------
+                line_edit = self.content.addLineEdit(label="")
+        """
+        lineEdit = LineEdit(label, self.width(), **kwargs)
         self.vboxLayout.addWidget(lineEdit)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('lineEdit', {
-                'text': text,
+                'label': label,
                 'current_text': "",
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return lineEdit
     
-    def addProgressBar(self, label:str="Value", minimum:int=0, maximum:int=10, **kwargs):
-        '''新增可控制進度條'''
-        progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, **kwargs)
+    def addProgressBar(self, label:str="Value", minimum:int=0, maximum:int=100, initial_value:Union[float, int]=0.5, **kwargs):
+        """Adds a ProgressBar to the layout.
+
+            Parameters :
+            ---------
+                label (str): The label text of the ProgressBar widget.
+                minimum (int): The minimum value of the ProgressBar. Default is 0.
+                maximum (int): The maximum value of the ProgressBar. Default is 100.
+                initial_value (Union[float, int]): The initial value of the ProgressBar. Default is 0.5.
+
+            Returns :
+            ---------
+                progressBar: The created progressBar widget.
+
+            Usage :
+            ---------
+                progress_bar = self.content.addProgressBar(label="", minimum=0, maximum=10, initial_value=0.5)
+        """
+        progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, initial_value=initial_value, **kwargs)
         self.vboxLayout.addWidget(progressBar)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
@@ -103,7 +181,7 @@ class NodeContentWidget(QWidget, Serializable):
                 'label': label,
                 'minium': minimum,
                 'maxium': maximum,
-                'value': 0.5,
+                'initial_value': initial_value,
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return progressBar
@@ -122,7 +200,23 @@ class NodeContentWidget(QWidget, Serializable):
         return button
 
     def addSpinBox(self, label:str="Value", minimum:int=0, maximum:int=100000, initial_value:int=1, **kwargs):
-        '''新增可控制數值調整器'''
+        """Adds a SpinBox to the layout.
+
+            Parameters :
+            ---------
+                label (str): The label text of the SpinBox widget.
+                minimum (int): The minimum value of the SpinBox. Default is 0.
+                maximum (int): The maximum value of the SpinBox. Default is 1000000.
+                initial_value (int): The initial value of the SpinBox. Default is 1.
+
+            Returns :
+            ---------
+                spinBox: The created spinBox widget.
+
+            Usage :
+            ---------
+                spin_box = self.content.addSpinBox(label="SpinBox", minimum=0, maximum=1000000, initial_value=1)
+        """
         spinBox = SpinBox(label=label, minimum=minimum, maximum=maximum, **kwargs)
         self.vboxLayout.addWidget(spinBox)
         self.node.graphicsNode.height += 30
@@ -136,8 +230,21 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return spinBox
     
-    def addOutputLabel(self, text:str, **kwargs):
-        '''新增輸出文字標籤'''
+    def addOutputLabel(self, text:str="Output Label", **kwargs):
+        """Adds a output label to the right side of layout.
+
+            Parameters :
+            ---------
+                text ( str ) : The text displayed on the label.
+
+            Returns :
+            ---------
+                label: The created Label widget.
+
+            Usage :
+            ---------
+                output_label = self.content.addOutputLabel(text="Output Label")
+        """
         label = Label(text, **kwargs)
         label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)

@@ -5,18 +5,20 @@ from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class CheckBox(QWidget, ContentBaseSetting):
-    ''' 自定義勾選框
-        ### Parameters:
-            parent (QWidget): 父窗口部件，預設為None。
-            text (str): 顯示勾選框右側文字內容。
-            **tooltip (str): 自定義提示字框內容文字。
+    """ Custom Checkbox
 
-        ### Attributes:
-            text (str): 顯示勾選框右側文字內容。
+        Parameters:
+        ---------
+            text (str): The text displayed on the right side of the checkbox.
+        
+        Attributes:
+        ---------
+            text (str): The text displayed on the right side of the checkbox.
 
-        ### Usage:
-            checkbox = CheckBox(parent, text="CheckBox")
-    '''
+        Usage:
+        ---------
+            checkbox = CheckBox(parent, text="Checkbox")
+    """
     def __init__(self, text: str="Boolean", parent=None, **kwargs):
         super(CheckBox, self).__init__(parent=parent)
         tooltip = kwargs.get("tooltip", "")

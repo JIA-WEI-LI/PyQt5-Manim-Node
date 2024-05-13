@@ -1,23 +1,24 @@
 from PyQt5.QtWidgets import QPushButton, QSizePolicy, QDialog, QColorDialog, QLabel, QWidget, QSpinBox, QLineEdit
-from PyQt5.QtGui import QPalette
 
 from .content_BaseSetting import ContentBaseSetting
-from .node_pushButton import PushButton
-from .node_lineEdit import LineEdit
 from common.style_sheet import StyleSheet
 
 class ColorPickerButton(QPushButton, ContentBaseSetting):
-    '''
-    自定義顏色選擇器按鈕
-    ### Parameters:
-        text (str): 按鈕上的文字，預設為空。
-        parent (QWidget): 父窗口部件，預設為None。
-        **kwargs: 其他可選參數。
-            tooltip (str): 自定義提示框內容文字。
-            debug (bool): 是否啟用調試模式，預設為False。
-    ### Usage:
-        color_picker = ColorPicker(text="選擇顏色")
-    '''
+    """ Custom Color Picker Button
+        
+        Parameters:
+        ---------
+            text (str): The text displayed on the button. Default is empty.
+            parent (QWidget): The parent widget. Default is None.
+
+        Attributes:
+        ---------
+            text (str): The text displayed on the button.
+
+        Usage:
+        ---------
+            color_picker = ColorPicker(text="Select Color")
+    """
     def __init__(self, text: str="", parent=None, **kwargs):
         super().__init__(text, parent)
         tooltip = kwargs.get("tooltip", "")
@@ -41,6 +42,8 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
             selected_color = colorPickerDialog.selectedColor()
             button_style = f"background-color: {selected_color.name()}; border-radius: 3px;"
             self.setStyleSheet(button_style)
+            return selected_color
+        return
 
 class ColorDialog(QColorDialog):
     '''

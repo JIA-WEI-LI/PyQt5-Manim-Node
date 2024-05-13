@@ -36,18 +36,20 @@ class ComboBoxItemDelegate(QStyledItemDelegate, ContentBaseSetting):
         painter.drawText(option.rect.adjusted(5, 0, -5, 0), Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, index.data(Qt.ItemDataRole.DisplayRole))
 
 class ComboBox(QComboBox, ContentBaseSetting):
-    '''
-        自定義下拉式選單
-        ### Parameters:
-            parent (QWidget): 父窗口部件，預設為None。
-            **tooltip (str): 自定義提示字框內容文字。
+    """ Custom combobox
+        
+        Parameters :
+        ---------
+            parent (QWidget): The parent widget. Default is None.
 
-        ### Attributes:
-            text_label (QLabel): 顯示當前選擇文本的標籤。
+        Attributes :
+        ---------
+            text_label (QLabel): The label displaying the current selection text.
 
-        ### Usage:
+        Usage :
+        ---------
             combo_box = ComboBox(parent)
-    '''
+    """
     def __init__(self, parent=None, **kwargs):
         super(ComboBox, self).__init__(parent=parent)
         tooltip = kwargs.get("tooltip", "")

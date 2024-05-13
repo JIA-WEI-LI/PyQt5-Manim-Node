@@ -1,4 +1,6 @@
 from PyQt5.QtWidgets import QPushButton, QSizePolicy, QDialog, QColorDialog, QLabel, QWidget, QSpinBox, QLineEdit
+from PyQt5.QtGui import QPalette
+
 from .content_BaseSetting import ContentBaseSetting
 from .node_pushButton import PushButton
 from .node_lineEdit import LineEdit
@@ -37,7 +39,8 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
         
         if color == QDialog.Accepted:
             selected_color = colorPickerDialog.selectedColor()
-            self.setStyleSheet(f"background-color: {selected_color.name()}")
+            button_style = f"background-color: {selected_color.name()}; border-radius: 3px;"
+            self.setStyleSheet(button_style)
 
 class ColorDialog(QColorDialog):
     '''
@@ -118,11 +121,11 @@ class ColorDialog(QColorDialog):
                 QLineEdit:hover { background-color: #656565; }
             """
             lineEdit.setStyleSheet(lineEdit_style)
-            
 
-        self.printAllChildren(self)
+        self.printAllChildren(self, False)
 
-    def printAllChildren(self, parent_widget):
-        for child_widget in parent_widget.findChildren(QWidget):
-            print(child_widget.objectName(), child_widget.__class__.__name__)
-            self.printAllChildren(child_widget)  # 遞迴列印子小部件
+    def printAllChildren(self, parent_widget, isPrint=True):
+        if isPrint:
+            for child_widget in parent_widget.findChildren(QWidget):
+                print(child_widget.objectName(), child_widget.__class__.__name__)
+                self.printAllChildren(child_widget)  # 遞迴列印子小部件

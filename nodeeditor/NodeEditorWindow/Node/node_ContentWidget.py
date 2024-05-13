@@ -225,7 +225,7 @@ class NodeContentWidget(QWidget, Serializable):
                 'label': label,
                 'minium': minimum,
                 'maxium': maximum,
-                'value': initial_value,
+                'initial_value': initial_value,
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return spinBox
@@ -286,6 +286,9 @@ class NodeContentWidget(QWidget, Serializable):
                 obj = self.addCheckbox(
                     content_data['text'], 
                     tooltip=content_data['tooltip'])
+            elif content_type == 'colorPickerButton':
+                obj = self.addColorPickerButton(
+                    tooltip=content_data['tooltip'])
             elif content_type == 'comboBox': 
                 obj = self.addComboBox(
                     content_data['list'], 
@@ -296,14 +299,14 @@ class NodeContentWidget(QWidget, Serializable):
                     tooltip=content_data['tooltip'])
             elif content_type == 'lineEdit': 
                 obj = self.addLineEdit(
-                    content_data['text'], 
+                    content_data['label'], 
                     tooltip=content_data['tooltip'])
             elif content_type == 'progressBar': 
                 obj = self.addProgressBar(
                     content_data['label'], 
                     content_data['minium'],
                     content_data['maxium'], 
-                    initial_percent=content_data['value'], 
+                    initial_value=content_data['initial_value'], 
                     tooltip=content_data['tooltip'])
             elif content_type == 'pushButton': 
                 obj = self.addPushButton(
@@ -314,7 +317,7 @@ class NodeContentWidget(QWidget, Serializable):
                     content_data['label'],
                     content_data['minium'],
                     content_data['maxium'], 
-                    initial_value=content_data['value'],
+                    initial_value=content_data['initial_value'],
                     tooltip=content_data['tooltip'])
             elif content_type == 'outputLabel': 
                 obj = self.addOutputLabel(

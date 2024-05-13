@@ -8,7 +8,7 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
         
         Parameters:
         ---------
-            text (str): The text displayed on the button. Default is empty.
+            showText ( bool ): Choose to show color number in the middle or not. 
             parent (QWidget): The parent widget. Default is None.
 
         Attributes:
@@ -19,16 +19,17 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
         ---------
             color_picker = ColorPicker(text="Select Color")
     """
-    def __init__(self, text: str="", parent=None, **kwargs):
-        super().__init__(text, parent)
+    def __init__(self, showText = False, parent=None, **kwargs):
+        super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
+        self.showText = showText
 
-        self.setText(text)
+        self.setText("#545454") if self.showText else self.setText("")
         self.clicked.connect(self.pickColor)
         self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
+        self.setToolTip("") if tooltip=="" else self.setToolTip(tooltip)
         StyleSheet.applyStyle("node_content", self)
 
         if debug: self.setStyleSheet("border: 1px solid red;")
@@ -40,8 +41,10 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
         
         if color == QDialog.Accepted:
             selected_color = colorPickerDialog.selectedColor()
-            button_style = f"background-color: {selected_color.name()}; border-radius: 3px;"
+            font_color = "black" if selected_color.lightnessF() > 0.5 else "white"
+            button_style = f"background-color: {selected_color.name()}; border-radius: 3px; color: {font_color}; font-family: Arial, Helvetica, sans-serif ; letter-spacing: 0.8px;"
             self.setStyleSheet(button_style)
+            if self.showText: self.setText(selected_color.name())
             return selected_color
         return
 

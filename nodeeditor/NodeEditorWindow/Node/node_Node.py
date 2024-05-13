@@ -111,6 +111,13 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         self.scene.removeNode(self)
         if DEBUG: print(" - everything was done: ", self)
 
+    def node_type(self, type:int=1):
+        # HACK: 自定義節點類型，並決定節點顏色
+        try:
+            self.node_color = color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[type]
+        except Exception as e:
+            print("node_Node:: Error number of type")
+
     def serialize(self):
         '''序列化資訊'''
         inputs, outputs, contents = [], [], []

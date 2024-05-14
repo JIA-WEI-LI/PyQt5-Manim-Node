@@ -30,6 +30,7 @@ class Scene(Serializable):
         self.sceneWidth, self.sceneHeight = 64000, 64000
         
         self._has_been_modified = False
+        self._last_selected_items = []
         self._has_been_modified_listeners = []
         self._item_selected_listeners = []
         self._items_deselected_listeners = []

@@ -742,7 +742,7 @@
                 {
                     "type": "colorPickerButton",
                     "data": {
-                        "show_text": false,
+                        "show_text": true,
                         "selected_color_name": "#545454",
                         "tooltip": "ColorPickerButton Tooltip"
                     }

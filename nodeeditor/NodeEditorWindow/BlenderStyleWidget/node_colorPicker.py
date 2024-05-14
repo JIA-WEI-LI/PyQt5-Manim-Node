@@ -19,11 +19,12 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
         ---------
             color_picker = ColorPicker(text="Select Color")
     """
-    def __init__(self, selected_color_name:str="#545454", show_text:bool = False, parent=None, **kwargs):
+    def __init__(self, show_text:bool = False, parent=None, **kwargs):
         super().__init__(parent)
+
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
-        self.selected_color_name = selected_color_name
+        self.selected_color_name = kwargs.get("selected_color_name", "#545454")
         self.show_text = show_text
 
         self.setText(self.selected_color_name) if self.show_text else self.setText("")

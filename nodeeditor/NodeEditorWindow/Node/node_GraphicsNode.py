@@ -56,7 +56,14 @@ class NodeGraphicsNode(QGraphicsItem):
             self._was_moved = False
             self.node.scene.history.storeHistory("Node moved", setModified=True)
 
-        if self._last_selected_state != self.isSelected():
+            self.node.scene.resetLastSelectedStates()
+            self._last_selected_state = True
+
+            # 移動也需要儲存
+            self.node.scene._last_selected_items = self.node.scene.getSelectedItems()
+            return
+
+        if self._last_selected_state != self.isSelected() or self.node.scene._last_selected_items != self.node.scene.getSelectedItems():
             self.node.scene.resetLastSelectedStates()
             self._last_selected_state = self.isSelected()
             self.onSelected()

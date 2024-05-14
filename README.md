@@ -100,7 +100,10 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 * [ ] [Node Editor Tutorial 31: Refactoring Styles + Bonus: Dark Skin](https://www.youtube.com/watch?v=NRJmy3ke4bo&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=33)( 跳過：使用其他方式取代樣式設定 )
 * [x] [Node Editor Tutorial 32: Refactoring Open, Save, Save As](https://www.youtube.com/watch?v=w6yX-CV1uNw&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=34)
 * [x] [Node Editor Tutorial 33: Finishing Refactoring Open, Save, Save As](https://www.youtube.com/watch?v=3MldRa5OEpE&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=35)
-* [ ] [Node Editor Tutorial 34: Updating Edit Menu](https://www.youtube.com/watch?v=Ajj6wkOdKKk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=36)
+* [x] [Node Editor Tutorial 34: Updating Edit Menu](https://www.youtube.com/watch?v=Ajj6wkOdKKk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=36)
+* [x] [Node Editor Tutorial 35: Item Selection Events](https://www.youtube.com/watch?v=mkl2Xy_hqzQ&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=37)
+* [x] [Node Editor Tutorial 36: Finishing Selection Events](https://www.youtube.com/watch?v=PTZoGVBzbcU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=38)
+* [ ] [Node Editor Tutorial 37: Wrapping up Refactoring](https://www.youtube.com/watch?v=C29ftCo9h50&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=39)
 </details>
 
 ---

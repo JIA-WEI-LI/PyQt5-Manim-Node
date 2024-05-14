@@ -56,7 +56,7 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return checkbox
     
-    def addColorPickerButton(self, **kwargs):
+    def addColorPickerButton(self, selected_color_name:str="", show_text:bool=False, **kwargs):
         """ Adds a custom colorpicker button to the layout.
 
             Returns :
@@ -67,12 +67,14 @@ class NodeContentWidget(QWidget, Serializable):
             ---------
                 color_picker_button = self.content.addColorPickerButton()
         """
-        colorPickerButton = ColorPickerButton(**kwargs)
+        colorPickerButton = ColorPickerButton(selected_color_name=selected_color_name, show_text=show_text, **kwargs)
         self.vboxLayout.addWidget(colorPickerButton)
         self.node.graphicsNode.height += 30
         # TODO:新增預設顏色序列化儲存 / 新增調整後顏色再次開啟之預設顏色
         self.contentLists.append(
             ('colorPickerButton', {
+                'show_text': show_text,
+                'selected_color_name': colorPickerButton.selected_color_name,
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return colorPickerButton
@@ -288,6 +290,8 @@ class NodeContentWidget(QWidget, Serializable):
                     tooltip=content_data['tooltip'])
             elif content_type == 'colorPickerButton':
                 obj = self.addColorPickerButton(
+                    selected_color_name=content_data['selected_color_name'],
+                    show_text=content_data['show_text'],
                     tooltip=content_data['tooltip'])
             elif content_type == 'comboBox': 
                 obj = self.addComboBox(

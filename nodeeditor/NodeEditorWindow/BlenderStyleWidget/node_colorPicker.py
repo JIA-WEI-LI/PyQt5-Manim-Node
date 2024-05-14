@@ -19,13 +19,14 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
         ---------
             color_picker = ColorPicker(text="Select Color")
     """
-    def __init__(self, showText = False, parent=None, **kwargs):
+    def __init__(self, selected_color_name:str="#545454", show_text:bool = False, parent=None, **kwargs):
         super().__init__(parent)
         tooltip = kwargs.get("tooltip", "")
         debug = kwargs.get("debug", False)
-        self.showText = showText
+        self.selected_color_name = selected_color_name
+        self.show_text = show_text
 
-        self.setText("#545454") if self.showText else self.setText("")
+        self.setText(self.selected_color_name) if self.show_text else self.setText("")
         self.clicked.connect(self.pickColor)
         self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
@@ -44,7 +45,8 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
             font_color = "black" if selected_color.lightnessF() > 0.5 else "white"
             button_style = f"background-color: {selected_color.name()}; border-radius: 3px; color: {font_color}; font-family: Arial, Helvetica, sans-serif ; letter-spacing: 0.8px;"
             self.setStyleSheet(button_style)
-            if self.showText: self.setText(selected_color.name())
+            self.selected_color_name = selected_color.name()
+            if self.show_text: self.setText(selected_color.name())
             return selected_color
         return
 

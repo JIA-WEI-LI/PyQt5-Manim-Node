@@ -8,7 +8,7 @@ class Node_Test(Node):
         self.content.addOutputLabel("Output Label", tooltip="Output Label Tooltip")
 
         self.content.addCheckbox("Boolean", tooltip="CheckBox Tooltip")
-        self.content.addColorPickerButton(tooltip="ColorPickerButton Tooltip")
+        self.content.addColorPickerButton(show_text=True, tooltip="ColorPickerButton Tooltip")
         self.content.addComboBox(["List 1", "List 2", "List 3"], tooltip="ComboBox Tooltip")
         self.content.addInputLabel("Input Label", tooltip="Input Label Tooltip")
         self.content.addLineEdit("LineEdit", tooltip="LineEdit Tooltip")

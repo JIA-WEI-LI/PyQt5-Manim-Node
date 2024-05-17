@@ -1,5 +1,5 @@
-from PyQt5.QtGui import QFocusEvent, QPaintEvent, QPainter, QColor, QFont
-from PyQt5.QtWidgets import QLabel, QHBoxLayout, QWidget, QStyle, QLineEdit, QSizePolicy, QStyleOption, QStyleOptionFrame
+from PyQt5.QtGui import QPainter, QColor
+from PyQt5.QtWidgets import QWidget, QStyle, QLineEdit, QSizePolicy, QStyleOption, QStyleOptionFrame
 from PyQt5.QtCore import Qt, QEvent
 
 from common.style_sheet import StyleSheet

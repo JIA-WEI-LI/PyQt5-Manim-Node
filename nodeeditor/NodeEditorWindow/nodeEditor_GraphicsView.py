@@ -127,18 +127,6 @@ class NodeGraphicsView(QGraphicsView):
             res = self.edgeDragEnd(item)
             if res: return
 
-        if item is None:
-            # HACK: 使用滑鼠左鍵選取全物件
-            if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
-                self.mode = MODE_EDGE_CUT
-                fakeEvent = QMouseEvent(QEvent.Type.MouseButtonRelease, event.localPos(), event.screenPos(),
-                                        Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton, event.modifiers())
-                super().mouseReleaseEvent(fakeEvent)
-                QApplication.setOverrideCursor(Qt.CursorShape.CrossCursor)
-                return
-            else:
-                self.rubberBandDraggingRectangle = True
-
         super().mousePressEvent(event)
 
     def rightMouseButtonPress(self, event: QMouseEvent):
@@ -157,6 +145,18 @@ class NodeGraphicsView(QGraphicsView):
                 for node in self.graphicsScene.scene.nodes: print("    ", node)
                 print("  Edges:")
                 for edge in self.graphicsScene.scene.edges: print("    ", edge)
+
+        if item is None:
+            # HACK: 使用滑鼠左鍵選取全物件
+            if event.modifiers() & Qt.KeyboardModifier.ControlModifier:
+                self.mode = MODE_EDGE_CUT
+                fakeEvent = QMouseEvent(QEvent.Type.MouseButtonRelease, event.localPos(), event.screenPos(),
+                                        Qt.MouseButton.LeftButton, Qt.MouseButton.NoButton, event.modifiers())
+                super().mouseReleaseEvent(fakeEvent)
+                QApplication.setOverrideCursor(Qt.CursorShape.CrossCursor)
+                return
+            else:
+                self.rubberBandDraggingRectangle = True
     
     def leftMouseButtonRelease(self, event: QMouseEvent):
         '''放開滑鼠左鍵'''

@@ -92,7 +92,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
                         if nodeeditor.fileLoad(fname):
                             self.statusBar().showMessage("File %s loaded" % fname, 5000)
                             nodeeditor.setTitle()
-                            subwnd = self.mdiArea.addSubWindow(nodeeditor)
+                            subwnd = self.createMdiChild(nodeeditor)
                             subwnd.show()
                         else:
                             nodeeditor.close()
@@ -198,9 +198,11 @@ class CalculatorMainWindow(NodeEditorMainWindow):
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")
 
-    def createMdiChild(self):
-        nodeeditor = CalculatorSubWindow()
+    def createMdiChild(self, child_widget=None):
+        nodeeditor = child_widget if child_widget is not None else CalculatorSubWindow()
         subwnd = self.mdiArea.addSubWindow(nodeeditor)
+        nodeeditor.scene.addItemSelectedListener(self.updateEditMenu)
+        nodeeditor.scene.addItemsDeselectedListener(self.updateEditMenu)
         return subwnd
     
     def findMdiChild(self, filename):

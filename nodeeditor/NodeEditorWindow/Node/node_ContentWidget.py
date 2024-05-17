@@ -146,7 +146,7 @@ class NodeContentWidget(QWidget, Serializable):
             ---------
                 line_edit = self.content.addLineEdit(label="")
         """
-        lineEdit = LineEdit(label, self.width(), **kwargs)
+        lineEdit = LineEdit(label, **kwargs)
         self.vboxLayout.addWidget(lineEdit)
         self.node.graphicsNode.height += 30
         self.contentLists.append(

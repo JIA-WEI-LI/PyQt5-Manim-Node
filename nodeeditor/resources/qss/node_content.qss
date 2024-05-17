@@ -59,14 +59,12 @@ QPushButton:pressed {
 }
 
 QLineEdit {
-    background-color: #545454;
-    border-radius: 3px;
+    border: none;
     color: white;
     font-family: Arial, Helvetica, sans-serif ;
     text-align: right;
-}
-QLineEdit:hover {
-    background-color: #656565;
+    padding-left: 3px;
+    padding-right: 3px;
 }
 
 QPlainTextEdit {

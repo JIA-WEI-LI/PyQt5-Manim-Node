@@ -38,7 +38,7 @@ class StyleSheet:
         try:
             with open(qss_file, 'r') as f:
                 widget.setStyleSheet(f.read())
-                print("Successful to open QSS file: ", f"{qss_file}")
+                # print("Successful to open QSS file: ", f"{qss_file}")
         except FileNotFoundError:
             print("\033[95m Error: QSS file not found at \033[0m", f"{qss_file}")
         except Exception as e:

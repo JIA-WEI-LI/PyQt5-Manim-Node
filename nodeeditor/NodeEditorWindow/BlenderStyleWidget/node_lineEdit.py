@@ -11,14 +11,7 @@ class LineEditStyle(QStyle, ContentBaseSetting):
         if isinstance(option, QStyleOptionFrame):
             self.drawLineEdit(option, painter)
 
-    # def drawPrimitive(self, element: QStyle.PrimitiveElement, option: QStyleOption, painter: QPainter, widget: QWidget = None):
-    #     self.widget = widget
-    #     if element == QStyle.PrimitiveElement.PE_PanelLineEdit:
-    #         if isinstance(option, QStyleOptionFrame):
-    #             self.drawLineEdit(option, painter)
-
     def drawLineEdit(self, option: QStyleOptionFrame, painter: QPainter):
-        # 繪製背景
         background_rect = option.rect
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
@@ -30,7 +23,7 @@ class LineEditStyle(QStyle, ContentBaseSetting):
         else:
             painter.setBrush(QColor(self.color_GRAY_54))
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.drawRoundedRect(background_rect, 3, 3)  # 3 是圓角的半徑，可以自行調整
+        painter.drawRoundedRect(background_rect, 3, 3)
 
 class LineEdit(QLineEdit, ContentBaseSetting):
     ''' Custom LineEdit widget
@@ -51,10 +44,18 @@ class LineEdit(QLineEdit, ContentBaseSetting):
         super(LineEdit, self).__init__(parent=parent)
         tooltip = kwargs.get("tooltip", "")
         self.debug = kwargs.get("debug", False)
+        self.isEnter = False
+        self.dragging = False
+
         self.lineEdit = QLineEdit()
         self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         self.setAlignment(Qt.AlignmentFlag.AlignVCenter)
+
+        # HACK: 啟用滑鼠追蹤功能
+        self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
+        self.setMouseTracking(True)
+        self.installEventFilter(self)
 
         self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
         StyleSheet.applyStyle("node_content", self)
@@ -80,7 +81,6 @@ class LineEdit(QLineEdit, ContentBaseSetting):
             elif event.type() == QEvent.Leave:
                 self.isEnter = False
                 self.update()
-            elif event.type() == QEvent.MouseButtonPress:
                 self.dragging = True
                 self.update()
             elif event.type() == QEvent.MouseButtonRelease:

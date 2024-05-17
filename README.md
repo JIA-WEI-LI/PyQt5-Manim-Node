@@ -48,7 +48,7 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 > 參考影片清單：[https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz](https://www.youtube.com/watch?v=xbTLhMJARrk&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz)
 
 ### 目前進度截圖
-#### 2024.04.08
+#### 2024.05.17
 ![2024.05.17進度螢幕截圖](nodeeditor/resources/screenshot/20240517.png)
 
 ### 影片練習觀看進度
@@ -122,9 +122,9 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
   * [ ] BUG.0.0.007A：閃退發生於初始視窗非全螢幕機率較高
 
 ### 已知代待修改錯誤：
-* [ ] COD.0.0.001：`node_node / node_GraphicsNode.py` 節點高度決定位置與預計不符
+* [x] ~~COD.0.0.001：`node_node / node_GraphicsNode.py` 節點高度決定位置與預計不符~~
   > 預期計畫：新增可控制型向量類型，將會改變節點高度
 * [x] ~~COD.0.0.002：`node_node / node_Node.py` 節點內部滑桿內容尚未完善~~
 * [ ] COD.0.0.003：`node_node / node_GraphicsNode.py` 下拉式選單預設高度較進度條小，目前暫時使用另定義高度解決。
-* [ ] COD.0.0.004：歷史紀錄並未於程式開始運行時儲存，無法回復至開始程式時初始狀態
-* [ ] COD.0.0.005：QMdiArea 的初始面板顏色更改為較深的灰色
+* [x] ~~COD.0.0.004：歷史紀錄並未於程式開始運行時儲存，無法回復至開始程式時初始狀態~~
+* [x] ~~COD.0.0.005：QMdiArea 的初始面板顏色更改為較深的灰色~~

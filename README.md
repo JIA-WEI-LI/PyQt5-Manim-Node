@@ -49,7 +49,7 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 
 ### 目前進度截圖
 #### 2024.04.08
-![2024.04.08進度螢幕截圖](nodeeditor/resources/screenshot/20240408.png)
+![2024.05.17進度螢幕截圖](nodeeditor/resources/screenshot/20240517.png)
 
 ### 影片練習觀看進度
 <details>

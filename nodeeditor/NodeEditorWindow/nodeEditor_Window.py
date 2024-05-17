@@ -99,7 +99,7 @@ class NodeEditorMainWindow(QMainWindow):
             event.ignore()
 
     def isModified(self):
-        return self.getCurrentNodeEditorWidget().scene.has_been_modified
+        return self.getCurrentNodeEditorWidget().scene.isModified()
     
     def getCurrentNodeEditorWidget(self):
         return self.centralWidget()

@@ -1,7 +1,7 @@
 import os
 from PyQt5.QtCore import Qt, QSignalMapper, QFileInfo
 from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWidget, QAction, QMessageBox, QFileDialog
-from PyQt5.QtGui import QCloseEvent, QKeySequence, QBrush, QColor
+from PyQt5.QtGui import QCloseEvent, QKeySequence, QBrush, QColor, QIcon
 
 from common.utils import dumpException
 from common.style_sheet import StyleSheet
@@ -13,6 +13,8 @@ class CalculatorMainWindow(NodeEditorMainWindow):
     def initUI(self):
         self.name_company = 'Blenderfreak'
         self.name_projuct = 'Calaulator NodeEditor'
+
+        self.empty_item = QIcon(".")
 
         self.mdiArea=  QMdiArea()
         self.mdiArea.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
@@ -201,9 +203,20 @@ class CalculatorMainWindow(NodeEditorMainWindow):
     def createMdiChild(self, child_widget=None):
         nodeeditor = child_widget if child_widget is not None else CalculatorSubWindow()
         subwnd = self.mdiArea.addSubWindow(nodeeditor)
+        subwnd.setWindowIcon(self.empty_item)
         nodeeditor.scene.addItemSelectedListener(self.updateEditMenu)
         nodeeditor.scene.addItemsDeselectedListener(self.updateEditMenu)
+        nodeeditor.addCloseEventListener(self.onSubWindClose)
         return subwnd
+    
+    def onSubWindClose(self, widget, event):
+        existing = self.findMdiChild(widget.filename)
+        self.mdiArea.setActiveSubWindow(existing)
+
+        if self.maybeSave():
+            event.accept()
+        else:
+            event.ignore()
     
     def findMdiChild(self, filename):
         for window in self.mdiArea.subWindowList():

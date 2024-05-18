@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QApplication, QStyleOptionSpinBox, QStyle, QStyleOpt
 from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QFont
 from PyQt5.QtCore import Qt, QPointF, QEvent
 
+from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class SpinBoxStyle(QStyle, ContentBaseSetting):
@@ -87,6 +88,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         self._setInitialValue(self.initial_value)
 
         self.setToolTip(self.label) if tooltip=="" else self.setToolTip(tooltip)
+        StyleSheet.applyStyle("node_content", self)
 
         if self.debug: self.setStyleSheet("border: 1px solid red;")
 

@@ -22,8 +22,6 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
     def __init__(self, show_text:bool = False, parent=None, **kwargs):
         super().__init__(parent)
 
-        tooltip = kwargs.get("tooltip", "")
-        debug = kwargs.get("debug", False)
         self.selected_color_name = kwargs.get("selected_color_name", "#545454")
         self.show_text = show_text
 
@@ -31,10 +29,8 @@ class ColorPickerButton(QPushButton, ContentBaseSetting):
         self.clicked.connect(self.pickColor)
         self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
-        self.setToolTip("") if tooltip=="" else self.setToolTip(tooltip)
-        StyleSheet.applyStyle("node_content", self)
 
-        if debug: self.setStyleSheet("border: 1px solid red;")
+        self.styles_set()
 
     def pickColor(self):
         # 創建顏色選擇器對話框

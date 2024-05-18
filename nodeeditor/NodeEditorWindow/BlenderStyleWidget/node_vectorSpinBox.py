@@ -8,8 +8,6 @@ class VectorSpinBox(QWidget, ContentBaseSetting):
     def __init__(self, degree:list=["x", "y", "z"], parent=None, **kwargs):
         super().__init__(parent)
         # BUG: 目前此功能高度與節點高度仍有些微落差
-        tooltip = kwargs.get("tooltip", "")
-        debug = kwargs.get("debug", False)
         spinBox_list = [None] * len(degree)
 
         self.vBoxLayout = QVBoxLayout(self)
@@ -22,8 +20,5 @@ class VectorSpinBox(QWidget, ContentBaseSetting):
         self.setLayout(self.vBoxLayout)
         self.setFixedHeight((self.content_height+4)*len(degree))
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        StyleSheet.applyStyle("node_content", self)
-
-        self.setToolTip("") if tooltip=="" else self.setToolTip(tooltip)
         
-        if debug: self.setStyleSheet("border: 1px solid red;")
+        self.styles_set()

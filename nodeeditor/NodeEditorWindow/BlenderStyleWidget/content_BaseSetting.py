@@ -4,6 +4,9 @@ from common.style_sheet import StyleSheet
 class ContentBaseSetting:
     def __init__(self, apply_style=True, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.tooltip = kwargs.get("tooltip", "")
+        self.debug = kwargs.get("debug", False)
+
         self.color_BACKGROUND_WINDOW = color_manager.get_color("BLENDERCOLOR", "BACKGROUND_WINDOW")
         self.color_GRAY_24 = color_manager.get_color("BLENDERCOLOR", "GRAY_24")
         self.color_GRAY_2a = color_manager.get_color("BLENDERCOLOR", "GRAY_2a")
@@ -17,3 +20,8 @@ class ContentBaseSetting:
         self.content_height = kwargs.get("content_height", 24)
 
         # if apply_style: StyleSheet.applyStyle("node_content", self)
+
+    def styles_set(self):
+        self.setToolTip(self.tooltip)
+        StyleSheet.applyStyle("node_content", self)
+        if self.debug: self.setStyleSheet("border: 1px solid red;")

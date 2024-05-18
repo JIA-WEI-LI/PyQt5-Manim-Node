@@ -70,8 +70,6 @@ class SpinBox(QSpinBox, ContentBaseSetting):
     """
     def __init__(self, label:str="Value", minimum:int=0, maximum:int=100000, initial_value:int=1, parent=None, **kwargs):
         super().__init__(parent)
-        tooltip = kwargs.get("tooltip", "")
-        self.debug = kwargs.get("debug", False)
         self.initial_value = initial_value
 
         self.isEnter = False
@@ -87,10 +85,7 @@ class SpinBox(QSpinBox, ContentBaseSetting):
 
         self._setInitialValue(self.initial_value)
 
-        self.setToolTip(self.label) if tooltip=="" else self.setToolTip(tooltip)
-        StyleSheet.applyStyle("node_content", self)
-
-        if self.debug: self.setStyleSheet("border: 1px solid red;")
+        self.styles_set()
 
     def setRange(self, minimum: int, maximum: int) -> None:
         '''設置進度條範圍'''

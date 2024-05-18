@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QApplication, QProgressBar, QStyleOptionProgressBar,
 from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QFont
 from PyQt5.QtCore import QEvent, Qt, QPointF
 
+from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class ControlledProgressBarStyle(QStyle, ContentBaseSetting):
@@ -65,8 +66,6 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
     """
     def __init__(self, label="Value", minimum:int=0, maximum:int=100 , initial_value: Union[float, int]=0.5, parent=None, **kwargs):
         super().__init__(parent)
-        tooltip = kwargs.get("tooltip", "")
-        self.debug = kwargs.get("debug", False)
         self.initial_value = initial_value
         self.apply_style = False
 
@@ -80,10 +79,7 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
         self.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
         self._setInitialValue(self.initial_value)
-
-        self.setToolTip(label) if tooltip=="" else self.setToolTip(tooltip)
-
-        if self.debug: self.setStyleSheet("border: 1px solid red;")
+        self.styles_set()
 
     def setRange(self, minimum: int, maximum: int) -> None:
         '''設置進度條範圍'''

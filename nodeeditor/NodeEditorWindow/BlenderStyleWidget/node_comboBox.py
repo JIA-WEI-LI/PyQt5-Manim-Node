@@ -52,8 +52,6 @@ class ComboBox(QComboBox, ContentBaseSetting):
     """
     def __init__(self, parent=None, **kwargs):
         super(ComboBox, self).__init__(parent=parent)
-        tooltip = kwargs.get("tooltip", "")
-        debug = kwargs.get("debug", False)
 
         self.setView(QListView())
         delegate = ComboBoxItemDelegate(self)
@@ -70,10 +68,7 @@ class ComboBox(QComboBox, ContentBaseSetting):
         self.leaveEvent = self.mouse_leave
         self.is_mouse_over = False
 
-        self.setToolTip("New ComboBox") if tooltip=="" else self.setToolTip(tooltip)
-        StyleSheet.applyStyle("node_content", self)
-
-        if debug: self.setStyleSheet("border: 1px solid red;")
+        self.styles_set()
 
     def mouse_enter(self, event):
         self.is_mouse_over = True

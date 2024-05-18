@@ -21,8 +21,6 @@ class CheckBox(QWidget, ContentBaseSetting):
     """
     def __init__(self, text: str="Boolean", parent=None, **kwargs):
         super(CheckBox, self).__init__(parent=parent)
-        tooltip = kwargs.get("tooltip", "")
-        debug = kwargs.get("debug", False)
         self.text = text
         
         self.hLayoutBox = QHBoxLayout(self)
@@ -40,7 +38,4 @@ class CheckBox(QWidget, ContentBaseSetting):
         self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
 
-        self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
-        StyleSheet.applyStyle("node_content", self)
-
-        if debug: self.setStyleSheet("border: 1px solid red;")
+        self.styles_set()

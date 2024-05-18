@@ -42,8 +42,6 @@ class LineEdit(QLineEdit, ContentBaseSetting):
     '''
     def __init__(self, text:str="", parent=None, **kwargs):
         super(LineEdit, self).__init__(parent=parent)
-        tooltip = kwargs.get("tooltip", "")
-        self.debug = kwargs.get("debug", False)
         self.isEnter = False
         self.pressing = False
 
@@ -57,10 +55,7 @@ class LineEdit(QLineEdit, ContentBaseSetting):
         self.setMouseTracking(True)
         self.installEventFilter(self)
 
-        self.setToolTip(text) if tooltip=="" else self.setToolTip(tooltip)
-        StyleSheet.applyStyle("node_content", self)
-
-        if self.debug: self.setStyleSheet("border: 1px solid red;")
+        self.styles_set()
 
     def paintEvent(self, event):
         painter = QPainter(self)

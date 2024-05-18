@@ -33,6 +33,16 @@ class StyleDemo(QWidget):
         spin_box = SpinBox("SpinBox")
         vector_spin_box = VectorSpinBox(["Spinbox 1", "Spinbox 2", "Spinbox 3"])
 
+        check_box.setToolTip(CheckBox.__doc__)
+        combo_box.setToolTip(ComboBox.__doc__)
+        color_picker_button.setToolTip(ColorPickerButton.__doc__)
+        progress_bar.setToolTip(ControlledProgressBar.__doc__)
+        label.setToolTip(Label.__doc__)
+        line_edit.setToolTip(LineEdit.__doc__)
+        button.setToolTip(PushButton.__doc__)
+        spin_box.setToolTip(SpinBox.__doc__)
+        vector_spin_box.setToolTip(VectorSpinBox.__doc__)
+
         combo_box.addItems(["Item 1", "Item 2", "Item 3"])
 
         self.demoStyle("CheckBox", check_box)
@@ -46,7 +56,7 @@ class StyleDemo(QWidget):
         self.demoStyle("VectorSpinBox", vector_spin_box)
 
         self.setLayout(self.vBoxLayout)
-        self.setWindowTitle('PyQt5 樣式展示')
+        self.setWindowTitle('Node Content Widgets Demo')
 
         self.setStyleSheet("background-color: #222;")
         self.setFixedWidth(400)
@@ -56,7 +66,7 @@ class StyleDemo(QWidget):
         hBoxLayout = QHBoxLayout()
         label = QLabel()
         label.setText(label_name)
-        label.setStyleSheet("color:white;")
+        label.setStyleSheet("color:#ccc;")
 
         hBoxLayout.setContentsMargins(0, 0, 0, 0)
 

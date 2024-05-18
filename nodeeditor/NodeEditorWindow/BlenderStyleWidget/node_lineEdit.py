@@ -45,7 +45,7 @@ class LineEdit(QLineEdit, ContentBaseSetting):
         tooltip = kwargs.get("tooltip", "")
         self.debug = kwargs.get("debug", False)
         self.isEnter = False
-        self.dragging = False
+        self.pressing = False
 
         self.lineEdit = QLineEdit()
         self.setFixedHeight(self.content_height)
@@ -81,9 +81,10 @@ class LineEdit(QLineEdit, ContentBaseSetting):
             elif event.type() == QEvent.Leave:
                 self.isEnter = False
                 self.update()
-                self.dragging = True
+            elif event.type() == QEvent.MouseButtonPress:
+                self.pressing = True
                 self.update()
             elif event.type() == QEvent.MouseButtonRelease:
-                self.dragging = False
+                self.pressing = False
                 self.update()
         return super().eventFilter(obj, event)

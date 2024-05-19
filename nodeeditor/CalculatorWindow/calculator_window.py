@@ -14,7 +14,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.name_company = 'Blenderfreak'
         self.name_projuct = 'Calaulator NodeEditor'
 
-        self.empty_item = QIcon(".")
+        self.empty_icon = QIcon(".")
 
         self.mdiArea=  QMdiArea()
         self.mdiArea.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)
@@ -140,16 +140,18 @@ class CalculatorMainWindow(NodeEditorMainWindow):
 
     def updateEditMenu(self):
         '''設定 工具列-編輯 在無法使用時不顯示；可使用時顯示'''
-        active = self.getCurrentNodeEditorWidget()
-        hasMdiChild = (active is not None)
+        try:
+            active = self.getCurrentNodeEditorWidget()
+            hasMdiChild = (active is not None)
 
-        self.actPaste.setEnabled(hasMdiChild)
-        self.actCut.setEnabled(hasMdiChild and active.hasSelectedItems())
-        self.actCopy.setEnabled(hasMdiChild and active.hasSelectedItems())
-        self.actDeleted.setEnabled(hasMdiChild and active.hasSelectedItems())
+            self.actPaste.setEnabled(hasMdiChild)
+            self.actCut.setEnabled(hasMdiChild and active.hasSelectedItems())
+            self.actCopy.setEnabled(hasMdiChild and active.hasSelectedItems())
+            self.actDeleted.setEnabled(hasMdiChild and active.hasSelectedItems())
 
-        self.actUndo.setEnabled(hasMdiChild and active.canUndo())
-        self.actRedo.setEnabled(hasMdiChild and active.canRedo())
+            self.actUndo.setEnabled(hasMdiChild and active.canUndo())
+            self.actRedo.setEnabled(hasMdiChild and active.canRedo())
+        except Exception as e: dumpException(e)
 
     def updateWindowMenu(self):
         '''設定 工具列-視窗 在無法使用時不顯示；可使用時顯示'''
@@ -203,9 +205,10 @@ class CalculatorMainWindow(NodeEditorMainWindow):
     def createMdiChild(self, child_widget=None):
         nodeeditor = child_widget if child_widget is not None else CalculatorSubWindow()
         subwnd = self.mdiArea.addSubWindow(nodeeditor)
-        subwnd.setWindowIcon(self.empty_item)
-        nodeeditor.scene.addItemSelectedListener(self.updateEditMenu)
-        nodeeditor.scene.addItemsDeselectedListener(self.updateEditMenu)
+        subwnd.setWindowIcon(self.empty_icon)
+        # nodeeditor.scene.addItemSelectedListener(self.updateEditMenu)
+        # nodeeditor.scene.addItemsDeselectedListener(self.updateEditMenu)
+        nodeeditor.scene.history.addHistoryModifiedListener(self.updateEditMenu)
         nodeeditor.addCloseEventListener(self.onSubWindClose)
         return subwnd
     

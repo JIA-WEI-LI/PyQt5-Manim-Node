@@ -11,6 +11,8 @@ class SceneHistory():
         self.clear()
         self.history_limit = 32
 
+        self._history_modified_listeners = []
+
     def clear(self):
         self.history_stack = []
         self.history_current_step = -1
@@ -30,6 +32,7 @@ class SceneHistory():
         if self.canUndo():
             self.history_current_step -= 1
             self.restoreHistory()
+            self.scene.has_been_modified = True
 
     def redo(self):
         if DEBUG: print("REDO Current step: ", self.history_current_step)
@@ -37,11 +40,16 @@ class SceneHistory():
         if self.canRedo():
             self.history_current_step += 1
             self.restoreHistory()
+            self.scene.has_been_modified = True
+
+    def addHistoryModifiedListener(self, callback):
+        self._history_modified_listeners.append(callback)
 
     def restoreHistory(self):
         if DEBUG: print("Restoring history ... current_step: @%d" % self.history_current_step, 
                         "(%d)" % len(self.history_stack))
         self.restoreHistoryStamp(self.history_stack[self.history_current_step])
+        for callback in self._history_modified_listeners: callback()
             
     def storeHistory(self, desc, setModified=False):
         if setModified == False:
@@ -63,6 +71,8 @@ class SceneHistory():
         self.history_stack.append(hs)
         self.history_current_step += 1
         if DEBUG: print(" -- setting step to: ", self.history_current_step)
+
+        for callback in self._history_modified_listeners: callback()
 
     def createHistoryStamp(self, desc):
         self_obj = {

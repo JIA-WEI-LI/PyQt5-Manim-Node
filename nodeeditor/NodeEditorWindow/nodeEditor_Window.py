@@ -123,18 +123,17 @@ class NodeEditorMainWindow(QMainWindow):
     def onFileNew(self):
         '''開啟新視窗(刪除舊有全物件)'''
         if self.maybeSave():
-            self.getCurrentNodeEditorWidget().scene.clear()
-            self.getCurrentNodeEditorWidget().filename = None
+            self.getCurrentNodeEditorWidget().fileNew()
             self.setTitle()
 
     def onFileOpen(self):
         '''開啟檔案'''
         if self.maybeSave():
             fname, filter = QFileDialog.getOpenFileName(self, "開啟檔案")
-            if fname == '':
-                return
-            if os.path.isfile(fname):
+            if fname != '' and os.path.isfile(fname):
                 self.getCurrentNodeEditorWidget().fileLoad(fname)
+                self.setTitle()
+
 
     def onFileSave(self) -> bool:
         '''儲存檔案'''
@@ -165,40 +164,46 @@ class NodeEditorMainWindow(QMainWindow):
 
     def onEditUndo(self):
         '''返回上一步'''
-        self.getCurrentNodeEditorWidget().scene.history.undo()
+        if self.getCurrentNodeEditorWidget():
+            self.getCurrentNodeEditorWidget().scene.history.undo()
 
     def onEditRedo(self):
         '''返回下一步'''
-        self.getCurrentNodeEditorWidget().scene.history.redo()
+        if self.getCurrentNodeEditorWidget():
+            self.getCurrentNodeEditorWidget().scene.history.redo()
 
     def onEditDelete(self):
         '''刪除物件'''
-        self.getCurrentNodeEditorWidget().scene.nodeGraphicsScene.views()[0].deleteSelected()
+        if self.getCurrentNodeEditorWidget():
+            self.getCurrentNodeEditorWidget().scene.nodeGraphicsScene.views()[0].deleteSelected()
 
     def onEditCut(self):
-        data = self.getCurrentNodeEditorWidget().scene.clipboard.serializeSelected(delete = True)
-        str_data = json.dumps(data, indent=4)
-        QApplication.instance().clipboard().setText(str_data)
+        if self.getCurrentNodeEditorWidget():
+            data = self.getCurrentNodeEditorWidget().scene.clipboard.serializeSelected(delete = True)
+            str_data = json.dumps(data, indent=4)
+            QApplication.instance().clipboard().setText(str_data)
 
     def onEditCopy(self):
-        data = self.getCurrentNodeEditorWidget().scene.clipboard.serializeSelected(delete = False)
-        str_data = json.dumps(data, indent=4)
-        QApplication.instance().clipboard().setText(str_data)
+        if self.getCurrentNodeEditorWidget():
+            data = self.getCurrentNodeEditorWidget().scene.clipboard.serializeSelected(delete = False)
+            str_data = json.dumps(data, indent=4)
+            QApplication.instance().clipboard().setText(str_data)
 
     def onEditPaste(self):
-        raw_data = QApplication.instance().clipboard().text()
+        if self.getCurrentNodeEditorWidget():
+            raw_data = QApplication.instance().clipboard().text()
         
-        try:
-            data = json.loads(raw_data)
-        except ValueError as e:
-            print("\033[93m Pasting og not valid json data!\033[0m")
-            return
-        
-        if 'nodes' not in data:
-            print("JSON doesnot contain any node!")
-            return
-        
-        self.getCurrentNodeEditorWidget().scene.clipboard.deserializeFromClipboard(data)
+            try:
+                data = json.loads(raw_data)
+            except ValueError as e:
+                print("\033[93m Pasting og not valid json data!\033[0m")
+                return
+            
+            if 'nodes' not in data:
+                print("JSON doesnot contain any node!")
+                return
+            
+            self.getCurrentNodeEditorWidget().scene.clipboard.deserializeFromClipboard(data)
 
     def readSettings(self):
         settings = QSettings(self.name_company, self.name_projuct)

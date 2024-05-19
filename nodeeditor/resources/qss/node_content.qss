@@ -97,6 +97,10 @@ QSpinBox::down-button {
     padding: 0px;
 }
 
+QInputDialog {
+    background-color: #333;
+    color: white;
+}
 
 #nodeCheckboxLabel {
     font-family: Arial, Helvetica, sans-serif ;

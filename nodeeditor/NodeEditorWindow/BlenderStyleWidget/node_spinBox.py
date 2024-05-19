@@ -1,8 +1,7 @@
-from PyQt5.QtWidgets import QApplication, QStyleOptionSpinBox, QStyle, QStyleOption, QWidget, QSpinBox, QSizePolicy, QInputDialog
+from PyQt5.QtWidgets import QApplication, QStyleOptionSpinBox, QStyle, QStyleOption, QWidget, QSpinBox, QSizePolicy, QInputDialog, QVBoxLayout, QDialogButtonBox, QLabel, QLineEdit
 from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QFont
 from PyQt5.QtCore import Qt, QPointF, QEvent
 
-from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class SpinBoxStyle(QStyle, ContentBaseSetting):
@@ -151,6 +150,9 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         else:
             super().mouseReleaseEvent(event)
 
+    def mouseDoubleClickEvent(self, event):
+        self.showInputDialog()
+
     def enterEvent(self, event: QEvent) -> None:
         super().enterEvent(event)
         self.isEnter = True
@@ -160,6 +162,11 @@ class SpinBox(QSpinBox, ContentBaseSetting):
         super().enterEvent(event)
         self.isEnter = False
         self.update()
+
+    def showInputDialog(self):
+        dialog = QInputDialog(self)
+        dialog.setWindowTitle(self.label)
+        dialog.exec()
 
     def updateValue(self, event):
         mouse_x = event.x()

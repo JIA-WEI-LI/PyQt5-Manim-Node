@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGroupBox
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import QRect
 
@@ -20,12 +20,14 @@ class StyleDemo(QWidget):
         super().__init__()
 
         # 設定主佈局
+        # groupbox = QGroupBox()
         self.vBoxLayout = QVBoxLayout()
 
         # 標籤
         check_box = CheckBox("CheckBox")
         combo_box = ComboBox()
-        color_picker_button = ColorPickerButton(show_text=True)
+        color_picker_button_1 = ColorPickerButton(show_text=True)
+        color_picker_button_2 = ColorPickerButton(show_text=False)
         progress_bar = ControlledProgressBar("ProgressBar")
         label = Label("Label")
         line_edit = LineEdit("Line Edit")
@@ -35,7 +37,8 @@ class StyleDemo(QWidget):
 
         check_box.setToolTip(CheckBox.__doc__)
         combo_box.setToolTip(ComboBox.__doc__)
-        color_picker_button.setToolTip(ColorPickerButton.__doc__)
+        color_picker_button_1.setToolTip(ColorPickerButton.__doc__)
+        color_picker_button_2.setToolTip(ColorPickerButton.__doc__)
         progress_bar.setToolTip(ControlledProgressBar.__doc__)
         label.setToolTip(Label.__doc__)
         line_edit.setToolTip(LineEdit.__doc__)
@@ -47,18 +50,19 @@ class StyleDemo(QWidget):
 
         self.demoStyle("CheckBox", check_box)
         self.demoStyle("ComboBox", combo_box) 
-        self.demoStyle("ColorPickerButton", color_picker_button)  
+        self.demoStyle("ColorPickerButton (True) ", color_picker_button_1)
+        self.demoStyle("ColorPickerButton (False) ", color_picker_button_2)
         self.demoStyle("ControlledProgressBar", progress_bar)
         self.demoStyle("Label", label)
         self.demoStyle("LineEdit", line_edit)
         self.demoStyle("PushButton", button)
         self.demoStyle("SpinBox", spin_box)
-        self.demoStyle("VectorSpinBox", vector_spin_box)
+        self.demoStyle("VectorSpinBox (3 Lists)", vector_spin_box)
 
         self.setLayout(self.vBoxLayout)
         self.setWindowTitle('Node Content Widgets Demo')
 
-        self.setStyleSheet("background-color: #222;")
+        self.setStyleSheet("background-color: #333;")
         self.setFixedWidth(400)
         self.adjustSize() 
 

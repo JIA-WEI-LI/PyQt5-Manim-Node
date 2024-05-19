@@ -15,6 +15,7 @@ DEBUG = DebugMode.NODE_NODE
 
 class NodeContentWidget(QWidget, Serializable):
     '''自製標準內部元件構造'''
+    # TODO: 未來改使用 QToolBox 方便新增與調用 
     def __init__(self, node, parent=None):
         super().__init__(parent)
         self.node = node

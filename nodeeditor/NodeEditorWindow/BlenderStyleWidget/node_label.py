@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QLabel, QSizePolicy
 
-from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class Label(QLabel, ContentBaseSetting):

@@ -6,6 +6,7 @@ from PyQt5.QtGui import QCloseEvent, QKeySequence, QBrush, QColor, QIcon
 from common.utils import dumpException
 from common.style_sheet import StyleSheet
 from .calaulator_subWindow import CalculatorSubWindow
+from .calculator_dragListBox import NodeGraphicsDragListBox
 from NodeEditorWindow import NodeEditorMainWindow
 
 class CalculatorMainWindow(NodeEditorMainWindow):
@@ -31,13 +32,13 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.windowMapper = QSignalMapper(self)
         self.windowMapper.mapped[QWidget].connect(self.setActiveSubWindow)
 
+        self.createNodesDock()
+
         self.createActions()
         self.createMenus()
         self.createToolBars()
         self.createStatusBar()
         self.updateMenus()
-
-        self.createNodesDock()
 
         self.readSettings()
         self.setWindowTitle("Calaulator Example")
@@ -156,6 +157,13 @@ class CalculatorMainWindow(NodeEditorMainWindow):
     def updateWindowMenu(self):
         '''設定 工具列-視窗 在無法使用時不顯示；可使用時顯示'''
         self.windowMenu.clear()
+
+        toolbar_nodes = self.windowMenu.addAction("側面節點欄")
+        toolbar_nodes.setCheckable(True)
+        toolbar_nodes.triggered.connect(self.onWindowNodeToolbar)
+        toolbar_nodes.setChecked(self.nodesDock.isVisible())
+
+        self.windowMenu.addSeparator()
         self.windowMenu.addAction(self.actClose)
         self.windowMenu.addAction(self.actCloseAll)
         self.windowMenu.addSeparator()
@@ -182,22 +190,24 @@ class CalculatorMainWindow(NodeEditorMainWindow):
             action.triggered.connect(self.windowMapper.map)
             self.windowMapper.setMapping(action, window)
 
+    def onWindowNodeToolbar(self):
+        if self.nodesDock.isVisible():
+            self.nodesDock.hide()
+        else:
+            self.nodesDock.show()
+
     def createToolBars(self):
         pass
 
     def createNodesDock(self):
         '''創造可移動式分割視窗'''
-        self.listWidget = QListWidget()
-        self.listWidget.addItem("Add")
-        self.listWidget.addItem("Substract")
-        self.listWidget.addItem("Multiply")
-        self.listWidget.addItem("Divide")
+        self.nodeListWidget = NodeGraphicsDragListBox()
 
-        self.items = QDockWidget("Nodes")
-        self.items.setWidget(self.listWidget)
-        self.items.setFloating(False)
+        self.nodesDock = QDockWidget("Nodes")
+        self.nodesDock.setWidget(self.nodeListWidget)
+        self.nodesDock.setFloating(False)
 
-        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.items)
+        self.addDockWidget(Qt.DockWidgetArea.LeftDockWidgetArea, self.nodesDock)
 
     def createStatusBar(self):
         self.statusBar().showMessage("Ready")

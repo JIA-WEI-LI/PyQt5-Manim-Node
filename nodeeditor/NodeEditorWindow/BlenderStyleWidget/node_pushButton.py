@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QPushButton, QSizePolicy
 
-from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class PushButton(QPushButton, ContentBaseSetting):

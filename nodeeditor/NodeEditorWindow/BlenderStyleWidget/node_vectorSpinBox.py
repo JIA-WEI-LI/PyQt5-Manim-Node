@@ -1,6 +1,5 @@
 from PyQt5.QtWidgets import QVBoxLayout, QWidget, QSizePolicy
 
-from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 from .node_spinBox import SpinBox
 

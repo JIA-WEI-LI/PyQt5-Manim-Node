@@ -1,19 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGroupBox
-from PyQt5.QtGui import QFont
-from PyQt5.QtCore import QRect
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QGroupBox, QGraphicsScene, QGraphicsView, QGraphicsPixmapItem
+from PyQt5.QtGui import QFont, QPixmap
+from PyQt5.QtCore import QRect, Qt
 
-import sys
-sys.path.append('c:/Users/USER/Desktop/VScode/PyQt5-Manim-Node/nodeeditor/NodeEditorWindow/BlenderStyleWidget')
-from NodeEditorWindow.BlenderStyleWidget.node_checkbox import CheckBox
-from NodeEditorWindow.BlenderStyleWidget.node_colorPicker import ColorPickerButton
-from NodeEditorWindow.BlenderStyleWidget.node_comboBox import ComboBox
-from NodeEditorWindow.BlenderStyleWidget.node_label import Label
-from NodeEditorWindow.BlenderStyleWidget.node_lineEdit import LineEdit
-from NodeEditorWindow.BlenderStyleWidget.node_progressbar import ControlledProgressBar
-from NodeEditorWindow.BlenderStyleWidget.node_pushButton import PushButton
-from NodeEditorWindow.BlenderStyleWidget.node_spinBox import SpinBox
-from NodeEditorWindow.BlenderStyleWidget.node_vectorSpinBox import VectorSpinBox
+from NodeEditorWindow.BlenderStyleWidget import *
 
 class StyleDemo(QWidget):
     def __init__(self):
@@ -21,14 +11,18 @@ class StyleDemo(QWidget):
 
         # 設定主佈局
         # groupbox = QGroupBox()
-        self.vBoxLayout = QVBoxLayout()
+        self.hBoxLayout = QHBoxLayout()
+        self.vBoxLayout_left = QVBoxLayout()
+        self.vBoxLayout_right = QVBoxLayout()
 
-        # 標籤
+        # left vBoxLayout widdget
         check_box = CheckBox("CheckBox")
         combo_box = ComboBox()
         color_picker_button_1 = ColorPickerButton(show_text=True)
         color_picker_button_2 = ColorPickerButton(show_text=False)
         progress_bar = ControlledProgressBar("ProgressBar")
+        file_dialog_button_folder = FileDialogButton(icon="nodeeditor\\resources\\icons\\icon_check.svg", filter="folder")
+        file_dialog_button_file = FileDialogButton(icon="nodeeditor\\resources\\icons\\icon_check.svg", filter=".all(*)")
         label = Label("Label")
         line_edit = LineEdit("Line Edit")
         button = PushButton("Push Button")
@@ -39,6 +33,8 @@ class StyleDemo(QWidget):
         combo_box.setToolTip(ComboBox.__doc__)
         color_picker_button_1.setToolTip(ColorPickerButton.__doc__)
         color_picker_button_2.setToolTip(ColorPickerButton.__doc__)
+        file_dialog_button_folder.setToolTip(FileDialogButton.__doc__)
+        file_dialog_button_file.setToolTip(FileDialogButton.__doc__)
         progress_bar.setToolTip(ControlledProgressBar.__doc__)
         label.setToolTip(Label.__doc__)
         line_edit.setToolTip(LineEdit.__doc__)
@@ -53,17 +49,33 @@ class StyleDemo(QWidget):
         self.demoStyle("ColorPickerButton (True) ", color_picker_button_1)
         self.demoStyle("ColorPickerButton (False) ", color_picker_button_2)
         self.demoStyle("ControlledProgressBar", progress_bar)
+        self.demoStyle("FileDialogButton (Folder)", file_dialog_button_folder)
+        self.demoStyle("FileDialogButton (File)", file_dialog_button_file)
         self.demoStyle("Label", label)
         self.demoStyle("LineEdit", line_edit)
         self.demoStyle("PushButton", button)
         self.demoStyle("SpinBox", spin_box)
         self.demoStyle("VectorSpinBox (3 Lists)", vector_spin_box)
 
-        self.setLayout(self.vBoxLayout)
+        # right vBoxLayout widget
+        graphics_scene = QGraphicsScene()
+        graphics_view = QGraphicsView(graphics_scene)
+        graphics_scene.setSceneRect(0, 0, 300, 300)
+        img = QPixmap('nodeeditor\\resources\\screenshot\\20240517.png')
+        pixmap_item = QGraphicsPixmapItem(img)
+        graphics_scene.addItem(pixmap_item)
+        graphics_view.setAlignment(Qt.AlignLeft | Qt.AlignTop)
+        graphics_view.fitInView(pixmap_item, Qt.KeepAspectRatio)
+
+        self.vBoxLayout_right.addWidget(graphics_view)
+
+        self.hBoxLayout.addLayout(self.vBoxLayout_left)
+        self.hBoxLayout.addLayout(self.vBoxLayout_right)
+        self.setLayout(self.hBoxLayout)
         self.setWindowTitle('Node Content Widgets Demo')
 
         self.setStyleSheet("background-color: #333;")
-        self.setFixedWidth(400)
+        self.setFixedWidth(800)
         self.adjustSize() 
 
     def demoStyle(self, label_name, widget):
@@ -76,8 +88,7 @@ class StyleDemo(QWidget):
 
         hBoxLayout.addWidget(label, stretch=4)
         hBoxLayout.addWidget(widget, stretch=6)
-        self.vBoxLayout.addLayout(hBoxLayout)
-
+        self.vBoxLayout_left.addLayout(hBoxLayout)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv + ['-platform', 'windows:darkmode=1'])

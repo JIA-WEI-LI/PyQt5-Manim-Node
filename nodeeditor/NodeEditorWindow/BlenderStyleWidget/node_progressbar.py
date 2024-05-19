@@ -3,7 +3,6 @@ from PyQt5.QtWidgets import QApplication, QProgressBar, QStyleOptionProgressBar,
 from PyQt5.QtGui import QCursor, QMouseEvent, QPainter, QColor, QFont
 from PyQt5.QtCore import QEvent, Qt, QPointF
 
-from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class ControlledProgressBarStyle(QStyle, ContentBaseSetting):
@@ -52,9 +51,9 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
         Attributes:
         ---------
             label (str): The label text of the ProgressBar widget.
-                minimum (int): The minimum value of the ProgressBar. Default is 0.
-                maximum (int): The maximum value of the ProgressBar. Default is 100.
-                initial_value (Union[float, int]): The initial value of the ProgressBar. Default is 0.5.
+            minimum (int): The minimum value of the ProgressBar. Default is 0.
+            maximum (int): The maximum value of the ProgressBar. Default is 100.
+            initial_value (Union[float, int]): The initial value of the ProgressBar. Default is 0.5.
         
         Raises:
         ---------

@@ -2,7 +2,6 @@ from PyQt5.QtWidgets import QComboBox, QStyledItemDelegate, QStyleOptionViewItem
 from PyQt5.QtCore import Qt, QModelIndex
 from PyQt5.QtGui import QColor, QFont, QPainter, QPen
 
-from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 CURRENT_INDEX:int = 0

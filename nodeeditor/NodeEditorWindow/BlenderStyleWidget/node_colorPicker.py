@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QPushButton, QSizePolicy, QDialog, QColorDialog, QLabel, QWidget, QSpinBox, QLineEdit
 
 from .content_BaseSetting import ContentBaseSetting
-from common.style_sheet import StyleSheet
 
 class ColorPickerButton(QPushButton, ContentBaseSetting):
     """ Custom Color Picker Button

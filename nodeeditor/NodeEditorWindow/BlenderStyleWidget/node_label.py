@@ -9,7 +9,6 @@ class Label(QLabel, ContentBaseSetting):
             text (str): The text displayed on the label.
             parent (QWidget): The parent widget. Default is None.
             
-
         Attributes :
         ---------
             text_label (QLabel): The label displaying the current selection text.

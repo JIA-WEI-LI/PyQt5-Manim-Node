@@ -2,7 +2,6 @@ from PyQt5.QtGui import QPainter, QColor
 from PyQt5.QtWidgets import QWidget, QStyle, QLineEdit, QSizePolicy, QStyleOption, QStyleOptionFrame
 from PyQt5.QtCore import Qt, QEvent
 
-from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class LineEditStyle(QStyle, ContentBaseSetting):

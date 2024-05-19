@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QCheckBox, QWidget, QHBoxLayout, QLabel, QSizePolicy
 from PyQt5.QtCore import Qt
 
-from common.style_sheet import StyleSheet
 from .content_BaseSetting import ContentBaseSetting
 
 class CheckBox(QWidget, ContentBaseSetting):

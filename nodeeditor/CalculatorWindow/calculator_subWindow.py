@@ -4,7 +4,7 @@ from NodeEditorWindow.nodeEditor_Widget import NodeEditorWidget
 # from NodeEditorWindow.Node.node_Node import Node
 from NodeEditorNodes.node_Calculator import *
 
-from .calaulator_config import *
+from .calculator_config import *
 
 class CalculatorSubWindow(NodeEditorWidget):
     def __init__(self, parent=None) -> None:
@@ -54,8 +54,8 @@ class CalculatorSubWindow(NodeEditorWidget):
             # print("calaulator_subWindow:: GOT DROP: [%d] '%s" % (op_code, text), " mouse: ", mouse_position, "scene: ", scene_position)
 
             # FIXME
-            print("ReadQString: ", text)
-            node = Node_Add(self.scene, text, input=[1, 1], output=[2])
+            # print("ReadQString: ", text)
+            node = Node_Calculator(self.scene , op_code, text, input=[1, 1], output=[1])
             node.setPos(scene_position.x(), scene_position.y())
             self.scene.addNode(node)
 

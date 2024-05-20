@@ -18,20 +18,33 @@ class Node(Serializable):
         self._title = title
         self.input = input
         self.output = output
-        self.socketSpace = SOCKET_SPACE   # 連結點之間空間
         # HACK: 自定義節點標題顏色
         self.node_color = node_color
+
+        self.initInnerClasses()
+        self.initSetting()
         
-        self.content = NodeContentWidget(self)
-        self.graphicsNode = NodeGraphicsNode(self)
         self.title = title
         self.scene.addNode(self)
         self.scene.nodeGraphicsScene.addItem(self.graphicsNode)
 
         self.inputs = []
         self.outputs = []
+        self.initSockets(input, output)
+
+    def initInnerClasses(self):
+        self.content = NodeContentWidget(self)
+        self.graphicsNode = NodeGraphicsNode(self)
+
+    def initSetting(self):
+        self.socketSpace = SOCKET_SPACE
+
+        self.input_muliti_edged = False
+        self.output_muliti_edged = True
+
+    def initSockets(self, inputs, outputs, reset=True):
         counter = 0
-        for item in output:
+        for item in outputs:
             if item != 0:
                 socket = Socket(node=self, index=counter, position=RIGHT_TOP, socket_type=item, muliti_edges=True)
             else: socket = NullSocket(node=self, index=counter)   # HACK: 自製空連結點
@@ -39,14 +52,14 @@ class Node(Serializable):
             self.outputs.append(socket)
         
         counter = 0
-        for item in input:
+        for item in inputs:
             if item != 0:
                 socket = Socket(node=self, index=counter, position=LEFT_BOTTOM, socket_type=item, muliti_edges=False)
             else: socket = NullSocket(node=self, index=counter)   # HACK: 自製空連結點
             counter += 1
             
             self.inputs.append(socket)
-
+        
     def __str__(self) -> str:
         return "<Node %s..%s>" % (hex(id(self))[2:5], hex(id(self))[-3:])
 

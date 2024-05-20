@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QAbstractItemView
 from common.utils import dumpException
 from config.icon import Icon
 
-from .calaulator_config import *
+from .calculator_config import *
 
 class NodeGraphicsDragListBox(QListWidget):
     def __init__(self, parent=None):
@@ -43,7 +43,7 @@ class NodeGraphicsDragListBox(QListWidget):
         try:
             item = self.currentItem()
             op_code = item.data(Qt.UserRole + 1)
-            print("dragging item <%d>" % op_code, item)
+            # print("dragging item <%d>" % op_code, item)
 
             pixmap = QPixmap(item.data(Qt.UserRole))
 

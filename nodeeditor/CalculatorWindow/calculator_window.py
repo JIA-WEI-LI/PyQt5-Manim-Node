@@ -5,7 +5,7 @@ from PyQt5.QtGui import QCloseEvent, QKeySequence, QBrush, QColor, QIcon
 
 from common.utils import dumpException
 from common.style_sheet import StyleSheet
-from .calaulator_subWindow import CalculatorSubWindow
+from .calculator_subWindow import CalculatorSubWindow
 from .calculator_dragListBox import NodeGraphicsDragListBox
 from NodeEditorWindow import NodeEditorMainWindow
 

@@ -27,32 +27,19 @@ class StyleDemo(QWidget):
         button = PushButton(text="Push Button")
         spin_box = SpinBox("SpinBox")
         vector_spin_box = VectorSpinBox(["Spinbox 1", "Spinbox 2", "Spinbox 3"])
-
-        check_box.setToolTip(CheckBox.__doc__)
-        combo_box.setToolTip(ComboBox.__doc__)
-        color_picker_button_1.setToolTip(ColorPickerButton.__doc__)
-        color_picker_button_2.setToolTip(ColorPickerButton.__doc__)
-        file_dialog_widget.setToolTip(FileDialogWidget.__doc__)
-        progress_bar.setToolTip(ControlledProgressBar.__doc__)
-        label.setToolTip(Label.__doc__)
-        line_edit.setToolTip(LineEdit.__doc__)
-        button.setToolTip(PushButton.__doc__)
-        spin_box.setToolTip(SpinBox.__doc__)
-        vector_spin_box.setToolTip(VectorSpinBox.__doc__)
-
         combo_box.addItems(["Item 1", "Item 2", "Item 3"])
 
-        self.demoStyle("CheckBox", check_box)
-        self.demoStyle("ComboBox", combo_box) 
-        self.demoStyle("ColorPickerButton (True) ", color_picker_button_1)
-        self.demoStyle("ColorPickerButton (False) ", color_picker_button_2)
-        self.demoStyle("ControlledProgressBar", progress_bar)
-        self.demoStyle("FileDialogWidget", file_dialog_widget)
-        self.demoStyle("Label", label)
-        self.demoStyle("LineEdit", line_edit)
-        self.demoStyle("PushButton", button)
-        self.demoStyle("SpinBox", spin_box)
-        self.demoStyle("VectorSpinBox (3 Lists)", vector_spin_box)
+        self.demoStyle("CheckBox", check_box, CheckBox)
+        self.demoStyle("ComboBox", combo_box, ComboBox) 
+        self.demoStyle("ColorPickerButton (True) ", color_picker_button_1, ColorPickerButton)
+        self.demoStyle("ColorPickerButton (False) ", color_picker_button_2, ColorPickerButton)
+        self.demoStyle("ControlledProgressBar", progress_bar, ControlledProgressBar)
+        self.demoStyle("FileDialogWidget", file_dialog_widget, FileDialogWidget)
+        self.demoStyle("Label", label, Label)
+        self.demoStyle("LineEdit", line_edit,LineEdit)
+        self.demoStyle("PushButton", button, PushButton)
+        self.demoStyle("SpinBox", spin_box,SpinBox)
+        self.demoStyle("VectorSpinBox (3 Lists)", vector_spin_box, VectorSpinBox)
 
         # right vBoxLayout widget
         graphics_scene = QGraphicsScene()
@@ -75,11 +62,12 @@ class StyleDemo(QWidget):
         self.setFixedWidth(800)
         self.adjustSize() 
 
-    def demoStyle(self, label_name, widget):
+    def demoStyle(self, label_name:str, widget:QWidget, classMethod:classmethod):
         hBoxLayout = QHBoxLayout()
         label = QLabel()
         label.setText(label_name)
         label.setStyleSheet("color:#ccc;")
+        widget.setToolTip(classMethod.__doc__)
 
         hBoxLayout.setContentsMargins(0, 0, 0, 0)
 

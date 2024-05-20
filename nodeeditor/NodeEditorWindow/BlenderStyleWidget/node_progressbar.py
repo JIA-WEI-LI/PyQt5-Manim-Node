@@ -176,7 +176,8 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
     def updateContentList(self):
         '''Update ContentLists for serialization'''
         progress_value = self.value()
-        for item in self.parent().contentLists:
-            if item[0] == 'progressBar' and item[1]['label'] == self.label:
-                item[1]['initial_value'] = progress_value
-                break
+        if hasattr(self.parent(), 'contentLists') and self.parent().contentLists is not None:
+            for item in self.parent().contentLists:
+                if item[0] == 'progressBar' and item[1]['label'] == self.label:
+                    item[1]['initial_value'] = progress_value
+                    break

@@ -31,7 +31,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout.setContentsMargins(0, 0, 3, 0)
         self.setLayout(self.vboxLayout)
     
-    def addCheckbox(self, text:str, **kwargs):
+    def addCheckbox(self, text:str, status:bool=False, **kwargs):
         """ Adds a custom checkbox to the layout.
 
             Parameters :
@@ -46,13 +46,13 @@ class NodeContentWidget(QWidget, Serializable):
             ---------
                 checkbox = self.content.addCheckbox(text="Checkbox")
         """
-        checkbox = CheckBox(text, debug=DEBUG, **kwargs)
+        checkbox = CheckBox(text, status=status, **kwargs)
         self.vboxLayout.addWidget(checkbox)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('checkbox', {
                 'text': text,
-                'status': False,
+                'status': status,
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return checkbox
@@ -179,12 +179,13 @@ class NodeContentWidget(QWidget, Serializable):
         progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, initial_value=initial_value, **kwargs)
         self.vboxLayout.addWidget(progressBar)
         self.node.graphicsNode.height += 30
+        current_value = progressBar.value()
         self.contentLists.append(
             ('progressBar', {
                 'label': label,
                 'minium': minimum,
                 'maxium': maximum,
-                'initial_value': initial_value,
+                'initial_value': current_value,
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return progressBar
@@ -288,6 +289,7 @@ class NodeContentWidget(QWidget, Serializable):
             if content_type == 'checkbox': 
                 obj = self.addCheckbox(
                     content_data['text'], 
+                    status=content_data['status'],
                     tooltip=content_data['tooltip'])
             elif content_type == 'colorPickerButton':
                 obj = self.addColorPickerButton(

@@ -63,6 +63,15 @@ class NodeGraphicsView(QGraphicsView):
 
         StyleSheet.applyStyle("editor_window", self)
 
+        # enable dropping
+        self.setAcceptDrops(True)
+
+    def dragEnterEvent(self, event):
+        pass
+
+    def dropEvent(self, event):
+        pass
+
     def mousePressEvent(self, event: QMouseEvent) -> None:
         '''滑鼠點擊事件'''
         if event.button() ==Qt.MouseButton.MiddleButton:

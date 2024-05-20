@@ -13,7 +13,6 @@ class ControlledProgressBarStyle(QStyle, ContentBaseSetting):
                 self.drawProgressBar(option, painter)
 
     def drawProgressBar(self, option: QStyleOptionProgressBar, painter: QPainter):
-        # 繪製背景
         background_rect = option.rect
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
@@ -78,10 +77,10 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
         self.setAlignment(Qt.AlignmentFlag.AlignVCenter)
 
         self._setInitialValue(self.initial_value)
+        self.valueChanged.connect(self.updateContentList)
         self.styles_set()
 
     def setRange(self, minimum: int, maximum: int) -> None:
-        '''設置進度條範圍'''
         self.min_value = minimum
         self.max_value = maximum
 
@@ -124,7 +123,6 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
         painter.drawText(text_rect, Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter, text)
 
     def mousePressEvent(self, event: QMouseEvent):
-        '''滑鼠點擊時更新進度'''
         if event.buttons() == Qt.MouseButton.LeftButton and self.rect().contains(event.pos()):
             self.dragging = True
             self.update()
@@ -132,17 +130,14 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
             QApplication.setOverrideCursor(QCursor(Qt.CursorShape.BlankCursor))
 
     def mouseDoubleClickEvent(self, event: QMouseEvent):
-        '''滑鼠雙擊時更新進度'''
         return super().mouseDoubleClickEvent(event)
     
     def mouseMoveEvent(self, event):
-        '''滑鼠移動時，如果正在拖動，更新進度'''
         if hasattr(self, 'dragging') and self.dragging:
             self.updateProgress(event)
         super().mouseMoveEvent(event)
 
     def mouseReleaseEvent(self, event):
-        '''釋放滑鼠後，停止拖動'''
         if hasattr(self, 'dragging') and self.dragging:
             self.dragging = False
             # 將滑鼠游標恢復為默認值
@@ -177,3 +172,11 @@ class ControlledProgressBar(QProgressBar, ContentBaseSetting):
 
         # 設置進度條的值
         self.setValue(int(progress_percent * 100))
+
+    def updateContentList(self):
+        '''Update ContentLists for serialization'''
+        progress_value = self.value()
+        for item in self.parent().contentLists:
+            if item[0] == 'progressBar' and item[1]['label'] == self.label:
+                item[1]['initial_value'] = progress_value
+                break

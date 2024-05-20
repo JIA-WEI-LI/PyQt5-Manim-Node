@@ -18,7 +18,7 @@ class CheckBox(QWidget, ContentBaseSetting):
         ---------
             checkbox = CheckBox(parent, text="Checkbox")
     """
-    def __init__(self, text: str="Boolean", parent=None, **kwargs):
+    def __init__(self, text: str="Boolean", status:bool=False, parent=None, **kwargs):
         super(CheckBox, self).__init__(parent=parent)
         self.text = text
         
@@ -30,11 +30,19 @@ class CheckBox(QWidget, ContentBaseSetting):
 
         self.checkBox.setFixedWidth(self.content_height-3)
         self.checkBox.setSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Expanding)
-        
+        self.checkBox.setChecked(status)
+
         self.hLayoutBox.setContentsMargins(0, 0, 0, 0)
         self.hLayoutBox.addWidget(self.checkBox, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.hLayoutBox.addWidget(self.label, alignment=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter, stretch=1)
-        self.setFixedHeight(self.content_height)
-        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.checkBox.toggled.connect(self.updateStatus)
 
         self.styles_set()
+
+    def updateStatus(self):
+        """更新复选框状态到 contentLists 中"""
+        status = self.checkBox.isChecked()
+        for item in self.parent().contentLists:
+            if item[0] == 'checkbox' and item[1]['text'] == self.label.text():
+                item[1]['status'] = status
+                break

@@ -1,3 +1,5 @@
+from PyQt5.QtWidgets import QSizePolicy
+
 from common.color_sheet import color_manager
 from common.style_sheet import StyleSheet
 

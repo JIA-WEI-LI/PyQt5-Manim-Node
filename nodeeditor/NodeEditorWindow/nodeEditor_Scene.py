@@ -192,6 +192,9 @@ class NodeGraphicsScene(QGraphicsScene):
         self.penDark.setWidth(2)
         self.setBackgroundBrush(BACKGROUND_COLOR)
 
+    def dragMoveEvent(self, event):
+        pass
+
     def setGraphicsScene(self, width, height):
         self.setSceneRect(-width//2, -height//2, width, height)
 

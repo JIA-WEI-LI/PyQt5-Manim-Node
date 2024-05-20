@@ -62,7 +62,7 @@ class LineEdit(QLineEdit, ContentBaseSetting):
         painter.setRenderHint(QPainter.RenderHint.Antialiasing)
 
         opt = QStyleOptionFrame()
-        opt.rect = self.rect().adjusted(1, 1, -1, -1)
+        opt.rect = self.rect().adjusted(0, 0, 0, 0)
         style.drawControl(QStyle.ControlElement.CE_ProgressBar, opt, painter, self)
         painter.end()
         super(LineEdit, self).paintEvent(event)

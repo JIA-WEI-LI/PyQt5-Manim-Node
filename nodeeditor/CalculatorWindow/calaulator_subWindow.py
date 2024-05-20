@@ -9,6 +9,8 @@ class CalculatorSubWindow(NodeEditorWidget):
         self.setTitle()
 
         self.scene.addHasBeenModifiedListener(self.setTitle)
+        self.scene.addDragEnterlisteners(self.onDragEnter)
+        self.scene.addDropListeners(self.onDrop)
 
         self._close_event_listeners = []
 
@@ -20,3 +22,11 @@ class CalculatorSubWindow(NodeEditorWidget):
 
     def closeEvent(self, event):
         for callback in self._close_event_listeners: callback(self, event)
+
+    def onDragEnter(self, event):
+        print("CalcSubMnd:: ~onDrop")
+        print("text: %s" % event.mimeData().text())
+
+    def onDrop(self, event):
+        print("CalcSubMnd:: ~onDrag")
+        print("text: %s" % event.mimeData().text())

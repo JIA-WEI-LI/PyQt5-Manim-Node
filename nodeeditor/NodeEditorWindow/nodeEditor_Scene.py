@@ -89,6 +89,12 @@ class Scene(Serializable):
     def addItemsDeselectedListener(self, callback):
         self._items_deselected_listeners.append(callback)
 
+    def addDragEnterlisteners(self, callback):
+        self.nodeGraphicsScene.views()[0].addDragEnterListener(callback)
+
+    def addDropListeners(self, callback):
+        self.nodeGraphicsScene.views()[0].addDropEnterListener(callback)
+
     def resetLastSelectedStates(self):
         for node in self.nodes:
             node.graphicsNode._last_selected_state = False

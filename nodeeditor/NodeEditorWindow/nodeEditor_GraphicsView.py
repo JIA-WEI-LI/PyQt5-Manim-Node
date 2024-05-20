@@ -48,6 +48,9 @@ class NodeGraphicsView(QGraphicsView):
 
         self.dragStartPosition = None  # 滑鼠開始拖曳位置
 
+        self._drag_enter_listeners = []
+        self._drop_listeners = []
+
     # @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
         self.setRenderHints(QPainter.RenderHint.Antialiasing | QPainter.RenderHint.HighQualityAntialiasing | QPainter.RenderHint.TextAntialiasing | QPainter.RenderHint.SmoothPixmapTransform)
@@ -67,10 +70,16 @@ class NodeGraphicsView(QGraphicsView):
         self.setAcceptDrops(True)
 
     def dragEnterEvent(self, event):
-        pass
+        for callback in self._drag_enter_listeners: callback(event)
 
     def dropEvent(self, event):
-        pass
+        for callback in self._drop_listeners: callback(event)
+
+    def addDragEnterListener(self, callback):
+        self._drag_enter_listeners.append(callback)
+
+    def addDropEnterListener(self, callback):
+        self._drop_listeners.append(callback)
 
     def mousePressEvent(self, event: QMouseEvent) -> None:
         '''滑鼠點擊事件'''

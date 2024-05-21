@@ -98,8 +98,10 @@ class Edge(Serializable):
         #     self.start_socket.removeEdge(None)
         # if self.end_socket is not None:
         #     self.end_socket.removeEdge(None)
+        if DEBUG: print("::Edge  end_socket: ", self.end_socket, " start_socket: ", self.start_socket)
         self.end_socket = None
         self.start_socket = None
+        if DEBUG: print("::Edge  end_socket: ", self.end_socket, " start_socket: ", self.start_socket)
 
     def remove(self):
         if DEBUG: print("# Removing Edge: ", self)

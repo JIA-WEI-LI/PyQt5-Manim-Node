@@ -38,17 +38,25 @@ class Socket(Serializable):
         return res
         
     def addEdge(self, edge):
+        if DEBUG: print("::Socket ", self,"Before [ Add ] self.edges: ", self.edges, " add edge: ", edge)
         self.edges.append(edge)
+        if DEBUG: print("::Socket ", self,"After  [ Add ] self.edges: ", self.edges, " add edge: ", edge)
 
     def removeEdge(self, edge):
         # BUG：切割線段或點擊時有機率無錯誤輸出閃退(常見於移動節點後)
-        if edge in self.edges: self.edges.remove(edge)
+        if edge in self.edges:
+            if DEBUG: print("::Socket ", self,"Before [ Remove ] self.edges: ", self.edges, " remove edge: ", edge)
+            self.edges.remove(edge)
+            if DEBUG: print("::Socket ", self,"After  [ Remove ] self.edges: ", self.edges, " remove edge: ", edge)
         else: print("!W: ", "Socket::removeEdge", "wanna remove edge", edge, "from self.edges but it's not a list!")
 
     def removeAllEdges(self):
+        if DEBUG: print("::Socket ", self,"Before [ RemoveALl ] self.edges: ", self.edges)
         while self.edges:
             edge = self.edges.pop(0)
             edge.remove()
+        
+        if DEBUG: print("::Socket ", self,"After  [ RemoveAll ] self.edges: ", self.edges)
     
     def serialize(self):
         '''序列化資訊'''

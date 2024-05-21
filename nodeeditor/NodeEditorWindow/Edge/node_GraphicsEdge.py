@@ -9,6 +9,7 @@ from common.color_sheet import color_manager
 from config.debug import DebugMode
 
 EDGE_CP_ROUNDNESS = 100
+DEBUG = True
 
 class EdgeColor:
     PEN_COLOR = color_manager.get_color("EdgeColor", "BLENDER_GREEN")
@@ -22,12 +23,12 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         self.edge = edge
         self._last_selected_state = False
 
-        self.initUI()
-        self.initAssets()
-
         self.posSource = [0, 0]
         self.posDestination = [200, 100]
 
+        self.initAssets()
+        self.initUI()
+        
     def initUI(self):
         self.setFlag(QGraphicsPathItem.GraphicsItemFlag.ItemIsSelectable)
         self.setZValue(-1)
@@ -44,11 +45,16 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         self.edge.scene.nodeGraphicsScene.itemSelected.emit()
 
     def mouseReleaseEvent(self, event: QGraphicsSceneMouseEvent) -> None:
+        # BUG: 未執行此部分
+        if DEBUG: print("::GraphicsEdge MR")
         super().mouseReleaseEvent(event)
+        if DEBUG: print("::GraphicsEdge _last_selected_state: ", self._last_selected_state, " isSelected(): ", self.isSelected())
         if self._last_selected_state != self.isSelected():
+            if DEBUG: print("::GraphicsEdge resetLastSelectedStates(): ", self.edge.scene.resetLastSelectedStates())
             self.edge.scene.resetLastSelectedStates()
             self._last_selected_state = self.isSelected()
             self.onSelected()
+            if DEBUG: print("::GraphicsEdge onSelected(): ", self.onSelected())
         
     def setSource(self, x, y):
         self.posSource = [x, y]

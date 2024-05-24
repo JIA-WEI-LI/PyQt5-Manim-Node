@@ -54,7 +54,6 @@ class CalculatorSubWindow(NodeEditorWidget):
 
             # print("calaulator_subWindow:: GOT DROP: [%d] '%s" % (op_code, text), " mouse: ", mouse_position, "scene: ", scene_position)
 
-            # FIXME
             try:
                 # node = Node_Calculator(self.scene , op_code, text, input=[1, 1], output=[1])
                 node = get_class_from_opcode(op_code)(self.scene)

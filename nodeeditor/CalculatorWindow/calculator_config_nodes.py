@@ -14,19 +14,19 @@ class CalcNode_Output(CalcNode):
 @register_node(OP_NODE_ADD)
 class CalcNode_Add(CalcNode):
     def __init__(self, scene):
-        super().__init__(scene, OP_NODE_ADD, "Add", "+")
+        super().__init__(scene, OP_NODE_ADD, "Add")
 
 @register_node(OP_NODE_SUB)
 class CalcNode_Sub(CalcNode):
     def __init__(self, scene):
-        super().__init__(scene, OP_NODE_SUB, "Substract", "-")
+        super().__init__(scene, OP_NODE_SUB, "Substract")
 
 @register_node(OP_NODE_MUL)
 class CalcNode_Mul(CalcNode):
     def __init__(self, scene):
-        super().__init__(scene, OP_NODE_MUL, "Multiply", "*")
+        super().__init__(scene, OP_NODE_MUL, "Multiply")
 
 @register_node(OP_NODE_DIV)
 class CalcNode_Div(CalcNode):
     def __init__(self, scene):
-        super().__init__(scene, OP_NODE_DIV, "Divide", "/")
+        super().__init__(scene, OP_NODE_DIV, "Divide")

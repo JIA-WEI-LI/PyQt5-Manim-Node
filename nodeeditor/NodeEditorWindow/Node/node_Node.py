@@ -8,16 +8,15 @@ from common.color_sheet import color_manager
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
-DEBUG = DebugMode.NODE_NODE
+# DEBUG = DebugMode.NODE_NODE
+DEBUG = True
 
 class Node(Serializable):
     '''節點'''
-    def __init__(self, scene, title="Undefined Node", input=[], output=[], node_color:str=color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[0]):
+    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], node_color:str=color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[0]):
         super().__init__()
         self.scene = scene
         self._title = title
-        self.input = input
-        self.output = output
         # HACK: 自定義節點標題顏色
         self.node_color = node_color
 
@@ -30,7 +29,7 @@ class Node(Serializable):
 
         self.inputs = []
         self.outputs = []
-        self.initSockets(input, output)
+        self.initSockets(inputs, outputs)
 
     def initInnerClasses(self):
         self.content = NodeContentWidget(self)
@@ -83,20 +82,22 @@ class Node(Serializable):
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # BUG：如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + (index + len(self.output)) * (space + 1) * self.socketSpace
-            if DEBUG: print(f"Node {self.id} ---> Pos {index} is bottom, \
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + (index + len(self.outputs)) * (space + 1) * self.socketSpace
+            if DEBUG: print(f"Node {self.__class__}\n  \
+Node {self.id} ---> Pos {index} is bottom, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + 2 * padding: {2*int(self.graphicsNode._padding)} \
 + edgeSize: {int(self.graphicsNode.edgeSize)} \
-+ (index: {int(index)} +len(output): {int(len(self.output))}) \
++ (index: {int(index)} +len(output): {int(len(self.outputs))}) \
 * socketSpace: {int(self.socketSpace)}")
         else:
             y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + index * (space + 1) * self.socketSpace
-            if DEBUG: print(f"Node {self.id} ---> Pos {index} is top, \
+            if DEBUG: print(f"Node {self.__class__}\n  \
+Node {self.id} ---> Pos {index} is top, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + 2 * padding: {2*int(self.graphicsNode._padding)} \
 + edgeSize: {int(self.graphicsNode.edgeSize)} \
-+ (index: {int(index)} +len(output): {int(len(self.output))}) \
++ (index: {int(index)} +len(output): {int(len(self.outputs))}) \
 * socketSpace: {int(self.socketSpace)}")
 
         return [x, y]
@@ -153,7 +154,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
     def deserialize(self, data, hashmap={}, restore_id=True):
         '''載入序列化資訊'''
         if restore_id: self.id = data['id']
-        self.output = data['outputs']
+        self.outputs = data['outputs']
         hashmap[data['id']] = self
 
         self.setPos(data['pos_x'], data['pos_y'])

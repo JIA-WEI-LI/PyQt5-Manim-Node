@@ -3,6 +3,7 @@ from PyQt5.QtCore import Qt
 
 from .content_BaseSetting import ContentBaseSetting
 
+# FIXME: 會導致連結點計算異常
 class CheckBox(QWidget, ContentBaseSetting):
     """ Custom Checkbox
 

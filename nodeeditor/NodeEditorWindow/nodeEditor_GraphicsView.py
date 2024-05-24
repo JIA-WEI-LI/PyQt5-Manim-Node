@@ -223,7 +223,7 @@ class NodeGraphicsView(QGraphicsView):
             self.cutline.update()
             QApplication.setOverrideCursor(Qt.CursorShape.ArrowCursor)
             self.mode = MODE_NOOP
-            if DEBUG: print("-- RMB Release Cut mode, Drag Mode: ", self.dragMode(), " self.node = ", self.mode)
+            if DEBUG: print("-- RMB Release Cut mode, Drag Mode: ", self.dragMode(), " self.mode = ", self.mode)
             return
 
         if self.rubberBandDraggingRectangle:

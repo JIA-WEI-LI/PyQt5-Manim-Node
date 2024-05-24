@@ -99,10 +99,6 @@ class NodeEditorWidget(QWidget):
         node_Vector3 = Node_Vector3(self.scene)
         node_Color = Node_Color(self.scene)
         node_Boolean = Node_Boolean(self.scene)
-        node1 = Node_Add(self.scene)
-        node2 = Node_Substract(self.scene)
-        node3 = Node_Multiply(self.scene)
-        node4 = Node_Divide(self.scene)
         node_Test = Node_Test(self.scene)
         
         node_int0.setPos(-100, -100)
@@ -113,10 +109,6 @@ class NodeEditorWidget(QWidget):
         node_Vector2.setPos(-350, -350)
         node_Vector3.setPos(-400, -400)
         node_Boolean.setPos(-450, -450)
-        node1.setPos(0, 0)
-        node2.setPos(100, 100)
-        node3.setPos(200, 200)
-        node4.setPos(300, 300)
         node_Test.setPos(600, 0)
 
         # edge1 = Edge(self.scene, node2.outputs[0], node1.inputs[0])

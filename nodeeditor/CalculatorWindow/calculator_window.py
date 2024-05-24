@@ -1,4 +1,5 @@
 import os
+from pprint import PrettyPrinter
 from PyQt5.QtCore import Qt, QSignalMapper, QFileInfo
 from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWidget, QAction, QMessageBox, QFileDialog
 from PyQt5.QtGui import QCloseEvent, QKeySequence, QBrush, QColor, QIcon
@@ -9,6 +10,12 @@ from .calculator_subWindow import CalculatorSubWindow
 from .calculator_dragListBox import NodeGraphicsDragListBox
 from NodeEditorWindow import NodeEditorMainWindow
 
+from CalculatorWindow.calculator_config_nodes import *
+from CalculatorWindow.calculator_config import *
+from CalculatorWindow.calculator_node_base import *
+
+DEBUG = True
+
 class CalculatorMainWindow(NodeEditorMainWindow):
     # @StyleSheet.apply("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss")
     def initUI(self):
@@ -16,6 +23,10 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.name_projuct = 'Calaulator NodeEditor'
 
         self.empty_icon = QIcon(".")
+
+        if DEBUG:
+            print("Registered nodes:")
+            PrettyPrinter(indent=4).pprint(CALC_NODES)
 
         self.mdiArea=  QMdiArea()
         self.mdiArea.setHorizontalScrollBarPolicy(Qt.ScrollBarPolicy.ScrollBarAsNeeded)

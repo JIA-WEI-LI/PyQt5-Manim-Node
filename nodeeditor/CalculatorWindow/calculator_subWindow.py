@@ -1,9 +1,10 @@
 from PyQt5.QtCore import Qt, QDataStream, QIODevice
 from PyQt5.QtGui import QDragEnterEvent, QPixmap
+
 from NodeEditorWindow.nodeEditor_Widget import NodeEditorWidget
-# from NodeEditorWindow.Node.node_Node import Node
 from NodeEditorNodes.node_Calculator import *
 
+from common.utils import dumpException
 from .calculator_config import *
 
 class CalculatorSubWindow(NodeEditorWidget):
@@ -54,10 +55,12 @@ class CalculatorSubWindow(NodeEditorWidget):
             # print("calaulator_subWindow:: GOT DROP: [%d] '%s" % (op_code, text), " mouse: ", mouse_position, "scene: ", scene_position)
 
             # FIXME
-            # print("ReadQString: ", text)
-            node = Node_Calculator(self.scene , op_code, text, input=[1, 1], output=[1])
-            node.setPos(scene_position.x(), scene_position.y())
-            self.scene.addNode(node)
+            try:
+                # node = Node_Calculator(self.scene , op_code, text, input=[1, 1], output=[1])
+                node = get_class_from_opcode(op_code)(self.scene)
+                node.setPos(scene_position.x(), scene_position.y())
+            except Exception as e:
+                dumpException(e)
 
             event.setDropAction(Qt.MoveAction)
             event.accept()

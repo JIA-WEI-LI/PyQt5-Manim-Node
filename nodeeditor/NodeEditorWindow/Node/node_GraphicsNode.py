@@ -32,7 +32,7 @@ class NodeGraphicsNode(QGraphicsItem):
         self.edgeSize = 10.0
         self.titleHeight = 26.0
         self.titlePadding = 6.0
-        self.height = self.titleHeight + 2*self._padding
+        self.height = 46.0
 
     def onSelected(self):
         self.node.scene.nodeGraphicsScene.itemSelected.emit()

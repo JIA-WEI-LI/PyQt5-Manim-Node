@@ -93,7 +93,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
 
     def onFileOpen(self):
         '''開啟檔案'''
-        fnames, filter = QFileDialog.getOpenFileNames(self, "開啟檔案")
+        fnames, filter = QFileDialog.getOpenFileNames(self, "開啟檔案", self.getFileDialogDirectory(), self.getFileDialogFilter())
         
         try:
             for fname in fnames:

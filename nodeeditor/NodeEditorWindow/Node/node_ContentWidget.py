@@ -7,7 +7,8 @@ from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePoli
 
 from ..Serialization.node_Serializable import Serializable
 from common.style_sheet import StyleSheet
-from ..BlenderStyleWidget import *
+# from ..BlenderStyleWidget import *
+from BlenderStyle import *
 from config.debug import DebugMode
 
 SOCKET_SPACE = 30
@@ -60,7 +61,7 @@ class NodeContentWidget(QWidget, Serializable):
             ---------
                 colorPickerButton: The created colorPickerButton widget.
         """
-        colorPickerButton = ColorPickerButton(show_text=show_text, **kwargs)
+        colorPickerButton = ColorPicker(show_text=show_text, **kwargs)
         self.vboxLayout.addWidget(colorPickerButton)
         self.node.graphicsNode.height += 30
         # TODO:新增預設顏色序列化儲存 / 新增調整後顏色再次開啟之預設顏色
@@ -71,28 +72,6 @@ class NodeContentWidget(QWidget, Serializable):
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return colorPickerButton
-    
-    def addComboBox(self, items:list=["List 1", "List 2", "List 3"], **kwargs):
-        """Adds a custom combobox to the layout.
-
-            Parameters :
-            ---------
-                items ( List[str] ) : A list of items to populate the combobox.
-
-            Returns :
-            ---------
-                comboBox: The created comboBox widget.
-        """
-        comboBox = ComboBox(**kwargs)
-        comboBox.addItems(items)
-        self.vboxLayout.addWidget(comboBox)
-        self.node.graphicsNode.height += 30
-        self.contentLists.append(
-            ('comboBox', {
-                'list': items,
-                'tooltip': kwargs.get("tooltip", "")
-            }))
-        return comboBox
     
     def addInputLabel(self, text:str="Input Label", **kwargs):
         """Adds a input label to the left side of layout.
@@ -105,7 +84,7 @@ class NodeContentWidget(QWidget, Serializable):
             ---------
                 label: The created Label widget.
         """
-        label = Label(text, **kwargs)
+        label = QLabel(text, **kwargs)
         label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
         self.node.graphicsNode.height += 30
@@ -160,7 +139,7 @@ class NodeContentWidget(QWidget, Serializable):
             ---------
                 progress_bar = self.content.addProgressBar(label="", minimum=0, maximum=10, initial_value=0.5)
         """
-        progressBar = ControlledProgressBar(label=label, minimum=minimum, maximum=maximum, initial_value=initial_value, **kwargs)
+        progressBar = ProgressBarSlider(text=label, minimum=minimum, maximum=maximum, initial_value=initial_value, **kwargs)
         self.vboxLayout.addWidget(progressBar)
         self.node.graphicsNode.height += 30
         current_value = progressBar.value()
@@ -187,7 +166,7 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return button
 
-    def addSpinBox(self, label:str="Value", minimum:int=0, maximum:int=100000, initial_value:int=1, **kwargs):
+    def addSpinBox(self, label:str="Value", value:int=1, step:int=1, **kwargs):
         """Adds a SpinBox to the layout.
 
             Parameters :
@@ -205,15 +184,14 @@ class NodeContentWidget(QWidget, Serializable):
             ---------
                 spin_box = self.content.addSpinBox(label="SpinBox", minimum=0, maximum=1000000, initial_value=1)
         """
-        spinBox = SpinBox(label=label, minimum=minimum, maximum=maximum, **kwargs)
+        spinBox = ButtonSpinBox(text=label, value=value, step=step, **kwargs)
         self.vboxLayout.addWidget(spinBox)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('spinBox', {
                 'label': label,
-                'minium': minimum,
-                'maxium': maximum,
-                'initial_value': initial_value,
+                'value': value,
+                'step': step,
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return spinBox
@@ -233,7 +211,7 @@ class NodeContentWidget(QWidget, Serializable):
             ---------
                 output_label = self.content.addOutputLabel(text="Output Label")
         """
-        label = Label(text, **kwargs)
+        label = QLabel(text, **kwargs)
         label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
@@ -244,19 +222,6 @@ class NodeContentWidget(QWidget, Serializable):
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return label
-    
-    def addVectorSpinBox(self, degree:list=["x", "y", "z"], **kwargs):
-        '''新增向量型數值框'''
-        vector = VectorSpinBox(degree=degree, **kwargs)
-        vector.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
-        self.vboxLayout.addWidget(vector)
-        self.node.graphicsNode.height += len(degree)*30
-        self.contentLists.append(
-            ('vectorSpinBox', {
-                'degree': degree,
-                'tooltip': kwargs.get("tooltip", "")
-            }))
-        return vector
 
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value

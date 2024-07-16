@@ -98,14 +98,8 @@ class NodeEditorMainWindow(QMainWindow):
         else:
             event.ignore()
 
-    def isModified(self) -> bool:
-        """Has current :class:`~nodeeditor.node_scene.Scene` been modified?
-
-        :return: ``True`` if current :class:`~nodeeditor.node_scene.Scene` has been modified
-        :rtype: ``bool``
-        """
-        nodeeditor = self.getCurrentNodeEditorWidget()
-        return nodeeditor.scene.isModified() if nodeeditor else False
+    def isModified(self):
+        return self.getCurrentNodeEditorWidget().scene.isModified()
     
     def getCurrentNodeEditorWidget(self):
         return self.centralWidget()

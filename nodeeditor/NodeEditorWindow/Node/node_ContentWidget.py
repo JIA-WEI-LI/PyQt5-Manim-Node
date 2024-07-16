@@ -41,10 +41,6 @@ class NodeContentWidget(QWidget, Serializable):
             Returns :
             ---------
                 CheckBox: The created checkbox widget.
-
-            Usage :
-            ---------
-                checkbox = self.content.addCheckbox(text="Checkbox")
         """
         checkbox = CheckBox(text, status=status, **kwargs)
         self.vboxLayout.addWidget(checkbox)
@@ -63,10 +59,6 @@ class NodeContentWidget(QWidget, Serializable):
             Returns :
             ---------
                 colorPickerButton: The created colorPickerButton widget.
-
-            Usage :
-            ---------
-                color_picker_button = self.content.addColorPickerButton()
         """
         colorPickerButton = ColorPickerButton(show_text=show_text, **kwargs)
         self.vboxLayout.addWidget(colorPickerButton)
@@ -90,10 +82,6 @@ class NodeContentWidget(QWidget, Serializable):
             Returns :
             ---------
                 comboBox: The created comboBox widget.
-
-            Usage :
-            ---------
-                combo_box = self.content.addComboBox(items=["List 1", "List 2", "List 3"], parent)
         """
         comboBox = ComboBox(**kwargs)
         comboBox.addItems(items)
@@ -116,10 +104,6 @@ class NodeContentWidget(QWidget, Serializable):
             Returns :
             ---------
                 label: The created Label widget.
-
-            Usage :
-            ---------
-                input_label = self.content.addInputLabel(text="Input Label")
         """
         label = Label(text, **kwargs)
         label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)

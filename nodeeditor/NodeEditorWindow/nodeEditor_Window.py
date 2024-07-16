@@ -120,6 +120,14 @@ class NodeEditorMainWindow(QMainWindow):
     def onScenePosChanged(self, x, y):
         self.status_mouse_pos.setText("Scene Pos: [%d, %d] " % (x, y))
 
+    def getFileDialogDirectory(self):
+        """Returns starting directory for ``QFileDialog`` file open/save"""
+        return ''
+
+    def getFileDialogFilter(self):
+        """Returns ``str`` standard file open/save filter for ``QFileDialog``"""
+        return 'Graph (*.json);;All files (*)'
+
     def onFileNew(self):
         '''開啟新視窗(刪除舊有全物件)'''
         if self.maybeSave():
@@ -129,11 +137,10 @@ class NodeEditorMainWindow(QMainWindow):
     def onFileOpen(self):
         '''開啟檔案'''
         if self.maybeSave():
-            fname, filter = QFileDialog.getOpenFileName(self, "開啟檔案")
+            fname, filter = QFileDialog.getOpenFileName(self, "開啟檔案", self.getFileDialogDirectory(), self.getFileDialogFilter())
             if fname != '' and os.path.isfile(fname):
                 self.getCurrentNodeEditorWidget().fileLoad(fname)
                 self.setTitle()
-
 
     def onFileSave(self) -> bool:
         '''儲存檔案'''
@@ -152,8 +159,10 @@ class NodeEditorMainWindow(QMainWindow):
         '''另存新檔'''
         current_nodeeditor = self.getCurrentNodeEditorWidget()
         if current_nodeeditor is not None:
-            fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", filter="JSON files (*.json)")
+            fname, filter = QFileDialog.getSaveFileName(self, "另存新檔", self.getFileDialogDirectory(), self.getFileDialogFilter())
             if fname == '': return False
+
+            self.onBeforeSaveAs(current_nodeeditor, fname)
             current_nodeeditor.fileSave(fname)
             self.statusBar().showMessage("已成功另存新檔 %s" % current_nodeeditor.filename, 5000)
             
@@ -161,6 +170,13 @@ class NodeEditorMainWindow(QMainWindow):
             if hasattr(current_nodeeditor, "setTitle"): current_nodeeditor.setTitle()
             else: self.setTitle()
             return True
+        
+    def onBeforeSaveAs(self, current_nodeeditor: 'NodeEditorWidget', filename: str):
+        """
+        Event triggered after choosing filename and before actual fileSave(). We are passing current_nodeeditor because
+        we will loose focus after asking with QFileDialog and therefore getCurrentNodeEditorWidget will return None
+        """
+        pass
 
     def onEditUndo(self):
         '''返回上一步'''

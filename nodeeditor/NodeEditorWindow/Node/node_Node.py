@@ -1,10 +1,10 @@
 from collections import OrderedDict
+from PyQt5.QtGui import QColor
 
 from .node_ContentWidget import NodeContentWidget
 from .node_GraphicsNode import NodeGraphicsNode
 from ..Serialization.node_Serializable import Serializable
 from ..Socket.node_Socket import Socket, NullSocket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
-from common.color_sheet import color_manager
 from config.debug import DebugMode
 from common.config import qconfig, cfg
 
@@ -129,7 +129,8 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
     def node_type(self, type:int=1):
         # HACK: 自定義節點類型，並決定節點顏色
         try:
-            self.node_color = color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[type]
+            # self.node_color = color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[type]
+            self.node_color = QColor(qconfig.get(cfg.nodeTitleColor))
         except Exception as e:
             print("node_Node:: Error number of type")
 

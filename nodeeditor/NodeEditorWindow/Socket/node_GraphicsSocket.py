@@ -6,16 +6,14 @@ from config.debug import DebugMode
 from common.config import qconfig, cfg
 
 class NodeGraphicsSocket(QGraphicsItem):
-    def __init__(self, socket, socket_type=1 ,parent=None) -> None:
+    def __init__(self, socket, socket_type=0 ,parent=None) -> None:
         self.socket = socket
         super().__init__(socket.node.graphicsNode)
 
         self._radius = 7.0
         self._outline_width = 1.0
-        # self._pen = QPen(SocketColor.DEFAULT_OUTLINE)
         self._pen = QPen(qconfig.get(cfg.socketPenColor))
         self._pen.setWidthF(self._outline_width)
-        # self.brush = QBrush(SocketColor.DEFAULT_COLOR_LIST[socket_type])
         self.brush = QBrush(QColor(qconfig.get(cfg.socketColor)[socket_type]))
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):

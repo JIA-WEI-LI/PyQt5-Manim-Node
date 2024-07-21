@@ -2,7 +2,6 @@ from PyQt5.QtGui import QColor
 
 from NodeEditorWindow.BlenderStyleWidget import *
 from NodeEditorWindow.Node.node_Node import Node
-from common.color_sheet import color_manager
 
 class Node_Calculator(Node):
     def __init__(self, scene, op_code, title="Undefined Node", input=[1, 1], output=[1]):

@@ -2,15 +2,8 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath, QColor
 
-from common.color_sheet import color_manager
+from common.config import qconfig, cfg
 from config.debug import DebugMode
-
-class NodeGraphicsColorSetting:
-    TITLEITEM_COLOR = color_manager.get_color("NodeColor", "BLENDER_TITLE")
-    TITLEITEM_BRUSH = color_manager.get_color("NodeColor", "BLENDER_BRUSH_TITLE")
-    BACKGROUND_BRUSH = color_manager.get_color("NodeColor", "BLENDER_BRUSH_BACKGROUND")
-    PEN_COLOR = color_manager.get_color("NodeColor", "BLENDER_PEN")
-    PEN_SELECTED_COLOR = color_manager.get_color("NodeColor", "BLENDER_PEN_SELECTED")
 
 class NodeGraphicsNode(QGraphicsItem):
     def __init__(self, node ,parent=None):
@@ -97,7 +90,7 @@ class NodeGraphicsNode(QGraphicsItem):
         '''節點主名稱標題'''
         self.titleItem = QGraphicsTextItem(self)
         self.titleItem.node = self.node
-        self.titleItem.setDefaultTextColor(NodeGraphicsColorSetting.TITLEITEM_COLOR)
+        self.titleItem.setDefaultTextColor(QColor(qconfig.get(cfg.nodeTitleColor)[0]))
         self.titleItem.setFont(self.titleFont)
         self.titleItem.setPos(self.titlePadding, self.titlePadding//4)
         self.titleItem.setTextWidth(self.width - 2 * self.titlePadding)
@@ -137,11 +130,11 @@ class NodeGraphicsNode(QGraphicsItem):
         pathContent.addRect(0, self.titleHeight, self.edgeSize, self.edgeSize)
         pathContent.addRect(self.width - self.edgeSize, self.titleHeight, self.edgeSize, self.edgeSize)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(NodeGraphicsColorSetting.BACKGROUND_BRUSH))
+        painter.setBrush(QBrush(qconfig.get(cfg.nodeBackgroundBrush)))
         painter.drawPath(pathContent.simplified())
         # 邊框
         pathOutline = QPainterPath()
         pathOutline.addRoundedRect(0, 0, self.width, self.height, self.edgeSize, self.edgeSize)
-        painter.setPen(QPen(NodeGraphicsColorSetting.PEN_COLOR) if not self.isSelected() else QPen(NodeGraphicsColorSetting.PEN_SELECTED_COLOR))
+        painter.setPen(QPen(qconfig.get(cfg.nodePenColor)) if not self.isSelected() else QPen(qconfig.get(cfg.nodePenSelectedColor)))
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(pathOutline.simplified())

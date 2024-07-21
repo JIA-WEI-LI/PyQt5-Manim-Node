@@ -6,6 +6,7 @@ from ..Serialization.node_Serializable import Serializable
 from ..Socket.node_Socket import Socket, NullSocket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
 from common.color_sheet import color_manager
 from config.debug import DebugMode
+from common.config import qconfig, cfg
 
 SOCKET_SPACE = 30
 # DEBUG = DebugMode.NODE_NODE
@@ -13,7 +14,7 @@ DEBUG = True
 
 class Node(Serializable):
     '''節點'''
-    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], node_color:str=color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[0]):
+    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], node_color:str=qconfig.get(cfg.nodeTitleColor)):
         super().__init__()
         self.scene = scene
         self._title = title

@@ -5,7 +5,7 @@ from collections import OrderedDict
 
 from PyQt5.QtCore import QRectF
 from PyQt5.QtWidgets import QGraphicsScene, QGraphicsView
-from PyQt5.QtGui import QPainter, QPen
+from PyQt5.QtGui import QPainter, QPen, QColor
 from PyQt5.QtCore import QLine, pyqtSignal
 
 from .Edge.node_Edge import Edge
@@ -13,12 +13,8 @@ from .Node.node_Node import Node
 from .Serialization.node_Serializable import Serializable
 from .Scene.nodeEditor_SceneHistory import SceneHistory
 from .Scene.nodeEditor_SceneClipboard import SceneClipboard
-from common.color_sheet import color_manager
 from common.utils import dumpException
-
-PENLIGHT_COLOR = color_manager.get_color("WindowColor", "BLENDER_PEN_LIGHT")
-PENDARK_COLOR = color_manager.get_color("WindowColor", "BLENDER_PEN_DARK")
-BACKGROUND_COLOR = color_manager.get_color("WindowColor", "BLENDER_BACKGROUND")
+from common.config import qconfig, cfg
 
 class InvalidFile(Exception): pass
 
@@ -186,11 +182,11 @@ class NodeGraphicsScene(QGraphicsScene):
         self.sceenWidth, self.sceenHeight = 640000, 640000
         self.setSceneRect(self.sceenWidth//2, self.sceenHeight//2, self.sceenWidth, self.sceenHeight)
 
-        self.penLight = QPen(PENLIGHT_COLOR)
+        self.penLight = QPen(qconfig.get(cfg.penLightColor))
         self.penLight.setWidth(1)
-        self.penDark = QPen(PENDARK_COLOR)
+        self.penDark = QPen(qconfig.get(cfg.penDarkColor))
         self.penDark.setWidth(2)
-        self.setBackgroundBrush(BACKGROUND_COLOR)
+        self.setBackgroundBrush(qconfig.get(cfg.editBackgroundColor))
 
     def dragMoveEvent(self, event):
         pass

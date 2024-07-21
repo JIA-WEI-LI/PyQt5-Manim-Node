@@ -1,7 +1,9 @@
 import json
 from enum import Enum
+from copy import deepcopy
 from typing import List
 from pathlib import Path
+from PyQt5.QtGui import  QColor
 from PyQt5.QtCore import QObject, pyqtSignal
 
 from .exception_handler import exceptionHandler
@@ -148,6 +150,28 @@ class OptionsConfigItem(ConfigItem):
     def __str__(self):
         return f'{self.__class__.__name__}[options={self.options}, value={self.value}]'
 
+class ColorConfigItem(ConfigItem):
+    """ Config item for a single color """
+    def __init__(self, group, name, default, validator=None, serializer=None, output_type="QColor", **kwargs):
+        super().__init__(group, name, default, validator, serializer, **kwargs)
+        self.output_type = output_type
+
+    @property
+    def color(self):
+        if self.output_type == "QColor":
+            return QColor(self.value)
+        return self.value
+
+    @color.setter
+    def color(self, value):
+        if self.output_type == "QColor":
+            self.value = value.name()  # Store the color as a string in HEX format
+        else:
+            self.value = value
+
+    def __str__(self):
+        return f'{self.__class__.__name__}[color={self.color}, value={self.value}]'
+    
 class QConfig(QObject):
     def __init__(self):
         super().__init__()
@@ -155,17 +179,21 @@ class QConfig(QObject):
         self._cfg = self
 
     def get(self, item):
+        if isinstance(item, ColorConfigItem):
+            return item.color
         return item.value
     
-    def set(self, item, value):
+    def set(self, item, value, save=True, copy=True):
         if item.value == value:
             return
-        
-    def set(self, item, value):
-        if self._cfg.get(item) == value:
-            return
-        self._cfg[item] = value
-        self.save()
+        try:
+            item.value = deepcopy(value) if copy else value
+        except:
+            item.value = value
+        if save:
+            self.save()
+        if item.restart:
+            self._cfg.appRestartSig.emit()
         
     def save(self):
         """ save config """
@@ -239,9 +267,32 @@ class QConfig(QObject):
     
 qconfig = QConfig()
 
+
 class NodeConfig(QConfig):
     """ Config of application """
-
     colorPath = ConfigItem("ConfigPath", "Color", "nodeeditor\\resources\\color\\nodeEditor_palette.json")
 
+    # NodeEditor Color
+    penDarkColor = ColorConfigItem("NodeEditor_ColorPalette", "PenDark_Color", "#2a2a2a")
+    penLightColor = ColorConfigItem("NodeEditor_ColorPalette", "PenLight_Color", "#222222")
+    backgroundColor = ColorConfigItem("NodeEditor_ColorPalette", "Background_Color", "#1d1d1d")
+    editBackgroundColor = ColorConfigItem("NodeEditor_ColorPalette", "EditBackground_Color", "#1d1d1d")
+    # Node Color
+    nodePenColor = ColorConfigItem("Node_ColorPalette", "NodePen_Color", "#7F000000")
+    nodeTitleColor = OptionsConfigItem("NodeEditor_ColorPalette", "NodeTitle_Color", "#FF246283", OptionsValidator(["#FF246283", "#FF79461d", "#FF344621", "#FF83314a", "#FF1d2546", "#FF1d1d1d"]), restart=False)
+    nodeTitleBrush = ColorConfigItem("Node_ColorPalette", "NodeTitle_Brush", "#1d725e")
+    nodeBackgroundBrush = ColorConfigItem("Node_ColorPalette", "NodeBackground_Brush", "#E3303030")
+    nodePenSelectedColor = ColorConfigItem("Node_ColorPalette", "NodePenSelected_Color", "#FFFFFF")
+    # Edge Color
+    edgePenColor = ColorConfigItem("Edge_ColorPalette", "EdgePen_Color", "#FF03bd91")
+    edgeDragColor = ColorConfigItem("Edge_ColorPalette", "EdgeDrag_Color", "#FF03bd91")
+    edgeSelectedColor = ColorConfigItem("Edge_ColorPalette", "EdgeSelected_Color", "#b3f3e4")
+    # Socket Color
+    socketColor = OptionsConfigItem("Socket_ColorPalette", "Socket_Color", "#FFa1a1a1", OptionsValidator(["#FFa1a1a1", "#FF00d6a3", "#FFc7c729", "#FF6363c7", "#FF598c5c", "#FFcca6d6", "#FF1d1d1d",]), restart=False)
+    socketPenColor = ColorConfigItem("Socket_ColorPalette", "SocketPen_Color", "#FF000000")
+    
+
 cfg = NodeConfig()
+qconfig.set(cfg.colorPath, "nodeeditor\\config\\config.json")
+
+print(f"config:: {type(qconfig.get(cfg.penDarkColor))}")

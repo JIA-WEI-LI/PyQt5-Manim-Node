@@ -2,12 +2,8 @@ from PyQt5.QtCore import QRectF
 from PyQt5.QtWidgets import QGraphicsItem
 from PyQt5.QtGui import QPen, QBrush, QPainter, QColor
 
-from common.color_sheet import color_manager
 from config.debug import DebugMode
-
-class SocketColor:
-    PEN_COLOR = color_manager.get_color("SocketColor", "DEFAULT_OUTLINE")
-    BRUSH_COLORLIST = color_manager.get_color_list("SocketColor", "DEFAULT_COLOR_LIST")
+from common.config import qconfig, cfg
 
 class NodeGraphicsSocket(QGraphicsItem):
     def __init__(self, socket, socket_type=1 ,parent=None) -> None:
@@ -17,10 +13,10 @@ class NodeGraphicsSocket(QGraphicsItem):
         self._radius = 7.0
         self._outline_width = 1.0
         # self._pen = QPen(SocketColor.DEFAULT_OUTLINE)
-        self._pen = QPen(SocketColor.PEN_COLOR)
+        self._pen = QPen(qconfig.get(cfg.socketPenColor))
         self._pen.setWidthF(self._outline_width)
         # self.brush = QBrush(SocketColor.DEFAULT_COLOR_LIST[socket_type])
-        self.brush = QBrush(QColor(SocketColor.BRUSH_COLORLIST[socket_type]))
+        self.brush = QBrush(QColor(qconfig.get(cfg.socketColor)[socket_type]))
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         painter.setBrush(self.brush)

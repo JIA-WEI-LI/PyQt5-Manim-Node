@@ -14,7 +14,7 @@ class NodeGraphicsSocket(QGraphicsItem):
         self._outline_width = 1.0
         self._pen = QPen(qconfig.get(cfg.socketPenColor))
         self._pen.setWidthF(self._outline_width)
-        self.brush = QBrush(QColor(qconfig.get(cfg.socketColor)[socket_type]))
+        self.brush = QBrush(QColor(qconfig.get(cfg.socketColor)))
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         painter.setBrush(self.brush)

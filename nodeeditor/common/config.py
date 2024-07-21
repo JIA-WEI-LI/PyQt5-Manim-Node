@@ -279,6 +279,7 @@ class NodeConfig(QConfig):
     editBackgroundColor = ColorConfigItem("NodeEditor_ColorPalette", "EditBackground_Color", "#1d1d1d")
     # Node Color
     nodePenColor = ColorConfigItem("Node_ColorPalette", "NodePen_Color", "#7F000000")
+    nodeTextColor = ColorConfigItem("Node_ColorPalette", "NodePen_Color", "#eeeeee")
     nodeTitleColor = OptionsConfigItem("NodeEditor_ColorPalette", "NodeTitle_Color", "#FF246283", OptionsValidator(["#FF246283", "#FF79461d", "#FF344621", "#FF83314a", "#FF1d2546", "#FF1d1d1d"]), restart=False)
     nodeTitleBrush = ColorConfigItem("Node_ColorPalette", "NodeTitle_Brush", "#1d725e")
     nodeBackgroundBrush = ColorConfigItem("Node_ColorPalette", "NodeBackground_Brush", "#E3303030")
@@ -295,4 +296,5 @@ class NodeConfig(QConfig):
 cfg = NodeConfig()
 qconfig.set(cfg.colorPath, "nodeeditor\\config\\config.json")
 
-print(f"config:: {type(qconfig.get(cfg.penDarkColor))}")
+print(f"config:: {(qconfig.get(cfg.nodeTitleColor))}")
+print(f"config:: {QColor(qconfig.get(cfg.nodeTitleColor))}")

@@ -90,7 +90,7 @@ class NodeGraphicsNode(QGraphicsItem):
         '''節點主名稱標題'''
         self.titleItem = QGraphicsTextItem(self)
         self.titleItem.node = self.node
-        self.titleItem.setDefaultTextColor(QColor(qconfig.get(cfg.nodeTitleColor)[0]))
+        self.titleItem.setDefaultTextColor(qconfig.get(cfg.nodeTextColor))
         self.titleItem.setFont(self.titleFont)
         self.titleItem.setPos(self.titlePadding, self.titlePadding//4)
         self.titleItem.setTextWidth(self.width - 2 * self.titlePadding)

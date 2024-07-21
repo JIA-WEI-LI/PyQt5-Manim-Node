@@ -270,8 +270,6 @@ qconfig = QConfig()
 
 class NodeConfig(QConfig):
     """ Config of application """
-    colorPath = ConfigItem("ConfigPath", "Color", "nodeeditor\\resources\\color\\nodeEditor_palette.json")
-
     # NodeEditor Color
     penDarkColor = ColorConfigItem("NodeEditor_ColorPalette", "PenDark_Color", "#2a2a2a")
     penLightColor = ColorConfigItem("NodeEditor_ColorPalette", "PenLight_Color", "#222222")
@@ -294,7 +292,5 @@ class NodeConfig(QConfig):
     
 
 cfg = NodeConfig()
-qconfig.set(cfg.colorPath, "nodeeditor\\config\\config.json")
-
-print(f"config:: {(qconfig.get(cfg.nodeTitleColor))}")
-print(f"config:: {QColor(qconfig.get(cfg.nodeTitleColor))}")
+qconfig.load("nodeeditor\\config\\config.json", cfg)
+qconfig.save()

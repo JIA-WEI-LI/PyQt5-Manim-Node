@@ -2,6 +2,7 @@ import json
 from PyQt5.QtGui import QColor
 
 from config.file_path import COLOR_PALETTE_PATH
+from common.config import qconfig, cfg
 
 class ColorManager:
     '''獲取顏色列表'''
@@ -12,7 +13,7 @@ class ColorManager:
             cls._instance = super(ColorManager, cls).__new__(cls, *args, **kwargs)
         return cls._instance
 
-    def __init__(self, file_path=COLOR_PALETTE_PATH):
+    def __init__(self, file_path=qconfig.get(cfg.colorPath)):
         if not hasattr(self, 'file_path'):
             self.file_path = file_path
             self.colors_data = self.load_colors_from_json()

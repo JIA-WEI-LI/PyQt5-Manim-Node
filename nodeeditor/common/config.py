@@ -23,31 +23,9 @@ class ConfigSerializer:
         return value
     
 class ConfigItem(QObject):
-    """ Config item """
     valueChanged = pyqtSignal(object)
 
     def __init__(self, group, name, default, validator=None, serializer=None, restart=False):
-        """
-        Parameters
-        ----------
-        group: str
-            config group name
-
-        name: str
-            config item name, can be empty
-
-        default:
-            default value
-
-        options: list
-            options value
-
-        serializer: ConfigSerializer
-            config serializer
-
-        restart: bool
-            whether to restart the application after updating value
-        """
         super().__init__()
         self.group = group
         self.name = name
@@ -150,27 +128,42 @@ class OptionsConfigItem(ConfigItem):
     def __str__(self):
         return f'{self.__class__.__name__}[options={self.options}, value={self.value}]'
 
+class ColorValidator(ConfigValidator):
+    """ RGB color validator """
+
+    def __init__(self, default):
+        self.default = QColor(default)
+
+    def validate(self, color):
+        try:
+            return QColor(color).isValid()
+        except:
+            return False
+
+    def correct(self, value):
+        return QColor(value) if self.validate(value) else self.default
+
+class ColorSerializer(ConfigSerializer):
+    """ QColor serializer """
+
+    def serialize(self, value: QColor):
+        return value.name(QColor.HexArgb)
+
+    def deserialize(self, value):
+        if isinstance(value, list):
+            return QColor(*value)
+
+        return QColor(value)
+
 class ColorConfigItem(ConfigItem):
-    """ Config item for a single color """
-    def __init__(self, group, name, default, validator=None, serializer=None, output_type="QColor", **kwargs):
-        super().__init__(group, name, default, validator, serializer, **kwargs)
-        self.output_type = output_type
+    """ Color config item """
 
-    @property
-    def color(self):
-        if self.output_type == "QColor":
-            return QColor(self.value)
-        return self.value
-
-    @color.setter
-    def color(self, value):
-        if self.output_type == "QColor":
-            self.value = value.name()  # Store the color as a string in HEX format
-        else:
-            self.value = value
+    def __init__(self, group, name, default, restart=False):
+        super().__init__(group, name, QColor(default), ColorValidator(default),
+                         ColorSerializer(), restart)
 
     def __str__(self):
-        return f'{self.__class__.__name__}[color={self.color}, value={self.value}]'
+        return f'{self.__class__.__name__}[value={self.value.name()}]'
     
 class QConfig(QObject):
     def __init__(self):
@@ -179,19 +172,21 @@ class QConfig(QObject):
         self._cfg = self
 
     def get(self, item):
-        if isinstance(item, ColorConfigItem):
-            return item.color
         return item.value
     
+    # FIXME: 無法正確修改顏色代碼(詳見 calculator_config_nodes.py )
     def set(self, item, value, save=True, copy=True):
         if item.value == value:
             return
         try:
             item.value = deepcopy(value) if copy else value
-        except:
+        except Exception as e:
+            print(f"Error in deepcopy: {e}")
             item.value = value
+
         if save:
             self.save()
+
         if item.restart:
             self._cfg.appRestartSig.emit()
         
@@ -200,6 +195,25 @@ class QConfig(QObject):
         self._cfg.file.parent.mkdir(parents=True, exist_ok=True)
         with open(self._cfg.file, "w", encoding="utf-8") as f:
             json.dump(self._cfg.toDict(), f, ensure_ascii=False, indent=4)
+
+    def toDict(self, serialize=True):
+        """ convert config items to `dict` """
+        items = {}
+        for name in dir(self._cfg.__class__):
+            item = getattr(self._cfg.__class__, name)
+            if not isinstance(item, ConfigItem):
+                continue
+
+            value = item.serialize() if serialize else item.value
+            if not items.get(item.group):
+                if not item.name:
+                    items[item.group] = value
+                else:
+                    items[item.group] = {}
+            if item.name:
+                items[item.group][item.name] = value
+
+        return items
 
     @exceptionHandler()
     def load(self, file=None, config=None):
@@ -244,26 +258,6 @@ class QConfig(QObject):
                         items[key].deserializeFrom(value)
 
         self.theme = self.get(self._cfg.themeMode)
-        
-    def toDict(self, serialize=True):
-        """ convert config items to `dict` """
-        items = {}
-        for name in dir(self._cfg.__class__):
-            item = getattr(self._cfg.__class__, name)
-            if not isinstance(item, ConfigItem):
-                continue
-
-            value = item.serialize() if serialize else item.value
-            if not items.get(item.group):
-                if not item.name:
-                    items[item.group] = value
-                else:
-                    items[item.group] = {}
-
-            if item.name:
-                items[item.group][item.name] = value
-
-        return items
     
 qconfig = QConfig()
 
@@ -278,7 +272,7 @@ class NodeConfig(QConfig):
     # Node Color
     nodePenColor = ColorConfigItem("Node_ColorPalette", "NodePen_Color", "#7F000000")
     nodeTextColor = ColorConfigItem("Node_ColorPalette", "NodePen_Color", "#eeeeee")
-    nodeTitleColor = OptionsConfigItem("NodeEditor_ColorPalette", "NodeTitle_Color", "#FF246283", OptionsValidator(["#FF246283", "#FF79461d", "#FF344621", "#FF83314a", "#FF1d2546", "#FF1d1d1d"]), restart=False)
+    nodeTitleColor = OptionsConfigItem("Node_ColorPalette", "NodeTitle_Color", "#FF246283", OptionsValidator(["#FF246283", "#FF79461d", "#FF344621", "#FF83314a", "#FF1d2546", "#FF1d1d1d"]), restart=False)
     nodeTitleBrush = ColorConfigItem("Node_ColorPalette", "NodeTitle_Brush", "#1d725e")
     nodeBackgroundBrush = ColorConfigItem("Node_ColorPalette", "NodeBackground_Brush", "#E3303030")
     nodePenSelectedColor = ColorConfigItem("Node_ColorPalette", "NodePenSelected_Color", "#FFFFFF")
@@ -289,7 +283,6 @@ class NodeConfig(QConfig):
     # Socket Color
     socketColor = OptionsConfigItem("Socket_ColorPalette", "Socket_Color", "#FFa1a1a1", OptionsValidator(["#FFa1a1a1", "#FF00d6a3", "#FFc7c729", "#FF6363c7", "#FF598c5c", "#FFcca6d6", "#FF1d1d1d",]), restart=False)
     socketPenColor = ColorConfigItem("Socket_ColorPalette", "SocketPen_Color", "#FF000000")
-    
 
 cfg = NodeConfig()
 qconfig.load("nodeeditor\\config\\config.json", cfg)

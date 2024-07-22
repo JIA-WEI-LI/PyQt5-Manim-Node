@@ -1,5 +1,6 @@
 from CalculatorWindow.calculator_config import *
 from CalculatorWindow.calculator_node_base import *
+from common.config import qconfig, cfg
 
 @register_node(OP_NODE_INPUT)
 class CalcNode_Input(CalcNode):
@@ -10,6 +11,8 @@ class CalcNode_Input(CalcNode):
 class CalcNode_Output(CalcNode):
     def __init__(self, scene):
         super().__init__(scene, OP_NODE_OUTPUT, "Output", inputs=[1], outputs=[])
+        qconfig.set(cfg.nodeTitleColor, "#FF79461d")
+        self.node_color = qconfig.get(cfg.nodeTitleColor)
 
 @register_node(OP_NODE_ADD)
 class CalcNode_Add(CalcNode):

@@ -30,17 +30,12 @@ class CalculatorSubWindow(NodeEditorWidget):
         for callback in self._close_event_listeners: callback(self, event)
 
     def onDragEnter(self, event: QDragEnterEvent):
-        # print("CalcSubMnd:: ~onDrop")
-        # print("text: %s" % event.mimeData().text())
         if event.mimeData().hasFormat(LISTBOX_MIMETYPE):
             event.acceptProposedAction()
         else:
-            # print("...denied drag enter event")
             event.setAccepted(False)
 
     def onDrop(self, event: QDragEnterEvent):
-        # print("CalcSubMnd:: ~onDrag")
-        # print("text: %s" % event.mimeData().text())
         if event.mimeData().hasFormat(LISTBOX_MIMETYPE):
             eventData = event.mimeData().data(LISTBOX_MIMETYPE)
             dataStream = QDataStream(eventData, QIODevice.ReadOnly)
@@ -52,10 +47,7 @@ class CalculatorSubWindow(NodeEditorWidget):
             mouse_position = event.pos()
             scene_position = self.scene.nodeGraphicsScene.views()[0].mapToScene(mouse_position)
 
-            # print("calaulator_subWindow:: GOT DROP: [%d] '%s" % (op_code, text), " mouse: ", mouse_position, "scene: ", scene_position)
-
             try:
-                # node = Node_Calculator(self.scene , op_code, text, input=[1, 1], output=[1])
                 node = get_class_from_opcode(op_code)(self.scene)
                 node.setPos(scene_position.x(), scene_position.y())
             except Exception as e:
@@ -64,5 +56,4 @@ class CalculatorSubWindow(NodeEditorWidget):
             event.setDropAction(Qt.MoveAction)
             event.accept()
         else:
-            # print("... drop igonred, not requested format '%s'" % LISTBOX_MIMETYPE)
             event.ignore()

@@ -125,10 +125,6 @@ class NodeContentWidget(QWidget, Serializable):
             Returns :
             ---------
                 lineEdit: The created lineEdit widget.
-
-            Usage :
-            ---------
-                line_edit = self.content.addLineEdit(label="")
         """
         lineEdit = LineEdit(label, **kwargs)
         self.vboxLayout.addWidget(lineEdit)

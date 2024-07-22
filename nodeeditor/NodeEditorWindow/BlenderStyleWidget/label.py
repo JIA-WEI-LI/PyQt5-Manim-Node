@@ -23,5 +23,6 @@ class Label(QLabel, ContentBaseSetting):
         self.setText(text)
         self.setFixedHeight(self.content_height)
         self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+        self.BaseSetting()
 
         self.styles_set()

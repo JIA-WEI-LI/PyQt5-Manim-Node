@@ -1,3 +1,4 @@
+import os
 from enum import Enum
 from PyQt5.QtWidgets import QWidget
 
@@ -43,3 +44,39 @@ class StyleSheet:
             print("\033[95m Error: QSS file not found at \033[0m", f"{qss_file}")
         except Exception as e:
             print("\033[93m Error applying QSS:\033[0m", f"{e}")
+
+class BaseStyleSheet:
+    def path(self):
+        raise NotImplementedError
+    
+    def apply(self, widget: QWidget):
+        """ apply style sheet to widget """
+        setStyleSheet(widget, self)
+
+class BlenderStyleSheet(BaseStyleSheet, Enum):
+    BUTTON = "button"
+    CHECKBOX = "checkbox"
+    COLORDIALOG = "colordialog"
+    COLORPICKER = "colorpicker"
+    EXPANDABLELAYOUT = "expandablelayout"
+    LINEEDIT = "lineedit"
+    LISTWIDGET = "listwidget"
+    PROGRESSBAR = "progressbar"
+    SCROLLAREA = "scrollarea"
+    SPINBOX = "spinbox"
+    SWITCHBUTTON = "switchbutton"
+    TOOLTIP = "tooltip"
+    
+    def path(self):
+        return f"nodeeditor\\NodeEditorWindow\\BlenderStyleWidget\\styles\\{self.value}.qss"
+    
+def setStyleSheet(widget: QWidget, stylesheet: 'BaseStyleSheet'):
+    """ Helper function to set the style sheet to the widget """
+    qss_path = stylesheet.path()
+    if os.path.exists(qss_path):
+        with open(qss_path, 'r', encoding='utf-8') as file:
+            qss_text = file.read()
+            widget.setStyleSheet(qss_text)
+            return qss_text
+    else:
+        raise FileNotFoundError(f"QSS file not found: {qss_path}")

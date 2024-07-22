@@ -39,8 +39,4 @@ class NodeGraphicsSocket(QGraphicsItem):
             2*(self._radius + self._outline_width))
     
     def getSocketColor(self, socket_color: Union[str, FluentColor, BlenderColor] = 'default'):
-        # TODO: 開放可以使用已定義顏色
-        if hasattr(socket_color, FluentColor) or hasattr(socket_color, BlenderColor):
-            return socket_color
-        else:
-            return socket_color_list.get(socket_color, socket_color_list['default'])
+        return socket_color_list.get(socket_color, socket_color_list['default'])

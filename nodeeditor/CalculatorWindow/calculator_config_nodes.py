@@ -13,7 +13,8 @@ class CalcNode_Input(CalcNode):
 
     def __init__(self, scene):
         super().__init__(scene, inputs=[], outputs=[3])
-        self.content.addOutputLabel("Input")
+        self.content.addOutputLabel("String")
+        self.content.addLineEdit("Input")
 
 @register_node(OP_NODE_OUTPUT)
 class CalcNode_Output(CalcNode):

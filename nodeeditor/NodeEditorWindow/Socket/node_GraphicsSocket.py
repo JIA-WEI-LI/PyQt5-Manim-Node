@@ -2,7 +2,6 @@ from PyQt5.QtCore import QRectF
 from PyQt5.QtWidgets import QGraphicsItem
 from PyQt5.QtGui import QPen, QBrush, QPainter, QColor
 
-from config.debug import DebugMode
 from common.config import qconfig, cfg
 
 class NodeGraphicsSocket(QGraphicsItem):

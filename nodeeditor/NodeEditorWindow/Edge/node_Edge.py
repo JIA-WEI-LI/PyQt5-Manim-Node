@@ -5,8 +5,7 @@ from collections import OrderedDict
 from .node_GraphicsEdge import NodeGraphicsEdgeDirect, NodeGraphicsEdgeBezier
 from ..Serialization.node_Serializable import Serializable
 from ..Socket.node_Socket import Socket
-
-from config.debug import DebugMode
+from common import *
 
 EDGE_TYPE_DIRECT = 1
 EDGE_TYPE_BEZIER = 2

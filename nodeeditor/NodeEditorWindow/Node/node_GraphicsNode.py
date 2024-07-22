@@ -2,8 +2,7 @@ from PyQt5.QtCore import Qt, QRectF
 from PyQt5.QtWidgets import QGraphicsSceneMouseEvent, QGraphicsItem, QGraphicsTextItem, QGraphicsProxyWidget
 from PyQt5.QtGui import QPen, QFont, QBrush, QPainter, QPainterPath, QColor
 
-from common.config import qconfig, cfg
-from config.debug import DebugMode
+from common import *
 
 class NodeGraphicsNode(QGraphicsItem):
     def __init__(self, node ,parent=None):

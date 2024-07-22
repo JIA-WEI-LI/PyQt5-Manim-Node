@@ -6,11 +6,9 @@ from .Edge.node_Edge import Edge
 from .Node.node_Node import Node
 from .nodeEditor_Scene import Scene, InvalidFile
 from .nodeEditor_GraphicsView import NodeGraphicsView
-
-from config.debug import DebugMode, DebugTimer
-from common.style_sheet import StyleSheet
 from NodeEditorNodes.node_Calculator import *
 from NodeEditorNodes.Testing_node import Node_Test
+from common import *
 
 class NodeEditorWidget(QWidget):
     def __init__(self, parent=None) -> None:

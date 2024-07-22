@@ -12,7 +12,7 @@ from .nodeEditor_Scene import Scene, NodeGraphicsScene
 
 from common.style_sheet import StyleSheet
 from common.performance_utils import calculate_time
-from config.debug import DebugMode, DebugTimer
+from common.debug import DebugMode, DebugTimer
 
 MODE_NOOP = 1
 MODE_EDGE_DRAG = 2

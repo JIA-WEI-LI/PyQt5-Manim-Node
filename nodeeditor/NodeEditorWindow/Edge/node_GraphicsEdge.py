@@ -4,9 +4,7 @@ from PyQt5.QtWidgets import QGraphicsPathItem, QGraphicsSceneMouseEvent
 from PyQt5.QtGui import QPainter, QPainterPath, QPen
 
 from ..Socket.node_Socket import Socket, RIGHT_BOTTOM, RIGHT_TOP, LEFT_BOTTOM, LEFT_TOP
-
-from config.debug import DebugMode
-from common.config import qconfig, cfg
+from common import *
 
 EDGE_CP_ROUNDNESS = 100
 DEBUG = True

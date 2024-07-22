@@ -3,7 +3,7 @@ from NodeEditorWindow.Node.node_Node import Node
 from NodeEditorWindow.Edge.node_Edge import Edge
 from NodeEditorWindow.Edge.node_GraphicsEdge import NodeGraphicsEdge
 
-from config.debug import DebugMode
+from common import *
 
 DEBUG = DebugMode.NODEEDITOR_CLIPBOARD
 

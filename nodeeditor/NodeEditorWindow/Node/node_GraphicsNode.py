@@ -24,7 +24,7 @@ class NodeGraphicsNode(QGraphicsItem):
         self.edgeSize = 10.0
         self.titleHeight = 26.0
         self.titlePadding = 6.0
-        self.height = 46.0
+        self.height = 36.0
 
     def onSelected(self):
         self.node.scene.nodeGraphicsScene.itemSelected.emit()
@@ -134,6 +134,6 @@ class NodeGraphicsNode(QGraphicsItem):
         # 邊框
         pathOutline = QPainterPath()
         pathOutline.addRoundedRect(0, 0, self.width, self.height, self.edgeSize, self.edgeSize)
-        painter.setPen(BlenderColor.SEMI_TRANSPARENT_BLACK.color()) if not self.isSelected() else QPen(QColor("black"))
+        painter.setPen(QColor("black") if not self.isSelected() else BlenderColor.SEMI_TRANSPARENT_BLACK.color())
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(pathOutline.simplified())

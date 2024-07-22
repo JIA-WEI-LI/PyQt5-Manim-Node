@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QIcon
 
-class Icon:
+class BlenderIcon:
     WINDOW_LOGO = "nodeeditor\\resources\\icons\\logo.png"
     CLOSE = "nodeeditor\\resources\\icons\\icon_close.svg"
     CHECK = "nodeeditor\\resources\\icons\\icon_check.svg"

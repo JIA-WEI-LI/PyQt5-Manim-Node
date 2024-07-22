@@ -3,7 +3,7 @@ from PyQt5.QtGui import QPixmap, QIcon, QDrag
 from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QAbstractItemView
 
 from common.utils import dumpException
-from config.icon import Icon
+from common.icon import BlenderIcon
 
 from .calculator_config import *
 
@@ -20,12 +20,12 @@ class NodeGraphicsDragListBox(QListWidget):
         self.addMyItems()
 
     def addMyItems(self):
-        self.addMyItem("Input", Icon.CHECK, OP_NODE_INPUT)
-        self.addMyItem("Output", Icon.CHECK, OP_NODE_OUTPUT)
-        self.addMyItem("Add", Icon.PLUS, OP_NODE_ADD)
-        self.addMyItem("Substract", Icon.CHECK, OP_NODE_SUB)
-        self.addMyItem("Mulitiply", Icon.CLOSE, OP_NODE_MUL)
-        self.addMyItem("Divide", Icon.CHECK, OP_NODE_DIV)
+        self.addMyItem("Input", BlenderIcon.CHECK, OP_NODE_INPUT)
+        self.addMyItem("Output", BlenderIcon.CHECK, OP_NODE_OUTPUT)
+        self.addMyItem("Add", BlenderIcon.PLUS, OP_NODE_ADD)
+        self.addMyItem("Substract", BlenderIcon.CHECK, OP_NODE_SUB)
+        self.addMyItem("Mulitiply", BlenderIcon.CLOSE, OP_NODE_MUL)
+        self.addMyItem("Divide", BlenderIcon.CHECK, OP_NODE_DIV)
         
     def addMyItem(self, name, icon=None, op_code=0):
         item = QListWidgetItem(name, self)

@@ -31,9 +31,20 @@ class CalcNode(Node):
         self.content = CalcContent(self)
         self.graphicsNode = NodeGraphicsNode(self)
 
+    def initSetting(self):
+        super().initSetting()
+        self.input_socket_position = LEFT_BOTTOM
+        self.output_socket_position = RIGHT_TOP
+
+    def serialize(self):
+        res = super().serialize()
+        res['op_code'] = self.__class__.op_code
+        return res
+    
+    def deserialize(self, data, hashmap={}, restore_id=True):
+        res = super().deserialize(data, hashmap, restore_id)
+        print("Deserialized CalcNode '%s'" % self.__class__.__name__, "res: ", res)
+
 class CalcContent(NodeContentWidget):
     def __init__(self, node, parent=None):
         super().__init__(node, parent)
-        # self.addInputLabel()
-        # print("node: ", self.node)
-        # print("node.graphicsNode: ", self.node.graphicsNode)

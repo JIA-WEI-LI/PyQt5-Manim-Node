@@ -83,13 +83,14 @@ class Node(Serializable):
         self._title = value
         self.graphicsNode.title = self._title
 
-    def getSocketPosition(self, index, position, *, space:int=0) -> list[float, float]:
+    def getSocketPosition(self, index, position, *, space:int=0, output_count:int=0) -> list[float, float]:
         '''設置連結點位置'''
+        output_count = len(self.outputs) if output_count == 0 else output_count
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # BUG：如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + (index + len(self.outputs)) * (space + 1) * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + (index + output_count) * (space + 1) * self.socketSpace
             if DEBUG: print(f"Node {self.__class__}\n  \
 Node {self.id} ---> Pos {index} is bottom, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
@@ -173,19 +174,19 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         self.graphicsNode.height = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding
 
         self.inputs, self.outputs = [], []
-        for socket_data in data['inputs']:
-            if socket_data['id'] != 0:
-                new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
-            else: new_socket = NullSocket(node=self, index=socket_data['index'])
-            new_socket.deserialize(socket_data, hashmap, restore_id)
-            self.inputs.append(new_socket)
         for socket_data in data['outputs']:
             if socket_data['id'] != 0: 
                 new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
             else: new_socket = NullSocket(node=self, index=socket_data['index'])
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.outputs.append(new_socket)
+        for socket_data in data['inputs']:
+            if socket_data['id'] != 0:
+                new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            else: new_socket = NullSocket(node=self, index=socket_data['index'])
+            new_socket.deserialize(socket_data, hashmap, restore_id)
+            self.inputs.append(new_socket)
+        
+        res = self.content.deserialize(data['content'], hashmap)
 
-        self.content.deserialize(data['content'], hashmap)
-
-        return True
+        return True, res

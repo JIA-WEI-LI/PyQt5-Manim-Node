@@ -1,36 +1,21 @@
 {
-    "id": 2359653093776,
+    "id": 2087836463088,
     "scene_width": 64000,
     "scene_height": 64000,
     "nodes": [
         {
-            "id": 2359653380944,
-            "title": "Undefined Node",
-            "pos_x": -65.0,
-            "pos_y": -60.0,
-            "inputs": [
-                {
-                    "id": 2359653415680,
-                    "index": 0,
-                    "multi_edges": false,
-                    "position": 2,
-                    "socket_type": 1
-                },
-                {
-                    "id": 2359653416400,
-                    "index": 1,
-                    "multi_edges": false,
-                    "position": 2,
-                    "socket_type": 1
-                }
-            ],
+            "id": 2087836642016,
+            "title": "Input",
+            "pos_x": -246.0,
+            "pos_y": -122.0,
+            "inputs": [],
             "outputs": [
                 {
-                    "id": 2359653415728,
+                    "id": 2087836642064,
                     "index": 0,
                     "multi_edges": true,
                     "position": 3,
-                    "socket_type": 1
+                    "socket_type": 3
                 }
             ],
             "node_color": "#FF246283",
@@ -38,50 +23,156 @@
                 {
                     "type": "outputLabel",
                     "data": {
-                        "text": "Output",
+                        "text": "String",
                         "tooltip": ""
                     }
                 },
                 {
-                    "type": "inputLabel",
+                    "type": "lineEdit",
                     "data": {
-                        "text": "Input A",
-                        "tooltip": "First input number"
-                    }
-                },
-                {
-                    "type": "inputLabel",
-                    "data": {
-                        "text": "Input B",
-                        "tooltip": "Second input number"
+                        "label": "Input",
+                        "current_text": "",
+                        "tooltip": ""
                     }
                 }
             ]
         },
         {
-            "id": 2359653434000,
-            "title": "Undefined Node",
-            "pos_x": 348.0,
-            "pos_y": -93.0,
+            "id": 2087836668496,
+            "title": "Output",
+            "pos_x": -534.0,
+            "pos_y": 179.5,
             "inputs": [
                 {
-                    "id": 2359653434288,
+                    "id": 2087836668640,
                     "index": 0,
-                    "multi_edges": false,
-                    "position": 2,
-                    "socket_type": 1
-                },
-                {
-                    "id": 2359653434336,
-                    "index": 1,
                     "multi_edges": false,
                     "position": 2,
                     "socket_type": 1
                 }
             ],
+            "outputs": [],
+            "node_color": "#FF246283",
+            "content": [
+                {
+                    "type": "inputLabel",
+                    "data": {
+                        "text": "Output",
+                        "tooltip": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2087836667344,
+            "title": "Output",
+            "pos_x": -666.0,
+            "pos_y": 134.75,
+            "inputs": [
+                {
+                    "id": 2087836668064,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [],
+            "node_color": "#FF246283",
+            "content": [
+                {
+                    "type": "inputLabel",
+                    "data": {
+                        "text": "Output",
+                        "tooltip": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2087836668688,
+            "title": "Output",
+            "pos_x": -526.0,
+            "pos_y": 15.75,
+            "inputs": [
+                {
+                    "id": 2087836669312,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 1
+                }
+            ],
+            "outputs": [],
+            "node_color": "#FF246283",
+            "content": [
+                {
+                    "type": "inputLabel",
+                    "data": {
+                        "text": "Output",
+                        "tooltip": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2087836671328,
+            "title": "Input",
+            "pos_x": -44.5,
+            "pos_y": -256.5,
+            "inputs": [],
             "outputs": [
                 {
-                    "id": 2359653434240,
+                    "id": 2087836671424,
+                    "index": 0,
+                    "multi_edges": true,
+                    "position": 3,
+                    "socket_type": 3
+                }
+            ],
+            "node_color": "#FF246283",
+            "content": [
+                {
+                    "type": "outputLabel",
+                    "data": {
+                        "text": "String",
+                        "tooltip": ""
+                    }
+                },
+                {
+                    "type": "lineEdit",
+                    "data": {
+                        "label": "Input",
+                        "current_text": "",
+                        "tooltip": ""
+                    }
+                }
+            ]
+        },
+        {
+            "id": 2087837303008,
+            "title": "Sub",
+            "pos_x": -310.0,
+            "pos_y": 303.5,
+            "inputs": [
+                {
+                    "id": 2087837303152,
+                    "index": 0,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 2
+                },
+                {
+                    "id": 2087837303200,
+                    "index": 1,
+                    "multi_edges": false,
+                    "position": 2,
+                    "socket_type": 2
+                }
+            ],
+            "outputs": [
+                {
+                    "id": 2087837303104,
                     "index": 0,
                     "multi_edges": true,
                     "position": 3,
@@ -114,12 +205,5 @@
             ]
         }
     ],
-    "edges": [
-        {
-            "id": 2359646543344,
-            "edge_type": 2,
-            "start": 2359653415728,
-            "end": 2359653434336
-        }
-    ]
+    "edges": []
 }

@@ -25,7 +25,6 @@ class CalcNode_Output(CalcNode):
 
     def __init__(self, scene):
         super().__init__(scene, inputs=[1], outputs=[])
-        self.node_color = FluentColor.GOLD.color()
         self.content.addInputLabel("Output")
 
 @register_node(OP_NODE_ADD)

@@ -6,7 +6,7 @@ from PyQt5.QtGui import QCloseEvent, QIcon, QFont
 
 from .BlenderStyleWidget.window_messageBox import MessageBox
 from common.style_sheet import StyleSheet
-from common.icon import BlenderIcon
+from common.icon import FluentIcon, Icon
 from .nodeEditor_Widget import NodeEditorWidget
 
 class NodeEditorMainWindow(QMainWindow):
@@ -33,7 +33,7 @@ class NodeEditorMainWindow(QMainWindow):
 
         # self.setGeometry(200 ,200, 1960, 1280)
         self.showMaximized() 
-        self.setWindowIcon(QIcon(BlenderIcon.WINDOW_LOGO))
+        self.setWindowIcon(Icon(FluentIcon.IOT))
         self.setTitle()
         self.show()
 
@@ -52,18 +52,18 @@ class NodeEditorMainWindow(QMainWindow):
         self.nodeEditor.view.scenePosChanged.connect(self.onScenePosChanged)
 
     def createActions(self):
-        self.actNew = QAction(QIcon(BlenderIcon.DOCUMENT), '&新增檔案', self, shortcut='Ctrl+N', statusTip="新增檔案", triggered=self.onFileNew)
+        self.actNew = QAction(Icon(FluentIcon.DOCUMENT), '&新增檔案', self, shortcut='Ctrl+N', statusTip="新增檔案", triggered=self.onFileNew)
         self.actOpen = QAction('&開啟檔案', self,  shortcut='Ctrl+O', statusTip="開啟檔案", triggered=self.onFileOpen)
-        self.actSave = QAction('&儲存檔案', self,  shortcut='Ctrl+S', statusTip="儲存檔案", triggered=self.onFileSave)
-        self.actSaveAs = QAction('&另存新檔', self,  shortcut='Ctrl+Shift+S', statusTip="另存新檔", triggered=self.onFileSaveAs)
-        self.actExit = QAction(QIcon(BlenderIcon.POWER), '&退出', self,  shortcut='Ctrl+Q', statusTip="退出應用程式", triggered=self.close)
+        self.actSave = QAction(Icon(FluentIcon.SAVE),'&儲存檔案', self,  shortcut='Ctrl+S', statusTip="儲存檔案", triggered=self.onFileSave)
+        self.actSaveAs = QAction(Icon(FluentIcon.SAVE_AS), '&另存新檔', self,  shortcut='Ctrl+Shift+S', statusTip="另存新檔", triggered=self.onFileSaveAs)
+        self.actExit = QAction(Icon(FluentIcon.CLOSE), '&退出', self,  shortcut='Ctrl+Q', statusTip="退出應用程式", triggered=self.close)
 
         self.actUndo = QAction('&上一步', self,  shortcut='Ctrl+Z', statusTip="返回上一步", triggered=self.onEditUndo)
         self.actRedo = QAction('&下一步', self,  shortcut='Ctrl+Shift+Z', statusTip="返回下一步", triggered=self.onEditRedo)
-        self.actCut = QAction('&剪下', self,  shortcut='Ctrl+X', statusTip="剪下物件", triggered=self.onEditCut)
-        self.actCopy = QAction('&複製', self,  shortcut='Ctrl+C', statusTip="複製物件到剪貼簿", triggered=self.onEditCopy)
-        self.actPaste = QAction('&貼上', self,  shortcut='Ctrl+V', statusTip="返回下一步", triggered=self.onEditPaste)
-        self.actDeleted = QAction('&刪除', self,  shortcut='Del', statusTip="刪除選擇物件", triggered=self.onEditDelete)
+        self.actCut = QAction(Icon(FluentIcon.CUT), '&剪下', self,  shortcut='Ctrl+X', statusTip="剪下物件", triggered=self.onEditCut)
+        self.actCopy = QAction(Icon(FluentIcon.COPY), '&複製', self,  shortcut='Ctrl+C', statusTip="複製物件到剪貼簿", triggered=self.onEditCopy)
+        self.actPaste = QAction(Icon(FluentIcon.PASTE), '&貼上', self,  shortcut='Ctrl+V', statusTip="返回下一步", triggered=self.onEditPaste)
+        self.actDeleted = QAction(Icon(FluentIcon.DELETE), '&刪除', self,  shortcut='Del', statusTip="刪除選擇物件", triggered=self.onEditDelete)
 
     def createMenus(self):
         # 主畫面選單欄選擇

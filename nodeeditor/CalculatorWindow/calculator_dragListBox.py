@@ -2,8 +2,7 @@ from PyQt5.QtCore import QSize, Qt, QByteArray, QDataStream, QIODevice, QMimeDat
 from PyQt5.QtGui import QPixmap, QIcon, QDrag
 from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QAbstractItemView
 
-from common.utils import dumpException
-from common.icon import BlenderIcon
+from common import *
 
 from .calculator_config import *
 
@@ -20,22 +19,22 @@ class NodeGraphicsDragListBox(QListWidget):
         self.addMyItems()
 
     def addMyItems(self):
-        self.addMyItem("Input", BlenderIcon.CHECK, OP_NODE_INPUT)
-        self.addMyItem("Output", BlenderIcon.CHECK, OP_NODE_OUTPUT)
-        self.addMyItem("Add", BlenderIcon.PLUS, OP_NODE_ADD)
-        self.addMyItem("Substract", BlenderIcon.CHECK, OP_NODE_SUB)
-        self.addMyItem("Mulitiply", BlenderIcon.CLOSE, OP_NODE_MUL)
-        self.addMyItem("Divide", BlenderIcon.CHECK, OP_NODE_DIV)
+        self.addMyItem("Input", Icon(FluentIcon.ADD), OP_NODE_INPUT)
+        self.addMyItem("Output", Icon(FluentIcon.ADD), OP_NODE_OUTPUT)
+        self.addMyItem("Add", Icon(FluentIcon.ADD), OP_NODE_ADD)
+        self.addMyItem("Substract", Icon(FluentIcon.ADD), OP_NODE_SUB)
+        self.addMyItem("Mulitiply", Icon(FluentIcon.ADD), OP_NODE_MUL)
+        self.addMyItem("Divide", Icon(FluentIcon.ADD), OP_NODE_DIV)
         
     def addMyItem(self, name, icon=None, op_code=0):
         item = QListWidgetItem(name, self)
-        pixamp = QPixmap(icon if icon is not None else ".")
-        item.setIcon(QIcon(pixamp))
+        # pixamp = QPixmap(icon if icon is not None else ".")
+        item.setIcon(icon)
         item.setSizeHint(QSize(32, 32))
 
         item.setFlags(Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsDragEnabled)
 
-        item.setData(Qt.UserRole, pixamp)
+        # item.setData(Qt.UserRole, pixamp)
         item.setData(Qt.UserRole + 1, op_code)
 
     def startDrag(self, *args, **kwargs):

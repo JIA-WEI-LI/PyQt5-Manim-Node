@@ -10,7 +10,6 @@ from PyQt5.QtSvg import QSvgRenderer
 
 from .overload import singledispatchmethod
 
-
 class FluentIconEngine(QIconEngine):
     """ Fluent icon engine """
 
@@ -35,7 +34,7 @@ class FluentIconEngine(QIconEngine):
             painter.setOpacity(0.5)
         elif mode == QIcon.Selected:
             painter.setOpacity(0.7)
-            
+
         icon = self.icon
 
         if isinstance(self.icon, Icon):

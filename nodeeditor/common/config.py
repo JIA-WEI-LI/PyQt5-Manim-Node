@@ -269,12 +269,8 @@ qconfig = QConfig()
 
 class NodeConfig(QConfig):
     """ Config of application """
-    # Node Color
     nodeColor = OptionsConfigItem("ColorPalette", "Node_Color", "#FF246283", OptionsValidator(["#FF246283", "#FF79461d", "#FF344621", "#FF83314a", "#FF1d2546", "#FF1d1d1d"]), restart=False)
-    # Socket Color
-    socketColor = OptionsConfigItem("ColorPalette", "Socket_Color", "#FFa1a1a1", OptionsValidator(["#FFa1a1a1", "#FF00d6a3", "#FFc7c729", "#FF6363c7", "#FF598c5c", "#FFcca6d6", "#FF1d1d1d",]), restart=False)
-
-    # Icon Path
+    socketColor = OptionsConfigItem("ColorPalette", "Socket_Color", "#FFA1A1A1", OptionsValidator(["#FFA1A1A1", "#FF00d6a3", "#FFc7c729", "#FF6363c7", "#FF598c5c", "#FFcca6d6", "#FF1d1d1d",]), restart=False)
 
 cfg = NodeConfig()
 qconfig.load("nodeeditor\\config\\config.json", cfg)

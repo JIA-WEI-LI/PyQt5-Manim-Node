@@ -76,7 +76,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.actSeparator = QAction(self)
         self.actSeparator.setSeparator(True)
 
-        self.actAbout = QAction("&關於", self, statusTip="Show the application's About box", triggered=self.about)
+        self.actAbout = QAction(Icon(FluentIcon.HELP), "&關於", self, statusTip="Show the application's About box", triggered=self.about)
 
     def getCurrentNodeEditorWidget(self):
         activeSubWindow = self.mdiArea.activeSubWindow()

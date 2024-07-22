@@ -26,7 +26,7 @@ class NodeGraphicsDragListBox(QListWidget):
         self.addMyItem("Mulitiply", Icon(FluentIcon.ADD), OP_NODE_MUL)
         self.addMyItem("Divide", Icon(FluentIcon.ADD), OP_NODE_DIV)
         
-    def addMyItem(self, name, icon=None, op_code=0):
+    def addMyItem(self, name, icon=Icon(FluentIcon.CLOSE), op_code=0):
         item = QListWidgetItem(name, self)
         # pixamp = QPixmap(icon if icon is not None else ".")
         item.setIcon(icon)

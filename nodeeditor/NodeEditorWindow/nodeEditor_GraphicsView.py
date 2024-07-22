@@ -11,7 +11,7 @@ from .Other.node_Cutline import NodeCuteline
 from .nodeEditor_Scene import Scene, NodeGraphicsScene
 
 from common.style_sheet import StyleSheet
-from common.performance_utils import calculate_time
+from common.utils import calculate_time
 from common.debug import DebugMode, DebugTimer
 
 MODE_NOOP = 1

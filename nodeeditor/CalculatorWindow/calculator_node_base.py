@@ -8,12 +8,24 @@ from NodeEditorWindow.Node.node_GraphicsNode import NodeGraphicsNode
 from NodeEditorWindow.Socket.node_Socket import LEFT_BOTTOM, RIGHT_TOP
 from common.utils import dumpException
 
-class CalcNode(Node):
-    def __init__(self, scene, op_code, op_title, inputs=[2, 2], outputs=[1]):
-        self.op_code = op_code
-        self.op_title = op_title
+class CalcGraphicsNode(NodeGraphicsNode):
+    def initSize(self):
+        super().initSize()
+        self.width = 180  # 節點寬高
+        self._padding = 4.0  # 連結點位置出血區
+        self.edgeSize = 10.0
+        self.titleHeight = 26.0
+        self.titlePadding = 6.0
 
-        super().__init__(scene, self.op_title, inputs, outputs)
+class CalcNode(Node):
+    icon = ""
+    op_code = 0
+    op_title = "Undefined"
+    content_label = ""
+    content_label_objname = "calc_node_bg"
+
+    def __init__(self, scene, inputs=[2, 2], outputs=[1]):
+        super().__init__(scene, self.__class__.op_title, inputs, outputs)
 
     def initInnerClasses(self):
         self.content = CalcContent(self)

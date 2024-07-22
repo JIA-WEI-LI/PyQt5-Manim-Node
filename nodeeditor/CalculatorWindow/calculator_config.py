@@ -10,7 +10,6 @@ OP_NODE_DIV = 6
 CALC_NODES = {
 }
 
-
 class ConfException(Exception): pass
 class InvalidNodeRegistration(ConfException): pass
 class OpCodeNotRegistered(ConfException): pass

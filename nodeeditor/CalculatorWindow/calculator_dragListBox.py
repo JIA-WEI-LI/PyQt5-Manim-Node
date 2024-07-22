@@ -19,26 +19,20 @@ class NodeGraphicsDragListBox(QListWidget):
         self.addMyItems()
 
     def addMyItems(self):
-        self.addMyItem("Input", Icon(FluentIcon.ADD), OP_NODE_INPUT)
-        self.addMyItem("Output", Icon(FluentIcon.ADD), OP_NODE_OUTPUT)
-        self.addMyItem("Add", Icon(FluentIcon.ADD), OP_NODE_ADD)
-        self.addMyItem("Substract", Icon(FluentIcon.ADD), OP_NODE_SUB)
-        self.addMyItem("Mulitiply", Icon(FluentIcon.ADD), OP_NODE_MUL)
-        self.addMyItem("Divide", Icon(FluentIcon.ADD), OP_NODE_DIV)
+        keys = list(CALC_NODES.keys())
+        keys.sort()
+        for key in keys:
+            node = get_class_from_opcode(key)
+            self.addMyItem(node.op_title, node.icon, node.op_code)
         
     def addMyItem(self, name, icon=Icon(FluentIcon.CLOSE), op_code=0):
         item = QListWidgetItem(name, self)
-        # pixamp = QPixmap(icon if icon is not None else ".")
         item.setIcon(icon)
         item.setSizeHint(QSize(32, 32))
-
         item.setFlags(Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsDragEnabled)
-
-        # item.setData(Qt.UserRole, pixamp)
         item.setData(Qt.UserRole + 1, op_code)
 
     def startDrag(self, *args, **kwargs):
-        # print("ListBox:: startDrag")
         try:
             item = self.currentItem()
             op_code = item.data(Qt.UserRole + 1)

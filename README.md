@@ -106,6 +106,11 @@ _期待可以做出一個國中生也能輕鬆遊玩並做出屬於自己的數�
 * [x] [Node Editor Tutorial 37: Wrapping up Refactoring](https://www.youtube.com/watch?v=C29ftCo9h50&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=39)
 * [x] [Node Editor Tutorial 38: How to Implement draggable ListWidget with Icons](https://www.youtube.com/watch?v=uVB-AEvlgAU&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=40)
 * [x] [Node Editor Tutorial 39: How to Implement Drag & Drop in PyQt5](https://www.youtube.com/watch?v=CX7ox9v4tpc&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=41)
+* [x] [Node Editor Tutorial 40: Node Editor Tutorial 40: Creating Calculator Node](https://www.youtube.com/watch?v=oKQdOqOUFaM&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=42)
+* [ ] [Node Editor Tutorial 41: Node Editor Tutorial 41: Nodes Registration with decorators and Auto-Generation](https://www.youtube.com/watch?v=fgMFbmyRr-M&list=PLZSNHzwDCOggHLThIbCxUhWTgrKVemZkz&index=43)
+* [ ] [Node Editor Tutorial 42: ]()
+* [ ] [Node Editor Tutorial 43: ]()
+* [ ] [Node Editor Tutorial 44: ]()
 </details>
 
 ---

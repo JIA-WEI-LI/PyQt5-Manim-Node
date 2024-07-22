@@ -42,6 +42,13 @@ class Node(Serializable):
         self.output_muliti_edged = True
 
     def initSockets(self, inputs, outputs, reset=True):
+        if reset:
+            if hasattr(self, 'inputs') and hasattr(self, 'outputs'):
+                for socket in (self.inputs+self.outputs):
+                    self.scene.graphicsScene.removeItem(socket.graphicsSocket)
+                self.inputs = []
+                self.outputs = []
+
         counter = 0
         for item in outputs:
             if item != 0:

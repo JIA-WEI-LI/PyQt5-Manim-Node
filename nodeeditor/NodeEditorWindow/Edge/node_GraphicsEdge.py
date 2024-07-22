@@ -27,11 +27,11 @@ class NodeGraphicsEdge(QGraphicsPathItem):
         self.setZValue(-1)
 
     def initAssets(self):
-        self._pen = QPen(qconfig.get(cfg.edgePenColor))
+        self._pen = QPen(BlenderColor.TEAL_GREEN.color())
         self._pen.setWidthF(3.0)
-        self._penSelected = QPen(qconfig.get(cfg.edgeSelectedColor))
+        self._penSelected = QPen(BlenderColor.PALE_AQUA.color())
         self._penSelected.setWidthF(3.0)
-        self._penDragging = QPen(qconfig.get(cfg.edgeDragColor))
+        self._penDragging = QPen(BlenderColor.TEAL_GREEN.color())
         self._penDragging.setStyle(Qt.PenStyle.DashLine)
 
     def onSelected(self):

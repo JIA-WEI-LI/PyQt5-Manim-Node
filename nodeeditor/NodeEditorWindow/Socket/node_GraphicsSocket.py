@@ -11,7 +11,7 @@ class NodeGraphicsSocket(QGraphicsItem):
 
         self._radius = 7.0
         self._outline_width = 1.0
-        self._pen = QPen(qconfig.get(cfg.socketPenColor))
+        self._pen = QPen(QColor("black"))
         self._pen.setWidthF(self._outline_width)
         self.brush = QBrush(QColor(qconfig.get(cfg.socketColor)))
 

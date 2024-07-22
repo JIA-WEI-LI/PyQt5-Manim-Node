@@ -59,9 +59,13 @@ class ConfigItem(QObject):
         return f'{self.__class__.__name__}[value={self.value}]'
 
     def serialize(self):
+        if isinstance(self.value, QColor):
+            return self.value.name()
         return self.serializer.serialize(self.value)
 
     def deserializeFrom(self, value):
+        if isinstance(value, str) and value.startswith("#"):
+            self.value = QColor(value)
         self.value = self.serializer.deserialize(value)
 
 class OptionsValidator(ConfigValidator):
@@ -265,25 +269,10 @@ qconfig = QConfig()
 
 class NodeConfig(QConfig):
     """ Config of application """
-    # NodeEditor Color
-    penDarkColor = ColorConfigItem("NodeEditor_ColorPalette", "PenDark_Color", "#2a2a2a")
-    penLightColor = ColorConfigItem("NodeEditor_ColorPalette", "PenLight_Color", "#222222")
-    backgroundColor = ColorConfigItem("NodeEditor_ColorPalette", "Background_Color", "#1d1d1d")
-    editBackgroundColor = ColorConfigItem("NodeEditor_ColorPalette", "EditBackground_Color", "#1d1d1d")
     # Node Color
-    nodePenColor = ColorConfigItem("Node_ColorPalette", "NodePen_Color", "#7F000000")
-    nodeTextColor = ColorConfigItem("Node_ColorPalette", "NodePen_Color", "#eeeeee")
-    nodeTitleColor = OptionsConfigItem("Node_ColorPalette", "NodeTitle_Color", "#FF246283", OptionsValidator(["#FF246283", "#FF79461d", "#FF344621", "#FF83314a", "#FF1d2546", "#FF1d1d1d"]), restart=False)
-    nodeTitleBrush = ColorConfigItem("Node_ColorPalette", "NodeTitle_Brush", "#1d725e")
-    nodeBackgroundBrush = ColorConfigItem("Node_ColorPalette", "NodeBackground_Brush", "#E3303030")
-    nodePenSelectedColor = ColorConfigItem("Node_ColorPalette", "NodePenSelected_Color", "#FFFFFF")
-    # Edge Color
-    edgePenColor = ColorConfigItem("Edge_ColorPalette", "EdgePen_Color", "#FF03bd91")
-    edgeDragColor = ColorConfigItem("Edge_ColorPalette", "EdgeDrag_Color", "#FF03bd91")
-    edgeSelectedColor = ColorConfigItem("Edge_ColorPalette", "EdgeSelected_Color", "#b3f3e4")
+    nodeColor = OptionsConfigItem("ColorPalette", "Node_Color", "#FF246283", OptionsValidator(["#FF246283", "#FF79461d", "#FF344621", "#FF83314a", "#FF1d2546", "#FF1d1d1d"]), restart=False)
     # Socket Color
-    socketColor = OptionsConfigItem("Socket_ColorPalette", "Socket_Color", "#FFa1a1a1", OptionsValidator(["#FFa1a1a1", "#FF00d6a3", "#FFc7c729", "#FF6363c7", "#FF598c5c", "#FFcca6d6", "#FF1d1d1d",]), restart=False)
-    socketPenColor = ColorConfigItem("Socket_ColorPalette", "SocketPen_Color", "#FF000000")
+    socketColor = OptionsConfigItem("ColorPalette", "Socket_Color", "#FFa1a1a1", OptionsValidator(["#FFa1a1a1", "#FF00d6a3", "#FFc7c729", "#FF6363c7", "#FF598c5c", "#FFcca6d6", "#FF1d1d1d",]), restart=False)
 
     # Icon Path
 

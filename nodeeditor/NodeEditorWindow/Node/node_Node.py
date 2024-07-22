@@ -13,7 +13,7 @@ DEBUG = True
 
 class Node(Serializable):
     '''節點'''
-    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], node_color:str=qconfig.get(cfg.nodeTitleColor)):
+    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], node_color:str=qconfig.get(cfg.nodeColor)):
         super().__init__()
         self.scene = scene
         self._title = title
@@ -128,7 +128,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
     def node_type(self, type:int=1):
         # HACK: 自定義節點類型，並決定節點顏色
         try:
-            self.node_color = qconfig.get(cfg.nodeTitleColor)
+            self.node_color = qconfig.get(cfg.nodeColor)
         except Exception as e:
             print("node_Node:: Error number of type")
 

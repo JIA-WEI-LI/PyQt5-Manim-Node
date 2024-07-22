@@ -89,7 +89,7 @@ class NodeGraphicsNode(QGraphicsItem):
         '''節點主名稱標題'''
         self.titleItem = QGraphicsTextItem(self)
         self.titleItem.node = self.node
-        self.titleItem.setDefaultTextColor(qconfig.get(cfg.nodeTextColor))
+        self.titleItem.setDefaultTextColor(BlenderColor.LIGHT_GRAY.color())
         self.titleItem.setFont(self.titleFont)
         self.titleItem.setPos(self.titlePadding, self.titlePadding//4)
         self.titleItem.setTextWidth(self.width - 2 * self.titlePadding)
@@ -129,11 +129,11 @@ class NodeGraphicsNode(QGraphicsItem):
         pathContent.addRect(0, self.titleHeight, self.edgeSize, self.edgeSize)
         pathContent.addRect(self.width - self.edgeSize, self.titleHeight, self.edgeSize, self.edgeSize)
         painter.setPen(Qt.PenStyle.NoPen)
-        painter.setBrush(QBrush(qconfig.get(cfg.nodeBackgroundBrush)))
+        painter.setBrush(QBrush(BlenderColor.SEMI_TRANSPARENT_CHARCOAL_GRAY.color()))
         painter.drawPath(pathContent.simplified())
         # 邊框
         pathOutline = QPainterPath()
         pathOutline.addRoundedRect(0, 0, self.width, self.height, self.edgeSize, self.edgeSize)
-        painter.setPen(QPen(qconfig.get(cfg.nodePenColor)) if not self.isSelected() else QPen(qconfig.get(cfg.nodePenSelectedColor)))
+        painter.setPen(BlenderColor.SEMI_TRANSPARENT_BLACK.color()) if not self.isSelected() else QPen(QColor("black"))
         painter.setBrush(Qt.BrushStyle.NoBrush)
         painter.drawPath(pathOutline.simplified())

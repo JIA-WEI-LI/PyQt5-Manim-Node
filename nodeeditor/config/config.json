@@ -1,24 +1,6 @@
 {
-    "NodeEditor_ColorPalette": {
-        "Background_Color": "#ff1d1d1d",
-        "EditBackground_Color": "#ff1d1d1d",
-        "PenDark_Color": "#ff2a2a2a",
-        "PenLight_Color": "#ff222222"
-    },
-    "Edge_ColorPalette": {
-        "EdgeDrag_Color": "#ff03bd91",
-        "EdgePen_Color": "#ff03bd91",
-        "EdgeSelected_Color": "#ffb3f3e4"
-    },
-    "Node_ColorPalette": {
-        "NodeBackground_Brush": "#e3303030",
-        "NodePen_Color": "#ffeeeeee",
-        "NodePenSelected_Color": "#ffffffff",
-        "NodeTitle_Brush": "#ff1d725e",
-        "NodeTitle_Color": "#FF246283"
-    },
-    "Socket_ColorPalette": {
-        "Socket_Color": "#FFa1a1a1",
-        "SocketPen_Color": "#ff000000"
+    "ColorPalette": {
+        "Node_Color": "#FF246283",
+        "Socket_Color": "#FFa1a1a1"
     }
 }

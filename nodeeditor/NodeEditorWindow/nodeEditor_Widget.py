@@ -89,8 +89,10 @@ class NodeEditorWidget(QWidget):
         '''新增節點'''
         # 放置初始節點
         node_int0 = Node_Calculator(self.scene, 0)
+        node_int1 = Node_Calculator(self.scene, 0)
         
         node_int0.setPos(-100, -100)
+        node_int1.setPos(-100, 100)
 
         # edge1 = Edge(self.scene, node2.outputs[0], node1.inputs[0])
         # edge1 = Edge(self.scene, node2.outputs[0], node3.inputs[0], edge_type=2)

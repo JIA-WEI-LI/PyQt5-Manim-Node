@@ -59,8 +59,16 @@ class FluentColor(Enum):
         return QColor(self.value)
 
 class BlenderColor(Enum):
-    GREEN = "#03BD91"
-    GREEN_BRIGHT = "B3F3E4"
+    TEAL_GREEN = "#03BD91"
+    PALE_AQUA = "#B3F3E4"
+    LIGHT_GRAY = "#EEEEEE"
+    DARK_CHARCOAL = "#1D1D1D"
+    DEEP_TEAL = "#1D725E"
+    CHARCOAL_GRAY = "#303030"
+    DARK_SLATE = "#222222"
+    DARK_IRON_GRAY = "#2A2A2A"
+    SEMI_TRANSPARENT_BLACK = "#7F000000"
+    SEMI_TRANSPARENT_CHARCOAL_GRAY = "#E3303030"
 
     def color(self):
         return QColor(self.value)

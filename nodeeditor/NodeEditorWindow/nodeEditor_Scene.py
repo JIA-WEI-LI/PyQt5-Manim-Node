@@ -13,8 +13,7 @@ from .Node.node_Node import Node
 from .Serialization.node_Serializable import Serializable
 from .Scene.nodeEditor_SceneHistory import SceneHistory
 from .Scene.nodeEditor_SceneClipboard import SceneClipboard
-from common.utils import dumpException
-from common.config import qconfig, cfg
+from common import *
 
 class InvalidFile(Exception): pass
 
@@ -182,11 +181,11 @@ class NodeGraphicsScene(QGraphicsScene):
         self.sceenWidth, self.sceenHeight = 640000, 640000
         self.setSceneRect(self.sceenWidth//2, self.sceenHeight//2, self.sceenWidth, self.sceenHeight)
 
-        self.penLight = QPen(qconfig.get(cfg.penLightColor))
+        self.penLight = QPen(BlenderColor.DARK_SLATE.color())
         self.penLight.setWidth(1)
-        self.penDark = QPen(qconfig.get(cfg.penDarkColor))
+        self.penDark = QPen(BlenderColor.DARK_IRON_GRAY.color())
         self.penDark.setWidth(2)
-        self.setBackgroundBrush(qconfig.get(cfg.editBackgroundColor))
+        self.setBackgroundBrush(BlenderColor.DARK_CHARCOAL.color())
 
     def dragMoveEvent(self, event):
         pass

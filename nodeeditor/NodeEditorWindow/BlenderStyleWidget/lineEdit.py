@@ -37,6 +37,7 @@ class LineEdit(QLineEdit, ContentBaseSetting):
     """
     def __init__(self, place_holder:str="", parent=None, **kwargs):
         super(LineEdit, self).__init__(parent=parent)
+        self.place_holder = place_holder
         self.setObjectName("LineEdit")
         self.setPlaceholderText(place_holder)
         self.BaseSetting()

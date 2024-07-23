@@ -9,7 +9,7 @@ from common import *
 
 SOCKET_SPACE = 30
 # DEBUG = DebugMode.NODE_NODE
-DEBUG = True
+DEBUG = False
 
 class Node(Serializable):
     '''節點'''
@@ -139,6 +139,9 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
             self.node_color = qconfig.get(cfg.nodeColor)
         except Exception as e:
             print("node_Node:: Error number of type")
+
+    def setSerializeValue(self, value, widget_order:int=1, type_order:int=1, type_name:str='value'):
+        self.content.contentLists[widget_order][type_order][type_name] = value
 
     def serialize(self):
         '''序列化資訊'''

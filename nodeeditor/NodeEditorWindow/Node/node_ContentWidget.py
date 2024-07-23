@@ -69,7 +69,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.contentLists.append(
             ('lineEdit', {
                 'label': label,
-                'current_text': lineEdit.text(),
+                'value': lineEdit.text(),
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return lineEdit
@@ -121,7 +121,7 @@ class NodeContentWidget(QWidget, Serializable):
                 obj = self.addLineEdit(
                     content_data['label'], 
                     tooltip=content_data['tooltip'])
-                obj.setText(content_data['current_text'])
+                obj.setText(content_data['value'])
             elif content_type == 'outputLabel': 
                 obj = self.addOutputLabel(
                     content_data['text'], 

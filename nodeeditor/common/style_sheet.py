@@ -68,7 +68,7 @@ class BlenderStyleSheet(BaseStyleSheet, Enum):
     TOOLTIP = "tooltip"
     
     def path(self):
-        return f"nodeeditor\\NodeEditorWindow\\BlenderStyleWidget\\styles\\{self.value}.qss"
+        return f"nodeeditor\\BlenderWidget\\style\\{self.value}.qss"
     
 def setStyleSheet(widget: QWidget, stylesheet: 'BaseStyleSheet'):
     """ Helper function to set the style sheet to the widget """

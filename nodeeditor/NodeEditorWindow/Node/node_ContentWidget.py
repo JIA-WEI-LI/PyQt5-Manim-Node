@@ -6,7 +6,8 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePolicy, QTextEdit, QPlainTextEdit, QGraphicsView, QGraphicsScene
 
 from ..Serialization.node_Serializable import Serializable
-from ..BlenderStyleWidget import *
+# from ..BlenderStyleWidget import *
+from BlenderWidget import *
 from common import *
 
 SOCKET_SPACE = 30

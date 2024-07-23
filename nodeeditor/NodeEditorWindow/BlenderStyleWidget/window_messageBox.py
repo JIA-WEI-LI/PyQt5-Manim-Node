@@ -1,8 +1,6 @@
 import typing
 from PyQt5.QtWidgets import QMessageBox
 
-from common.style_sheet import StyleSheet
-
 class MessageBox(QMessageBox):
     @staticmethod
     def warning(parent, title:str, text:str, buttons: typing.Union['QMessageBox.StandardButtons', 'QMessageBox.StandardButton'] , **kwargs) -> QMessageBox.StandardButton:

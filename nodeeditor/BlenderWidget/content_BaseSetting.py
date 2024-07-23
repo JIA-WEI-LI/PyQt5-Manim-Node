@@ -29,6 +29,5 @@ class ContentBaseSetting:
         #     getattr(BlenderStyleSheet, self.__class__.__name__.upper()).apply(self)
 
     def setFixedHeight(self, height):
-        default_height = 30
-        new_height = height if height is not None else default_height
+        new_height = height if height is not None else 24
         super().setFixedHeight(new_height)

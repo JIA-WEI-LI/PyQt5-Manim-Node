@@ -2,8 +2,8 @@ from typing import Union
 from collections import OrderedDict
 
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui import QPixmap
-from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QSizePolicy, QTextEdit, QPlainTextEdit, QGraphicsView, QGraphicsScene
+from PyQt5.QtGui import QPixmap, QIcon
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QSizePolicy
 
 from ..Serialization.node_Serializable import Serializable
 # from ..BlenderStyleWidget import *
@@ -30,18 +30,20 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout = QVBoxLayout()
         self.vboxLayout.setContentsMargins(0, 0, 3, 0)
         self.setLayout(self.vboxLayout)
+
+    def addPushButton(self, icon:QIcon=None, text:str="", **kwargs):
+        button = PushButton(icon=icon, text=text, **kwargs)
+        self.vboxLayout.addWidget(button)
+        self.node.graphicsNode.height += 30
+        self.contentLists.append(
+            ('pushButton', {
+                'icon': icon,
+                'text': text,
+                'tooltip': kwargs.get("tooltip", "")
+            }))
+        return button
     
     def addInputLabel(self, text:str="Input Label", **kwargs):
-        """Adds a input label to the left side of layout.
-
-            Parameters :
-            ---------
-                text ( str ) : The text displayed on the label.
-
-            Returns :
-            ---------
-                label: The created Label widget.
-        """
         label = Label(text, **kwargs)
         label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
         self.vboxLayout.addWidget(label)
@@ -54,17 +56,7 @@ class NodeContentWidget(QWidget, Serializable):
         return label
     
     def addLineEdit(self, label:str="", **kwargs):
-        """Adds a LineEdit to the layout.
-
-            Parameters :
-            ---------
-                label ( str ) : The label text of the QLineEdit widget.
-
-            Returns :
-            ---------
-                lineEdit: The created lineEdit widget.
-        """
-        lineEdit = LineEdit(label, **kwargs)
+        lineEdit = LineEdit(**kwargs)
         self.vboxLayout.addWidget(lineEdit)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
@@ -76,20 +68,6 @@ class NodeContentWidget(QWidget, Serializable):
         return lineEdit
     
     def addOutputLabel(self, text:str="Output Label", **kwargs):
-        """Adds a output label to the right side of layout.
-
-            Parameters :
-            ---------
-                text ( str ) : The text displayed on the label.
-
-            Returns :
-            ---------
-                label: The created Label widget.
-
-            Usage :
-            ---------
-                output_label = self.content.addOutputLabel(text="Output Label")
-        """
         label = Label(text, **kwargs)
         label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
@@ -101,6 +79,18 @@ class NodeContentWidget(QWidget, Serializable):
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return label
+    
+    def addToggleButton(self, icon:QIcon=None, text:str="", **kwargs):
+        button = ToggleButton(icon=icon, text=text, **kwargs)
+        self.vboxLayout.addWidget(button)
+        self.node.graphicsNode.height += 30
+        self.contentLists.append(
+            ('pushButton', {
+                'icon': icon,
+                'text': text,
+                'tooltip': kwargs.get("tooltip", "")
+            }))
+        return button
 
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value

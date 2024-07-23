@@ -52,15 +52,22 @@ class FluentIconEngine(QIconEngine):
 class SvgIconEngine(QIconEngine):
     """ Svg icon engine """
 
-    def __init__(self, svg: str):
+    def __init__(self, svg: str, color: QColor = QColor("black")):
         super().__init__()
         self.svg = svg
+        self.color = color
 
     def paint(self, painter, rect, mode, state):
-        drawSvgIcon(self.svg.encode(), painter, rect)
+        if mode == QIcon.Disabled:
+            self.color = QColor("gray")
+        elif mode == QIcon.Selected:
+            self.color = QColor("blue")
+        else:
+            self.color = QColor("black")
+        drawSvgIcon(self.svg.encode(), painter, rect, self.color)
 
     def clone(self) -> QIconEngine:
-        return SvgIconEngine(self.svg)
+        return SvgIconEngine(self.svg, self.color)
 
     def pixmap(self, size, mode, state):
         image = QImage(size, QImage.Format_ARGB32)
@@ -71,6 +78,12 @@ class SvgIconEngine(QIconEngine):
         rect = QRect(0, 0, size.width(), size.height())
         self.paint(painter, rect, mode, state)
         return pixmap
+
+def drawSvgIcon(icon, painter, rect, color):
+    renderer = QSvgRenderer(icon)
+    painter.setBrush(QColor(color))
+    renderer.render(painter, QRectF(rect))
+
 
 
 def getIconColor(reverse=False):
@@ -122,14 +135,13 @@ class FluentIconBase:
     def path(self) -> str:
         raise NotImplementedError
 
-    def icon(self, color: QColor = None) -> QIcon:
+    def icon(self, color: QColor = QColor("black")) -> QIcon:
         path = self.path()
 
-        if not (path.endswith('.svg') and color):
+        if not path.endswith('.svg'):
             return QIcon(self.path())
 
-        color = QColor(color).name()
-        return QIcon(SvgIconEngine(writeSvg(path, fill=color)))
+        return QIcon(SvgIconEngine(writeSvg(path, fill=color.name()), color))
 
     def qicon(self, reverse=False) -> QIcon:
         """ convert to QIcon, the theme of icon will be updated synchronously with app

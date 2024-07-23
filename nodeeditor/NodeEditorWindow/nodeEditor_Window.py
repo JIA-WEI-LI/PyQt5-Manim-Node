@@ -5,8 +5,7 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAction, QFileDi
 from PyQt5.QtGui import QCloseEvent, QIcon, QFont
 
 from .BlenderStyleWidget.window_messageBox import MessageBox
-from common.style_sheet import StyleSheet
-from common.icon import FluentIcon, Icon
+from common import *
 from .nodeEditor_Widget import NodeEditorWidget
 
 class NodeEditorMainWindow(QMainWindow):

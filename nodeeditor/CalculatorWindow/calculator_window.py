@@ -14,7 +14,7 @@ from CalculatorWindow.calculator_config_nodes import *
 from CalculatorWindow.calculator_config import *
 from CalculatorWindow.calculator_node_base import *
 
-DEBUG = True
+DEBUG = False
 
 class CalculatorMainWindow(NodeEditorMainWindow):
     # @StyleSheet.apply("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss")

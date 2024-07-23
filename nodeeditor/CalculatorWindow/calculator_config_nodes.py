@@ -29,8 +29,16 @@ class CalcNode_Output(CalcNode):
     content_label = ""
 
     def __init__(self, scene):
-        super().__init__(scene, inputs=[1], outputs=[])
+        super().__init__(scene, inputs=[1], outputs=[0])
+        self.edit = self.content.addLineEdit("Input")
+        self.edit.setReadOnly(True)
         self.content.addInputLabel("Output")
+
+    def serialize(self):
+        res = super().serialize()
+        self.setSerializeValue(self.edit.text(), 0, 1)
+        return res
+
 
 @register_node(OP_NODE_ADD)
 class CalcNode_Add(CalcNode):

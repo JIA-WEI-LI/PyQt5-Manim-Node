@@ -14,7 +14,7 @@ class ContentBaseSetting:
 
     def styles_set(self):
         self.setToolTip(self.tooltip)
-        StyleSheet.applyStyle("node_content", self)
+        StyleSheet.NODECONTENT.apply(self)
         if self.debug: self.setStyleSheet("border: 1px solid red;")
 
     def BaseSetting(self):

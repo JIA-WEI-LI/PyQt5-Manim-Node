@@ -1,5 +1,6 @@
 import os
 import json
+from typing import Union
 from PyQt5.QtCore import Qt, QSettings, QPoint, QSize
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAction, QFileDialog, QLabel, QMessageBox
 from PyQt5.QtGui import QCloseEvent, QIcon, QFont
@@ -14,7 +15,6 @@ class NodeEditorMainWindow(QMainWindow):
         self.name_projuct = 'NodeEditor'
         self.initUI()
 
-    # @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
         # 隱藏最上方視窗標題列
         # self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
@@ -34,8 +34,7 @@ class NodeEditorMainWindow(QMainWindow):
         self.setWindowIcon(Icon(FluentIcon.IOT))
         self.setTitle()
         self.show()
-
-        StyleSheet.applyStyle("editor_window", self)
+        self.styleSetting()
 
     def setTitle(self):
         title = "Node Editor - "
@@ -236,3 +235,29 @@ class NodeEditorMainWindow(QMainWindow):
         setting = QSettings(self.name_company, self.name_projuct)
         setting.setValue('pos', self.pos())
         setting.setValue('size', self.size())
+
+    def styleSetting(self, qss_path:Union[str, StyleSheet]=StyleSheet.EDIORTWINDOW):
+        """
+        Apply a QSS stylesheet to the current widget. By default, applies the EDIORTWINDOW stylesheet.
+
+        Parameters
+        ----------
+        qss_path : Union[str, StyleSheet], optional
+            The path to the QSS file or a StyleSheet enum. If a string path is provided,
+            it will be used as the custom path for the stylesheet. If not provided,
+            the EDIORTWINDOW stylesheet will be applied. Default is StyleSheet.EDIORTWINDOW.
+
+        Raises
+        ------
+        FileNotFoundError
+            If the QSS file at the provided path does not exist.
+        """
+        if qss_path == StyleSheet.EDIORTWINDOW:
+            StyleSheet.EDIORTWINDOW.apply(self)
+        else:
+            custom_stylesheet = StyleSheet.EMPTY
+            custom_stylesheet.setPath(qss_path)
+            try:
+                custom_stylesheet.apply(self)
+            except FileNotFoundError:
+                print(f"QSS file not found: {custom_stylesheet.path()}")

@@ -63,7 +63,7 @@ class NodeGraphicsView(QGraphicsView):
         self.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
         self.setDragMode(QGraphicsView.DragMode.RubberBandDrag)
 
-        StyleSheet.applyStyle("editor_window", self)
+        StyleSheet.EDIORTWINDOW.apply(self)
 
         # enable dropping
         self.setAcceptDrops(True)

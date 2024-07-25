@@ -6,10 +6,10 @@ OP_NODE_ADD = 3
 OP_NODE_SUB = 4
 OP_NODE_MUL = 5
 OP_NODE_DIV = 6
+OP_NODE_OTHER = 7
 
 CALC_NODES = {
 }
-
 
 class ConfException(Exception): pass
 class InvalidNodeRegistration(ConfException): pass

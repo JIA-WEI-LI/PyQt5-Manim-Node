@@ -1,6 +1,5 @@
 from ..Edge.node_GraphicsEdge import NodeGraphicsEdge
-from config.debug import DebugMode
-from common.utils import dumpException
+from common import *
 
 DEBUG = DebugMode.NODEEDITOR_SCENEHISTORY
 

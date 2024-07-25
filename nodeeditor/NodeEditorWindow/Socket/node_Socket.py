@@ -4,7 +4,7 @@ from collections import OrderedDict
 
 from ..Serialization.node_Serializable import Serializable
 from .node_GraphicsSocket import NodeGraphicsSocket
-from config.debug import DebugMode
+from common import *
 
 LEFT_TOP = 1
 LEFT_BOTTOM = 2

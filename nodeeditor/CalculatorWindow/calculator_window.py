@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QMainWindow, QWidget, QMdiArea, QListWidget, QDockWi
 from PyQt5.QtGui import QCloseEvent, QKeySequence, QBrush, QColor, QIcon
 
 from common.utils import dumpException
-from common.style_sheet import StyleSheet
+from common.style_sheet import StyleSheet, setStyleSheet
 from .calculator_subWindow import CalculatorSubWindow
 from .calculator_dragListBox import NodeGraphicsDragListBox
 from NodeEditorWindow import NodeEditorMainWindow
@@ -14,10 +14,9 @@ from CalculatorWindow.calculator_config_nodes import *
 from CalculatorWindow.calculator_config import *
 from CalculatorWindow.calculator_node_base import *
 
-DEBUG = True
+DEBUG = False
 
 class CalculatorMainWindow(NodeEditorMainWindow):
-    # @StyleSheet.apply("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss")
     def initUI(self):
         self.name_company = 'Blenderfreak'
         self.name_projuct = 'Calaulator NodeEditor'
@@ -54,7 +53,12 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.readSettings()
         self.setWindowTitle("Calaulator Example")
 
-        StyleSheet.applyStyle("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss", self)
+        custom_stylesheet = StyleSheet.EMPTY
+        custom_stylesheet.setPath("nodeeditor\\CalculatorWindow\\style\\calculator_window.qss")
+        try:
+            custom_stylesheet.apply(self)
+        except FileNotFoundError:
+            print(f"QSS file not found: {custom_stylesheet.path()}")
 
     def closeEvent(self, event: QCloseEvent) -> None:
         self.mdiArea.closeAllSubWindows()
@@ -76,7 +80,7 @@ class CalculatorMainWindow(NodeEditorMainWindow):
         self.actSeparator = QAction(self)
         self.actSeparator.setSeparator(True)
 
-        self.actAbout = QAction("&關於", self, statusTip="Show the application's About box", triggered=self.about)
+        self.actAbout = QAction(Icon(FluentIcon.HELP), "&關於", self, statusTip="Show the application's About box", triggered=self.about)
 
     def getCurrentNodeEditorWidget(self):
         activeSubWindow = self.mdiArea.activeSubWindow()
@@ -112,7 +116,6 @@ class CalculatorMainWindow(NodeEditorMainWindow):
                             nodeeditor.close()
         except Exception as e: dumpException(e)
     
-    # @StyleSheet.apply("nodeeditor\\CalculatorWindow\\qss\\calculator_window.qss")
     def about(self):
         QMessageBox.about(self, "關於計算器節點編輯器範例",
                           "此 <b>計算器節點編輯器</b> 範例在於如何使用雙介面演示 PyQt5 和 節點編輯器，相關訊息可以參閱： "

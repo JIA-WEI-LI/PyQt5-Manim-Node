@@ -1,0 +1,51 @@
+QWidget {
+    background-color: transparent;
+    border: none;
+}
+
+PushButton, ToggleButton{
+    background: #545454;
+    border-radius: 5px;
+    color: white;
+    /* font: 14px 'Segoe UI', 'Microsoft YaHei', 'PingFang SC'; */
+    padding: 0px 0px 0px 0px;
+    outline: none;
+}
+PushButton[isPlaceholderText=true] {
+    color: #545454;
+}
+PushButton[hasIcon=false] {
+    padding: 3px 12px 4px 12px;
+}
+PushButton[hasIcon=true] {
+    padding: 3px 12px 4px 36px;
+}
+PushButton:hover, ToggleButton:hover{
+    background: #656565;
+}
+PushButton:pressed, ToggleButton:pressed{
+    color: rgba(255, 255, 255, 0.786);
+    background: #4772b3;
+}
+PushButton:disabled, ToggleButton:disabled{
+    color: rgba(255, 255, 255, 0.3628);
+    background: rgba(255, 255, 255, 0.0419);
+}
+
+ToggleButton:checked,
+ToggleToolButton:checked {
+    background-color: #4772b3;
+}
+ToggleButton:checked:hover,
+ToggleToolButton:checked:hover {
+    background-color: #4772b3;
+}
+ToggleButton:checked:pressed,
+ToggleToolButton:checked:pressed {
+    background-color: #4772b3;
+}
+ToggleButton:checked:disabled,
+ToggleToolButton:checked:disabled {
+    color: rgba(255, 255, 255, 0.43);
+    background-color: rgb(52, 52, 52);
+}

@@ -1,26 +1,29 @@
+from typing import Union
 from PyQt5.QtCore import QRectF 
 from PyQt5.QtWidgets import QGraphicsItem
 from PyQt5.QtGui import QPen, QBrush, QPainter, QColor
 
-from common.color_sheet import color_manager
-from config.debug import DebugMode
+from common import *
 
-class SocketColor:
-    PEN_COLOR = color_manager.get_color("SocketColor", "DEFAULT_OUTLINE")
-    BRUSH_COLORLIST = color_manager.get_color_list("SocketColor", "DEFAULT_COLOR_LIST")
+socket_color_list = {
+    0: BlenderColor.TEAL_GREEN.color(),
+    1: BlenderColor.TEAL_GREEN.color(),
+    2: BlenderColor.TEAL_GREEN.color(),
+    3: BlenderColor.PALE_AQUA.color(),
+    4: BlenderColor.TEAL_GREEN.color(),
+    'default': BlenderColor.DARK_CHARCOAL.color()
+}
 
 class NodeGraphicsSocket(QGraphicsItem):
-    def __init__(self, socket, socket_type=1 ,parent=None) -> None:
+    def __init__(self, socket, socket_type:int=0 ,parent=None) -> None:
         self.socket = socket
         super().__init__(socket.node.graphicsNode)
 
         self._radius = 7.0
         self._outline_width = 1.0
-        # self._pen = QPen(SocketColor.DEFAULT_OUTLINE)
-        self._pen = QPen(SocketColor.PEN_COLOR)
+        self._pen = QPen(QColor("black"))
         self._pen.setWidthF(self._outline_width)
-        # self.brush = QBrush(SocketColor.DEFAULT_COLOR_LIST[socket_type])
-        self.brush = QBrush(QColor(SocketColor.BRUSH_COLORLIST[socket_type]))
+        self.brush = QBrush(self.getSocketColor(socket_type))
 
     def paint(self, painter:QPainter, QStyleOptionGraphicsItem, widget=None):
         painter.setBrush(self.brush)
@@ -34,3 +37,6 @@ class NodeGraphicsSocket(QGraphicsItem):
             -self._radius - self._outline_width,
             2*(self._radius + self._outline_width),
             2*(self._radius + self._outline_width))
+    
+    def getSocketColor(self, socket_color: Union[str, FluentColor, BlenderColor] = 'default'):
+        return socket_color_list.get(socket_color, socket_color_list['default'])

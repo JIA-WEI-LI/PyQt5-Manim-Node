@@ -1,29 +1,34 @@
-from PyQt5.QtWidgets import QSizePolicy
+from PyQt5.QtWidgets import QSizePolicy, QWidget
+from PyQt5.QtGui import QFont
 
-from common.color_sheet import color_manager
 from common.style_sheet import StyleSheet
 
 class ContentBaseSetting:
+    FONT = QFont("Sans Mono", 11)
+
     def __init__(self, apply_style=True, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.tooltip = kwargs.get("tooltip", "")
         self.debug = kwargs.get("debug", False)
-
-        self.color_BACKGROUND_WINDOW = color_manager.get_color("BLENDERCOLOR", "BACKGROUND_WINDOW")
-        self.color_GRAY_24 = color_manager.get_color("BLENDERCOLOR", "GRAY_24")
-        self.color_GRAY_2a = color_manager.get_color("BLENDERCOLOR", "GRAY_2a")
-        self.color_GRAY_30 = color_manager.get_color("BLENDERCOLOR", "GRAY_30")
-        self.color_GRAY_46 = color_manager.get_color("BLENDERCOLOR", "GRAY_46")
-        self.color_GRAY_54 = color_manager.get_color("BLENDERCOLOR", "GRAY_54")
-        self.color_GRAY_65 = color_manager.get_color("BLENDERCOLOR", "GRAY_65")
-        self.color_clicked = color_manager.get_color("BLENDERCOLOR", "CLICKED")
-        self.color_mouseover = color_manager.get_color("BLENDERCOLOR", "HOVER")
-
         self.content_height = kwargs.get("content_height", 24)
-
-        # if apply_style: StyleSheet.applyStyle("node_content", self)
 
     def styles_set(self):
         self.setToolTip(self.tooltip)
         StyleSheet.applyStyle("node_content", self)
         if self.debug: self.setStyleSheet("border: 1px solid red;")
+
+    def BaseSetting(self):
+        self.isPressed = False
+        self.isHover = False
+
+        self.setFont(self.FONT)
+        self.setFixedHeight(self.content_height)
+        self.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+
+        # if hasattr(BlenderStyleSheet, self.__class__.__name__.upper()):
+        #     getattr(BlenderStyleSheet, self.__class__.__name__.upper()).apply(self)
+
+    def setFixedHeight(self, height):
+        default_height = 30
+        new_height = height if height is not None else default_height
+        super().setFixedHeight(new_height)

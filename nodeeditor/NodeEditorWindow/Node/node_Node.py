@@ -1,19 +1,19 @@
 from collections import OrderedDict
+from PyQt5.QtGui import QColor
 
 from .node_ContentWidget import NodeContentWidget
 from .node_GraphicsNode import NodeGraphicsNode
 from ..Serialization.node_Serializable import Serializable
 from ..Socket.node_Socket import Socket, NullSocket, LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
-from common.color_sheet import color_manager
-from config.debug import DebugMode
+from common import *
 
 SOCKET_SPACE = 30
 # DEBUG = DebugMode.NODE_NODE
-DEBUG = True
+DEBUG = False
 
 class Node(Serializable):
     '''節點'''
-    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], node_color:str=color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[0]):
+    def __init__(self, scene, title="Undefined Node", inputs=[], outputs=[], node_color:str=qconfig.get(cfg.nodeColor)):
         super().__init__()
         self.scene = scene
         self._title = title
@@ -42,6 +42,13 @@ class Node(Serializable):
         self.output_muliti_edged = True
 
     def initSockets(self, inputs, outputs, reset=True):
+        if reset:
+            if hasattr(self, 'inputs') and hasattr(self, 'outputs'):
+                for socket in (self.inputs+self.outputs):
+                    self.scene.graphicsScene.removeItem(socket.graphicsSocket)
+                self.inputs = []
+                self.outputs = []
+
         counter = 0
         for item in outputs:
             if item != 0:
@@ -76,13 +83,14 @@ class Node(Serializable):
         self._title = value
         self.graphicsNode.title = self._title
 
-    def getSocketPosition(self, index, position, *, space:int=0) -> list[float, float]:
+    def getSocketPosition(self, index, position, *, space:int=0, output_count:int=0) -> list[float, float]:
         '''設置連結點位置'''
+        output_count = len(self.outputs) if output_count == 0 else output_count
         x = 0 if (position in (LEFT_TOP, LEFT_BOTTOM)) else self.graphicsNode.width
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # BUG：如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + (index + len(self.outputs)) * (space + 1) * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + (index + output_count) * (space + 1) * self.socketSpace + 3
             if DEBUG: print(f"Node {self.__class__}\n  \
 Node {self.id} ---> Pos {index} is bottom, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
@@ -91,7 +99,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + (index: {int(index)} +len(output): {int(len(self.outputs))}) \
 * socketSpace: {int(self.socketSpace)}")
         else:
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + index * (space + 1) * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + index * (space + 1) * self.socketSpace + 3
             if DEBUG: print(f"Node {self.__class__}\n  \
 Node {self.id} ---> Pos {index} is top, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
@@ -128,9 +136,12 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
     def node_type(self, type:int=1):
         # HACK: 自定義節點類型，並決定節點顏色
         try:
-            self.node_color = color_manager.get_color_list("NodeColor", "BLENDER_TITLE_LIST")[type]
+            self.node_color = qconfig.get(cfg.nodeColor)
         except Exception as e:
             print("node_Node:: Error number of type")
+
+    def setSerializeValue(self, value, widget_order:int=1, type_order:int=1, type_name:str='value'):
+        self.content.contentLists[widget_order][type_order][type_name] = value
 
     def serialize(self):
         '''序列化資訊'''
@@ -166,19 +177,19 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         self.graphicsNode.height = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding
 
         self.inputs, self.outputs = [], []
-        for socket_data in data['inputs']:
-            if socket_data['id'] != 0:
-                new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
-            else: new_socket = NullSocket(node=self, index=socket_data['index'])
-            new_socket.deserialize(socket_data, hashmap, restore_id)
-            self.inputs.append(new_socket)
         for socket_data in data['outputs']:
             if socket_data['id'] != 0: 
                 new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
             else: new_socket = NullSocket(node=self, index=socket_data['index'])
             new_socket.deserialize(socket_data, hashmap, restore_id)
             self.outputs.append(new_socket)
+        for socket_data in data['inputs']:
+            if socket_data['id'] != 0:
+                new_socket = Socket(node=self, index=socket_data['index'], position=socket_data['position'], socket_type=socket_data['socket_type'])
+            else: new_socket = NullSocket(node=self, index=socket_data['index'])
+            new_socket.deserialize(socket_data, hashmap, restore_id)
+            self.inputs.append(new_socket)
+        
+        res = self.content.deserialize(data['content'], hashmap)
 
-        self.content.deserialize(data['content'], hashmap)
-
-        return True
+        return True, res

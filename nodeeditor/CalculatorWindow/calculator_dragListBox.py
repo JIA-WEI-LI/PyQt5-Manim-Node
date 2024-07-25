@@ -2,8 +2,7 @@ from PyQt5.QtCore import QSize, Qt, QByteArray, QDataStream, QIODevice, QMimeDat
 from PyQt5.QtGui import QPixmap, QIcon, QDrag
 from PyQt5.QtWidgets import QListWidget, QListWidgetItem, QAbstractItemView
 
-from common.utils import dumpException
-from config.icon import Icon
+from common import *
 
 from .calculator_config import *
 
@@ -20,26 +19,20 @@ class NodeGraphicsDragListBox(QListWidget):
         self.addMyItems()
 
     def addMyItems(self):
-        self.addMyItem("Input", Icon.CHECK, OP_NODE_INPUT)
-        self.addMyItem("Output", Icon.CHECK, OP_NODE_OUTPUT)
-        self.addMyItem("Add", Icon.PLUS, OP_NODE_ADD)
-        self.addMyItem("Substract", Icon.CHECK, OP_NODE_SUB)
-        self.addMyItem("Mulitiply", Icon.CLOSE, OP_NODE_MUL)
-        self.addMyItem("Divide", Icon.CHECK, OP_NODE_DIV)
+        keys = list(CALC_NODES.keys())
+        keys.sort()
+        for key in keys:
+            node = get_class_from_opcode(key)
+            self.addMyItem(node.op_title, node.icon, node.op_code)
         
-    def addMyItem(self, name, icon=None, op_code=0):
+    def addMyItem(self, name, icon=Icon(FluentIcon.CLOSE), op_code=0):
         item = QListWidgetItem(name, self)
-        pixamp = QPixmap(icon if icon is not None else ".")
-        item.setIcon(QIcon(pixamp))
+        item.setIcon(icon)
         item.setSizeHint(QSize(32, 32))
-
         item.setFlags(Qt.ItemFlag.ItemIsEnabled | Qt.ItemFlag.ItemIsSelectable | Qt.ItemFlag.ItemIsDragEnabled)
-
-        item.setData(Qt.UserRole, pixamp)
         item.setData(Qt.UserRole + 1, op_code)
 
     def startDrag(self, *args, **kwargs):
-        # print("ListBox:: startDrag")
         try:
             item = self.currentItem()
             op_code = item.data(Qt.UserRole + 1)

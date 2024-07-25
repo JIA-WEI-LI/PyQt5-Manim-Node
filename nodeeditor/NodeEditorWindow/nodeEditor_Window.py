@@ -1,12 +1,11 @@
 import os
 import json
+from typing import Union
 from PyQt5.QtCore import Qt, QSettings, QPoint, QSize
 from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QAction, QFileDialog, QLabel, QMessageBox
 from PyQt5.QtGui import QCloseEvent, QIcon, QFont
 
-from .BlenderStyleWidget.window_messageBox import MessageBox
-from common.style_sheet import StyleSheet
-from config.icon import Icon
+from common import *
 from .nodeEditor_Widget import NodeEditorWidget
 
 class NodeEditorMainWindow(QMainWindow):
@@ -16,7 +15,6 @@ class NodeEditorMainWindow(QMainWindow):
         self.name_projuct = 'NodeEditor'
         self.initUI()
 
-    # @StyleSheet.apply(StyleSheet.EDITOR_WINDOW)
     def initUI(self):
         # 隱藏最上方視窗標題列
         # self.setWindowFlags(self.windowFlags() | Qt.WindowType.FramelessWindowHint)
@@ -33,11 +31,10 @@ class NodeEditorMainWindow(QMainWindow):
 
         # self.setGeometry(200 ,200, 1960, 1280)
         self.showMaximized() 
-        self.setWindowIcon(QIcon(Icon.WINDOW_LOGO))
+        self.setWindowIcon(Icon(FluentIcon.IOT))
         self.setTitle()
         self.show()
-
-        StyleSheet.applyStyle("editor_window", self)
+        self.styleSetting()
 
     def setTitle(self):
         title = "Node Editor - "
@@ -52,18 +49,18 @@ class NodeEditorMainWindow(QMainWindow):
         self.nodeEditor.view.scenePosChanged.connect(self.onScenePosChanged)
 
     def createActions(self):
-        self.actNew = QAction(QIcon(Icon.DOCUMENT), '&新增檔案', self, shortcut='Ctrl+N', statusTip="新增檔案", triggered=self.onFileNew)
+        self.actNew = QAction(Icon(FluentIcon.DOCUMENT), '&新增檔案', self, shortcut='Ctrl+N', statusTip="新增檔案", triggered=self.onFileNew)
         self.actOpen = QAction('&開啟檔案', self,  shortcut='Ctrl+O', statusTip="開啟檔案", triggered=self.onFileOpen)
-        self.actSave = QAction('&儲存檔案', self,  shortcut='Ctrl+S', statusTip="儲存檔案", triggered=self.onFileSave)
-        self.actSaveAs = QAction('&另存新檔', self,  shortcut='Ctrl+Shift+S', statusTip="另存新檔", triggered=self.onFileSaveAs)
-        self.actExit = QAction(QIcon(Icon.POWER), '&退出', self,  shortcut='Ctrl+Q', statusTip="退出應用程式", triggered=self.close)
+        self.actSave = QAction(Icon(FluentIcon.SAVE),'&儲存檔案', self,  shortcut='Ctrl+S', statusTip="儲存檔案", triggered=self.onFileSave)
+        self.actSaveAs = QAction(Icon(FluentIcon.SAVE_AS), '&另存新檔', self,  shortcut='Ctrl+Shift+S', statusTip="另存新檔", triggered=self.onFileSaveAs)
+        self.actExit = QAction(Icon(FluentIcon.CLOSE), '&退出', self,  shortcut='Ctrl+Q', statusTip="退出應用程式", triggered=self.close)
 
         self.actUndo = QAction('&上一步', self,  shortcut='Ctrl+Z', statusTip="返回上一步", triggered=self.onEditUndo)
         self.actRedo = QAction('&下一步', self,  shortcut='Ctrl+Shift+Z', statusTip="返回下一步", triggered=self.onEditRedo)
-        self.actCut = QAction('&剪下', self,  shortcut='Ctrl+X', statusTip="剪下物件", triggered=self.onEditCut)
-        self.actCopy = QAction('&複製', self,  shortcut='Ctrl+C', statusTip="複製物件到剪貼簿", triggered=self.onEditCopy)
-        self.actPaste = QAction('&貼上', self,  shortcut='Ctrl+V', statusTip="返回下一步", triggered=self.onEditPaste)
-        self.actDeleted = QAction('&刪除', self,  shortcut='Del', statusTip="刪除選擇物件", triggered=self.onEditDelete)
+        self.actCut = QAction(Icon(FluentIcon.CUT), '&剪下', self,  shortcut='Ctrl+X', statusTip="剪下物件", triggered=self.onEditCut)
+        self.actCopy = QAction(Icon(FluentIcon.COPY), '&複製', self,  shortcut='Ctrl+C', statusTip="複製物件到剪貼簿", triggered=self.onEditCopy)
+        self.actPaste = QAction(Icon(FluentIcon.PASTE), '&貼上', self,  shortcut='Ctrl+V', statusTip="返回下一步", triggered=self.onEditPaste)
+        self.actDeleted = QAction(Icon(FluentIcon.DELETE), '&刪除', self,  shortcut='Del', statusTip="刪除選擇物件", triggered=self.onEditDelete)
 
     def createMenus(self):
         # 主畫面選單欄選擇
@@ -232,3 +229,29 @@ class NodeEditorMainWindow(QMainWindow):
         setting = QSettings(self.name_company, self.name_projuct)
         setting.setValue('pos', self.pos())
         setting.setValue('size', self.size())
+
+    def styleSetting(self, qss_path:Union[str, StyleSheet]=StyleSheet.EDIORTWINDOW):
+        """
+        Apply a QSS stylesheet to the current widget. By default, applies the EDIORTWINDOW stylesheet.
+
+        Parameters
+        ----------
+        qss_path : Union[str, StyleSheet], optional
+            The path to the QSS file or a StyleSheet enum. If a string path is provided,
+            it will be used as the custom path for the stylesheet. If not provided,
+            the EDIORTWINDOW stylesheet will be applied. Default is StyleSheet.EDIORTWINDOW.
+
+        Raises
+        ------
+        FileNotFoundError
+            If the QSS file at the provided path does not exist.
+        """
+        if qss_path == StyleSheet.EDIORTWINDOW:
+            StyleSheet.EDIORTWINDOW.apply(self)
+        else:
+            custom_stylesheet = StyleSheet.EMPTY
+            custom_stylesheet.setPath(qss_path)
+            try:
+                custom_stylesheet.apply(self)
+            except FileNotFoundError:
+                print(f"QSS file not found: {custom_stylesheet.path()}")

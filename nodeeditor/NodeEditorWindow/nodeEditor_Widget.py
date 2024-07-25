@@ -6,11 +6,9 @@ from .Edge.node_Edge import Edge
 from .Node.node_Node import Node
 from .nodeEditor_Scene import Scene, InvalidFile
 from .nodeEditor_GraphicsView import NodeGraphicsView
-
-from config.debug import DebugMode, DebugTimer
-from common.style_sheet import StyleSheet
 from NodeEditorNodes.node_Calculator import *
 from NodeEditorNodes.Testing_node import Node_Test
+from common import *
 
 class NodeEditorWidget(QWidget):
     def __init__(self, parent=None) -> None:
@@ -90,26 +88,11 @@ class NodeEditorWidget(QWidget):
     def addNodes(self):
         '''新增節點'''
         # 放置初始節點
-        node_int0 = Node_Integer(self.scene)
-        node_str = Node_String(self.scene)
-        node_Normalize = Node_Normalize(self.scene)
-        node_ValueToString = Node_ValueToString(self.scene)
-        node_StringToValue = Node_StringToValue(self.scene)
-        node_Vector2 = Node_Vector2(self.scene)
-        node_Vector3 = Node_Vector3(self.scene)
-        node_Color = Node_Color(self.scene)
-        node_Boolean = Node_Boolean(self.scene)
-        node_Test = Node_Test(self.scene)
+        node_int0 = Node_Calculator(self.scene, 0)
+        node_int1 = Node_Exhibit(self.scene, 0)
         
         node_int0.setPos(-100, -100)
-        node_str.setPos(-150, -150)
-        node_Normalize.setPos(-200, -200)
-        node_ValueToString.setPos(-250, -250)
-        node_StringToValue.setPos(-300, -300)
-        node_Vector2.setPos(-350, -350)
-        node_Vector3.setPos(-400, -400)
-        node_Boolean.setPos(-450, -450)
-        node_Test.setPos(600, 0)
+        node_int1.setPos(-100, 100)
 
         # edge1 = Edge(self.scene, node2.outputs[0], node1.inputs[0])
         # edge1 = Edge(self.scene, node2.outputs[0], node3.inputs[0], edge_type=2)

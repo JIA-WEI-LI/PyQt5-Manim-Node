@@ -11,9 +11,8 @@ from .Other.node_Cutline import NodeCuteline
 from .nodeEditor_Scene import Scene, NodeGraphicsScene
 
 from common.style_sheet import StyleSheet
-from common.performance_utils import calculate_time
-from config.debug import DebugMode, DebugTimer
-from config.file_path import GRAPH_JSON_PATH
+from common.utils import calculate_time
+from common.debug import DebugMode, DebugTimer
 
 MODE_NOOP = 1
 MODE_EDGE_DRAG = 2
@@ -64,7 +63,7 @@ class NodeGraphicsView(QGraphicsView):
         self.setTransformationAnchor(QGraphicsView.ViewportAnchor.AnchorUnderMouse)
         self.setDragMode(QGraphicsView.DragMode.RubberBandDrag)
 
-        StyleSheet.applyStyle("editor_window", self)
+        StyleSheet.EDIORTWINDOW.apply(self)
 
         # enable dropping
         self.setAcceptDrops(True)

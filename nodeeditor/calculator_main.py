@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QApplication, QStyleFactory
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from CalculatorWindow.calculator_window import CalculatorMainWindow
+from common import *
 from memory_profiler import profile
 
 @profile
@@ -20,4 +21,7 @@ def main():
     sys.exit(app.exec_())
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as e:
+        dumpException(e)

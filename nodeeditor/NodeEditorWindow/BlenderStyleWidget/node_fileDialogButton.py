@@ -2,7 +2,7 @@ import os
 from PyQt5.QtWidgets import QSizePolicy, QFileDialog, QWidget, QLineEdit, QHBoxLayout, QPushButton
 from PyQt5.QtGui import QIcon
 
-from config.icon import Icon
+from common.icon import FluentIcon
 from .content_BaseSetting import ContentBaseSetting
 from .node_pushButton import PushButton
 from .node_lineEdit import LineEdit
@@ -68,8 +68,8 @@ class FileDialogWidget(QWidget, ContentBaseSetting):
     def filePathEdit(self, path):
         self.removeWidgetInLayput()
         self.lineEdit = LineEdit(isEmpty=False)
-        self.openfolderButton = PushButton(icon=Icon.FOLDER,text="")
-        self.deletedButton = PushButton(icon=Icon.CLOSE, text="")
+        self.openfolderButton = PushButton(icon=FluentIcon.FOLDER,text="")
+        self.deletedButton = PushButton(icon=FluentIcon.CLOSE, text="")
         
         self.lineEdit.setText(str(path))
         self.openfolderButton.clicked.connect(self.openFolder)

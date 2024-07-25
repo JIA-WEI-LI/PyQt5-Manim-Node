@@ -15,10 +15,10 @@ PushButton[isPlaceholderText=true] {
     color: #545454;
 }
 PushButton[hasIcon=false] {
-    padding: 5px 12px 6px 12px;
+    padding: 3px 12px 4px 12px;
 }
 PushButton[hasIcon=true] {
-    padding: 5px 12px 6px 36px;
+    padding: 3px 12px 4px 36px;
 }
 PushButton:hover, ToggleButton:hover{
     background: #656565;

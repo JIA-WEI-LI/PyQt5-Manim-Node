@@ -30,18 +30,6 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout = QVBoxLayout()
         self.vboxLayout.setContentsMargins(0, 3, 3, 0)
         self.setLayout(self.vboxLayout)
-
-    def addPushButton(self, icon:QIcon=None, text:str="", **kwargs):
-        button = PushButton(icon=icon, text=text, **kwargs)
-        self.vboxLayout.addWidget(button)
-        self.node.graphicsNode.height += 30
-        self.contentLists.append(
-            ('pushButton', {
-                'icon': icon,
-                'text': text,
-                'tooltip': kwargs.get("tooltip", "")
-            }))
-        return button
     
     def addInputLabel(self, text:str="Input Label", **kwargs):
         label = Label(text, **kwargs)
@@ -55,13 +43,14 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return label
     
-    def addLineEdit(self, label:str="", **kwargs):
+    def addLineEdit(self, placeholder_text:str="", **kwargs):
         lineEdit = LineEdit(**kwargs)
+        lineEdit.setPlaceholderText(placeholder_text)
         self.vboxLayout.addWidget(lineEdit)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('lineEdit', {
-                'label': label,
+                'placeholder_text': placeholder_text,
                 'value': lineEdit.text(),
                 'tooltip': kwargs.get("tooltip", "")
             }))
@@ -79,6 +68,18 @@ class NodeContentWidget(QWidget, Serializable):
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return label
+    
+    def addPushButton(self, icon:QIcon=None, text:str="", **kwargs):
+        button = PushButton(icon=icon, text=text, **kwargs)
+        self.vboxLayout.addWidget(button)
+        self.node.graphicsNode.height += 30
+        self.contentLists.append(
+            ('pushButton', {
+                'icon': icon,
+                'text': text,
+                'tooltip': kwargs.get("tooltip", "")
+            }))
+        return button
     
     def addToggleButton(self, icon:QIcon=None, text:str="", **kwargs):
         button = ToggleButton(icon=icon, text=text, **kwargs)
@@ -110,7 +111,7 @@ class NodeContentWidget(QWidget, Serializable):
                     tooltip=content_data['tooltip'])
             elif content_type == 'lineEdit': 
                 obj = self.addLineEdit(
-                    content_data['label'], 
+                    placeholder_text=content_data['placeholder_text'], 
                     tooltip=content_data['tooltip'])
                 obj.setText(content_data['value'])
             elif content_type == 'outputLabel': 

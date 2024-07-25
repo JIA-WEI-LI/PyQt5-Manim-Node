@@ -9,6 +9,7 @@ from ..Serialization.node_Serializable import Serializable
 # from ..BlenderStyleWidget import *
 from BlenderWidget import *
 from common import *
+from common.icon import FluentIconBase
 
 SOCKET_SPACE = 30
 DEBUG = DebugMode.NODE_NODE
@@ -69,25 +70,25 @@ class NodeContentWidget(QWidget, Serializable):
             }))
         return label
     
-    def addPushButton(self, icon:QIcon=None, text:str="", **kwargs):
+    def addPushButton(self, icon:Union[QIcon, FluentIcon]=None, text:str="", **kwargs):
         button = PushButton(icon=icon, text=text, **kwargs)
         self.vboxLayout.addWidget(button)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
             ('pushButton', {
-                'icon': icon,
+                'icon': icon._name_,
                 'text': text,
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return button
     
-    def addToggleButton(self, icon:QIcon=None, text:str="", **kwargs):
+    def addToggleButton(self, icon:Union[QIcon, FluentIcon]=None, text:str="", **kwargs):
         button = ToggleButton(icon=icon, text=text, **kwargs)
         self.vboxLayout.addWidget(button)
         self.node.graphicsNode.height += 30
         self.contentLists.append(
-            ('pushButton', {
-                'icon': icon,
+            ('toggleButton', {
+                'icon': icon._name_,
                 'text': text,
                 'tooltip': kwargs.get("tooltip", "")
             }))
@@ -95,6 +96,13 @@ class NodeContentWidget(QWidget, Serializable):
 
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value
+
+    def deserialize_icon(self, icon_name):
+        try:
+            return FluentIcon[icon_name]
+        except KeyError:
+            print(f"\033[91m Icon not found: {icon_name} \033[0m")
+            return FluentIcon.CLOSE
 
     def serialize(self):
         '''序列化資訊'''
@@ -107,16 +115,21 @@ class NodeContentWidget(QWidget, Serializable):
             if DEBUG: print("Type: ", content_type, ", Data: ", content_data)
             elif content_type == 'inputLabel': 
                 obj = self.addInputLabel(
-                    content_data['text'], 
-                    tooltip=content_data['tooltip'])
+                    content_data['text'])
             elif content_type == 'lineEdit': 
                 obj = self.addLineEdit(
-                    placeholder_text=content_data['placeholder_text'], 
-                    tooltip=content_data['tooltip'])
+                    placeholder_text=content_data['placeholder_text'])
                 obj.setText(content_data['value'])
             elif content_type == 'outputLabel': 
                 obj = self.addOutputLabel(
-                    content_data['text'], 
-                    tooltip=content_data['tooltip'])
+                    content_data['text'])
+            elif content_type == 'pushButton':
+                obj = self.addPushButton(
+                    icon = self.deserialize_icon(content_data['icon']),
+                    text=content_data['text'])
+            elif content_type == 'toggleButton':
+                obj = self.addToggleButton(
+                    icon = self.deserialize_icon(content_data['icon']),
+                    text=content_data['text'])
             else: print("\033[93m Wrong type: \033[0m", content_type)
         return True

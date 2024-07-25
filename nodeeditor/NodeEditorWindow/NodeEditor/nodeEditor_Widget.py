@@ -74,7 +74,7 @@ class NodeEditorWidget(QWidget):
             return False
         finally:
             QApplication.restoreOverrideCursor()
-            StyleSheet.applyStyle("editor_window", self)
+            StyleSheet.EDIORTWINDOW.apply(self)
 
         return False
     

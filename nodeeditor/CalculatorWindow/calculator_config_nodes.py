@@ -12,10 +12,9 @@ class CalcNode_Div(CalcNode):
     content_label = ""
 
     def __init__(self, scene):
-        super().__init__(scene, inputs=[3, 3], outputs=[3])
-        self.content.addOutputLabel("Output")
-        self.content.addPushButton(FluentIcon.BACK_TO_WINDOW, "Back to window")
-        self.content.addToggleButton(text="Back to window")
+        super().__init__(scene, inputs=[3], outputs=[0])
+        self.content.addPushButton(FluentIcon.PLAY, "PLAY")
+        self.content.addInputLabel("Animate")
 
 @register_node(OP_NODE_INPUT)
 class CalcNode_Input(CalcNode):

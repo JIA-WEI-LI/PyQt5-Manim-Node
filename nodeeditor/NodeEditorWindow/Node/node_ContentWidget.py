@@ -28,7 +28,7 @@ class NodeContentWidget(QWidget, Serializable):
         
     def initUI(self):
         self.vboxLayout = QVBoxLayout()
-        self.vboxLayout.setContentsMargins(0, 0, 3, 0)
+        self.vboxLayout.setContentsMargins(0, 3, 3, 0)
         self.setLayout(self.vboxLayout)
 
     def addPushButton(self, icon:QIcon=None, text:str="", **kwargs):

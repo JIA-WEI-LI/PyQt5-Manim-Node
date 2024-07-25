@@ -90,7 +90,7 @@ class Node(Serializable):
         if position in (LEFT_BOTTOM, RIGHT_BOTTOM):
             # BUG：如果設置底下開始，節點的編號也會從底部開始計算
             # y = self.graphicsNode.height - 3* self.graphicsNode.padding - self.graphicsNode.edgeSize - index * self.socketSpace
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + (index + output_count) * (space + 1) * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + (index + output_count) * (space + 1) * self.socketSpace + 3
             if DEBUG: print(f"Node {self.__class__}\n  \
 Node {self.id} ---> Pos {index} is bottom, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \
@@ -99,7 +99,7 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
 + (index: {int(index)} +len(output): {int(len(self.outputs))}) \
 * socketSpace: {int(self.socketSpace)}")
         else:
-            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + index * (space + 1) * self.socketSpace
+            y = self.graphicsNode.titleHeight + 2* self.graphicsNode._padding + self.graphicsNode.edgeSize + index * (space + 1) * self.socketSpace + 3
             if DEBUG: print(f"Node {self.__class__}\n  \
 Node {self.id} ---> Pos {index} is top, \
 y = titleHeight: {int(self.graphicsNode.titleHeight)} \

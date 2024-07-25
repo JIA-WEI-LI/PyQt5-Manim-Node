@@ -8,11 +8,11 @@ from PyQt5.QtWidgets import QGraphicsScene, QGraphicsView
 from PyQt5.QtGui import QPainter, QPen, QColor
 from PyQt5.QtCore import QLine, pyqtSignal
 
-from .Edge.node_Edge import Edge
-from .Node.node_Node import Node
-from .Serialization.node_Serializable import Serializable
-from .Scene.nodeEditor_SceneHistory import SceneHistory
-from .Scene.nodeEditor_SceneClipboard import SceneClipboard
+from ..Edge.node_Edge import Edge
+from ..Node.node_Node import Node
+from ..Serialization.node_Serializable import Serializable
+from ..Scene.nodeEditor_SceneHistory import SceneHistory
+from ..Scene.nodeEditor_SceneClipboard import SceneClipboard
 from common import *
 
 class InvalidFile(Exception): pass

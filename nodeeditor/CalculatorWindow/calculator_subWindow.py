@@ -1,7 +1,7 @@
 from PyQt5.QtCore import Qt, QDataStream, QIODevice
 from PyQt5.QtGui import QDragEnterEvent, QPixmap
 
-from NodeEditorWindow.nodeEditor_Widget import NodeEditorWidget
+from NodeEditorWindow.NodeEditor.nodeEditor_Widget import NodeEditorWidget
 from NodeEditorNodes.node_Calculator import *
 
 from common.utils import dumpException

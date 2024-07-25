@@ -2,8 +2,8 @@ import os
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QApplication, QMessageBox
 
-from .Edge.node_Edge import Edge
-from .Node.node_Node import Node
+from ..Edge.node_Edge import Edge
+from ..Node.node_Node import Node
 from .nodeEditor_Scene import Scene, InvalidFile
 from .nodeEditor_GraphicsView import NodeGraphicsView
 from NodeEditorNodes.node_Calculator import *

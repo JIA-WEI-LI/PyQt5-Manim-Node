@@ -3,11 +3,11 @@ from PyQt5.QtGui import QKeyEvent, QMouseEvent, QPainter, QWheelEvent
 from PyQt5.QtWidgets import QGraphicsView, QApplication
 from memory_profiler import profile
 
-from .Edge.node_Edge import Edge, EDGE_TYPE_BEZIER
-from .Edge.node_GraphicsEdge import NodeGraphicsEdge
-from .Node.node_Node import Node
-from .Socket.node_Socket import NodeGraphicsSocket
-from .Other.node_Cutline import NodeCuteline
+from ..Edge.node_Edge import Edge, EDGE_TYPE_BEZIER
+from ..Edge.node_GraphicsEdge import NodeGraphicsEdge
+from ..Node.node_Node import Node
+from ..Socket.node_Socket import NodeGraphicsSocket
+from ..Other.node_Cutline import NodeCuteline
 from .nodeEditor_Scene import Scene, NodeGraphicsScene
 
 from common.style_sheet import StyleSheet

@@ -1,7 +1,7 @@
 from typing import Union
 from PyQt5.QtWidgets import QPushButton, QWidget, QApplication, QSizePolicy, QDialog
 from PyQt5.QtGui import QIcon, QPainter
-from PyQt5.QtCore import QSize, QRectF
+from PyQt5.QtCore import QSize, QRectF, Qt
 
 from common.font import setFont
 from common.style_sheet import BlenderStyleSheet

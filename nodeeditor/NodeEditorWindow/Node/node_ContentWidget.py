@@ -90,6 +90,7 @@ class NodeContentWidget(QWidget, Serializable):
             ('toggleButton', {
                 'icon': icon._name_,
                 'text': text,
+                'isChecked': button.isChecked(),
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return button
@@ -131,5 +132,6 @@ class NodeContentWidget(QWidget, Serializable):
                 obj = self.addToggleButton(
                     icon = self.deserialize_icon(content_data['icon']),
                     text=content_data['text'])
+                obj.setChecked(content_data['isChecked'])
             else: print("\033[93m Wrong type: \033[0m", content_type)
         return True

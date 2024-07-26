@@ -24,6 +24,12 @@ class Node_Exhibit(Node):
         self.node_type(1)
         self.content.addOutputLabel("Output")
         self.content.addInputLabel("Input A", tooltip="First input number")
-        self.content.addLineEdit("LineEdit")
+        self.edit = self.content.addLineEdit("LineEdit")
         self.content.addPushButton(FluentIcon.PLAY, "Play")
-        self.content.addToggleButton(FluentIcon.BACK_TO_WINDOW, "Window")
+        self.toggleButton = self.content.addToggleButton(FluentIcon.BACK_TO_WINDOW, "Window")
+
+    def serialize(self):
+        res = super().serialize()
+        self.setSerializeValue(self.edit.text(), 2, 1)
+        self.setSerializeValue(self.toggleButton.isChecked(), 4, 1, 'isChecked')
+        return res

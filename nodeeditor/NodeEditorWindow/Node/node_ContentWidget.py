@@ -31,12 +31,23 @@ class NodeContentWidget(QWidget, Serializable):
         self.vboxLayout = QVBoxLayout()
         self.vboxLayout.setContentsMargins(0, 3, 3, 0)
         self.setLayout(self.vboxLayout)
+
+    def addColorPickerButton(self, **kwargs):
+        button = ColorPickerButton(**kwargs)
+        color = button.pickColor()
+        self.setAddWidget(button)
+        self.contentLists.append(
+            ('colorPickerButton', {
+                'color': color,
+                'tooltip': kwargs.get("tooltip", "")
+            })
+        )
+        return button, color
     
     def addInputLabel(self, text:str="Input Label", **kwargs):
         label = Label(text, **kwargs)
         label.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-        self.vboxLayout.addWidget(label)
-        self.node.graphicsNode.height += 30
+        self.setAddWidget(label)
         self.contentLists.append(
             ('inputLabel', {
                 'text': text,
@@ -47,8 +58,7 @@ class NodeContentWidget(QWidget, Serializable):
     def addLineEdit(self, placeholder_text:str="", **kwargs):
         lineEdit = LineEdit(**kwargs)
         lineEdit.setPlaceholderText(placeholder_text)
-        self.vboxLayout.addWidget(lineEdit)
-        self.node.graphicsNode.height += 30
+        self.setAddWidget(lineEdit)
         self.contentLists.append(
             ('lineEdit', {
                 'placeholder_text': placeholder_text,
@@ -61,8 +71,7 @@ class NodeContentWidget(QWidget, Serializable):
         label = Label(text, **kwargs)
         label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
         label.setAlignment(Qt.AlignmentFlag.AlignRight | Qt.AlignmentFlag.AlignVCenter)
-        self.vboxLayout.addWidget(label)
-        self.node.graphicsNode.height += 30
+        self.setAddWidget(label)
         self.contentLists.append(
             ('outputLabel', {
                 'text': text,
@@ -72,8 +81,7 @@ class NodeContentWidget(QWidget, Serializable):
     
     def addPushButton(self, icon:Union[QIcon, FluentIcon]=None, text:str="", **kwargs):
         button = PushButton(icon=icon, text=text, **kwargs)
-        self.vboxLayout.addWidget(button)
-        self.node.graphicsNode.height += 30
+        self.setAddWidget(button)
         self.contentLists.append(
             ('pushButton', {
                 'icon': icon._name_,
@@ -84,8 +92,7 @@ class NodeContentWidget(QWidget, Serializable):
     
     def addToggleButton(self, icon:Union[QIcon, FluentIcon]=None, text:str="", **kwargs):
         button = ToggleButton(icon=icon, text=text, **kwargs)
-        self.vboxLayout.addWidget(button)
-        self.node.graphicsNode.height += 30
+        self.setAddWidget(button)
         self.contentLists.append(
             ('toggleButton', {
                 'icon': icon._name_,
@@ -94,6 +101,10 @@ class NodeContentWidget(QWidget, Serializable):
                 'tooltip': kwargs.get("tooltip", "")
             }))
         return button
+    
+    def setAddWidget(self, widget, set_height:int=1):
+        self.vboxLayout.addWidget(widget)
+        self.node.graphicsNode.height += set_height * 30
 
     def setEditingFlag(self, value):
         self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value
@@ -114,6 +125,9 @@ class NodeContentWidget(QWidget, Serializable):
             content_type = content['type']
             content_data = content['data']
             if DEBUG: print("Type: ", content_type, ", Data: ", content_data)
+            elif content_type == 'colorPickerButton': 
+                obj = self.addColorPickerButton(
+                    content_data['color'])
             elif content_type == 'inputLabel': 
                 obj = self.addInputLabel(
                     content_data['text'])

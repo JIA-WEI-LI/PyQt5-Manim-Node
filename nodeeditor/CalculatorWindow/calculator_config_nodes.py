@@ -30,7 +30,7 @@ class CalcNode_Input(CalcNode):
 
     def serialize(self):
         res = super().serialize()
-        self.setSerializeValue(self.edit.text(), 1, 1)
+        self.setSerializeValue(self.edit.text(), 1)
         return res
 
 @register_node(OP_NODE_OUTPUT)
@@ -48,7 +48,7 @@ class CalcNode_Output(CalcNode):
 
     def serialize(self):
         res = super().serialize()
-        self.setSerializeValue(self.edit.text(), 0, 1)
+        self.setSerializeValue(self.edit.text(), 0)
         return res
 
 

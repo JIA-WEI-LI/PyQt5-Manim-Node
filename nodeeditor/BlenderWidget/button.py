@@ -1,5 +1,5 @@
 from typing import Union
-from PyQt5.QtWidgets import QPushButton, QWidget, QApplication, QRadioButton
+from PyQt5.QtWidgets import QPushButton, QWidget, QApplication, QSizePolicy, QDialog
 from PyQt5.QtGui import QIcon, QPainter
 from PyQt5.QtCore import QSize, QRectF
 
@@ -8,6 +8,7 @@ from common.style_sheet import BlenderStyleSheet
 from common.icon import FluentIconBase, toQIcon, drawIcon
 from common.overload import singledispatchmethod
 from .content_BaseSetting import ContentBaseSetting
+from .color_dialog import ColorDialog
 
 class PushButton(QPushButton, ContentBaseSetting):
     """ Push button
@@ -132,3 +133,27 @@ class ToggleButton(PushButton):
         PushButton._drawIcon(self, icon, painter, rect, QIcon.On)
 
 TogglePushButton = ToggleButton
+
+class ColorPickerButton(PushButton, ContentBaseSetting):
+    def __init__(self, parent: QWidget = None):
+        super().__init__(parent)
+        self.show_text = False
+        self.clicked.connect(self.pickColor)
+        self.setFixedHeight(self.content_height)
+        self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Fixed)
+        BlenderStyleSheet.BUTTON.apply(self)
+
+    def pickColor(self):
+        # 創建顏色選擇器對話框
+        colorPickerDialog = ColorDialog()
+        color = colorPickerDialog.exec_()
+        
+        if color == QDialog.Accepted:
+            selected_color = colorPickerDialog.selectedColor()
+            font_color = "black" if selected_color.lightnessF() > 0.5 else "white"
+            button_style = f"background-color: {selected_color.name()}; border-radius: 3px; color: {font_color}; font-family: Arial, Helvetica, sans-serif ; letter-spacing: 0.8px;"
+            self.setStyleSheet(button_style)
+            self.selected_color_name = selected_color.name()
+            if self.show_text: self.setText(selected_color.name())
+            return selected_color
+        return

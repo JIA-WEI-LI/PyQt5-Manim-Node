@@ -26,6 +26,7 @@ class StyleSheet(BaseStyleSheet, Enum):
 class BlenderStyleSheet(BaseStyleSheet, Enum):
     BUTTON = "button"
     LINEEDIT = "lineedit"
+    COLORDIALOG = "colordialog"
     
     def path(self):
         return f"nodeeditor\\BlenderWidget\\style\\{self.value}.qss"

@@ -140,8 +140,8 @@ y = titleHeight: {int(self.graphicsNode.titleHeight)} \
         except Exception as e:
             print("node_Node:: Error number of type")
 
-    def setSerializeValue(self, value, widget_order:int=1, type_order:int=1, type_name:str='value'):
-        self.content.contentLists[widget_order][type_order][type_name] = value
+    def setSerializeValue(self, value, widget_order:int, type_name:str='value'):
+        self.content.contentLists[widget_order][1][type_name] = value
 
     def serialize(self):
         '''序列化資訊'''

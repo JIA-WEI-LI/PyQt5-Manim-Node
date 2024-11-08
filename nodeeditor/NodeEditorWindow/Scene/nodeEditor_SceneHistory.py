@@ -8,7 +8,7 @@ class SceneHistory():
         self.scene = scene
 
         self.clear()
-        self.history_limit = 32
+        self.history_limit = 8
 
         self._history_modified_listeners = []
 

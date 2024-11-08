@@ -38,6 +38,8 @@ class Edge(Serializable):
         try:
             if self._start_socket is not None:
                 self._start_socket.removeEdge(self)
+            else:
+                if DEBUG: print("::Edge start_socket: self._end_socket is None.")
         except Exception as e:
             print("::Edge start_socket: ", e)
         # 分配新的開始連結點
@@ -53,6 +55,8 @@ class Edge(Serializable):
         try:
             if self._end_socket is not None:
                 self._end_socket.removeEdge(self)
+            else:
+                if DEBUG: print("::Edge end_socket: self._end_socket is None.")
         except Exception as e:
             print("::Edge end_socket: ", e)
         # 分配新的結束連結點
@@ -92,8 +96,8 @@ class Edge(Serializable):
             self.nodeGraphicsEdge.setDestination(*end_pos)
         else:
             self.nodeGraphicsEdge.setDestination(*source_pos)
-        if DEBUG: print(" Start Socket: ", self.start_socket)
-        if DEBUG: print(" End  Socket: ", self.end_socket)
+        if DEBUG: print("::Edge   Start Socket: ", self.start_socket)
+        if DEBUG: print("::Edge   End  Socket: ", self.end_socket)
         self.nodeGraphicsEdge.update()
         
     def remove_from_sockets(self):

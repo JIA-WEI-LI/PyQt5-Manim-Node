@@ -191,6 +191,7 @@ class NodeGraphicsView(QGraphicsView):
         if self.mode == MODE_EDGE_DRAG:
             if self.distanceBetweenClickAndReleaseIsOff(event):
                 res = self.edgeDragEnd(item)
+                if DEBUG: print(f"::GraphicsView - res = {res}")
                 if res: return
         
         if self.rubberBandDraggingRectangle:
@@ -214,7 +215,7 @@ class NodeGraphicsView(QGraphicsView):
         '''放開滑鼠右鍵'''
         # BUG: 開啟APP後先移動節點後使用切割會觸發閃退
         item = self.getItemAtClick(event)
-        if DEBUG: print("-- RMB Release , Drag Mode: ", self.dragMode(), " self.node = ", self.mode)
+        if DEBUG: print("-- RMB Release , Drag Mode: ", self.dragMode(), " self.mode = ", self.mode)
 
         if self.mode == MODE_EDGE_CUT:
             self.cutIntersectingEdge()
@@ -230,8 +231,9 @@ class NodeGraphicsView(QGraphicsView):
             self.graphicsScene.scene.history.storeHistory("Selection changed")
             if DEBUG: print("-- RMB Release rubberBandDraggingRectangle: ", self.rubberBandDraggingRectangle)
 
-        if DEBUG: print("-- RMB Release 2, Drag Mode: ", self.dragMode(), " self.node = ", self.mode)
+        if DEBUG: print("-- RMB Release 2, Drag Mode: ", self.dragMode(), " self.mode = ", self.mode)
         super().mouseReleaseEvent(event)
+        if DEBUG: print("-- RMB Release 3, Drag Mode: ", self.dragMode(), " self.mode = ", self.mode)
     
     def wheelEvent(self, event: QWheelEvent):
         '''滑鼠中鍵滾論縮放視窗'''
@@ -362,7 +364,7 @@ class NodeGraphicsView(QGraphicsView):
                 self.graphicsScene.scene.history.storeHistory("Created new edge by dragging", setModified=True)
                 return True
         
-        if DEBUG: print("View::edgeDragEnd - everything done")
+        if DEBUG: print("nodeGraphicsView::edgeDragEnd - everything done")
         return False
     
     @calculate_time(DebugTimer.NODEEDITOR_WINDOW) 

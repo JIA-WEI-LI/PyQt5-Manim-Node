@@ -35,8 +35,11 @@ class Edge(Serializable):
     @start_socket.setter
     def start_socket(self, value):
         # 如果之前有分配連結點，則刪除連結點
-        if self._start_socket is not None:
-            self._start_socket.removeEdge(self)
+        try:
+            if self._start_socket is not None:
+                self._start_socket.removeEdge(self)
+        except Exception as e:
+            print("::Edge start_socket: ", e)
         # 分配新的開始連結點
         self._start_socket = value
         if self.start_socket is not None:
@@ -47,8 +50,11 @@ class Edge(Serializable):
     @end_socket.setter
     def end_socket(self, value):
         # 如果之前有分配連結點，則刪除連結點
-        if self._end_socket is not None:
-            self._end_socket.removeEdge(self)
+        try:
+            if self._end_socket is not None:
+                self._end_socket.removeEdge(self)
+        except Exception as e:
+            print("::Edge end_socket: ", e)
         # 分配新的結束連結點
         self._end_socket = value
         if self.end_socket is not None:
@@ -112,7 +118,8 @@ class Edge(Serializable):
         if DEBUG: print(" - remove edge from scene")
         try:
             self.scene.removeEdge(self)
-        except ValueError:
+        except ValueError as e:
+            if DEBUG: print("::Edge remove: ValueError", e)
             pass
         if DEBUG: print(" - everything is done.")
 

@@ -53,14 +53,14 @@ class SceneClipboard():
         ])
 
         if delete:
-            self.scene.nodeGraphicsScene.views()[0].deleteSelected()
+            self.scene.getView().deleteSelected()
             self.scene.history.storeHistory("Cut out elements from scene", setModified=True)
         return data
     
     def deserializeFromClipboard(self, data):
         hashmap = {}
 
-        view = self.scene.nodeGraphicsScene.views()[0]
+        view = self.scene.getView()
         mouse_scene_pos = view.last_scene_mouse_position
 
         # 計算選擇物件的中心

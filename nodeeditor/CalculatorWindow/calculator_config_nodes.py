@@ -6,7 +6,7 @@ from common import *
 
 @register_node(OP_NODE_OTHER)
 class CalcNode_Div(CalcNode):
-    icon = Icon(FluentIcon.ALIGNMENT)
+    icon = Icon(FluentIcon.ADD)
     op_code = OP_NODE_OTHER
     op_title = "Other"
     content_label = ""

@@ -107,7 +107,7 @@ class NodeContentWidget(QWidget, Serializable):
         self.node.graphicsNode.height += set_height * 30
 
     def setEditingFlag(self, value):
-        self.node.scene.nodeGraphicsScene.views()[0].editingFlag = value
+        self.node.scene.getView().editingFlag = value
 
     def deserialize_icon(self, icon_name):
         try:

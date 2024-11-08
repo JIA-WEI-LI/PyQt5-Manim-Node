@@ -181,7 +181,7 @@ class FluentIcon(FluentIconBase, Enum):
     PASTE = "Paste"
     FOLDER = "Folder"
     SAVE_AS = "SaveAs"
-    DELETE = "Deleted"
+    DELETE = "Delete"
     DOCUMENT = "Document"
     BACK_TO_WINDOW = "BackToWindow"
 

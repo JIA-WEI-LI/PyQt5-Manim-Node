@@ -68,7 +68,6 @@ QTabWidget::pane {
     border: none;
 }
 QTabBar::close-button {
-    image: url(nodeeditor\\resources\\icons\\icon_close.svg);
     background-color: transparent;
     color: white;
     border-radius: 4px;

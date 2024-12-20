@@ -8,6 +8,7 @@ class SceneHistory():
         self.scene = scene
 
         self.clear()
+        # HACK: 若數值調整過高容易導致切割較早線段閃退
         self.history_limit = 8
 
         self._history_modified_listeners = []

@@ -205,10 +205,12 @@ class NodeGraphicsView(QGraphicsView):
                 else:
                     self.graphicsScene.itemSelected.emit()
             return
-
+        
+        if DEBUG: print(f"::GraphicsView item is {item}")
         if item is None:
             self.graphicsScene.itemsDeselected.emit()
 
+        if DEBUG: print(f"::GraphicsView leftMouseButtonRelease - finish")
         super().mouseReleaseEvent(event)
     
     def rightMouseButtonRelease(self, event: QMouseEvent):

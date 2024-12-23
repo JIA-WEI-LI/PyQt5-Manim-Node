@@ -1,6 +1,6 @@
 from PyQt5.QtGui import QColor
 
-from NodeEditorWindow.BlenderStyleWidget import *
+# from NodeEditorWindow.BlenderStyleWidget import *
 from NodeEditorWindow.Node.node_Node import Node
 from common import *
 
